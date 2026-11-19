@@ -1,6 +1,6 @@
 # TECHNICAL_ARCHITECTURE.md
 
-> **Status:** v0.1 DRAFT. Recommendations need approval before M1 starts.
+> **Status:** v0.2. Technology choices approved on 2026-11-19 (D-010…D-013, D-030…D-032).
 
 ## 1. Technology choices
 
@@ -9,12 +9,13 @@
 | Engine | **Unity 6 LTS** (newest LTS in Unity Hub) | 2022 LTS | Long support window, current Android tooling |
 | Render pipeline | **URP with 2D Renderer** | Built-in | Supported going forward, 2D lights for dark-fantasy mood, sprite batching on mobile. Built-in is in maintenance |
 | UI | **UI Toolkit** for all menus and management screens; sprites + uGUI only for the combat view overlays (damage numbers, HP bars) | uGUI only | The game is ~80% data-heavy screens (inventory, trees, stats). UI Toolkit's flex layout, USS styling and list virtualisation (`ListView`) suit that. Its weak spot (world-space effects) is limited to the combat strip |
-| Serialisation | **Newtonsoft Json** (`com.unity.nuget.newtonsoft-json`) | JsonUtility, MessagePack | Supports dictionaries, polymorphism and migrations on JObject. Speed is not critical (saves are small) |
+| Serialisation | **Swappable codec (D-030):** Newtonsoft JSON during development, binary (MessagePack) added at release | — | Migrations run on a format-neutral tree; the header names the codec; both are readable forever |
 | Async/content | Addressables (from M5, for region art) | Resources | Region art grows into hundreds of zones |
 | Testing | Unity Test Framework (EditMode + PlayMode) + `dotnet test` for Game.Core | — | Core runs headless in CI and cloud sessions |
 | Animation | 2D skeletal (`com.unity.2d.animation`) for heroes, sprite-swap for enemies | Spine | Free, modular parts, palette swaps |
 | CI | GitHub Actions: `dotnet test` on every push (M1). GameCI Unity tests + Android build later (M4) | — | Unity licence needed for GameCI |
 | Big numbers | `double` + custom formatter | BreakInfinity | Enough to about region 700 (risk T-03) |
+| Balance tooling (D-031) | Python simulation + Google Sheets view + C# simulation runner (`Tools/BalanceSim.CSharp`, console app on Game.Core) | — | One authority: `balance_config.json` |
 
 ## 2. Layered architecture
 
@@ -56,8 +57,9 @@ flowchart TB
 **Rules**
 1. **Game.Core references nothing from Unity** (`noEngineReferences: true` in its asmdef). It compiles with plain .NET (netstandard2.1), so the logic can be tested in CI and in cloud sessions without the editor.
 2. Presentation only reads state and listens to events. It changes state only through **commands** (`EquipItemCommand`, `PrestigeCommand`…) handled by systems. This gives a single place to validate, log and test player actions.
-3. Definitions (ScriptableObjects) are authored in the editor and converted at boot into immutable Core definition records. Core never touches a ScriptableObject.
-4. No singletons except the composition root. Systems receive dependencies through their constructor.
+3. **Extensibility (D-032):** attributes, class templates, item types per slot, affixes, enchants, skills and pet effects are definitions. Combat effects are composed from reusable effect blocks (`EffectSpec`), so new variations need no code.
+4. Definitions (ScriptableObjects) are authored in the editor and converted at boot into immutable Core definition records. Core never touches a ScriptableObject.
+5. No singletons except the composition root. Systems receive dependencies through their constructor.
 
 ## 3. Assemblies
 
@@ -90,7 +92,8 @@ dark-fantasy-idle-rpg/
 │  │  └─ Scenes/  Boot.unity, Main.unity
 │  ├─ Tests/  EditMode/ PlayMode/
 ├─ Docs/                     the 8 project documents
-├─ Tools/BalanceSim/         Python reference simulation
+├─ Tools/BalanceSim/         Python reference simulation + Sheets exporter
+├─ Tools/BalanceSim.CSharp/  C# simulation runner (links Game.Core)
 ├─ Core.Tests.Dotnet/        .csproj that links Assets/_Game/Core/**/*.cs for `dotnet test`
 ├─ Packages/  ProjectSettings/
 ```

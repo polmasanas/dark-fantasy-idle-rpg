@@ -1,11 +1,12 @@
 # SAVE_SYSTEM.md
 
-> **Status:** v0.1 DRAFT.
+> **Status:** v0.2. Approved as D-030.
 
 ## 1. Requirements
 [SPEC] Automatic saving, local saves, optional cloud backup, import/export, versioned with migrations, fully offline.
 
 ## 2. Format
+- **Codec layer (D-030):** `ISaveCodec { string Id; byte[] Encode(SaveTree); SaveTree Decode(byte[]) }`. A 4-byte magic + codec ID header precedes the payload. Development: **JSON codec**. Release (M12): add a **binary codec** (MessagePack) as the default writer; the JSON reader stays forever, so old saves load. Development builds can still export readable JSON.
 - **JSON** (Newtonsoft), UTF-8, gzip-compressed on disk. Root object = `GameState` (TECHNICAL_ARCHITECTURE §5).
 - Envelope:
 ```json
@@ -37,12 +38,12 @@
 flowchart LR
   A[Read file] --> B{checksum ok?}
   B -- no --> BK[try backups] --> B
-  B -- yes --> C[Parse to JObject]
+  B -- yes --> C[Decode via codec to SaveTree]
   C --> D{schemaVersion < current?}
   D -- yes --> M[Apply migrations v→v+1 in order] --> D
   D -- no --> E[Deserialize GameState] --> F[Validate & repair] --> G[Offline progress]
 ```
-- Each migration is a class `IMigration { int From; JObject Apply(JObject) }`. They are pure and unit-tested against **fixture saves** kept in `Assets/Tests/SaveFixtures/vN.json` forever.
+- Each migration is a class `IMigration { int From; SaveTree Apply(SaveTree) }`, independent of the codec. They are pure and unit-tested against **fixture saves** kept in `Assets/Tests/SaveFixtures/vN.json` forever.
 - A save from a **newer** schema than the app is refused (with a message), never downgraded.
 - **Validate & repair:** unknown definition IDs (removed content) are converted to their salvage value and logged. Negative currencies are clamped to 0 and logged as an anomaly.
 

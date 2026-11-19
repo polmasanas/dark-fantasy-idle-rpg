@@ -1,6 +1,6 @@
 # DATA_DICTIONARY.md
 
-> **Status:** v0.1 DRAFT. Definitions = static content (ScriptableObjects → Core records). State = saved runtime data.
+> **Status:** v0.2. Definitions = static content (ScriptableObjects → Core records). State = saved runtime data.
 > Conventions: IDs are lowercase `kind.name` strings (`enemy.ghoul`, `item.rusty_sword`). Numbers are `double` unless noted. Percentages are stored as fractions (0.15 = 15%).
 
 ## 1. Enumerations (serialised as strings)
@@ -13,7 +13,7 @@
 | `Family` | Humanoid, Beast, Undead, Demon, Elemental, Construct, Dragon (extensible: stored as ID) |
 | `Rarity` | Common, Uncommon, Rare, Epic, Legendary, Mythical |
 | `SlotId` | MainHand, OffHand, Helmet, Chest, Legs, Boots, Armguards, Gloves, Ring1, Ring2, Amulet, Pet, Accessory1–6 |
-| `StatId` | Str, Dex, Int, Vit, Def, CritChance, CritDamage, Luck, PctDamage, PctHp, AttackSpeed, Accuracy, Evasion, ElemDamage[e], Resist[e], VsFamily[f], GoldFind, DropRate, … (data-driven `AttributeDefinition`) |
+| `StatId` | Str, Dex, Int, Vit, Def, CritChance, CritDamage, Luck, Counter, PctDamage, PctHp, AttackSpeed, Accuracy, Evasion, ElemDamage[e], Resist[e], VsFamily[f], GoldFind, DropRate, … (data-driven `AttributeDefinition`) |
 | `Currency` | Gold, Materials, Gems, ArtifactDust, DungeonToken(dungeonId), PetEssence, PetShard(petId) |
 
 ## 2. Definitions
@@ -27,7 +27,7 @@
 | `SubzoneDefinition` | id, index, enemyPool `[{enemyId, weight}]`, lootTableId, killsToAdvance (override optional) |
 | `EnemyDefinition` | id, familyId, element, archetype, hpMult, atkMult, evasion, resistances `{element: fraction}`, isBoss, spriteSetId |
 | `FamilyDefinition` | id, name, default traits, damageBonusStatId (for "vs family" gear) |
-| `ItemDefinition` | id, slot, classRestriction? (bonus only), baseLines `[{stat, baseValue, scaling: Exponential/Linear/None}]`, affixPoolId, enchantPoolId, tags (e.g. `prestigeExclusive`, `tradeable`) |
+| `ItemDefinition` | id, slot, **itemTypeId** (e.g. `helmet.barbute`; several per slot, D-026), regionPool? (Q-8), classRestriction? (bonus only), baseLines `[{stat, baseValue, scaling: Exponential/Linear/None}]`, affixPoolId, enchantPoolId, tags (e.g. `prestigeExclusive`, `tradeable`) |
 | `AffixDefinition` | id, stat, minRoll, maxRoll (fraction of tier value), weight, allowedSlots[], minRarity |
 | `LootTable` | id, entries `[{type: Item/Currency/Pet/Scroll/Table, ref, weight or chance, min, max}]`, mode (Weighted / Independent chances) |
 | `PetDefinition` | id, rarity, passive `[{stat, perLevel}]`, activeEffectId?, maxLevel, shardBreakpoints[] |
@@ -42,10 +42,10 @@
 | Model | Fields | Survives prestige |
 |---|---|---|
 | `GameState` | schemaVersion, account, run, rng, lastSavedUtc, playtime | — |
-| `AccountState` | gems, dust, artifactLevels, permanentScrolls `{attr: count}`, pets, prestigeItems, dungeonTokens, unlockedBranches, subzoneMastery, achievements, cosmetics, settings, statistics, prestigeCount, bestRegion | **Yes** |
+| `AccountState` | gems, dust, artifactLevels, prestigeCount (drives ×3 first-dust, D-037), permanentScrolls `{attr: count}`, pets, prestigeItems, dungeonTokens, unlockedBranches, subzoneMastery, achievements, cosmetics, settings, statistics, prestigeCount, bestRegion | **Yes** |
 | `RunState` | activeCharacterId, characters, inventory, world, gold, materials | **No** (replaced) |
-| `CharacterState` | classId, level, xp, autoPoints, manualPoints, unspentPoints, skillRanks, skillLoadout[3], equipped `{slot: itemId}` | No |
-| `ItemInstance` | id (GUID), definitionId, itemLevel (int), rarity, upgradeLevel (int), affixes `[{affixId, value}]`, enchant?, locked, origin (Drop/Craft/Dungeon/Trade), createdUtc | No (unless prestige-exclusive → account) |
+| `CharacterState` | classId, level, xp, autoPoints, manualPoints, unspentPoints, autoAllocatePreset, skillRanks, skillLoadout[3], equipped `{slot: itemId}` | No |
+| `ItemInstance` | id (GUID), definitionId, itemLevel (int), rarity, upgradeLevel (int), affixes `[{affixId, value}]`, enchant?, **enchantCount** (int, D-027), locked, origin (Drop/Craft/Dungeon/Trade), createdUtc | No (unless prestige-exclusive → account) |
 | `PetInstance` | definitionId, level, stars, equippedBy? | Yes |
 | `WorldProgress` | unlockedRegion, current `{region, subzone}`, killsBySubzone, bossesDefeated, fightBossWhenAvailable (bool), farmTarget | No |
 | `Settings` | animationsEnabled, battery mode, fps, autoSalvageFilter, language, audio | Yes |

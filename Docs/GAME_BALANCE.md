@@ -1,6 +1,6 @@
 # GAME_BALANCE.md — Numerical Design
 
-> **Status:** v0.1 DRAFT. Every value below is a **proposal pending approval**.
+> **Status:** v0.2. Structural rules approved on 2026-11-19 (DECISIONS.md). Individual constants remain tunable, and every tuning change is logged.
 > **Source of truth for numbers:** `Tools/BalanceSim/balance_config.json`. This document explains it.
 > **Reference implementation:** `Tools/BalanceSim/balance_sim.py`. The C# core must reproduce these formulas exactly; golden-value tests enforce it (see TESTING_STRATEGY.md §5).
 
@@ -55,11 +55,11 @@ Each level grants **4 points: 3 automatic** (75%), spread by the class growth te
 
 | Class | Auto template per level (3 points) |
 |---|---|
-| Fighter | STR 1.5 · VIT 1.0 · DEF 0.5 |
+| Fighter | STR 1.5 · VIT 1.0 · DEF 0.25 · COUNTER 0.25 |
 | Archer | DEX 1.5 · VIT 0.75 · DEF 0.5 · CRIT_CH 0.25 |
 | Mage | INT 1.5 · VIT 0.75 · DEF 0.25 · CRIT_DMG 0.5 |
 
-Fractional growth is tracked as an exact integer cycle over 4 levels (12 points), so saves never hold fractions.
+Fractional growth is tracked as an exact integer cycle over 4 levels (12 points), so saves never hold fractions. An **auto-allocate** preset can spend the manual point automatically (D-014).
 
 ### 4.2 Derived stats
 
@@ -75,6 +75,8 @@ Fractional growth is tracked as an exact integer cycle over 4 levels (12 points)
 | Crit damage | `1.5 + 0.005·CritPoints` (+0.01 per manual CRIT_DMG point) |
 | Hit chance | `clamp(0.92 · Acc/(Acc + Eva/4) …)`. **Simulation uses a flat 0.92**; full formula in GDD §4.4 |
 | Attack interval | 1.6 s base, `/(1 + Σ%attack speed)`, floor 0.4 s |
+| Counter (D-033) | `min(0.40, 0.004·CounterPoints)` chance per enemy hit taken → immediate extra attack at 60% damage |
+| Catch-up XP (D-024) | +50% XP while below the highest character's level |
 | Secondary attributes | DEX: +0.5% accuracy and +0.2% attack speed per point (all classes). INT: +1% elemental damage per point. Luck: see §6.3 |
 
 ### 4.3 Experience
@@ -97,6 +99,7 @@ swings = ceil(EnemyHP / AvgHit) / HitChance,  AvgHit = Hit·(1 + CC·(CD−1))
 TTK    = swings · Interval
 TTD    = PlayerHP / (EnemyAtk · (1 − DR) / EnemyInterval)
 Win ⇔ TTK < TTD (and TTK ≤ 60 s for bosses).   +0.6 s between fights.
+Counter: TTK /= 1 + (Counter·0.6·AvgHit·Hit/EnemyInterval) / (AvgHit·Hit/Interval)
 ```
 
 **Validation vs 4 000 stochastic fights:** error 0% to −16%. The largest error is at an average hit ≈ 35% of enemy HP, where crits change the hit count. The real engine has no such error, because it simulates every swing.
@@ -148,7 +151,9 @@ A random attribute is worth +6% (damage, HP or another stat) and adds into its c
 | Upgrade | +5% base stats per level |
 | Upgrade cost (gold) | `12 · 1.07^(iLvl−1) · 1.2^n` (n = current upgrade level) |
 | Salvage | Materials per rarity (above) + 50% of gold spent on its upgrades |
-| Crafting | `20 + 0.5·iLvl` materials. Chosen slot, item level = highest unlocked subzone level, rarity rolled normally |
+| Crafting | `20 + 0.5·iLvl` materials. Chosen slot; item type and rarity random; item level = highest unlocked subzone level |
+| Enchanting (D-027, not yet simulated) | materials `10` + gold `50 · 1.07^(iLvl−1) · 1.5^enchantCount` (escalates per enchant on the same item) |
+| Subzone mastery (D-036) | 1 star per 1 000 kills in a subzone (max 5): +1% gold and +1% item drop chance per star, account-wide, kept on prestige |
 | Gold per kill | `2 · 1.07^(L−1)`, boss ×15 |
 
 ---
@@ -168,7 +173,7 @@ A random attribute is worth +6% (damage, HP or another stat) and adds into its c
 | Formula | Definition |
 |---|---|
 | Unlock | Defeat the region 4 boss |
-| Dust per prestige | `floor(10 · 1.5^(R_best − 4))`, where R_best is the highest region boss defeated this run |
+| Dust per prestige | `floor(10 · 1.5^(R_best − 4))`, where R_best is the highest region boss defeated this run. **×3 on the first 3 prestiges** (D-037) |
 | Artifact effect | ×1.10 per level (multiplicative) |
 | Artifact cost | Might / Bulwark: `5 · 1.28^lvl`. Greed / Wisdom: `8 · 1.25^lvl` |
 
@@ -178,32 +183,35 @@ A random attribute is worth +6% (damage, HP or another stat) and adds into its c
 
 ---
 
-## 9. Simulation results (30 days, 7 seeds, `results/SEEDS.md`)
+## 9. Simulation results (30 days, 7 seeds, `results/SEEDS.md`; includes D-033 Counter, D-036 mastery, D-037 ×3 first dust)
 
 | Profile | Behaviour | Prestiges (median) | Best region boss: min / median / max | Day 7 best (median) |
 |---|---|---:|---:|---:|
-| **active** | 4 × 45 min/day, continuous upgrades | 17 | 22 / **25** / 31 | 14 |
-| **optimiser** | active + balanced stat points | 18 | 20 / **26** / 28 | 11 |
-| **casual** | 3 × 10 min/day | 15 | 18 / **19** / 21 | 8 |
-| **farmer** | casual, farms 1 region back when stuck | 14 | 16 / **16** / 17 | 6 |
-| **offline-focused** | 2 × 3 min/day, 12 h gaps | 11 | 14 / **15** / 16 | 6 |
-| **never prestige** | active, never resets | 0 | 13 / **15** / 17 | 13 |
+| **active** | 4 × 45 min/day, continuous upgrades | 20 | 27 / **30** / 36 | 16 |
+| **optimiser** | active + balanced stat points | 20 | 27 / **30** / 33 | 16 |
+| **casual** | 3 × 10 min/day | 15 | 21 / **23** / 24 | 9 |
+| **farmer** | casual, farms 1 region back when stuck | 14 | 19 / **21** / 24 | 9 |
+| **offline-focused** | 2 × 3 min/day, 12 h gaps | 10 | 15 / **17** / 18 | 5 |
+| **never prestige** | active, never resets | 0 | 14 / **16** / 17 | 14 |
 
 ### 9.1 What works
-- **Prestige clearly beats never prestiging** by day 30 (25 vs 15 regions for the same play time). The wall is real: never-prestige gains only 2 regions between day 7 and day 30.
-- **Ranking is sensible:** more play time leads to more progress, but casual players still reach 75% of active depth (an idle-friendly gap).
-- **Long-term growth is logarithmic**, not runaway. Region 10 by about day 4, region 20 by about day 10 (active).
-- **The rarity distribution matches the configured weights** (Mythical 0.11–0.18% observed vs 0.1% configured; the extra comes from bosses' Rare+ floor).
-- **Offline cap:** 12 h gaps never exceeded it. Offline-focused players progress at about 60% of casual.
+- **Prestige clearly beats never prestiging:** 30 vs 16 regions at day 30 for the same play time. Never-prestige stalls by day 4–5.
+- **More play means more progress**, but casual players still reach about 77% of active depth.
+- **Long-term growth is logarithmic, not runaway.**
+- **Mastery closes most of the farming gap** (farmer 21 vs casual 23; was 16 vs 19), so B-3 is largely solved.
+- **The rarity distribution matches the configured weights.** 12 h offline gaps stay within the cap.
 
-### 9.2 Problems found (tuning backlog: not yet fixed, needs your input)
-| # | Finding | Proposed fix |
+### 9.2 Findings & tuning backlog
+| # | Finding | Status / next step |
 |---|---|---|
-| B-1 | **Early prestiges feel grindy.** Casual players prestige at boss 4 three times for +10 dust each. Never-prestige leads until about day 7. | First-prestige bonus (e.g. 3× dust on prestiges 1–3), or cheaper first artifact levels (cost base 3). Re-simulate. |
-| B-2 | **Gold surplus late.** Active players spend only 27% of gold, because upgrades hit their rarity cap. | Add enchanting gold costs (GDD §6.7) and gold costs for skill-tree respec. Target 70–90% spent. |
-| B-3 | **Farming earlier zones is weaker** than farming the frontier (farmer 16 vs casual 19). That conflicts with "previous zones remain worth farming". | Zone-exclusive drops (scrolls, family-specific accessories, dungeon keys) and a "mastery" bonus per cleared subzone. Needs design approval (GDD §8.6). |
-| B-4 | **The quick combat estimate is off** by up to 16% at mid-ratios. | Acceptable for balancing. The C# engine simulates every swing; we re-check pacing with the C# simulation in M2. |
-| B-5 | **The simulation doesn't model** pets, skills, dungeons, class or element modifiers, enchanting, or multi-character play. | Add them to the simulation as each system is designed (roadmap M3–M6). |
+| B-1 | Early prestiges felt grindy | **Addressed** by D-037 (×3 dust). Active prestigers now overtake never-prestigers on day 7–8 (see B-7) |
+| B-2 | Gold surplus late (27% spent) | **Designed** (D-027 escalating enchants). Simulate in M8; target 70–90% spent |
+| B-3 | Old zones weaker than frontier | **Addressed** by D-036 mastery (+ zone-exclusive loot, not simulated) |
+| B-4 | Quick combat estimate off by up to 16% | Accepted; the C# simulation (D-031) uses the real engine |
+| B-5 | Not simulated yet: pets, skills, dungeons and tokens, class/element modifiers, enchanting, multi-character catch-up | Added as systems are built (M5–M9) |
+| B-6 | **Mastery stacks fast:** +58% to +141% gold and drop chance after 30 days (active), growing with every new region | Review after M10 (P-002): cap the total or use 0.5% per star |
+| B-8 | In seed 12345 the active profile stops at region 30 from day 19: the simulated policy only prestiges when the new dust is ≥ 50% of all dust earned, which becomes rare. Real players would keep resetting | Improve the simulated prestige policy (time-to-next-region based, like P-001) in M7 |
+| B-7 | **Simulated players prestige too early** (regions 5–6, before their natural wall at about 12–15), so the first days look slower than never prestiging | Policy artefact, not a reward problem. Proposed P-001 "recommended prestige" hint in the UI |
 
 ### 9.3 Tuning history
 | Iteration | Change | Outcome |
@@ -212,9 +220,13 @@ A random attribute is worth +6% (damage, HP or another stat) and adds into its c
 | 2 | HP ×1.09, no starter weapon | Runs stuck at boss 1 (weapon is 1/17 of drops). Added starter weapon (D-015). |
 | 3 | HP ×1.10, dust ×1.8/region | Runaway: active reached region 83 with 10²¹ dust. |
 | 4 | Dust ×1.6, plus crafting | Stable, but active reached region 55 in 30 days, too fast for content production. |
-| 5 | **Dust ×1.5, core artifact cost ×1.28** | Current values. |
+| 5 | Dust ×1.5, core artifact cost ×1.28 | Active 25, casual 19 regions at day 30. |
+| 6 | **+ Counter, mastery, ×3 first-prestige dust** (design review) | Current: active 30, casual 23, never 16. |
 
-### 9.4 How to re-run
+### 9.4 Google Sheets view (D-031)
+The workbook **"Dark Fantasy Idle RPG – Balance"** (owner's Google Drive) has tabs About, Config, Curves, Prestige, Rarity, Sandbox and Simulation. Every number on Curves, Prestige and Rarity is a live formula over Config. Config is regenerated with `python3 Tools/BalanceSim/export_sheets.py`. Its locale is es_ES, so formulas use `;` as the argument separator.
+
+### 9.5 How to re-run
 ```bash
 cd Tools/BalanceSim && python3 balance_sim.py && python3 seeds.py 7
 ```

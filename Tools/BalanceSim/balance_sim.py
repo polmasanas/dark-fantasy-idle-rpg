@@ -123,6 +123,7 @@ class Meta:  # survives prestige
     artifacts: dict = field(default_factory=lambda: {"might": 0, "bulwark": 0, "greed": 0, "wisdom": 0})
     scrolls_primary: int = 0
     prestiges: int = 0
+    kills_by_subzone: dict = field(default_factory=dict)  # global subzone index -> kills (mastery)
 
 
 @dataclass
@@ -200,9 +201,11 @@ class Sim:
         auto = p["points_per_level_auto"] * (lvl - 1)
         manual = p["points_per_level_manual"] * (lvl - 1)
         # Fighter template: 50% STR, 33% VIT, 17% DEF of auto points.
+        # Fighter template per level (D-014 + 5b): STR 1.5, VIT 1.0, DEF 0.25, COUNTER 0.25
         primary = auto * 0.5 + self.meta.scrolls_primary
         vit = auto / 3
-        dfn = auto / 6
+        dfn = auto / 12
+        counter_pts = auto / 12
         crit_pts = 0.0
         alloc = self.profile.get("manual_alloc", "primary")
         if alloc == "primary":
@@ -225,8 +228,9 @@ class Sim:
         hp = (p["base_hp"] + tot["hp"]) * (1 + vit * p["hp_per_vit_pct"]) * (1 + tot["pct_hp"]) \
             * f.artifact_mult("bulwark", art["bulwark"])
         armour = tot["armour"] * (1 + dfn * p["armour_pct_per_def"])
+        counter = min(p["counter_cap"], counter_pts * p["counter_chance_per_point"])
         return {"avg_hit": avg_hit, "hp": hp, "armour": armour, "interval": p["base_attack_interval_s"],
-                "hit": p["base_hit_chance"], "cc": cc, "cd": cd}
+                "hit": p["base_hit_chance"], "cc": cc, "cd": cd, "counter": counter}
 
     @property
     def stats(self):
@@ -245,7 +249,10 @@ class Sim:
         var = self.rng.uniform(e["variance_mult_min"], e["variance_mult_max"])
         ehp = f.enemy_hp(enemy_lvl, boss) * var
         swings = math.ceil(ehp / s["avg_hit"]) / s["hit"]
-        ttk = swings * s["interval"]
+        # Counter (5b): each enemy attack has s["counter"] chance of a free 60% hit.
+        main_dps = s["avg_hit"] * s["hit"] / s["interval"]
+        counter_dps = s["counter"] * p["counter_damage"] * s["avg_hit"] * s["hit"] / e["attack_interval_s"]
+        ttk = swings * s["interval"] / (1 + counter_dps / main_dps)
         dr = min(p["damage_reduction_cap"], s["armour"] / (s["armour"] + f.armour_k(enemy_lvl)))
         edps = f.enemy_atk(enemy_lvl, boss) * (1 - dr) / e["attack_interval_s"]
         ttd = s["hp"] / edps
@@ -381,11 +388,24 @@ class Sim:
         self.on_kill(lvl, region == r.region and sub == r.sub, can_manage, pending)
         return sec
 
+    def mastery_bonus(self) -> tuple:
+        m = self.cfg["mastery"]
+        stars = sum(min(m["max_stars"], k // m["kills_per_star"]) for k in self.meta.kills_by_subzone.values())
+        return stars * m["gold_per_star"], stars * m["drop_per_star"]
+
     def on_kill(self, lvl, at_frontier, can_manage, pending):
         r, f, g = self.run, self.f, self.cfg["gear"]
+        z = (lvl - 1) // self.cfg["world"]["levels_per_subzone"] + 1
+        kb = self.meta.kills_by_subzone
+        kb[z] = kb.get(z, 0) + 1
+        if kb[z] % self.cfg["mastery"]["kills_per_star"] == 0:
+            self._mastery = None
+        if getattr(self, "_mastery", None) is None:
+            self._mastery = self.mastery_bonus()
+        m_gold, m_drop = self._mastery
         self.gain_xp(f.enemy_xp(lvl, r.level))
-        self.gain_gold(f.gold_drop(lvl))
-        if self.rng.random() < g["drop_chance_normal"]:
+        self.gain_gold(f.gold_drop(lvl) * (1 + m_gold))
+        if self.rng.random() < g["drop_chance_normal"] * (1 + m_drop):
             it = self.make_item(lvl, self.roll_rarity())
             self.drops_by_rarity[it.rarity] += 1
             (self.consider_item(it) if can_manage else pending.append(it))
@@ -423,6 +443,9 @@ class Sim:
         if r.stuck_since is None or self.t - r.stuck_since < hrs * HOUR:
             return
         dust = self.f.dust_for_run(r.highest_boss)
+        pr = self.cfg["prestige"]
+        if self.meta.prestiges < pr["first_prestiges_count"]:
+            dust *= pr["first_prestiges_dust_mult"]  # Q-7 / decision 17
         # rational player: only reset when it adds a meaningful share of all dust ever earned
         min_share = self.cfg["simulation"]["prestige_min_dust_share"]
         if dust <= 0 or dust < min_share * self.meta.dust_total:

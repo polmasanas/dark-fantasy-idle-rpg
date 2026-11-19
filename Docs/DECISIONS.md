@@ -1,42 +1,80 @@
 # DECISIONS.md — Decision Log
 
-> Each entry: ID · status · decision · reason · date. Status: **APPROVED** (by the project owner), **PROPOSED** (awaiting approval), **SUPERSEDED**.
-> Rule: no mechanic changes silently. Every change to an approved decision gets a new entry.
+> Each entry: ID · date · decision · reason / notes. Status: **APPROVED** (by the project owner), **PROPOSED**, **SUPERSEDED**.
+> Rule: no mechanic changes silently. Every change to an approved decision gets a new entry that references the old one.
+> All numbers mentioned here live in `Tools/BalanceSim/balance_config.json` and stay configurable (D-032).
 
-## Approved
+## Approved — 2026-11-19 (design review session)
 
-| ID | Date | Decision | Reason |
-|---|---|---|---|
-| D-001 | 2026-11-19 | Gem **speedups are allowed**: "pay to progress faster, never further". Free and paying players can earn identical rewards. | Owner decision; resolves the spec conflict with "no pay-to-win". |
-| D-002 | 2026-11-19 | Gems never buy equipment, stats or permanent power. | Master spec. |
-| D-003 | 2026-11-19 | **Rarity scales base stats** (e.g. level 1 sword: Common 10, Uncommon 12). This is what separates Common from Uncommon, since both have 0 random attributes. | Owner decision. Multipliers in GAME_BALANCE §6.2. |
-| D-004 | 2026-11-19 | An item (and a pet) can be **equipped by only one character at a time**. Equipping it elsewhere unequips it, after a confirmation prompt. | Owner decision. |
-| D-005 | 2026-11-19 | Game repository on GitHub (`dark-fantasy-idle-rpg`), Git LFS for binary assets, UnityYAMLMerge for scenes and prefabs. | Workspace setup. |
-| D-006 | 2026-11-19 | **Bosses can be fought offline**, under the same "Fight boss when available" toggle. | Owner decision. |
+### Project & technology
+| ID | Decision | Notes |
+|---|---|---|
+| D-005 | GitHub repo `dark-fantasy-idle-rpg`, Git LFS for binaries, UnityYAMLMerge for scenes and prefabs | Jira project `DFIRPG` |
+| D-010 | **Unity 6 LTS + URP with 2D Renderer** | 2D lights for dark mood; Built-in is maintenance-only |
+| D-011 | **UI Toolkit for menus and management screens; sprites (+ uGUI overlays) for the combat view** | Data-heavy screens, list virtualisation |
+| D-012 | **Game.Core is pure C# (no UnityEngine)**, tested with Unity Test Framework and `dotnet test` | Logic testable outside the editor |
+| D-013 | **Event-driven deterministic combat; seeded PCG32 RNG stored in the save** | Same state + seed ⇒ same results; fast offline simulation |
+| D-030 | **Save codec is swappable:** JSON (gzip) during development; a binary codec (e.g. MessagePack) added at release (M12). Header identifies the codec, and the game reads both formats forever. Migrations work on a format-neutral data tree. String enums, atomic write, 3 backups, autosave 30 s + on pause + after critical actions | Binary is obfuscation, not anti-cheat |
+| D-031 | **Three balance tools maintained in parallel:** Python simulation, Google Sheets (generated view + Sandbox tab), C# simulation runner on the real Game.Core (from M1). `balance_config.json` is the single authority; golden tests keep Python and C# identical | Owner wants different visualisations |
+| D-032 | **Data-driven extensibility:** attributes, class growth templates, formula constants, skills, affixes, enchants, pet effects, item types, regions and families are data. New *kinds* of mechanics need code once; variations are data. Saves reference everything by stable string ID | Owner requirement: "everything can be changed or added later" |
 
-## Proposed (need approval)
+### Monetisation
+| ID | Decision | Notes |
+|---|---|---|
+| D-001 | Gem **speedups allowed**: "pay to progress faster, never further" | Free and paying players can reach identical rewards |
+| D-002 | Gems never buy equipment, stats or permanent power; enchanting and crafting never use gems | Master spec |
 
-| ID | Decision | Alternatives | Doc |
-|---|---|---|---|
-| D-010 | Unity 6 LTS + URP 2D Renderer | Built-in pipeline | TECH §1 |
-| D-011 | UI Toolkit for menus, sprites for combat view | uGUI everywhere | TECH §1 |
-| D-012 | Game.Core is pure C# (no UnityEngine), tested with `dotnet test` too | Unity-only tests | TECH §2 |
-| D-013 | Event-driven deterministic combat, PCG32 RNG stored in save | Frame ticks, Unity RNG | TECH §6 |
-| D-014 | 4 points per level: 3 automatic by class template, 1 manual (= 75/25) | 5 points per level, 4+1 (80/20) | GDD §5 |
-| D-015 | Starter weapon each run | Guaranteed early weapon drop | GDD §6.1 |
-| D-016 | 5 subzones per region, 2 levels per subzone, 10 levels per region | 3 or 10 subzones | GAME_BALANCE §2 |
-| D-017 | Class triangle via enemy archetypes: ×1.20 dealt / ×0.85 taken with advantage | Flat class-vs-family table | GDD §4.3 |
-| D-018 | HP fully restores between normal fights | Potions / regeneration economy | GDD §4.1 |
-| D-019 | Elements: Strong ×1.5, Weak ×0.75 | ×2 / ×0.5 | GDD §4.4 |
-| D-020 | Offline: 50% efficiency, 12 h cap (24 h with artifacts) | 25–100%, 8–24 h | GDD §13 |
-| D-021 | Prestige unlocks at region 4 boss. Dust `10 · 1.5^(R−4)` | Polynomial dust | GAME_BALANCE §8 |
-| D-022 | Artifacts multiplicative ×1.10/level, exponential cost | Additive | GAME_BALANCE §8 |
-| D-023 | Prestige also keeps pets, skill-branch unlocks, tokens, gems, achievements; resets gold and materials | — | GDD §11 |
-| D-024 | Only the active character earns XP | Inactive 10% | GDD §3 |
-| D-025 | Item level requirement: character level ≥ item level − 5 | None | GDD §3 |
-| D-026 | Crafting (chosen slot) as protection against bad luck | Pity timers | GDD §6.6 |
-| D-027 | Enchant = one extra socket on Rare+ items, the main gold sink | Reroll random attributes | GDD §6.7 |
-| D-028 | Skill branches unlocked by "Sigil" artifacts (dust) | Prestige count thresholds | GDD §7 |
-| D-029 | Dungeons: no keys or stamina, tokens per dungeon, choose-outcome price = ceil(1/p) | Keys | GDD §10 |
-| D-030 | Save format: gzip JSON envelope, string enums, atomic write + 3 backups | Binary | SAVE §2–3 |
-| D-031 | Python simulation + shared JSON config as the balance reference; C# golden tests against it | Spreadsheet only | GAME_BALANCE |
+### Characters & attributes
+| ID | Decision | Notes |
+|---|---|---|
+| D-014 | **4 points per level: 3 automatic (class template) + 1 manual** = 75/25, plus an **auto-allocate button** following a player-chosen preset. Manual points: gold respec, free on prestige | |
+| D-033 | **New 9th attribute: Counter.** When hit, chance to counter-attack immediately for 60% damage (no delay to the next attack). +0.4% per point, cap 40%. Available to all classes (manual points, gear); automatic only for the Fighter | Fighter signature stat |
+| D-034 | **Class templates per level:** Fighter STR 1.5 · VIT 1 · DEF 0.25 · Counter 0.25. Archer DEX 1.5 · VIT 0.75 · DEF 0.5 · Crit Chance 0.25. Mage INT 1.5 · VIT 0.75 · DEF 0.25 · Crit Damage 0.5 | Fractions via 4-level integer cycle |
+| D-024 | **Only the active character earns XP; catch-up bonus +50% XP** while below the highest character's level | Configurable |
+| D-025 | **Item level requirement:** character level ≥ item level − 5 | |
+
+### Combat
+| ID | Decision | Notes |
+|---|---|---|
+| D-017 | **Class triangle via enemy archetypes** Brute / Marksman / Caster. Advantage: ×1.20 dealt, ×0.85 taken; disadvantage: the reverse | Mage > Marksman, Archer > Brute, Fighter > Caster |
+| D-019 | **Elements:** Strong ×1.5, Weak ×0.75; stacks with per-enemy resistances (−50%…+75%) | |
+| D-035 | **Light/Dark matrix exactly as the spec table:** same-element Weak, Light ⇄ Dark Strong, Physical Weak vs both | Confirmed intended (Q-1) |
+| D-018 | **HP fully restores between normal fights** | |
+| D-006 | **Bosses can be fought offline** under the "Fight boss when available" toggle | |
+
+### World & loot
+| ID | Decision | Notes |
+|---|---|---|
+| D-016 | **5 subzones per region, 2 levels each (10 per region); kills 10 + 5/region, cap 100; 10 regions at launch** | Per-region overrides allowed |
+| D-015 | **Starter class weapon every run + main-hand drop weight ×3** | |
+| D-003 | **Rarity scales base stats** (Common 1.0 … Mythical 2.5) | Distinguishes Common from Uncommon |
+| D-004 | An item or pet can be **equipped by one character at a time** | Confirmation prompt when moving |
+| D-026 | **Crafting:** choose the **slot**; **item type** (from that slot's pool, e.g. 3 helmet types) and **rarity** are random; item level = highest unlocked subzone; cost 20 + 0.5 × item level materials | Open detail: regional subsets of item types |
+| D-027 | **Enchanting:** one socket on Rare+ items, rerollable, costs materials + gold. **Each re-enchant on the same item multiplies its next gold cost (×1.5)**: the late-game gold sink | Counter stored per item |
+| D-036 | **Old zones stay valuable:** zone-exclusive loot + **subzone mastery** (a star per 1 000 kills, max 5; +1% gold and +1% drop chance per star, account-wide, kept on prestige) | Watch: stacks to +58–141% in 30 days (GAME_BALANCE B-6) |
+
+### Prestige & meta
+| ID | Decision | Notes |
+|---|---|---|
+| D-021 | **Prestige unlocks at the region 4 boss; dust = 10 × 1.5^(R − 4)** | |
+| D-037 | **×3 dust on the first 3 prestiges** | Fixes early-grind (Q-7) |
+| D-022 | **Artifacts multiplicative ×1.10 per level, exponential cost.** v1 list: Might, Bulwark, Greed, Wisdom, Hourglass, Fortune, Swiftness, Sigils | |
+| D-028 | **Skill branches unlock via Sigil artifacts** bought with dust: per class 15 / 100 / 1 000 | Unlocks permanent; points reset |
+| D-023 | **Prestige keeps:** artifacts, scrolls, cosmetics, prestige-exclusive gear, pets (+ Pet Essence & Shards), skill-branch unlocks, gems, achievements, statistics, mastery. **Resets:** characters, zone progress, normal gear and inventory, gold, materials, **dungeon tokens**, dungeon unlocks | Owner: tokens reset because they drive gear progression. Token prices must be reachable within one run |
+| D-038 | **Prestige-exclusive equipment:** item level = wearer's level; **extremely rare** (~0.05% per region boss kill, from prestige 3); **strong but situational** effects (vs family, boss fights, low HP…); modest base stats (×1.2), so it never fully replaces normal drops | Q-4 |
+| D-020 | **Offline: 50% efficiency, 12 h cap (24 h with Hourglass)**; loot held until return; clock rollback ⇒ no credit | |
+
+### Dungeons
+| ID | Decision | Notes |
+|---|---|---|
+| D-029 | **Dungeons:** one per 2 regions (5 in v1), 5 waves + boss (~3–5 min); **unlimited runs, no keys or stamina**, balanced to be less efficient than zones for XP and gold; tokens per dungeon; lootbox = 1 token; choose outcome = ceil(1/p) tokens | |
+| D-039 | **Dungeons run offline** at offline efficiency, if selected before leaving | Q-3 |
+
+## Proposed (new, awaiting approval)
+| ID | Proposal | Doc |
+|---|---|---|
+| P-001 | "Recommended prestige" indicator: shows dust gain vs time to reach next region; highlights when resetting is better | GAME_BALANCE B-7 |
+| P-002 | Possible mastery tuning (cap total bonus, or 0.5% per star) after M10 content simulation | GAME_BALANCE B-6 |
+
+## Superseded
+_None yet._

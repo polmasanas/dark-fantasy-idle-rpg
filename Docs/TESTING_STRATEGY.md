@@ -1,6 +1,6 @@
 # TESTING_STRATEGY.md
 
-> **Status:** v0.1 DRAFT.
+> **Status:** v0.2.
 
 ## 1. Principles
 - Most logic lives in **Game.Core (pure C#)**, so most tests are fast unit tests that run in Unity **and** with `dotnet test` (CI, cloud sessions).
@@ -12,7 +12,7 @@
 | Layer | Tooling | Runs | Examples |
 |---|---|---|---|
 | Unit (Core) | NUnit, `dotnet test` + Unity EditMode | every push (CI) | damage pipeline, XP curve, dust formula, item ownership rule |
-| Golden / balance | NUnit vs `Tools/BalanceSim` output | every push | C# formulas == Python formulas for levels 1…1000 (1e-9 relative) |
+| Golden / balance | NUnit vs `Tools/BalanceSim` output | every push | C# formulas == Python formulas for levels 1…1000 (1e-9 relative); C# simulation runner reproduces Python profile results within tolerance (D-031) |
 | Statistical | NUnit, 1M samples | nightly / pre-milestone | rarity distribution (chi-square), 0.01% drops (binomial CI), crit rates |
 | Property / fuzz | NUnit with random command sequences | pre-milestone | no negative currency, no duplicate equipped item, no NaN or Inf in stats |
 | Integration | Unity EditMode | every push | definitions convert and validate, save → load round-trip |
