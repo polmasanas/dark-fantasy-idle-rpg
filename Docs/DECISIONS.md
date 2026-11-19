@@ -74,6 +74,7 @@
 | ID | Decision | Notes |
 |---|---|---|
 | D-040 | **Unity version pinned: 6000.3.29f1 (Unity 6.3 LTS)**, via `ProjectSettings/ProjectVersion.txt`. Upgrades are deliberate, logged decisions | Supersedes the generic "Unity 6 LTS" in D-010 |
+| D-042 | **Placeholder identity:** company "DFIRPG Placeholder", package ID `com.dfirpg.placeholder`. **Must be replaced in M12 before the first Google Play upload** (the package ID can never change after publishing) | Owner decision: choose with the final title |
 | D-041 | Project created from the **Universal 2D** template (URP 2D renderer, Input System, 2D animation packages). Android: IL2CPP, ARM64, min SDK 25 (template default). **Portrait only**, auto-rotation off; version 0.1.0 | Master spec: portrait orientation |
 
 ## Approved — 2026-11-19 (design review round 2: open items)

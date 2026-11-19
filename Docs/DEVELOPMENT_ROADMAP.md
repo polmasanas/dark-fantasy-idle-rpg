@@ -22,7 +22,7 @@
 | **M9** | Pets & dungeons | 12 pets, 5 dungeons, tokens, chests, choose-outcome | Token pricing = ceil(1/p) tests; offline dungeons (D-039); token prices reachable within one run (D-023) |
 | **M10** | Content to region 25 | Hand-made regions 6–10 with bosses, accessories, scrolls; **region generator** (biome × family × palette templates, editor tool); generated connector regions 11–25 reviewed and shipped as data | Simulation: casual players reach the end of content no earlier than about day 30; full playthrough to region 25; generator output deterministic |
 | **M11** | Meta & polish | Achievements, onboarding/tutorial, settings, battery mode, cloud backup, export/import | Tutorial completion in internal test; cloud conflict UI |
-| **M12** | Monetisation & release prep | Gem shop (cosmetics, Time Flasks), IAP, **binary save codec** (D-030), store listing, closed test track | No paid power (checklist); closed test with ≥ 10 testers; crash-free ≥ 99.5% |
+| **M12** | Monetisation & release prep | Gem shop (cosmetics, Time Flasks), IAP, **binary save codec** (D-030), **final company name and Android package ID** (replace placeholder, D-042), store listing, closed test track | No paid power (checklist); package ID is no longer `com.dfirpg.placeholder`; closed test with ≥ 10 testers; crash-free ≥ 99.5% |
 
 ## Jira structure
 - Project key `DFIRPG`. Epic per milestone (`M1 Core skeleton` …). Stories per system. Tasks for code / tests / docs.
