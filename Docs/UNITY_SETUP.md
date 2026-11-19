@@ -79,6 +79,8 @@ git push
 This adds `ProjectSettings/`, `Packages/`, the URP settings and the `.meta` files Unity creates next to every file. `Library/`, `Temp/` and other caches are already ignored.
 
 ## If something goes wrong
+- **"An Application Control policy has blocked this file (0x800711C7)"** (e.g. `BeeBuildProgramCommon.dll`): Windows 11 **Smart App Control** is blocking Unity's script compiler. Windows Security → App & browser control → Smart App Control → **Off**, then restart Windows. On many Windows versions it cannot be turned back on without reinstalling Windows. On a work-managed PC, IT has to allow Unity instead.
+- **Unity Hub `.msix` fails in a third-party "MSIX Installer"**: install it with Windows' own App Installer (right-click → Open with → App Installer) or PowerShell `Add-AppxPackage -Path "$env:USERPROFILE\Downloads\UnityHubSetup-x64.msix"`.
 - **Compile errors mentioning `Newtonsoft`**: Phase 6 is missing.
 - **Tests not listed**: check the Test Runner is on the EditMode tab and `Assets/Tests/EditMode/Core/Game.Core.Tests.asmdef` exists.
 - **"Project was created with a different version"**: choose the Unity 6 LTS you installed.

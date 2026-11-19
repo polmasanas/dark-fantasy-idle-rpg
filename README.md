@@ -14,7 +14,7 @@ Mobile idle RPG for Android, built in Unity (C#). Dark fantasy, flat cartoon 2D,
 | `.github/workflows/` | CI: core tests, golden-value freshness, simulation smoke runs |
 
 ## Status
-M0 (design) is complete. **M1 – Core skeleton** is in progress. See `Docs/DEVELOPMENT_ROADMAP.md`.
+M0 (design) and **M1 (core skeleton)** are complete. Unity version: **6000.3.29f1**. See `Docs/DEVELOPMENT_ROADMAP.md`.
 
 ## Setup
 Git LFS is required: `git lfs install` before cloning or committing art.
