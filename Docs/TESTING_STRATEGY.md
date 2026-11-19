@@ -52,6 +52,8 @@ Template: **Title · Severity · Build/commit · Steps to reproduce · Expected 
 ## 7. CI
 `.github/workflows/core-tests.yml` runs on every push and pull request: `dotnet test Core.Tests.Dotnet`, a check that `golden_values.json` matches the current config, a 3-day Python simulation smoke run and a C# runner smoke run.
 
+**What the core suite covers (M2):** RNG, config loading (including class patterns and the Unity config copy), golden formulas, stats, combat rules, progression and auto-allocation, world rules (subzones, boss toggle, retry, escape and retreat), the game session (two-phase prepare/apply, determinism, events), fight replay timing and number formatting.
+
 **Local commands**
 - Core tests: `dotnet test Core.Tests.Dotnet`
 - Regenerate golden values after an approved balance change: `python3 Tools/BalanceSim/balance_sim.py --golden Tools/BalanceSim/results/golden_values.json`

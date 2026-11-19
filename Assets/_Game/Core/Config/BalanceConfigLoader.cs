@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using DarkFantasy.Core.Characters;
+using DarkFantasy.Core.Stats;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -168,9 +170,11 @@ namespace DarkFantasy.Core.Config
                     HitChanceMax = D(cb, "combat", "hit_chance_max"),
                     LuckK = D(cb, "combat", "luck_k"),
                     EnemyRespawnS = D(cb, "combat", "enemy_respawn_s"),
-                    BossRetryS = D(cb, "combat", "boss_retry_s"),
                     BossRepeatKillFraction = D(cb, "combat", "boss_repeat_kill_fraction"),
+                    BossRetryKillFraction = D(cb, "combat", "boss_retry_kill_fraction"),
                 },
+                Classes = Classes(Section(root, "classes")),
+                AllocationPresets = Presets(Section(root, "allocation_presets")),
             };
         }
 
@@ -192,6 +196,60 @@ namespace DarkFantasy.Core.Config
                 };
             }
             return result;
+        }
+
+        private static Dictionary<ClassId, ClassConfig> Classes(JObject classes)
+        {
+            var result = new Dictionary<ClassId, ClassConfig>();
+            foreach (ClassId cls in Enum.GetValues(typeof(ClassId)))
+            {
+                string key = cls.ToString().ToLowerInvariant();
+                string path = "classes." + key;
+                var obj = Section(classes, key, path);
+                if (!(Req(obj, path, "growth_pattern") is JArray rows) || rows.Count != 4)
+                    throw new BalanceConfigException(path + ".growth_pattern must be an array of 4 rows");
+                var pattern = new AttributeId[4][];
+                for (int i = 0; i < 4; i++)
+                {
+                    if (!(rows[i] is JArray row) || row.Count != 3)
+                        throw new BalanceConfigException(path + ".growth_pattern row " + i + " must have 3 attributes");
+                    pattern[i] = new AttributeId[3];
+                    for (int j = 0; j < 3; j++)
+                        pattern[i][j] = Attribute((string)row[j], path + ".growth_pattern");
+                }
+                result[cls] = new ClassConfig
+                {
+                    Primary = Attribute(Req(obj, path, "primary").Value<string>(), path + ".primary"),
+                    GrowthPattern = pattern,
+                };
+            }
+            return result;
+        }
+
+        private static Dictionary<string, Dictionary<string, double>> Presets(JObject presets)
+        {
+            var result = new Dictionary<string, Dictionary<string, double>>();
+            foreach (var prop in presets.Properties())
+            {
+                if (prop.Name.StartsWith("_")) continue;
+                if (!(prop.Value is JObject shares))
+                    throw new BalanceConfigException("allocation_presets." + prop.Name + " must be an object");
+                var map = new Dictionary<string, double>();
+                foreach (var share in shares.Properties())
+                {
+                    if (share.Name != "primary") Attribute(share.Name, "allocation_presets." + prop.Name);
+                    map[share.Name] = D(shares, "allocation_presets." + prop.Name, share.Name);
+                }
+                result[prop.Name] = map;
+            }
+            return result;
+        }
+
+        private static AttributeId Attribute(string key, string path)
+        {
+            if (key == null || !AttributeIds.TryParse(key, out var a))
+                throw new BalanceConfigException(path + ": unknown attribute '" + key + "'");
+            return a;
         }
 
         private static JObject Section(JObject parent, string key, string path = null)

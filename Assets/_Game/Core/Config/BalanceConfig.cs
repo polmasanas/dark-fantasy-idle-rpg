@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using DarkFantasy.Core.Characters;
+using DarkFantasy.Core.Stats;
 
 namespace DarkFantasy.Core.Config
 {
@@ -18,6 +20,18 @@ namespace DarkFantasy.Core.Config
         public OfflineConfig Offline { get; set; }
         public PrestigeConfig Prestige { get; set; }
         public CombatConfig Combat { get; set; }
+        public Dictionary<ClassId, ClassConfig> Classes { get; set; }
+
+        /// <summary>Preset name → attribute key ("primary" = class primary) → share of manual points.</summary>
+        public Dictionary<string, Dictionary<string, double>> AllocationPresets { get; set; }
+    }
+
+    public sealed class ClassConfig
+    {
+        public AttributeId Primary { get; set; }
+
+        /// <summary>4 rows (one per level-up in the cycle) × 3 automatic points (D-014, D-034).</summary>
+        public AttributeId[][] GrowthPattern { get; set; }
     }
 
     public sealed class WorldConfig
@@ -164,7 +178,9 @@ namespace DarkFantasy.Core.Config
         public double HitChanceMax { get; set; }
         public double LuckK { get; set; }
         public double EnemyRespawnS { get; set; }
-        public double BossRetryS { get; set; }
         public double BossRepeatKillFraction { get; set; }
+
+        /// <summary>Share of K kills needed again after a failed boss attempt (R2-2 as changed by the owner: 1.0 = full wave).</summary>
+        public double BossRetryKillFraction { get; set; }
     }
 }
