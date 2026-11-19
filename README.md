@@ -8,6 +8,7 @@ Mobile idle RPG for Android, built in Unity (C#). Dark fantasy, flat cartoon 2D,
 | `Docs/` | GDD, technical architecture, balance, data dictionary, save system, roadmap, decisions, testing strategy |
 | `Tools/BalanceSim/` | Python balance simulation (reference formulas + player-behaviour simulations) |
 | `Assets/_Game/Core/` | Game logic in pure C# (no Unity dependency): RNG, balance config, formulas, stats, combat engine |
+| `Assets/_Game/Presentation/` | Unity layer: bootstrap, placeholder combat view, HUD, dev panel |
 | `Assets/Tests/EditMode/Core/` | Core tests (run in Unity's Test Runner and with `dotnet test`) |
 | `Core.Tests.Dotnet/` | .NET test project that runs the core tests outside Unity |
 | `Tools/BalanceSim.CSharp/` | C# combat simulation runner using the real core |

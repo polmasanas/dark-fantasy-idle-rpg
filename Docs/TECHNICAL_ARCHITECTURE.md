@@ -94,6 +94,8 @@ dark-fantasy-idle-rpg/
 ├─ Docs/                     the 8 project documents
 ├─ Tools/BalanceSim/         Python reference simulation + Sheets exporter
 ├─ Tools/BalanceSim.CSharp/  C# simulation runner (links Game.Core)
+├─ Assets/_Game/Data/        balance_config.json copy loaded by Unity (kept identical to Tools/BalanceSim by a test)
+├─ Assets/_Game/Presentation/ Game.Presentation.asmdef: bootstrap, fight replay views, HUD, dev panel (M2 placeholders)
 ├─ Core.Tests.Dotnet/        .csproj that compiles Assets/_Game/Core and Assets/Tests/EditMode/Core for `dotnet test`
 ├─ .github/workflows/        CI (core tests, golden freshness, simulation smoke runs)
 ├─ Packages/  ProjectSettings/
