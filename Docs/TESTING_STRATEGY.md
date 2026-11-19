@@ -37,7 +37,7 @@
 Clock forward/back, app kill mid-save, rapid character switching during a boss fight, equipping the same item from two characters via fast taps, prestige double-tap, import of edited saves, offline timer with the device asleep for 30 days, inventory overflow during offline, negative/huge numbers in an imported save.
 
 ## 5. Golden tests vs balance simulation
-In M1, `Tools/BalanceSim` gains a `--golden` export to `golden_values.json` (formula outputs for sample inputs). `Game.Core.Tests/GoldenFormulaTests` load it and compare. When a balance change is approved, the config and golden file are regenerated in the same commit.
+`Tools/BalanceSim/balance_sim.py --golden` exports `results/golden_values.json` (479 values) (formula outputs for sample inputs). `Game.Core.Tests/GoldenFormulaTests` load it and compare. When a balance change is approved, the config and golden file are regenerated in the same commit.
 
 ## 6. Bug reports
 Template: **Title · Severity · Build/commit · Steps to reproduce · Expected · Actual · Save file / seed · Frequency**.
@@ -50,4 +50,11 @@ Template: **Title · Severity · Build/commit · Steps to reproduce · Expected 
 | Low | Cosmetic | Allowed |
 
 ## 7. CI
-GitHub Actions: `dotnet test Core.Tests.Dotnet` + `python3 Tools/BalanceSim/balance_sim.py --days 3` (smoke) on every push. Unity tests and Android build via GameCI from M4 (needs a Unity licence secret).
+`.github/workflows/core-tests.yml` runs on every push and pull request: `dotnet test Core.Tests.Dotnet`, a check that `golden_values.json` matches the current config, a 3-day Python simulation smoke run and a C# runner smoke run.
+
+**Local commands**
+- Core tests: `dotnet test Core.Tests.Dotnet`
+- Regenerate golden values after an approved balance change: `python3 Tools/BalanceSim/balance_sim.py --golden Tools/BalanceSim/results/golden_values.json`
+- C# combat runner: `dotnet run --project Tools/BalanceSim.CSharp`
+
+Tests live in `Assets/Tests/EditMode/Core/` so Unity's Test Runner runs the same files; `Core.Tests.Dotnet` compiles them directly (C# 9, warnings as errors). Unity tests and Android build via GameCI from M4 (needs a Unity licence secret).

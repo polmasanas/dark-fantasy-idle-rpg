@@ -150,3 +150,7 @@ Thumbs.db
 # .NET build output (Core.Tests.Dotnet, Tools/BalanceSim.CSharp)
 **/bin/
 **/obj/
+
+# Hand-written .NET projects (Unity regenerates its own *.csproj in the root, which stay ignored)
+!Core.Tests.Dotnet/*.csproj
+!Tools/BalanceSim.CSharp/*.csproj
