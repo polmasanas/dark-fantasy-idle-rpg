@@ -193,9 +193,9 @@
   "simulation": {
     "days": 30,
     "seed": 12345,
-    "stuck_retry_boss_every_s": 60.0,
     "prestige_when_stuck_hours": 1.5,
-    "prestige_min_dust_share": 0.5
+    "prestige_min_dust_share": 0.5,
+    "farmer_farm_back_s": 1800.0
   },
   "combat": {
     "_comment": "Round-2 decisions (2026-11-19). New keys appended here so the Sheets Config rows stay stable.",
@@ -218,7 +218,6 @@
     "hit_chance_max": 0.99,
     "luck_k": 200.0,
     "enemy_respawn_s": 0.6,
-    "boss_retry_s": 60.0,
     "boss_repeat_kill_fraction": 0.5,
     "skill_point_every_levels": 5,
     "active_skill_slots": 3,
@@ -229,7 +228,8 @@
     "inventory_slots_per_expansion": 50,
     "time_flask_daily_limit_h": 24.0,
     "milestone_class_item_share": 0.3,
-    "dungeon_failures_autostop": 0
+    "dungeon_failures_autostop": 0,
+    "boss_retry_kill_fraction": 1.0
   },
   "classes": {
     "_comment": "Owner decisions D-014/D-034/5b: 3 automatic points per level from a 4-level pattern (12 points), 1 manual point.",

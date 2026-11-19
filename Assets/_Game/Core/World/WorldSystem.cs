@@ -6,7 +6,7 @@ using DarkFantasy.Core.Formulas;
 namespace DarkFantasy.Core.World
 {
     /// <summary>
-    /// Subzone and boss progression (GDD section 8, R2-1c, R2-2). <see cref="NextEncounter"/> is
+    /// Subzone and boss progression (GDD section 8, R2-1c, R2-2: a failed boss returns after a new wave of kills). <see cref="NextEncounter"/> is
     /// pure; only <see cref="OnFightFinished"/> changes the <see cref="WorldState"/>.
     /// </summary>
     public sealed class WorldSystem
@@ -32,7 +32,7 @@ namespace DarkFantasy.Core.World
         {
             if (w == null) throw new ArgumentNullException(nameof(w));
             bool retreating = IsRetreating(w, now);
-            if (!retreating && w.FightBossWhenAvailable && IsBossAvailable(w) && now >= w.BossRetryAt)
+            if (!retreating && w.FightBossWhenAvailable && IsBossAvailable(w))
                 return new Encounter(w.Region, w.UnlockedSubzone, _f.BossLevel(w.Region), true);
 
             int sub = retreating ? Math.Max(1, w.UnlockedSubzone - 1) : w.UnlockedSubzone;
@@ -51,11 +51,13 @@ namespace DarkFantasy.Core.World
                     w.UnlockedSubzone = 1;
                     w.Kills = new int[w.Kills.Length];
                     w.ConsecutiveEscapes = 0;
-                    w.BossRetryAt = 0;
                     w.RetreatUntil = 0;
                     return WorldChange.BossDefeated;
                 }
-                w.BossRetryAt = now + _c.Combat.BossRetryS;
+                // R2-2 (owner change): the boss returns after clearing a new wave in the last subzone.
+                int k = KillsToAdvance(w);
+                int needed = (int)Math.Ceiling(k * _c.Combat.BossRetryKillFraction);
+                w.Kills[e.Subzone - 1] = Math.Max(0, k - needed);
                 return WorldChange.BossFailed;
             }
 

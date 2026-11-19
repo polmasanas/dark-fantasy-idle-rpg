@@ -380,15 +380,17 @@ class Sim:
         r, f = self.run, self.f
         kreq = f.kills_to_advance(r.region)
         boss_ready = r.sub == self.cfg["world"]["subzones_per_region"] and r.kills_in_sub >= kreq
-        retry = self.cfg["simulation"]["stuck_retry_boss_every_s"]
-        if boss_ready and (r.stuck_since is None or self.t - getattr(self, "_last_boss_try", -1e18) >= retry):
-            self._last_boss_try = self.t
+        if boss_ready:
             self.boss_attempts += 1
             win, sec = self.fight(f.boss_level(r.region), boss=True)
             if win:
                 self.on_boss_kill(r.region, can_manage, pending)
             else:
+                # R2-2 (owner change): the boss returns after a new wave of kills in the last subzone
                 self.boss_fails += 1
+                frac = self.cfg["combat"]["boss_retry_kill_fraction"]
+                r.kills_in_sub = kreq - math.ceil(kreq * frac)
+                self._farm_back_until = self.t + self.cfg["simulation"]["farmer_farm_back_s"]
                 if r.stuck_since is None:
                     r.stuck_since = self.t
             return sec
@@ -396,7 +398,7 @@ class Sim:
         # choose farm location
         region, sub = r.region, r.sub
         farm_back = self.profile.get("farm_back_subzones", 0)
-        if r.stuck_since is not None and farm_back:
+        if r.stuck_since is not None and farm_back and self.t < getattr(self, "_farm_back_until", 0):
             z = max(1, (region - 1) * 5 + sub - farm_back)
             region, sub = (z - 1) // 5 + 1, (z - 1) % 5 + 1
         lvl = f.subzone_level(region, sub)

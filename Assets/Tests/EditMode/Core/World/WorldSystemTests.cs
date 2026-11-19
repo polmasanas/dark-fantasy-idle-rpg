@@ -64,15 +64,33 @@ namespace DarkFantasy.Core.Tests.World
         }
 
         [Test]
-        public void BossLoss_RetriesAfter60s()
+        public void BossLoss_RequiresFullWaveAgain()
         {
+            // R2-2 (changed by the owner): after a failed attempt the last subzone's kills reset;
+            // the boss returns after K new kills, not after a timer.
             var s = Sys();
             var w = new WorldState();
             Win(s, w, 0, 50);
             var boss = s.NextEncounter(w, 100);
+            Assert.IsTrue(boss.IsBoss);
             Assert.AreEqual(WorldChange.BossFailed, s.OnFightFinished(w, boss, FightOutcome.TimedOut, 100));
-            Assert.IsFalse(s.NextEncounter(w, 159).IsBoss);
-            Assert.IsTrue(s.NextEncounter(w, 160).IsBoss);
+            Assert.AreEqual(0, w.KillsInSubzone(5));
+            Assert.IsFalse(s.NextEncounter(w, 10000).IsBoss, "time alone never brings the boss back");
+            Win(s, w, 100, 9);
+            Assert.IsFalse(s.NextEncounter(w, 100).IsBoss);
+            Win(s, w, 100);
+            Assert.IsTrue(s.NextEncounter(w, 100).IsBoss);
+        }
+
+        [Test]
+        public void BossLoss_ByDeath_AlsoResetsWave()
+        {
+            var s = Sys();
+            var w = new WorldState();
+            Win(s, w, 0, 50);
+            s.OnFightFinished(w, s.NextEncounter(w, 0), FightOutcome.Died, 0);
+            Assert.AreEqual(0, w.KillsInSubzone(5));
+            Assert.IsFalse(s.NextEncounter(w, 0).IsBoss);
         }
 
         [Test]

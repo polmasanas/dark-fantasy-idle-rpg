@@ -138,7 +138,7 @@ Enemies have exactly one element (or none = Physical). Elemental damage comes on
 ### 4.6 Boss encounters
 - [SPEC] Available after K(r) kills in the region's last subzone (GAME_BALANCE §2).
 - [SPEC] Toggle **"Fight boss when available"** (default ON). When OFF, the character farms the last subzone indefinitely.
-- [APPROVED R2-2] **60 s time limit** (enrage). Failure returns the character to farming, with automatic retry every 60 s while the toggle is ON.
+- [APPROVED R2-2, changed in M2 playtest] **60 s time limit** (enrage). Failure returns the character to farming: the last subzone's kill counter resets, and the boss is fought again after a **new full wave of K kills** while the toggle is ON (configurable share of K: `boss_retry_kill_fraction`).
 - [APPROVED D-006] Bosses can be fought **offline** under the same rules.
 - [SPEC] Defeated bosses are **repeatable**. [APPROVED R2-3] Repeat fights need K(r)/2 kills in that region's last subzone; boss loot table only (no repeat unlock rewards).
 

@@ -111,13 +111,13 @@ namespace DarkFantasy.Presentation
                     break;
                 case CombatEventType.PlayerDied:
                     _playerBox.style.opacity = 0.25f;
-                    SetStatus("Defeated by the boss. Retrying in 60 s.");
+                    SetStatus("Defeated by the boss. Clear a new wave to challenge it again.");
                     break;
                 case CombatEventType.Escaped:
                     SetStatus("The enemy escaped!");
                     break;
                 case CombatEventType.TimedOut:
-                    SetStatus("The boss enraged: out of time. Retrying in 60 s.");
+                    SetStatus("The boss enraged: out of time. Clear a new wave to challenge it again.");
                     break;
             }
             UpdateBars();

@@ -17,9 +17,6 @@ namespace DarkFantasy.Core.World
         public int HighestBossDefeated;
         public int ConsecutiveEscapes;
 
-        /// <summary>Game time before which a failed boss is not retried (R2-2).</summary>
-        public double BossRetryAt;
-
         /// <summary>Game time until which the character farms one subzone below the frontier (R2-1c).</summary>
         public double RetreatUntil;
 

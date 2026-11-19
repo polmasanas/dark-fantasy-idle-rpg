@@ -189,12 +189,14 @@ A random attribute is worth +6% (damage, HP or another stat) and adds into its c
 
 | Profile | Behaviour | Prestiges (median) | Best region boss: min / median / max | Day 7 best (median) |
 |---|---|---:|---:|---:|
-| **active** | 4 × 45 min/day, continuous upgrades | 24 | 36 / **39** / 44 | 17 |
-| **optimiser** | active + balanced stat points | 25 | 33 / **39** / 40 | 16 |
-| **casual** | 3 × 10 min/day | 15 | 22 / **23** / 23 | 9 |
-| **farmer** | casual, farms 1 region back when stuck | 14 | 19 / **21** / 22 | 9 |
-| **offline-focused** | 2 × 3 min/day, 12 h gaps | 10 | 16 / **17** / 19 | 6 |
-| **never prestige** | active, never resets | 0 | 14 / **16** / 17 | 14 |
+| **active** | 4 × 45 min/day, continuous upgrades | 25 | 42 / **43** / 45 | 19 |
+| **optimiser** | active + balanced stat points | 24 | 42 / **44** / 45 | 19 |
+| **casual** | 3 × 10 min/day | 16 | 24 / **27** / 28 | 11 |
+| **farmer** | casual, farms 1 region back for 30 min after a failed boss | 16 | 25 / **26** / 26 | 10 |
+| **offline-focused** | 2 × 3 min/day, 12 h gaps | 12 | 20 / **22** / 24 | 11 |
+| **never prestige** | active, never resets | 0 | 20 / **20** / 21 | 18 |
+
+**Boss-retry change (R2-2, M2 playtest):** a failed boss now returns after a new wave of K kills instead of every 60 s. Stuck players no longer spend up to half their time in hopeless 60 s boss fights that pay nothing, so everyone progresses faster (active 39 → 43, casual 23 → 27). First region-25 boss kill (end of launch content, R2-22): active about day 11, casual about day 24–26, offline-focused not within 30 days. Casual is slightly ahead of the M10 target ("no earlier than about day 30"); retune in M10 (B-10).
 
 **Round-2 effect:** Haste is the largest new power source (active players own about 20 levels = +100% attack speed by day 30), which moved active players from region 30 to about 39. Casual and offline players are unchanged. The isolation runs: without Haste, active players reach 32; with Haste at the first proposed price (10 × 1.3^level), 45.
 
@@ -215,6 +217,7 @@ A random attribute is worth +6% (damage, HP or another stat) and adds into its c
 | B-5 | Not simulated yet: pets, skills, dungeons and tokens, class/element modifiers, enchanting, multi-character catch-up | Added as systems are built (M5–M9) |
 | B-6 | **Mastery stacks fast:** +58% to +141% gold and drop chance after 30 days (active), growing with every new region | Review after M10 (P-002): cap the total or use 0.5% per star |
 | B-8 | (Partly addressed: prestige share threshold re-tested at 25% and 50%; 50% gives better results for casual players and is kept.) In seed 12345 the active profile stops at region 30 from day 19: the simulated policy only prestiges when the new dust is ≥ 50% of all dust earned, which becomes rare. Real players would keep resetting | Improve the simulated prestige policy (time-to-next-region based, like P-001) in M7 |
+| B-10 | After the boss-retry change, casual players finish the 25 launch regions around day 24–26, slightly before the M10 target of about day 30 | Retune in M10 with the real region content |
 | B-9 | **Launch content runs out fast.** First region-10 boss kill: active ≈ day 2, casual ≈ day 7, offline-focused ≈ day 10 (5 seeds). With 10 launch regions, most players reach the end of content in the first week or two | **Resolved by R2-22:** launch with about 25 regions (region 25 ≈ day 15–20 active, beyond day 30 casual) |
 | B-7 | **Simulated players prestige too early** (regions 5–6, before their natural wall at about 12–15), so the first days look slower than never prestiging | Policy artefact, not a reward problem. Proposed P-001 "recommended prestige" hint in the UI |
 

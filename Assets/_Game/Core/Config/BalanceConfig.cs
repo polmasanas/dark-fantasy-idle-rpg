@@ -178,7 +178,9 @@ namespace DarkFantasy.Core.Config
         public double HitChanceMax { get; set; }
         public double LuckK { get; set; }
         public double EnemyRespawnS { get; set; }
-        public double BossRetryS { get; set; }
         public double BossRepeatKillFraction { get; set; }
+
+        /// <summary>Share of K kills needed again after a failed boss attempt (R2-2 as changed by the owner: 1.0 = full wave).</summary>
+        public double BossRetryKillFraction { get; set; }
     }
 }

@@ -87,7 +87,7 @@ Referenced in the GDD as **R2-n**. Numbers live in the `combat` section of `bala
 | R2-1c | **No death against normal enemies** (owner rule); HP matters in region boss fights and dungeons only. Escape timer 30 s (no rewards); 5 escapes in a row → retreat one subzone, retry after 60 s. Replaces the earlier "defeat in a normal fight" proposal |
 | R2-1c+ | **Dungeons are survival runs** (owner rule): all enemies deal damage, HP carries across waves, no healing between waves |
 | R2-1d | Dungeon death keeps cleared-wave rewards; boss chest only on full clear; **auto-repeat never stops automatically** (owner); failures shown prominently in reports |
-| R2-2 | Region boss: 60 s time limit, auto-retry every 60 s |
+| R2-2 | Region boss: 60 s time limit. ~~Auto-retry every 60 s~~ **Changed by the owner (M2 playtest): after a failed attempt the last subzone's kill counter resets and the boss returns after a new full wave of K kills** (`combat.boss_retry_kill_fraction` = 1.0) |
 | R2-3 | Repeat boss fights need K/2 kills; boss loot table only |
 | R2-3b | Data-driven milestone rewards: account-first (once ever) and run-first (once per run) on bosses, dungeons and prestige counts |
 | R2-4 | No level cap |
