@@ -1,0 +1,35 @@
+name: Core tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  core:
+    name: Game.Core tests and balance checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Game.Core unit and golden tests
+        run: dotnet test Core.Tests.Dotnet --nologo
+
+      - name: Golden values are up to date with balance_config.json
+        run: |
+          python3 Tools/BalanceSim/balance_sim.py --golden /tmp/golden_values.json
+          diff -u Tools/BalanceSim/results/golden_values.json /tmp/golden_values.json \
+            || (echo "::error::golden_values.json is stale. Run: python3 Tools/BalanceSim/balance_sim.py --golden Tools/BalanceSim/results/golden_values.json" && exit 1)
+
+      - name: Python balance simulation smoke run (3 days)
+        run: python3 Tools/BalanceSim/balance_sim.py --days 3 --out /tmp/sim
+
+      - name: C# combat runner smoke run
+        run: dotnet run --project Tools/BalanceSim.CSharp -- 5 200 50

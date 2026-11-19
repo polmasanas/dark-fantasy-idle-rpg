@@ -1,0 +1,3772 @@
+[
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   1
+  ],
+  "value": 10
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   1
+  ],
+  "value": 10
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   1,
+   1
+  ],
+  "value": 1
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   1,
+   3
+  ],
+  "value": 5
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   1,
+   5
+  ],
+  "value": 9
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   1
+  ],
+  "value": 0
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   1,
+   0
+  ],
+  "value": 0
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   1,
+   2
+  ],
+  "value": 0
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   1,
+   3
+  ],
+  "value": 0
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   1,
+   10
+  ],
+  "value": 0
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   2
+  ],
+  "value": 15
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   2
+  ],
+  "value": 20
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   2,
+   1
+  ],
+  "value": 11
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   2,
+   3
+  ],
+  "value": 15
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   2,
+   5
+  ],
+  "value": 19
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   2
+  ],
+  "value": 0
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   2,
+   0
+  ],
+  "value": 0
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   2,
+   2
+  ],
+  "value": 0
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   2,
+   3
+  ],
+  "value": 0
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   2,
+   10
+  ],
+  "value": 0
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   3
+  ],
+  "value": 20
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   3
+  ],
+  "value": 30
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   3,
+   1
+  ],
+  "value": 21
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   3,
+   3
+  ],
+  "value": 25
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   3,
+   5
+  ],
+  "value": 29
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   3
+  ],
+  "value": 0
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   3,
+   0
+  ],
+  "value": 0
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   3,
+   2
+  ],
+  "value": 0
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   3,
+   3
+  ],
+  "value": 0
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   3,
+   10
+  ],
+  "value": 0
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   4
+  ],
+  "value": 25
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   4
+  ],
+  "value": 40
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   4,
+   1
+  ],
+  "value": 31
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   4,
+   3
+  ],
+  "value": 35
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   4,
+   5
+  ],
+  "value": 39
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   4
+  ],
+  "value": 10
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   4,
+   0
+  ],
+  "value": 30
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   4,
+   2
+  ],
+  "value": 30
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   4,
+   3
+  ],
+  "value": 10
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   4,
+   10
+  ],
+  "value": 10
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   5
+  ],
+  "value": 30
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   5
+  ],
+  "value": 50
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   5,
+   1
+  ],
+  "value": 41
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   5,
+   3
+  ],
+  "value": 45
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   5,
+   5
+  ],
+  "value": 49
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   5
+  ],
+  "value": 15
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   5,
+   0
+  ],
+  "value": 45
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   5,
+   2
+  ],
+  "value": 45
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   5,
+   3
+  ],
+  "value": 15
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   5,
+   10
+  ],
+  "value": 15
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   6
+  ],
+  "value": 35
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   6
+  ],
+  "value": 60
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   6,
+   1
+  ],
+  "value": 51
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   6,
+   3
+  ],
+  "value": 55
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   6,
+   5
+  ],
+  "value": 59
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   6
+  ],
+  "value": 22
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   6,
+   0
+  ],
+  "value": 66
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   6,
+   2
+  ],
+  "value": 66
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   6,
+   3
+  ],
+  "value": 22
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   6,
+   10
+  ],
+  "value": 22
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   7
+  ],
+  "value": 40
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   7
+  ],
+  "value": 70
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   7,
+   1
+  ],
+  "value": 61
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   7,
+   3
+  ],
+  "value": 65
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   7,
+   5
+  ],
+  "value": 69
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   7
+  ],
+  "value": 33
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   7,
+   0
+  ],
+  "value": 99
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   7,
+   2
+  ],
+  "value": 99
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   7,
+   3
+  ],
+  "value": 33
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   7,
+   10
+  ],
+  "value": 33
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   8
+  ],
+  "value": 45
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   8
+  ],
+  "value": 80
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   8,
+   1
+  ],
+  "value": 71
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   8,
+   3
+  ],
+  "value": 75
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   8,
+   5
+  ],
+  "value": 79
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   8
+  ],
+  "value": 50
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   8,
+   0
+  ],
+  "value": 150
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   8,
+   2
+  ],
+  "value": 150
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   8,
+   3
+  ],
+  "value": 50
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   8,
+   10
+  ],
+  "value": 50
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   9
+  ],
+  "value": 50
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   9
+  ],
+  "value": 90
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   9,
+   1
+  ],
+  "value": 81
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   9,
+   3
+  ],
+  "value": 85
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   9,
+   5
+  ],
+  "value": 89
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   9
+  ],
+  "value": 75
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   9,
+   0
+  ],
+  "value": 225
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   9,
+   2
+  ],
+  "value": 225
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   9,
+   3
+  ],
+  "value": 75
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   9,
+   10
+  ],
+  "value": 75
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   10
+  ],
+  "value": 55
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   10
+  ],
+  "value": 100
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   10,
+   1
+  ],
+  "value": 91
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   10,
+   3
+  ],
+  "value": 95
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   10,
+   5
+  ],
+  "value": 99
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   10
+  ],
+  "value": 113
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   10,
+   0
+  ],
+  "value": 339
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   10,
+   2
+  ],
+  "value": 339
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   10,
+   3
+  ],
+  "value": 113
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   10,
+   10
+  ],
+  "value": 113
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   11
+  ],
+  "value": 60
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   11
+  ],
+  "value": 110
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   11,
+   1
+  ],
+  "value": 101
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   11,
+   3
+  ],
+  "value": 105
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   11,
+   5
+  ],
+  "value": 109
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   11
+  ],
+  "value": 170
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   11,
+   0
+  ],
+  "value": 510
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   11,
+   2
+  ],
+  "value": 510
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   11,
+   3
+  ],
+  "value": 170
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   11,
+   10
+  ],
+  "value": 170
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   12
+  ],
+  "value": 65
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   12
+  ],
+  "value": 120
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   12,
+   1
+  ],
+  "value": 111
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   12,
+   3
+  ],
+  "value": 115
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   12,
+   5
+  ],
+  "value": 119
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   12
+  ],
+  "value": 256
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   12,
+   0
+  ],
+  "value": 768
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   12,
+   2
+  ],
+  "value": 768
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   12,
+   3
+  ],
+  "value": 256
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   12,
+   10
+  ],
+  "value": 256
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   13
+  ],
+  "value": 70
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   13
+  ],
+  "value": 130
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   13,
+   1
+  ],
+  "value": 121
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   13,
+   3
+  ],
+  "value": 125
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   13,
+   5
+  ],
+  "value": 129
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   13
+  ],
+  "value": 384
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   13,
+   0
+  ],
+  "value": 1152
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   13,
+   2
+  ],
+  "value": 1152
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   13,
+   3
+  ],
+  "value": 384
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   13,
+   10
+  ],
+  "value": 384
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   14
+  ],
+  "value": 75
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   14
+  ],
+  "value": 140
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   14,
+   1
+  ],
+  "value": 131
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   14,
+   3
+  ],
+  "value": 135
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   14,
+   5
+  ],
+  "value": 139
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   14
+  ],
+  "value": 576
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   14,
+   0
+  ],
+  "value": 1728
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   14,
+   2
+  ],
+  "value": 1728
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   14,
+   3
+  ],
+  "value": 576
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   14,
+   10
+  ],
+  "value": 576
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   15
+  ],
+  "value": 80
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   15
+  ],
+  "value": 150
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   15,
+   1
+  ],
+  "value": 141
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   15,
+   3
+  ],
+  "value": 145
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   15,
+   5
+  ],
+  "value": 149
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   15
+  ],
+  "value": 864
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   15,
+   0
+  ],
+  "value": 2592
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   15,
+   2
+  ],
+  "value": 2592
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   15,
+   3
+  ],
+  "value": 864
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   15,
+   10
+  ],
+  "value": 864
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   16
+  ],
+  "value": 85
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   16
+  ],
+  "value": 160
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   16,
+   1
+  ],
+  "value": 151
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   16,
+   3
+  ],
+  "value": 155
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   16,
+   5
+  ],
+  "value": 159
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   16
+  ],
+  "value": 1297
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   16,
+   0
+  ],
+  "value": 3891
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   16,
+   2
+  ],
+  "value": 3891
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   16,
+   3
+  ],
+  "value": 1297
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   16,
+   10
+  ],
+  "value": 1297
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   17
+  ],
+  "value": 90
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   17
+  ],
+  "value": 170
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   17,
+   1
+  ],
+  "value": 161
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   17,
+   3
+  ],
+  "value": 165
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   17,
+   5
+  ],
+  "value": 169
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   17
+  ],
+  "value": 1946
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   17,
+   0
+  ],
+  "value": 5838
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   17,
+   2
+  ],
+  "value": 5838
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   17,
+   3
+  ],
+  "value": 1946
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   17,
+   10
+  ],
+  "value": 1946
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   18
+  ],
+  "value": 95
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   18
+  ],
+  "value": 180
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   18,
+   1
+  ],
+  "value": 171
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   18,
+   3
+  ],
+  "value": 175
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   18,
+   5
+  ],
+  "value": 179
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   18
+  ],
+  "value": 2919
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   18,
+   0
+  ],
+  "value": 8757
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   18,
+   2
+  ],
+  "value": 8757
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   18,
+   3
+  ],
+  "value": 2919
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   18,
+   10
+  ],
+  "value": 2919
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   19
+  ],
+  "value": 100
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   19
+  ],
+  "value": 190
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   19,
+   1
+  ],
+  "value": 181
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   19,
+   3
+  ],
+  "value": 185
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   19,
+   5
+  ],
+  "value": 189
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   19
+  ],
+  "value": 4378
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   19,
+   0
+  ],
+  "value": 13134
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   19,
+   2
+  ],
+  "value": 13134
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   19,
+   3
+  ],
+  "value": 4378
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   19,
+   10
+  ],
+  "value": 4378
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   20
+  ],
+  "value": 100
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   20
+  ],
+  "value": 200
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   20,
+   1
+  ],
+  "value": 191
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   20,
+   3
+  ],
+  "value": 195
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   20,
+   5
+  ],
+  "value": 199
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   20
+  ],
+  "value": 6568
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   20,
+   0
+  ],
+  "value": 19704
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   20,
+   2
+  ],
+  "value": 19704
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   20,
+   3
+  ],
+  "value": 6568
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   20,
+   10
+  ],
+  "value": 6568
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   21
+  ],
+  "value": 100
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   21
+  ],
+  "value": 210
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   21,
+   1
+  ],
+  "value": 201
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   21,
+   3
+  ],
+  "value": 205
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   21,
+   5
+  ],
+  "value": 209
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   21
+  ],
+  "value": 9852
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   21,
+   0
+  ],
+  "value": 29556
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   21,
+   2
+  ],
+  "value": 29556
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   21,
+   3
+  ],
+  "value": 9852
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   21,
+   10
+  ],
+  "value": 9852
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   22
+  ],
+  "value": 100
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   22
+  ],
+  "value": 220
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   22,
+   1
+  ],
+  "value": 211
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   22,
+   3
+  ],
+  "value": 215
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   22,
+   5
+  ],
+  "value": 219
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   22
+  ],
+  "value": 14778
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   22,
+   0
+  ],
+  "value": 44334
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   22,
+   2
+  ],
+  "value": 44334
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   22,
+   3
+  ],
+  "value": 14778
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   22,
+   10
+  ],
+  "value": 14778
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   23
+  ],
+  "value": 100
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   23
+  ],
+  "value": 230
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   23,
+   1
+  ],
+  "value": 221
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   23,
+   3
+  ],
+  "value": 225
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   23,
+   5
+  ],
+  "value": 229
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   23
+  ],
+  "value": 22168
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   23,
+   0
+  ],
+  "value": 66504
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   23,
+   2
+  ],
+  "value": 66504
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   23,
+   3
+  ],
+  "value": 22168
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   23,
+   10
+  ],
+  "value": 22168
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   24
+  ],
+  "value": 100
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   24
+  ],
+  "value": 240
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   24,
+   1
+  ],
+  "value": 231
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   24,
+   3
+  ],
+  "value": 235
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   24,
+   5
+  ],
+  "value": 239
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   24
+  ],
+  "value": 33252
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   24,
+   0
+  ],
+  "value": 99756
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   24,
+   2
+  ],
+  "value": 99756
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   24,
+   3
+  ],
+  "value": 33252
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   24,
+   10
+  ],
+  "value": 33252
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   25
+  ],
+  "value": 100
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   25
+  ],
+  "value": 250
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   25,
+   1
+  ],
+  "value": 241
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   25,
+   3
+  ],
+  "value": 245
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   25,
+   5
+  ],
+  "value": 249
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   25
+  ],
+  "value": 49878
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   25,
+   0
+  ],
+  "value": 149634
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   25,
+   2
+  ],
+  "value": 149634
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   25,
+   3
+  ],
+  "value": 49878
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   25,
+   10
+  ],
+  "value": 49878
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   26
+  ],
+  "value": 100
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   26
+  ],
+  "value": 260
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   26,
+   1
+  ],
+  "value": 251
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   26,
+   3
+  ],
+  "value": 255
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   26,
+   5
+  ],
+  "value": 259
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   26
+  ],
+  "value": 74818
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   26,
+   0
+  ],
+  "value": 224454
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   26,
+   2
+  ],
+  "value": 224454
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   26,
+   3
+  ],
+  "value": 74818
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   26,
+   10
+  ],
+  "value": 74818
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   27
+  ],
+  "value": 100
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   27
+  ],
+  "value": 270
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   27,
+   1
+  ],
+  "value": 261
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   27,
+   3
+  ],
+  "value": 265
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   27,
+   5
+  ],
+  "value": 269
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   27
+  ],
+  "value": 112227
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   27,
+   0
+  ],
+  "value": 336681
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   27,
+   2
+  ],
+  "value": 336681
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   27,
+   3
+  ],
+  "value": 112227
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   27,
+   10
+  ],
+  "value": 112227
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   28
+  ],
+  "value": 100
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   28
+  ],
+  "value": 280
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   28,
+   1
+  ],
+  "value": 271
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   28,
+   3
+  ],
+  "value": 275
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   28,
+   5
+  ],
+  "value": 279
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   28
+  ],
+  "value": 168341
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   28,
+   0
+  ],
+  "value": 505023
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   28,
+   2
+  ],
+  "value": 505023
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   28,
+   3
+  ],
+  "value": 168341
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   28,
+   10
+  ],
+  "value": 168341
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   29
+  ],
+  "value": 100
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   29
+  ],
+  "value": 290
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   29,
+   1
+  ],
+  "value": 281
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   29,
+   3
+  ],
+  "value": 285
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   29,
+   5
+  ],
+  "value": 289
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   29
+  ],
+  "value": 252511
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   29,
+   0
+  ],
+  "value": 757533
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   29,
+   2
+  ],
+  "value": 757533
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   29,
+   3
+  ],
+  "value": 252511
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   29,
+   10
+  ],
+  "value": 252511
+ },
+ {
+  "fn": "KillsToAdvance",
+  "args": [
+   30
+  ],
+  "value": 100
+ },
+ {
+  "fn": "BossLevel",
+  "args": [
+   30
+  ],
+  "value": 300
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   30,
+   1
+  ],
+  "value": 291
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   30,
+   3
+  ],
+  "value": 295
+ },
+ {
+  "fn": "SubzoneLevel",
+  "args": [
+   30,
+   5
+  ],
+  "value": 299
+ },
+ {
+  "fn": "DustForRun",
+  "args": [
+   30
+  ],
+  "value": 378767
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   30,
+   0
+  ],
+  "value": 1136301
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   30,
+   2
+  ],
+  "value": 1136301
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   30,
+   3
+  ],
+  "value": 378767
+ },
+ {
+  "fn": "DustForPrestige",
+  "args": [
+   30,
+   10
+  ],
+  "value": 378767
+ },
+ {
+  "fn": "EnemyHp",
+  "args": [
+   1,
+   false
+  ],
+  "value": 30.0
+ },
+ {
+  "fn": "EnemyAtk",
+  "args": [
+   1,
+   false
+  ],
+  "value": 4.0
+ },
+ {
+  "fn": "GoldDrop",
+  "args": [
+   1,
+   false
+  ],
+  "value": 2.0
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   1,
+   1,
+   false
+  ],
+  "value": 3.0
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   1,
+   11,
+   false
+  ],
+  "value": 2.25
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   1,
+   41,
+   false
+  ],
+  "value": 0.30000000000000004
+ },
+ {
+  "fn": "EnemyHp",
+  "args": [
+   1,
+   true
+  ],
+  "value": 360.0
+ },
+ {
+  "fn": "EnemyAtk",
+  "args": [
+   1,
+   true
+  ],
+  "value": 8.0
+ },
+ {
+  "fn": "GoldDrop",
+  "args": [
+   1,
+   true
+  ],
+  "value": 30.0
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   1,
+   1,
+   true
+  ],
+  "value": 30.0
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   1,
+   11,
+   true
+  ],
+  "value": 22.5
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   1,
+   41,
+   true
+  ],
+  "value": 3.0000000000000004
+ },
+ {
+  "fn": "XpToNext",
+  "args": [
+   1
+  ],
+  "value": 31.5
+ },
+ {
+  "fn": "ArmourK",
+  "args": [
+   1
+  ],
+  "value": 40.0
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   1,
+   0
+  ],
+  "value": 12.0
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   1,
+   5
+  ],
+  "value": 29.85983999999999
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   1,
+   20
+  ],
+  "value": 460.0511990936967
+ },
+ {
+  "fn": "EnemyHp",
+  "args": [
+   2,
+   false
+  ],
+  "value": 33.0
+ },
+ {
+  "fn": "EnemyAtk",
+  "args": [
+   2,
+   false
+  ],
+  "value": 4.36
+ },
+ {
+  "fn": "GoldDrop",
+  "args": [
+   2,
+   false
+  ],
+  "value": 2.14
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   2,
+   2,
+   false
+  ],
+  "value": 3.18
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   2,
+   12,
+   false
+  ],
+  "value": 2.3850000000000002
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   2,
+   42,
+   false
+  ],
+  "value": 0.31800000000000006
+ },
+ {
+  "fn": "EnemyHp",
+  "args": [
+   2,
+   true
+  ],
+  "value": 396.0
+ },
+ {
+  "fn": "EnemyAtk",
+  "args": [
+   2,
+   true
+  ],
+  "value": 8.72
+ },
+ {
+  "fn": "GoldDrop",
+  "args": [
+   2,
+   true
+  ],
+  "value": 32.1
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   2,
+   2,
+   true
+  ],
+  "value": 31.8
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   2,
+   12,
+   true
+  ],
+  "value": 23.85
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   2,
+   42,
+   true
+  ],
+  "value": 3.1800000000000006
+ },
+ {
+  "fn": "XpToNext",
+  "args": [
+   2
+  ],
+  "value": 34.980000000000004
+ },
+ {
+  "fn": "ArmourK",
+  "args": [
+   2
+  ],
+  "value": 42.800000000000004
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   2,
+   0
+  ],
+  "value": 12.84
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   2,
+   5
+  ],
+  "value": 31.95002879999999
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   2,
+   20
+  ],
+  "value": 492.25478303025545
+ },
+ {
+  "fn": "EnemyHp",
+  "args": [
+   10,
+   false
+  ],
+  "value": 70.73843073000006
+ },
+ {
+  "fn": "EnemyAtk",
+  "args": [
+   10,
+   false
+  ],
+  "value": 8.687573117769244
+ },
+ {
+  "fn": "GoldDrop",
+  "args": [
+   10,
+   false
+  ],
+  "value": 3.676918424840311
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   10,
+   10,
+   false
+  ],
+  "value": 5.068436877008079
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   10,
+   20,
+   false
+  ],
+  "value": 3.801327657756059
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   10,
+   50,
+   false
+  ],
+  "value": 0.5068436877008079
+ },
+ {
+  "fn": "EnemyHp",
+  "args": [
+   10,
+   true
+  ],
+  "value": 848.8611687600007
+ },
+ {
+  "fn": "EnemyAtk",
+  "args": [
+   10,
+   true
+  ],
+  "value": 17.375146235538487
+ },
+ {
+  "fn": "GoldDrop",
+  "args": [
+   10,
+   true
+  ],
+  "value": 55.15377637260467
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   10,
+   10,
+   true
+  ],
+  "value": 50.68436877008079
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   10,
+   20,
+   true
+  ],
+  "value": 38.01327657756059
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   10,
+   50,
+   true
+  ],
+  "value": 5.068436877008079
+ },
+ {
+  "fn": "XpToNext",
+  "args": [
+   10
+  ],
+  "value": 76.02655315512118
+ },
+ {
+  "fn": "ArmourK",
+  "args": [
+   10
+  ],
+  "value": 73.53836849680621
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   10,
+   0
+  ],
+  "value": 22.061510549041866
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   10,
+   5
+  ],
+  "value": 54.89609792939184
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   10,
+   20
+  ],
+  "value": 845.7853651587458
+ },
+ {
+  "fn": "EnemyHp",
+  "args": [
+   50,
+   false
+  ],
+  "value": 3201.568714900794
+ },
+ {
+  "fn": "EnemyAtk",
+  "args": [
+   50,
+   false
+  ],
+  "value": 272.8716333057601
+ },
+ {
+  "fn": "GoldDrop",
+  "args": [
+   50,
+   false
+  ],
+  "value": 55.05985993097459
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   50,
+   50,
+   false
+  ],
+  "value": 52.13251209903251
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   50,
+   60,
+   false
+  ],
+  "value": 39.09938407427438
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   50,
+   90,
+   false
+  ],
+  "value": 5.213251209903252
+ },
+ {
+  "fn": "EnemyHp",
+  "args": [
+   50,
+   true
+  ],
+  "value": 38418.82457880953
+ },
+ {
+  "fn": "EnemyAtk",
+  "args": [
+   50,
+   true
+  ],
+  "value": 545.7432666115202
+ },
+ {
+  "fn": "GoldDrop",
+  "args": [
+   50,
+   true
+  ],
+  "value": 825.8978989646189
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   50,
+   50,
+   true
+  ],
+  "value": 521.3251209903251
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   50,
+   60,
+   true
+  ],
+  "value": 390.9938407427438
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   50,
+   90,
+   true
+  ],
+  "value": 52.13251209903252
+ },
+ {
+  "fn": "XpToNext",
+  "args": [
+   50
+  ],
+  "value": 1824.6379234661379
+ },
+ {
+  "fn": "ArmourK",
+  "args": [
+   50
+  ],
+  "value": 1101.1971986194917
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   50,
+   0
+  ],
+  "value": 330.3591595858475
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   50,
+   5
+  ],
+  "value": 822.0393039806559
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   50,
+   20
+  ],
+  "value": 12665.177291587921
+ },
+ {
+  "fn": "EnemyHp",
+  "args": [
+   100,
+   false
+  ],
+  "value": 375834.8819951558
+ },
+ {
+  "fn": "EnemyAtk",
+  "args": [
+   100,
+   false
+  ],
+  "value": 20290.05795165475
+ },
+ {
+  "fn": "GoldDrop",
+  "args": [
+   100,
+   false
+  ],
+  "value": 1621.8996739559195
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   100,
+   100,
+   false
+  ],
+  "value": 960.2889156070391
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   100,
+   110,
+   false
+  ],
+  "value": 720.2166867052794
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   100,
+   140,
+   false
+  ],
+  "value": 96.02889156070393
+ },
+ {
+  "fn": "EnemyHp",
+  "args": [
+   100,
+   true
+  ],
+  "value": 4510018.583941869
+ },
+ {
+  "fn": "EnemyAtk",
+  "args": [
+   100,
+   true
+  ],
+  "value": 40580.1159033095
+ },
+ {
+  "fn": "GoldDrop",
+  "args": [
+   100,
+   true
+  ],
+  "value": 24328.495109338794
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   100,
+   100,
+   true
+  ],
+  "value": 9602.889156070392
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   100,
+   110,
+   true
+  ],
+  "value": 7202.166867052793
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   100,
+   140,
+   true
+  ],
+  "value": 960.2889156070393
+ },
+ {
+  "fn": "XpToNext",
+  "args": [
+   100
+  ],
+  "value": 57617.33493642235
+ },
+ {
+  "fn": "ArmourK",
+  "args": [
+   100
+  ],
+  "value": 32437.99347911839
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   100,
+   0
+  ],
+  "value": 9731.398043735517
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   100,
+   5
+  ],
+  "value": 24214.832380187956
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   100,
+   20
+  ],
+  "value": 373078.4449065482
+ },
+ {
+  "fn": "EnemyHp",
+  "args": [
+   250,
+   false
+  ],
+  "value": 607994791910.4105
+ },
+ {
+  "fn": "EnemyAtk",
+  "args": [
+   250,
+   false
+  ],
+  "value": 8341765529.869314
+ },
+ {
+  "fn": "GoldDrop",
+  "args": [
+   250,
+   false
+  ],
+  "value": 41456309.62589745
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   250,
+   250,
+   false
+  ],
+  "value": 6001802.576793939
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   250,
+   260,
+   false
+  ],
+  "value": 4501351.932595454
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   250,
+   290,
+   false
+  ],
+  "value": 600180.2576793939
+ },
+ {
+  "fn": "EnemyHp",
+  "args": [
+   250,
+   true
+  ],
+  "value": 7295937502924.926
+ },
+ {
+  "fn": "EnemyAtk",
+  "args": [
+   250,
+   true
+  ],
+  "value": 16683531059.738628
+ },
+ {
+  "fn": "GoldDrop",
+  "args": [
+   250,
+   true
+  ],
+  "value": 621844644.3884618
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   250,
+   250,
+   true
+  ],
+  "value": 60018025.76793939
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   250,
+   260,
+   true
+  ],
+  "value": 45013519.32595454
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   250,
+   290,
+   true
+  ],
+  "value": 6001802.576793939
+ },
+ {
+  "fn": "XpToNext",
+  "args": [
+   250
+  ],
+  "value": 810243347.8671818
+ },
+ {
+  "fn": "ArmourK",
+  "args": [
+   250
+  ],
+  "value": 829126192.5179491
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   250,
+   0
+  ],
+  "value": 248737857.7553847
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   250,
+   5
+  ],
+  "value": 618939386.2098788
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   250,
+   20
+  ],
+  "value": 9536012476.696842
+ },
+ {
+  "fn": "EnemyHp",
+  "args": [
+   500,
+   false
+  ],
+  "value": 1.3554114456306728e+22
+ },
+ {
+  "fn": "EnemyAtk",
+  "args": [
+   500,
+   false
+  ],
+  "value": 1.896192671232358e+19
+ },
+ {
+  "fn": "GoldDrop",
+  "args": [
+   500,
+   false
+  ],
+  "value": 919464700172078.6
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   500,
+   500,
+   false
+  ],
+  "value": 12727644073686.33
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   500,
+   510,
+   false
+  ],
+  "value": 9545733055264.748
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   500,
+   540,
+   false
+  ],
+  "value": 1272764407368.633
+ },
+ {
+  "fn": "EnemyHp",
+  "args": [
+   500,
+   true
+  ],
+  "value": 1.6264937347568073e+23
+ },
+ {
+  "fn": "EnemyAtk",
+  "args": [
+   500,
+   true
+  ],
+  "value": 3.792385342464716e+19
+ },
+ {
+  "fn": "GoldDrop",
+  "args": [
+   500,
+   true
+  ],
+  "value": 1.379197050258118e+16
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   500,
+   500,
+   true
+  ],
+  "value": 127276440736863.3
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   500,
+   510,
+   true
+  ],
+  "value": 95457330552647.48
+ },
+ {
+  "fn": "EnemyXp",
+  "args": [
+   500,
+   540,
+   true
+  ],
+  "value": 12727644073686.33
+ },
+ {
+  "fn": "XpToNext",
+  "args": [
+   500
+  ],
+  "value": 3309187459158446.0
+ },
+ {
+  "fn": "ArmourK",
+  "args": [
+   500
+  ],
+  "value": 1.8389294003441572e+16
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   500,
+   0
+  ],
+  "value": 5516788201032472.0
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   500,
+   5
+  ],
+  "value": 1.3727534416393118e+16
+ },
+ {
+  "fn": "UpgradeCost",
+  "args": [
+   500,
+   20
+  ],
+  "value": 2.1150041891924554e+17
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "might",
+   0
+  ],
+  "value": 5.0
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "might",
+   0
+  ],
+  "value": 1.0
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "might",
+   1
+  ],
+  "value": 6.4
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "might",
+   1
+  ],
+  "value": 1.1
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "might",
+   5
+  ],
+  "value": 17.179869184000005
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "might",
+   5
+  ],
+  "value": 1.6105100000000006
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "might",
+   20
+  ],
+  "value": 696.8982874540823
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "might",
+   20
+  ],
+  "value": 6.727499949325611
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "might",
+   39
+  ],
+  "value": 75885.50360256761
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "might",
+   39
+  ],
+  "value": 41.144777789250995
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "might",
+   40
+  ],
+  "value": 97133.44461128654
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "might",
+   40
+  ],
+  "value": 45.2592555681761
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "bulwark",
+   0
+  ],
+  "value": 5.0
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "bulwark",
+   0
+  ],
+  "value": 1.0
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "bulwark",
+   1
+  ],
+  "value": 6.4
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "bulwark",
+   1
+  ],
+  "value": 1.1
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "bulwark",
+   5
+  ],
+  "value": 17.179869184000005
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "bulwark",
+   5
+  ],
+  "value": 1.6105100000000006
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "bulwark",
+   20
+  ],
+  "value": 696.8982874540823
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "bulwark",
+   20
+  ],
+  "value": 6.727499949325611
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "bulwark",
+   39
+  ],
+  "value": 75885.50360256761
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "bulwark",
+   39
+  ],
+  "value": 41.144777789250995
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "bulwark",
+   40
+  ],
+  "value": 97133.44461128654
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "bulwark",
+   40
+  ],
+  "value": 45.2592555681761
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "greed",
+   0
+  ],
+  "value": 8.0
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "greed",
+   0
+  ],
+  "value": 1.0
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "greed",
+   1
+  ],
+  "value": 10.0
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "greed",
+   1
+  ],
+  "value": 1.1
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "greed",
+   5
+  ],
+  "value": 24.4140625
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "greed",
+   5
+  ],
+  "value": 1.6105100000000006
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "greed",
+   20
+  ],
+  "value": 693.8893903907228
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "greed",
+   20
+  ],
+  "value": 6.727499949325611
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "greed",
+   39
+  ],
+  "value": 48148.24860968089
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "greed",
+   39
+  ],
+  "value": 41.144777789250995
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "greed",
+   40
+  ],
+  "value": 60185.31076210112
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "greed",
+   40
+  ],
+  "value": 45.2592555681761
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "wisdom",
+   0
+  ],
+  "value": 8.0
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "wisdom",
+   0
+  ],
+  "value": 1.0
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "wisdom",
+   1
+  ],
+  "value": 10.0
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "wisdom",
+   1
+  ],
+  "value": 1.1
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "wisdom",
+   5
+  ],
+  "value": 24.4140625
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "wisdom",
+   5
+  ],
+  "value": 1.6105100000000006
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "wisdom",
+   20
+  ],
+  "value": 693.8893903907228
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "wisdom",
+   20
+  ],
+  "value": 6.727499949325611
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "wisdom",
+   39
+  ],
+  "value": 48148.24860968089
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "wisdom",
+   39
+  ],
+  "value": 41.144777789250995
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "wisdom",
+   40
+  ],
+  "value": 60185.31076210112
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "wisdom",
+   40
+  ],
+  "value": 45.2592555681761
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "haste",
+   0
+  ],
+  "value": 50.0
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "haste",
+   0
+  ],
+  "value": 1.0
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "haste",
+   1
+  ],
+  "value": 85.0
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "haste",
+   1
+  ],
+  "value": 1.05
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "haste",
+   5
+  ],
+  "value": 709.9284999999999
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "haste",
+   5
+  ],
+  "value": 1.25
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "haste",
+   20
+  ],
+  "value": 2032115.703323785
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "haste",
+   20
+  ],
+  "value": 2.0
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "haste",
+   39
+  ],
+  "value": 48582285078.76614
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "haste",
+   39
+  ],
+  "value": 2.95
+ },
+ {
+  "fn": "ArtifactCost",
+  "args": [
+   "haste",
+   40
+  ],
+  "value": Infinity
+ },
+ {
+  "fn": "ArtifactMult",
+  "args": [
+   "haste",
+   40
+  ],
+  "value": 3.0
+ }
+]

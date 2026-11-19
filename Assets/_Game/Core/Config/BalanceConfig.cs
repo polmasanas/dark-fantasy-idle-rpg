@@ -1,0 +1,170 @@
+using System.Collections.Generic;
+
+namespace DarkFantasy.Core.Config
+{
+    /// <summary>
+    /// All balance numbers, mirroring Tools/BalanceSim/balance_config.json (decision D-031).
+    /// Property names are the JSON keys in PascalCase. Formulas read only from here.
+    /// </summary>
+    public sealed class BalanceConfig
+    {
+        public WorldConfig World { get; set; }
+        public EnemyConfig Enemy { get; set; }
+        public PlayerConfig Player { get; set; }
+        public XpConfig Xp { get; set; }
+        public GearConfig Gear { get; set; }
+        public EconomyConfig Economy { get; set; }
+        public MasteryConfig Mastery { get; set; }
+        public OfflineConfig Offline { get; set; }
+        public PrestigeConfig Prestige { get; set; }
+        public CombatConfig Combat { get; set; }
+    }
+
+    public sealed class WorldConfig
+    {
+        public int SubzonesPerRegion { get; set; }
+        public int LevelsPerSubzone { get; set; }
+        public int KillsToAdvanceBase { get; set; }
+        public int KillsToAdvancePerRegion { get; set; }
+        public int KillsToAdvanceCap { get; set; }
+    }
+
+    public sealed class EnemyConfig
+    {
+        public double HpBase { get; set; }
+        public double HpGrowth { get; set; }
+        public double AtkBase { get; set; }
+        public double AtkGrowth { get; set; }
+        public double AttackIntervalS { get; set; }
+        public double BossHpMult { get; set; }
+        public double BossAtkMult { get; set; }
+        public double BossTimeLimitS { get; set; }
+        public double VarianceMultMin { get; set; }
+        public double VarianceMultMax { get; set; }
+    }
+
+    public sealed class PlayerConfig
+    {
+        public int PointsPerLevelAuto { get; set; }
+        public int PointsPerLevelManual { get; set; }
+        public double BaseHp { get; set; }
+        public double HpPerVitPct { get; set; }
+        public double DmgPerPrimaryPct { get; set; }
+        public double ArmourPctPerDef { get; set; }
+        public double BaseHitChance { get; set; }
+        public double BaseCritChance { get; set; }
+        public double CritChancePerPoint { get; set; }
+        public double CritChanceCap { get; set; }
+        public double BaseCritDamage { get; set; }
+        public double CritDamagePerPoint { get; set; }
+        public double ArmourKBase { get; set; }
+        public double ArmourKGrowth { get; set; }
+        public double DamageReductionCap { get; set; }
+        public double BetweenFightS { get; set; }
+        public double CounterChancePerPoint { get; set; }
+        public double CounterCap { get; set; }
+        public double CounterDamage { get; set; }
+        public double CatchupXpBonus { get; set; }
+    }
+
+    public sealed class XpConfig
+    {
+        public double EnemyXpBase { get; set; }
+        public double EnemyXpGrowth { get; set; }
+        public double LevelReqGrowth { get; set; }
+        public double KillsPerLevelBase { get; set; }
+        public double KillsPerLevelPerLevel { get; set; }
+        public double BossXpMult { get; set; }
+        public double OverlevelPenaltyPerLevel { get; set; }
+        public double OverlevelPenaltyFloor { get; set; }
+    }
+
+    public sealed class GearConfig
+    {
+        public double WeaponDmgBase { get; set; }
+        public double OffhandDmgShare { get; set; }
+        public double ArmourBase { get; set; }
+        public double ArmourHpBase { get; set; }
+        public double ItemGrowth { get; set; }
+        public double UpgradeBasePct { get; set; }
+        public int[] UpgradeMaxByRarity { get; set; }
+        public string[] RarityNames { get; set; }
+        public double[] RarityBaseMult { get; set; }
+        public double[] RarityWeights { get; set; }
+        public int[] RandomAffixes { get; set; }
+        public double AffixValuePct { get; set; }
+        public double DropChanceNormal { get; set; }
+        public int BossMinRarity { get; set; }
+    }
+
+    public sealed class EconomyConfig
+    {
+        public double GoldBase { get; set; }
+        public double GoldGrowth { get; set; }
+        public double BossGoldMult { get; set; }
+        public double UpgradeCostBase { get; set; }
+        public double UpgradeCostGrowth { get; set; }
+        public double SalvageUpgradeRefund { get; set; }
+        public double CraftCostBase { get; set; }
+        public double CraftCostPerIlvl { get; set; }
+        public double ScrollDropChance { get; set; }
+    }
+
+    public sealed class MasteryConfig
+    {
+        public int KillsPerStar { get; set; }
+        public int MaxStars { get; set; }
+        public double GoldPerStar { get; set; }
+        public double DropPerStar { get; set; }
+    }
+
+    public sealed class OfflineConfig
+    {
+        public double Efficiency { get; set; }
+        public double CapHours { get; set; }
+    }
+
+    public sealed class ArtifactConfig
+    {
+        public string Stat { get; set; }
+        public double PerLevel { get; set; }
+        public double CostBase { get; set; }
+        public double CostGrowth { get; set; }
+    }
+
+    public sealed class PrestigeConfig
+    {
+        public int MinRegionBoss { get; set; }
+        public double DustBase { get; set; }
+        public double DustGrowthPerRegion { get; set; }
+        public int FirstPrestigesCount { get; set; }
+        public double FirstPrestigesDustMult { get; set; }
+        public Dictionary<string, ArtifactConfig> Artifacts { get; set; }
+    }
+
+    /// <summary>Round-2 combat and system values (GDD section 4, DECISIONS R2-*).</summary>
+    public sealed class CombatConfig
+    {
+        public double ReferenceIntervalS { get; set; }
+        public double BaseIntervalFighter { get; set; }
+        public double BaseIntervalArcher { get; set; }
+        public double BaseIntervalMage { get; set; }
+        public double AttackIntervalFloorS { get; set; }
+        public double EscapeTimerS { get; set; }
+        public int EscapesBeforeRetreat { get; set; }
+        public double RetreatRetryS { get; set; }
+        public double HastePerLevel { get; set; }
+        public int HasteMaxLevel { get; set; }
+        public double HasteCostBase { get; set; }
+        public double HasteCostGrowth { get; set; }
+        public double CooldownReductionCap { get; set; }
+        public double ResistMin { get; set; }
+        public double ResistMax { get; set; }
+        public double HitChanceMin { get; set; }
+        public double HitChanceMax { get; set; }
+        public double LuckK { get; set; }
+        public double EnemyRespawnS { get; set; }
+        public double BossRetryS { get; set; }
+        public double BossRepeatKillFraction { get; set; }
+    }
+}

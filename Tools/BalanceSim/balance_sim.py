@@ -93,6 +93,13 @@ class Formulas:
             return 0
         return int(pr["dust_base"] * pr["dust_growth_per_region"] ** (highest_boss_region - pr["min_region_boss"]))
 
+    def dust_for_prestige(self, highest_boss_region: int, prestiges_done: int) -> int:
+        """Dust actually paid, including the first-prestiges bonus (D-037)."""
+        dust = self.dust_for_run(highest_boss_region)
+        if prestiges_done < self.pr["first_prestiges_count"]:
+            dust = int(dust * self.pr["first_prestiges_dust_mult"])
+        return dust
+
     def artifact_cost(self, name: str, level: int) -> float:
         if name == "haste":
             c = self.c["combat"]
@@ -465,10 +472,7 @@ class Sim:
         hrs = self.cfg["simulation"]["prestige_when_stuck_hours"]
         if r.stuck_since is None or self.t - r.stuck_since < hrs * HOUR:
             return
-        dust = self.f.dust_for_run(r.highest_boss)
-        pr = self.cfg["prestige"]
-        if self.meta.prestiges < pr["first_prestiges_count"]:
-            dust *= pr["first_prestiges_dust_mult"]  # Q-7 / decision 17
+        dust = self.f.dust_for_prestige(r.highest_boss, self.meta.prestiges)
         # rational player: only reset when it adds a meaningful share of all dust ever earned
         min_share = self.cfg["simulation"]["prestige_min_dust_share"]
         if dust <= 0 or dust < min_share * self.meta.dust_total:
@@ -611,6 +615,41 @@ def combat_check(cfg: dict, trials=4000, seed=7):
 # --------------------------------------------------------------------------
 # Report
 # --------------------------------------------------------------------------
+def export_golden(cfg: dict, path: str):
+    """Golden values for the C# formula tests (TESTING_STRATEGY section 5)."""
+    f = Formulas(cfg)
+    levels = [1, 2, 10, 50, 100, 250, 500]
+    regions = list(range(1, 31))
+    rows = []
+    add = lambda fn, args, v: rows.append({"fn": fn, "args": list(args), "value": v})
+    for r in regions:
+        add("KillsToAdvance", [r], f.kills_to_advance(r))
+        add("BossLevel", [r], f.boss_level(r))
+        for sub in (1, 3, 5):
+            add("SubzoneLevel", [r, sub], f.subzone_level(r, sub))
+        add("DustForRun", [r], f.dust_for_run(r))
+        for done in (0, 2, 3, 10):
+            add("DustForPrestige", [r, done], f.dust_for_prestige(r, done))
+    for L in levels:
+        for boss in (False, True):
+            add("EnemyHp", [L, boss], f.enemy_hp(L, boss))
+            add("EnemyAtk", [L, boss], f.enemy_atk(L, boss))
+            add("GoldDrop", [L, boss], f.gold_drop(L, boss))
+            for pl in (L, L + 10, L + 40):
+                add("EnemyXp", [L, pl, boss], f.enemy_xp(L, pl, boss))
+        add("XpToNext", [L], f.xp_to_next(L))
+        add("ArmourK", [L], f.armour_k(L))
+        for up in (0, 5, 20):
+            add("UpgradeCost", [L, up], f.upgrade_cost(L, up))
+    for name in list(cfg["prestige"]["artifacts"].keys()) + ["haste"]:
+        for lvl in (0, 1, 5, 20, 39, 40):
+            add("ArtifactCost", [name, lvl], f.artifact_cost(name, lvl))
+            add("ArtifactMult", [name, lvl], f.artifact_mult(name, lvl))
+    with open(path, "w") as fh:
+        json.dump(rows, fh, indent=1, allow_nan=True)
+    print(f"golden values: {len(rows)} rows -> {path}")
+
+
 def fmt_t(sec):
     if sec is None:
         return "-"
@@ -624,9 +663,13 @@ def main():
     ap.add_argument("--config", default=os.path.join(here, "balance_config.json"))
     ap.add_argument("--days", type=int, default=None)
     ap.add_argument("--out", default=os.path.join(here, "results"))
+    ap.add_argument("--golden", default=None, help="write golden formula values to this path and exit")
     args = ap.parse_args()
     with open(args.config) as fh:
         cfg = json.load(fh)
+    if args.golden:
+        export_golden(cfg, args.golden)
+        return
     days = args.days or cfg["simulation"]["days"]
     os.makedirs(args.out, exist_ok=True)
     f = Formulas(cfg)

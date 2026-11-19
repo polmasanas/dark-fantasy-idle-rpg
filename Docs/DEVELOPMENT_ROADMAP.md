@@ -11,7 +11,7 @@
 | # | Name | Scope | Acceptance criteria |
 |---|---|---|---|
 | **M0** | Design foundation | 8 docs, Python balance simulation, Google Sheets balance view, decisions log | ✅ Decisions approved 2026-11-19. Remaining: owner sign-off of docs v0.2, merge to main |
-| **M1** | Core skeleton | Unity project + asmdefs, Game.Core with RNG, BalanceConfig (imported from JSON), StatCalculator, CombatEngine (basic attacks, crits, accuracy, armour, counter), **C# simulation runner** (D-031), `dotnet test` CI | Golden tests: Python == C#; deterministic fight logs; CI green |
+| **M1** | Core skeleton *(done: pure C# core, tests, CI, Unity 6.3 project; awaiting merge)* | Unity project + asmdefs, Game.Core with RNG, BalanceConfig (imported from JSON), StatCalculator, CombatEngine (basic attacks, crits, accuracy, armour, counter), **C# simulation runner** (D-031), `dotnet test` CI | Golden tests: Python == C#; deterministic fight logs; CI green |
 | **M2** | Playable fight loop | One region (5 subzones + boss), Fighter only, XP, levels, auto + manual points, gold, boss toggle, minimal combat view + HUD | Can play region 1 to its boss in the editor; animations on/off give identical results |
 | **M3** | Loot & inventory | Item generation, rarities, random attributes, 17 slots, inventory UI, equip / salvage / upgrade, shared inventory + one-owner rule, starter weapon | Statistical loot tests; D-004 tests; inventory UI usable at 360 × 640 dp |
 | **M4** | Save & offline | Save system (autosave, atomic write, backups, migrations framework), offline simulation + report, Android build on device | Kill-during-save test; offline exploit checklist; offline sim of 12 h in < 200 ms on test device |
@@ -22,7 +22,7 @@
 | **M9** | Pets & dungeons | 12 pets, 5 dungeons, tokens, chests, choose-outcome | Token pricing = ceil(1/p) tests; offline dungeons (D-039); token prices reachable within one run (D-023) |
 | **M10** | Content to region 25 | Hand-made regions 6–10 with bosses, accessories, scrolls; **region generator** (biome × family × palette templates, editor tool); generated connector regions 11–25 reviewed and shipped as data | Simulation: casual players reach the end of content no earlier than about day 30; full playthrough to region 25; generator output deterministic |
 | **M11** | Meta & polish | Achievements, onboarding/tutorial, settings, battery mode, cloud backup, export/import | Tutorial completion in internal test; cloud conflict UI |
-| **M12** | Monetisation & release prep | Gem shop (cosmetics, Time Flasks), IAP, **binary save codec** (D-030), store listing, closed test track | No paid power (checklist); closed test with ≥ 10 testers; crash-free ≥ 99.5% |
+| **M12** | Monetisation & release prep | Gem shop (cosmetics, Time Flasks), IAP, **binary save codec** (D-030), **final company name and Android package ID** (replace placeholder, D-042), store listing, closed test track | No paid power (checklist); package ID is no longer `com.dfirpg.placeholder`; closed test with ≥ 10 testers; crash-free ≥ 99.5% |
 
 ## Jira structure
 - Project key `DFIRPG`. Epic per milestone (`M1 Core skeleton` …). Stories per system. Tasks for code / tests / docs.

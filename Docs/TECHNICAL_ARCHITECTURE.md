@@ -94,7 +94,8 @@ dark-fantasy-idle-rpg/
 ├─ Docs/                     the 8 project documents
 ├─ Tools/BalanceSim/         Python reference simulation + Sheets exporter
 ├─ Tools/BalanceSim.CSharp/  C# simulation runner (links Game.Core)
-├─ Core.Tests.Dotnet/        .csproj that links Assets/_Game/Core/**/*.cs for `dotnet test`
+├─ Core.Tests.Dotnet/        .csproj that compiles Assets/_Game/Core and Assets/Tests/EditMode/Core for `dotnet test`
+├─ .github/workflows/        CI (core tests, golden freshness, simulation smoke runs)
 ├─ Packages/  ProjectSettings/
 ```
 

@@ -70,6 +70,13 @@
 | D-029 | **Dungeons:** one per 2 regions (5 in v1), 5 waves + boss (~3–5 min); **unlimited runs, no keys or stamina**, balanced to be less efficient than zones for XP and gold; tokens per dungeon; lootbox = 1 token; choose outcome = ceil(1/p) tokens | |
 | D-039 | **Dungeons run offline** at offline efficiency, if selected before leaving | Q-3 |
 
+## Approved — project setup (M1)
+| ID | Decision | Notes |
+|---|---|---|
+| D-040 | **Unity version pinned: 6000.3.29f1 (Unity 6.3 LTS)**, via `ProjectSettings/ProjectVersion.txt`. Upgrades are deliberate, logged decisions | Supersedes the generic "Unity 6 LTS" in D-010 |
+| D-042 | **Placeholder identity:** company "DFIRPG Placeholder", package ID `com.dfirpg.placeholder`. **Must be replaced in M12 before the first Google Play upload** (the package ID can never change after publishing) | Owner decision: choose with the final title |
+| D-041 | Project created from the **Universal 2D** template (URP 2D renderer, Input System, 2D animation packages). Android: IL2CPP, ARM64, min SDK 25 (template default). **Portrait only**, auto-rotation off; version 0.1.0 | Master spec: portrait orientation |
+
 ## Approved — 2026-11-19 (design review round 2: open items)
 Referenced in the GDD as **R2-n**. Numbers live in the `combat` section of `balance_config.json`.
 
