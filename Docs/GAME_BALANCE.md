@@ -215,7 +215,7 @@ A random attribute is worth +6% (damage, HP or another stat) and adds into its c
 | B-5 | Not simulated yet: pets, skills, dungeons and tokens, class/element modifiers, enchanting, multi-character catch-up | Added as systems are built (M5–M9) |
 | B-6 | **Mastery stacks fast:** +58% to +141% gold and drop chance after 30 days (active), growing with every new region | Review after M10 (P-002): cap the total or use 0.5% per star |
 | B-8 | (Partly addressed: prestige share threshold re-tested at 25% and 50%; 50% gives better results for casual players and is kept.) In seed 12345 the active profile stops at region 30 from day 19: the simulated policy only prestiges when the new dust is ≥ 50% of all dust earned, which becomes rare. Real players would keep resetting | Improve the simulated prestige policy (time-to-next-region based, like P-001) in M7 |
-| B-9 | **Launch content runs out fast.** First region-10 boss kill: active ≈ day 2, casual ≈ day 7, offline-focused ≈ day 10 (5 seeds). With 10 launch regions, most players reach the end of content in the first week or two | Raised as open question Q-9 |
+| B-9 | **Launch content runs out fast.** First region-10 boss kill: active ≈ day 2, casual ≈ day 7, offline-focused ≈ day 10 (5 seeds). With 10 launch regions, most players reach the end of content in the first week or two | **Resolved by R2-22:** launch with about 25 regions (region 25 ≈ day 15–20 active, beyond day 30 casual) |
 | B-7 | **Simulated players prestige too early** (regions 5–6, before their natural wall at about 12–15), so the first days look slower than never prestiging | Policy artefact, not a reward problem. Proposed P-001 "recommended prestige" hint in the UI |
 
 ### 9.3 Tuning history

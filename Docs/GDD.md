@@ -172,7 +172,7 @@ Enemies have exactly one element (or none = Physical). Elemental damage comes on
 
 ### 6.1 Rules
 - [SPEC] Slots: main hand, off-hand, helmet, chest, legs, boots, armguards, gloves, 2 rings, amulet, pet, 6 accessories.
-- [APPROVED R2-5] Accessory slots unlock (account-wide, permanent; the 6th is a locked teaser at launch) at region bosses 2, 4, 6, 8, 10 and 12 (a drip of new power and decisions).
+- [APPROVED R2-5] Accessory slots unlock (account-wide, permanent; with 25 launch regions all six are reachable at launch) at region bosses 2, 4, 6, 8, 10 and 12 (a drip of new power and decisions).
 - [SPEC] Fixed base stats that scale with item level. Each slot has a **pool of item types** (e.g. 3 helmet types with different stat lines; D-026, D-032). [APPROVED D-003] **Rarity also scales base stats** (Common 1.0 → Mythical 2.5).
 - [SPEC] Random attributes per rarity: 0/0/1/1/2/3.
 - [SPEC] Generic vs class-specific items. [APPROVED R2-6] Any class can equip any item; about 30% of drops are class items. Class items carry a bonus line (e.g. "+15% Cleave damage — Fighter only") that is inactive on other classes, shown greyed out.
@@ -214,7 +214,7 @@ Each Rare+ item has **one enchant socket**, separate from its random attributes.
 ### 8.1 Structure
 - [SPEC] Regions → **5 subzones** [APPROVED D-016] → region boss. Region N+1 unlocks when boss N is defeated.
 - [SPEC] Each subzone has an enemy family, element mix, archetype mix, level and loot table.
-- [APPROVED R2-10] Region definitions are data. Generated regions are produced in the editor and shipped as fixed data, never random at runtime. Region 1–10 are hand-authored for v1. Region 11+ can be **generated from templates** (family × element × biome palette), so content can reach hundreds of zones without new art for each one.
+- [APPROVED R2-10] Region definitions are data. Generated regions are produced in the editor and shipped as fixed data, never random at runtime. Region 1–10 are hand-authored for v1, and **launch adds about 15 generated connector regions (11–25)** [R2-22]. Region 11+ can be **generated from templates** (family × element × biome palette), so content can reach hundreds of zones without new art for each one.
 
 ### 8.2 Enemy families [SPEC]
 Humanoids, Beasts, Undead, Demons, Elementals, Constructs, Dragons. Data-driven, so new families can be added. Family traits [APPROVED R2-11, all data-driven]: Elementals −75% to their own element; Constructs require armour penetration (new gear/skill stat); Beasts have evasion, Constructs armour, Undead are Dark, Elementals have an element, Demons have high damage, Dragons high HP, and Humanoids are mixed archetypes.
@@ -336,4 +336,4 @@ Each slot has a **global pool** of item types that drop everywhere, and each reg
 
 | ID | Question | Status |
 |---|---|---|
-| Q-9 | Launch content runs out fast: active players beat region 10 in about 2 days, casual in about 1 week (GAME_BALANCE B-9) | Raised 2026-11-19, awaiting decision |
+| — | No open questions. Q-9 resolved by R2-22 (launch with about 25 regions). | — |

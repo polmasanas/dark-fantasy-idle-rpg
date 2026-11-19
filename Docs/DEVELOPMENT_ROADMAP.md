@@ -3,7 +3,7 @@
 > **Status:** v0.2. Jira project: `DFIRPG` (one epic per milestone). Each milestone is small, playable or testable, and gated by its acceptance criteria and the Definition of Done.
 
 ## MVP scope (v1.0)
-3 classes · Common branch + 3 specialised branches per class · **10 regions** (50 subzones) · 7 enemy families · 5 dungeons · 12 pets · 8 artifact types · crafting, enchanting, upgrading, salvaging · prestige · offline progression · saves (local, export/import, cloud backup) · achievements · cosmetics shop (gems) · Android only · English only (localisation-ready strings).
+3 classes · Common branch + 3 specialised branches per class · **about 25 regions** (10 hand-made + about 15 generated connectors; 125 subzones, R2-22) · 7 enemy families · 5 dungeons · 12 pets · 8 artifact types · crafting, enchanting, upgrading, salvaging · prestige · offline progression · saves (local, export/import, cloud backup) · achievements · cosmetics shop (gems) · Android only · English only (localisation-ready strings).
 **Not in v1:** online features, trading, events, guilds, iOS.
 
 ## Milestones
@@ -20,7 +20,7 @@
 | **M7** | Prestige & artifacts | Dust, artifacts, reset rules, Sigils + specialised branches | Prestige diff test; simulation re-run with real values |
 | **M8** | Crafting & enchanting | Crafting, enchant sockets, gold sinks | Gold spend ratio 70–90% in the simulation (B-2) |
 | **M9** | Pets & dungeons | 12 pets, 5 dungeons, tokens, chests, choose-outcome | Token pricing = ceil(1/p) tests; offline dungeons (D-039); token prices reachable within one run (D-023) |
-| **M10** | Content to region 10 | Regions 6–10, bosses, accessories, scrolls | Simulation: target pacing reached; full playthrough to region 10 |
+| **M10** | Content to region 25 | Hand-made regions 6–10 with bosses, accessories, scrolls; **region generator** (biome × family × palette templates, editor tool); generated connector regions 11–25 reviewed and shipped as data | Simulation: casual players reach the end of content no earlier than about day 30; full playthrough to region 25; generator output deterministic |
 | **M11** | Meta & polish | Achievements, onboarding/tutorial, settings, battery mode, cloud backup, export/import | Tutorial completion in internal test; cloud conflict UI |
 | **M12** | Monetisation & release prep | Gem shop (cosmetics, Time Flasks), IAP, **binary save codec** (D-030), store listing, closed test track | No paid power (checklist); closed test with ≥ 10 testers; crash-free ≥ 99.5% |
 

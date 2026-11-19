@@ -84,7 +84,7 @@ Referenced in the GDD as **R2-n**. Numbers live in the `combat` section of `bala
 | R2-3 | Repeat boss fights need K/2 kills; boss loot table only |
 | R2-3b | Data-driven milestone rewards: account-first (once ever) and run-first (once per run) on bosses, dungeons and prestige counts |
 | R2-4 | No level cap |
-| R2-5 | Accessory slots unlock at first-ever kills of bosses 2/4/6/8/10/12, account-wide; 6th slot is a locked teaser at launch |
+| R2-5 | Accessory slots unlock at first-ever kills of bosses 2/4/6/8/10/12, account-wide (all reachable at launch after R2-22) |
 | R2-6 | Any class equips any item; class bonus lines only work for their class (shown greyed out otherwise); ~30% of drops are class items |
 | R2-7 | Accessories: no item-level scaling, unique effects, rarity raises the effect, zone-exclusive drops, reset on prestige |
 | R2-8 | 1 skill point per 5 levels; gold respec mid-run, free on prestige; optional auto-spend preset |
@@ -100,12 +100,13 @@ Referenced in the GDD as **R2-n**. Numbers live in the `combat` section of `bala
 | R2-18 | Offline loot held and reported; **the game never equips items automatically** (owner); player-tapped "Equip all upgrades" button; auto-salvage filter applies |
 | R2-19 | Clock safety: rollback = no credit, forward jumps capped, repeated-jump detection via uptime clock, optional online time check |
 | R2-20 | Item-type pools: global pool + 1–3 regional themed types per slot; crafting includes themed types of regions unlocked this run (resolves Q-8) |
+| R2-22 | **Launch with about 25 regions:** 10 hand-made + about 15 editor-generated connector regions (resolves Q-9). Dungeons stay at 5 for launch (one per 2 hand-made regions); connector regions reuse existing dungeons |
 | R2-21 | Caps: hit chance 30–99%, **crit chance cap 100%** (owner; was 75%), crit damage uncapped (base 150%), damage reduction cap 75%, resist −50%…+75%, Luck `L/(L+200)`; fixed damage order (GDD §4.2); inventory 200 + 50 per gold expansion, no maximum |
 
 ## Proposed (new, awaiting approval)
 | ID | Proposal | Doc |
 |---|---|---|
-| Q-9 | How to handle launch content running out (region 10 in about 2 days active / 1 week casual) | GAME_BALANCE B-9 |
+| — | None open | — |
 
 ## Superseded
 _None yet._
