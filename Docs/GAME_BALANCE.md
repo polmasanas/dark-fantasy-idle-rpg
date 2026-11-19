@@ -141,7 +141,7 @@ A random attribute is worth +6% (damage, HP or another stat) and adds into its c
 |---|---|
 | Item drop chance per normal kill | 8% |
 | Slot weights | main hand ×3, every other slot ×1 (reduces weapon-drought variance) |
-| Boss drop | 1 guaranteed item, rarity ≥ Rare |
+| Boss drop | First kill of each boss **per run**: 1 guaranteed item, rarity ≥ Rare (M3-2). Later kills: 1 item at normal rarity odds |
 | Item level | = enemy level |
 | Luck | Rarity weights above Common get ×(1 + Luck/(Luck+200)), i.e. up to ×2, with diminishing returns |
 | Permanent scroll | 0.02% per kill (+1 to an attribute, permanent). Observed: 20–26 in 30 days for active players |
