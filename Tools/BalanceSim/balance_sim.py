@@ -86,6 +86,20 @@ class Formulas:
         return (self.ec["upgrade_cost_base"] * self.g["item_growth"] ** (ilvl - 1)
                 * self.ec["upgrade_cost_growth"] ** current_upgrade)
 
+    # 6.1 item stat lines (M3-4)
+    def item_line(self, base: float, scaling: str, per_item_level: float, ilvl: int, rarity: int, upgrade: int) -> float:
+        rm = self.g["rarity_base_mult"][rarity]
+        up = 1 + self.g["upgrade_base_pct"] * upgrade
+        if scaling == "exponential":
+            return base * self.g["item_growth"] ** (ilvl - 1) * rm * up
+        if scaling == "linear":
+            return (base + per_item_level * ilvl) * rm * up
+        if scaling == "rarity":
+            return base * rm * up
+        if scaling == "fixed":
+            return base
+        raise ValueError(scaling)
+
     # 2.8 prestige
     def dust_for_run(self, highest_boss_region: int) -> int:
         pr = self.pr
@@ -647,6 +661,14 @@ def export_golden(cfg: dict, path: str):
         for lvl in (0, 1, 5, 20, 39, 40):
             add("ArtifactCost", [name, lvl], f.artifact_cost(name, lvl))
             add("ArtifactMult", [name, lvl], f.artifact_mult(name, lvl))
+    for group, types in cfg["items"]["types"].items():
+        for t in types:
+            for i, line in enumerate(t["lines"]):
+                for ilvl in (1, 11, 60, 250):
+                    for rarity in (0, 2, 5):
+                        for up in (0, 3):
+                            add("ItemLine", [group, t["id"], i, ilvl, rarity, up],
+                                f.item_line(line["base"], line["scaling"], line["per_item_level"], ilvl, rarity, up))
     with open(path, "w") as fh:
         json.dump(rows, fh, indent=1, allow_nan=True)
     print(f"golden values: {len(rows)} rows -> {path}")
