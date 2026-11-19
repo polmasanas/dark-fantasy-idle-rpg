@@ -21,6 +21,7 @@ namespace DarkFantasy.Core.Config
         public PrestigeConfig Prestige { get; set; }
         public CombatConfig Combat { get; set; }
         public Dictionary<ClassId, ClassConfig> Classes { get; set; }
+        public ItemsConfig Items { get; set; }
 
         /// <summary>Preset name → attribute key ("primary" = class primary) → share of manual points.</summary>
         public Dictionary<string, Dictionary<string, double>> AllocationPresets { get; set; }

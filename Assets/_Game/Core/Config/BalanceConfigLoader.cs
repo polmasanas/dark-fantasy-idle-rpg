@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DarkFantasy.Core.Characters;
+using DarkFantasy.Core.Items;
 using DarkFantasy.Core.Stats;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -175,6 +176,7 @@ namespace DarkFantasy.Core.Config
                 },
                 Classes = Classes(Section(root, "classes")),
                 AllocationPresets = Presets(Section(root, "allocation_presets")),
+                Items = Items(Section(root, "items")),
             };
         }
 
@@ -224,6 +226,89 @@ namespace DarkFantasy.Core.Config
                 };
             }
             return result;
+        }
+
+        private static ItemsConfig Items(JObject items)
+        {
+            var typesSection = Section(items, "types", "items.types");
+            var types = new Dictionary<ItemKind, List<ItemTypeConfig>>();
+            foreach (ItemKind kind in Enum.GetValues(typeof(ItemKind)))
+            {
+                bool armour = kind >= ItemKind.Helmet && kind <= ItemKind.Gloves;
+                string key = armour ? "armour" : ItemKeys.Kind(kind);
+                string path = "items.types." + key;
+                if (!(Req(typesSection, "items.types", key) is JArray list))
+                    throw new BalanceConfigException(path + " must be an array");
+                var result = new List<ItemTypeConfig>();
+                foreach (JObject t in list)
+                {
+                    string id = Req(t, path, "id").Value<string>();
+                    var lines = new List<StatLineConfig>();
+                    foreach (JObject l in (JArray)Req(t, path + "." + id, "lines"))
+                    {
+                        string lp = path + "." + id + ".lines";
+                        lines.Add(new StatLineConfig
+                        {
+                            Stat = Stat(Req(l, lp, "stat").Value<string>(), lp),
+                            Base = D(l, lp, "base"),
+                            Scaling = Scaling(Req(l, lp, "scaling").Value<string>(), lp),
+                            PerItemLevel = D(l, lp, "per_item_level"),
+                        });
+                    }
+                    result.Add(new ItemTypeConfig { Id = id, Name = Req(t, path, "name").Value<string>(), Lines = lines });
+                }
+                types[kind] = result;
+            }
+
+            var attributes = new List<AttributeConfig>();
+            if (!(Req(items, "items", "attributes") is JArray pool))
+                throw new BalanceConfigException("items.attributes must be an array");
+            foreach (JObject a in pool)
+            {
+                string id = Req(a, "items.attributes", "id").Value<string>();
+                string path = "items.attributes." + id;
+                var kinds = new List<ItemKind>();
+                foreach (var k in (JArray)Req(a, path, "kinds"))
+                {
+                    if (!ItemKeys.TryKind((string)k, out var kind))
+                        throw new BalanceConfigException(path + ": unknown item kind '" + k + "'");
+                    kinds.Add(kind);
+                }
+                attributes.Add(new AttributeConfig
+                {
+                    Id = id,
+                    Stat = Stat(Req(a, path, "stat").Value<string>(), path),
+                    Min = D(a, path, "min"),
+                    Max = D(a, path, "max"),
+                    PerItemLevel = D(a, path, "per_item_level"),
+                    Kinds = kinds,
+                });
+            }
+
+            return new ItemsConfig
+            {
+                Types = types,
+                Attributes = attributes,
+                ClassItemShare = D(items, "items", "class_item_share"),
+                ClassBonusPctDamage = D(items, "items", "class_bonus_pct_damage"),
+                RarityRollBias = D(items, "items", "rarity_roll_bias"),
+                ExpansionCostBase = D(items, "items", "expansion_cost_base"),
+                ExpansionCostGrowth = D(items, "items", "expansion_cost_growth"),
+            };
+        }
+
+        private static GearStat Stat(string key, string path)
+        {
+            if (key == null || !ItemKeys.TryStat(key, out var s))
+                throw new BalanceConfigException(path + ": unknown stat '" + key + "'");
+            return s;
+        }
+
+        private static StatLineScaling Scaling(string key, string path)
+        {
+            if (key == null || !ItemKeys.TryScaling(key, out var s))
+                throw new BalanceConfigException(path + ": unknown scaling '" + key + "'");
+            return s;
         }
 
         private static Dictionary<string, Dictionary<string, double>> Presets(JObject presets)
