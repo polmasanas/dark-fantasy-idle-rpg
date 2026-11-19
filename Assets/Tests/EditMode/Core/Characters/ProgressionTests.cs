@@ -114,6 +114,20 @@ namespace DarkFantasy.Core.Tests.Characters
         }
 
         [Test]
+        public void Build_PlaceholderArmour_AddsSixCommonPieces()
+        {
+            var c = Fighter();
+            var none = new CharacterStatsBuilder(TestConfig.Load()).Build(c);
+            Assert.AreEqual(0.0, none.GearArmour);
+            Assert.AreEqual(0.0, none.GearHp);
+            c.PlaceholderArmourItemLevel = 10;
+            var i = new CharacterStatsBuilder(TestConfig.Load()).Build(c);
+            double growth = System.Math.Pow(1.07, 9);
+            Assert.AreEqual(6 * 6.0 * growth, i.GearArmour, 1e-9);
+            Assert.AreEqual(6 * 12.0 * growth, i.GearHp, 1e-9);
+        }
+
+        [Test]
         public void Build_WeaponScalesWithItemLevel()
         {
             var c = Fighter();

@@ -23,6 +23,12 @@ namespace DarkFantasy.Core.Characters
         /// </summary>
         public double WeaponItemLevel = 1;
 
+        /// <summary>
+        /// Development placeholder until loot exists (M3): when above 0, six Common armour pieces
+        /// at this item level. 0 = no armour, the real starting state.
+        /// </summary>
+        public double PlaceholderArmourItemLevel;
+
         public static CharacterState Create(ClassId cls)
         {
             var c = new CharacterState { Class = cls };
