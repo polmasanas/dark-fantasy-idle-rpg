@@ -71,10 +71,10 @@ Fractional growth is tracked as an exact integer cycle over 4 levels (12 points)
 | Max HP | `(100 + Σ gear HP) · (1 + 0.02·VIT) · (1 + Σ%hp) · ArtifactBulwark` |
 | Armour | `Σ gear armour · (1 + 0.01·DEF)` |
 | Damage reduction | `min(0.75, Armour / (Armour + 40·1.07^(L_enemy−1)))` (relative to the enemy's level) |
-| Crit chance | `min(0.75, 0.05 + 0.002·CritPoints)` |
+| Crit chance | `min(1.00, 0.05 + 0.002·CritPoints)` (cap 100%, R2-21) |
 | Crit damage | `1.5 + 0.005·CritPoints` (+0.01 per manual CRIT_DMG point) |
 | Hit chance | `clamp(0.92 · Acc/(Acc + Eva/4) …)`. **Simulation uses a flat 0.92**; full formula in GDD §4.4 |
-| Attack interval | 1.6 s base, `/(1 + Σ%attack speed)`, floor 0.4 s |
+| Attack interval (R2-1b) | class base (Fighter 3.0 s, Archer 2.2 s, Mage 3.4 s) `/(1 + Σ%attack speed)`, floor 0.35 s. Damage per hit × `base/1.6`, so early TTK equals the old 1.6 s model. Haste artifact: +5% attack speed/level, max 40, cost `50 · 1.7^level` |
 | Counter (D-033) | `min(0.40, 0.004·CounterPoints)` chance per enemy hit taken → immediate extra attack at 60% damage |
 | Catch-up XP (D-024) | +50% XP while below the highest character's level |
 | Secondary attributes | DEX: +0.5% accuracy and +0.2% attack speed per point (all classes). INT: +1% elemental damage per point. Luck: see §6.3 |
@@ -98,7 +98,9 @@ The game engine simulates every swing as discrete events (GDD §4.5). For balanc
 swings = ceil(EnemyHP / AvgHit) / HitChance,  AvgHit = Hit·(1 + CC·(CD−1))
 TTK    = swings · Interval
 TTD    = PlayerHP / (EnemyAtk · (1 − DR) / EnemyInterval)
-Win ⇔ TTK < TTD (and TTK ≤ 60 s for bosses).   +0.6 s between fights.
+Normal enemy: never kills the player (R2-1c); Win ⇔ TTK ≤ 30 s escape timer, else no reward;
+          5 escapes in a row → retreat one subzone.
+Boss: Win ⇔ TTK < TTD and TTK ≤ 60 s.   +0.6 s between fights.
 Counter: TTK /= 1 + (Counter·0.6·AvgHit·Hit/EnemyInterval) / (AvgHit·Hit/Interval)
 ```
 
@@ -183,16 +185,18 @@ A random attribute is worth +6% (damage, HP or another stat) and adds into its c
 
 ---
 
-## 9. Simulation results (30 days, 7 seeds, `results/SEEDS.md`; includes D-033 Counter, D-036 mastery, D-037 ×3 first dust)
+## 9. Simulation results (30 days, 7 seeds, `results/SEEDS.md`; includes round-2 rules: slow class attacks, Haste, no death in normal fights + escape timer, 100% crit cap, extra drops above 100%)
 
 | Profile | Behaviour | Prestiges (median) | Best region boss: min / median / max | Day 7 best (median) |
 |---|---|---:|---:|---:|
-| **active** | 4 × 45 min/day, continuous upgrades | 20 | 27 / **30** / 36 | 16 |
-| **optimiser** | active + balanced stat points | 20 | 27 / **30** / 33 | 16 |
-| **casual** | 3 × 10 min/day | 15 | 21 / **23** / 24 | 9 |
-| **farmer** | casual, farms 1 region back when stuck | 14 | 19 / **21** / 24 | 9 |
-| **offline-focused** | 2 × 3 min/day, 12 h gaps | 10 | 15 / **17** / 18 | 5 |
+| **active** | 4 × 45 min/day, continuous upgrades | 24 | 36 / **39** / 44 | 17 |
+| **optimiser** | active + balanced stat points | 25 | 33 / **39** / 40 | 16 |
+| **casual** | 3 × 10 min/day | 15 | 22 / **23** / 23 | 9 |
+| **farmer** | casual, farms 1 region back when stuck | 14 | 19 / **21** / 22 | 9 |
+| **offline-focused** | 2 × 3 min/day, 12 h gaps | 10 | 16 / **17** / 19 | 6 |
 | **never prestige** | active, never resets | 0 | 14 / **16** / 17 | 14 |
+
+**Round-2 effect:** Haste is the largest new power source (active players own about 20 levels = +100% attack speed by day 30), which moved active players from region 30 to about 39. Casual and offline players are unchanged. The isolation runs: without Haste, active players reach 32; with Haste at the first proposed price (10 × 1.3^level), 45.
 
 ### 9.1 What works
 - **Prestige clearly beats never prestiging:** 30 vs 16 regions at day 30 for the same play time. Never-prestige stalls by day 4–5.
@@ -210,7 +214,8 @@ A random attribute is worth +6% (damage, HP or another stat) and adds into its c
 | B-4 | Quick combat estimate off by up to 16% | Accepted; the C# simulation (D-031) uses the real engine |
 | B-5 | Not simulated yet: pets, skills, dungeons and tokens, class/element modifiers, enchanting, multi-character catch-up | Added as systems are built (M5–M9) |
 | B-6 | **Mastery stacks fast:** +58% to +141% gold and drop chance after 30 days (active), growing with every new region | Review after M10 (P-002): cap the total or use 0.5% per star |
-| B-8 | In seed 12345 the active profile stops at region 30 from day 19: the simulated policy only prestiges when the new dust is ≥ 50% of all dust earned, which becomes rare. Real players would keep resetting | Improve the simulated prestige policy (time-to-next-region based, like P-001) in M7 |
+| B-8 | (Partly addressed: prestige share threshold re-tested at 25% and 50%; 50% gives better results for casual players and is kept.) In seed 12345 the active profile stops at region 30 from day 19: the simulated policy only prestiges when the new dust is ≥ 50% of all dust earned, which becomes rare. Real players would keep resetting | Improve the simulated prestige policy (time-to-next-region based, like P-001) in M7 |
+| B-9 | **Launch content runs out fast.** First region-10 boss kill: active ≈ day 2, casual ≈ day 7, offline-focused ≈ day 10 (5 seeds). With 10 launch regions, most players reach the end of content in the first week or two | Raised as open question Q-9 |
 | B-7 | **Simulated players prestige too early** (regions 5–6, before their natural wall at about 12–15), so the first days look slower than never prestiging | Policy artefact, not a reward problem. Proposed P-001 "recommended prestige" hint in the UI |
 
 ### 9.3 Tuning history

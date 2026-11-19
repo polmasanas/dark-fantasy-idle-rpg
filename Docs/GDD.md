@@ -85,11 +85,11 @@ flowchart LR
 ### 4.1 Rules
 - [SPEC] Combat logic runs in the core simulation. Animations only *display* events. With animations off, the same results come out.
 - [APPROVED D-013] **Event-driven resolution:** each combatant schedules its next action at `t + interval`. The engine processes events in time order, which avoids per-frame ticking. Online, events are released to the UI in real time; offline, they are processed instantly.
-- [PROPOSED] One enemy at a time. The next enemy spawns 0.6 s after a kill.
+- [APPROVED R2-1] One enemy at a time. The next enemy spawns 0.6 s after a kill.
 - [APPROVED D-018] **HP fully restores between normal fights.** There is no healing economy in v1. Bosses and dungeon bosses are fought at full HP.
-- [PROPOSED] **Defeat in a normal fight:** the character retreats one subzone and continues farming, and the "push" resumes automatically after 60 s. No death penalty beyond lost time.
+- [APPROVED R2-1c] **No death against normal enemies.** HP cannot drop below 1 in normal fights and refills after each fight; enemy hits still trigger Counter. **Escape timer:** a normal enemy not killed within 30 s escapes (no rewards). After 5 escapes in a row the character retreats one subzone; the push retries after 60 s. HP and defensive stats matter in region boss fights and dungeons only (§10).
 
-### 4.2 Damage pipeline [PROPOSED, implementation detail]
+### 4.2 Damage pipeline [APPROVED R2-21]
 Each hit is split into **components** (Physical plus any elemental damage from gear or skills). Each component is multiplied separately:
 
 ```
@@ -129,18 +129,18 @@ Strong = **×1.5**, Weak = **×0.75**, Neutral = ×1.0. Rows are attack elements
 
 Enemies have exactly one element (or none = Physical). Elemental damage comes only from gear and skills [SPEC].
 
-### 4.5 Accuracy, crit, speed, counter [PROPOSED numbers; Counter APPROVED D-033]
+### 4.5 Accuracy, crit, speed, counter [APPROVED R2-21, D-033]
 - `HitChance = clamp(0.92 · Acc / (Acc + Eva/4), 0.30, 0.99)`. Accuracy comes from DEX and gear; evasion is an enemy stat that rises in "agile" families (Beasts).
-- Crit: chance cap 75%, base damage 150%.
-- Attack interval floor 0.4 s, so attack speed can't run away.
+- Crit: chance cap **100%** [APPROVED R2-21] (guaranteed crits reachable; overflow wasted), base damage 150%, no crit damage cap.
+- [APPROVED R2-1b] **Attack interval:** `class base ÷ (1 + Σ attack speed %)`, floor **0.35 s**. Class bases: Fighter **3.0 s**, Archer **2.2 s**, Mage **3.4 s**; damage per hit is scaled by `base ÷ 1.6` so early time-to-kill is unchanged. Attack speed comes from DEX (+0.2%/pt), gear affixes and enchants, accessories, skills (≤ +30%), pets and the **Haste** artifact (+5%/level, max 40). The formula has built-in diminishing returns.
 - **Counter:** each time the character is hit, a `CounterChance` roll triggers an immediate extra attack at 60% damage. It doesn't reset or delay the attack timer. Counters can crit but cannot trigger further counters.
 
 ### 4.6 Boss encounters
 - [SPEC] Available after K(r) kills in the region's last subzone (GAME_BALANCE §2).
 - [SPEC] Toggle **"Fight boss when available"** (default ON). When OFF, the character farms the last subzone indefinitely.
-- [PROPOSED, simulated] **60 s time limit** (enrage). Failure returns the character to farming, with automatic retry every 60 s while the toggle is ON.
+- [APPROVED R2-2] **60 s time limit** (enrage). Failure returns the character to farming, with automatic retry every 60 s while the toggle is ON.
 - [APPROVED D-006] Bosses can be fought **offline** under the same rules.
-- [SPEC] Defeated bosses are **repeatable**. [PROPOSED] Repeat fights need K(r)/2 kills in that region's last subzone; boss loot table only (no repeat unlock rewards).
+- [SPEC] Defeated bosses are **repeatable**. [APPROVED R2-3] Repeat fights need K(r)/2 kills in that region's last subzone; boss loot table only (no repeat unlock rewards).
 
 **Acceptance (combat):** same seed + same state ⇒ identical event log. Toggling animations doesn't change any reward. All multipliers have unit tests at their boundaries.
 
@@ -152,7 +152,7 @@ Enemies have exactly one element (or none = Physical). Elemental damage comes on
 - [SPEC] Attributes: STR, DEX, INT, VIT, DEF, Critical Chance, Critical Damage, Luck, + [APPROVED D-033] **Counter**. More can be added as data (`AttributeDefinition`, D-032).
 - [APPROVED D-014] **75 / 25:** 4 points per level, **3 automatic** by class template (D-034) and **1 manual** (GAME_BALANCE §4.1). An **auto-allocate** button spends unspent manual points according to a preset the player picks (e.g. "Primary", "Balanced", "Tank", custom ratios).
 - [APPROVED] Manual points can be respecced for gold (cost scales with level). They reset for free on prestige.
-- [PROPOSED] No level cap. XP curve in GAME_BALANCE §4.3.
+- [APPROVED R2-4] No level cap. XP curve in GAME_BALANCE §4.3.
 
 | Attribute | Effect |
 |---|---|
@@ -172,16 +172,16 @@ Enemies have exactly one element (or none = Physical). Elemental damage comes on
 
 ### 6.1 Rules
 - [SPEC] Slots: main hand, off-hand, helmet, chest, legs, boots, armguards, gloves, 2 rings, amulet, pet, 6 accessories.
-- [PROPOSED] Accessory slots unlock at region bosses 2, 4, 6, 8, 10 and 12 (a drip of new power and decisions).
+- [APPROVED R2-5] Accessory slots unlock (account-wide, permanent; the 6th is a locked teaser at launch) at region bosses 2, 4, 6, 8, 10 and 12 (a drip of new power and decisions).
 - [SPEC] Fixed base stats that scale with item level. Each slot has a **pool of item types** (e.g. 3 helmet types with different stat lines; D-026, D-032). [APPROVED D-003] **Rarity also scales base stats** (Common 1.0 → Mythical 2.5).
 - [SPEC] Random attributes per rarity: 0/0/1/1/2/3.
-- [SPEC] Generic vs class-specific items. [PROPOSED] Class items carry a bonus line (e.g. "+15% Cleave damage — Fighter only") that is inactive on other classes, shown greyed out.
+- [SPEC] Generic vs class-specific items. [APPROVED R2-6] Any class can equip any item; about 30% of drops are class items. Class items carry a bonus line (e.g. "+15% Cleave damage — Fighter only") that is inactive on other classes, shown greyed out.
 - [APPROVED D-015] **Starter kit:** each class starts every run with a Common level 1 class weapon. Main-hand items have drop weight ×3.
 
 ### 6.2 Item model
 `ItemInstance { id, definitionId, itemLevel, rarity, upgradeLevel, randomAffixes[], enchant?, locked, equippedBy? }`. Definitions (ScriptableObjects) say which slot, base stat lines and class bonus an item has. The off-hand can be a weapon (35% damage) or a shield (armour + block chance).
 
-### 6.3 Accessories [PROPOSED]
+### 6.3 Accessories [APPROVED R2-7]
 Six utility slots with unique effects, e.g. *Rope* (+5% gold), *Silver Cross* (+20% damage vs Undead), *Clockwork Gear* (+3% attack speed), *Lucky Dice* (+10 Luck). There is no item-level scaling, so accessories are a horizontal, collection-driven layer.
 
 ### 6.4 Upgrading — gold, +5% base stats per level, max by rarity (GAME_BALANCE §6.4).
@@ -190,7 +190,7 @@ Six utility slots with unique effects, e.g. *Rope* (+5% gold), *Silver Cross* (+
 ### 6.7 Enchanting [APPROVED D-027]
 Each Rare+ item has **one enchant socket**, separate from its random attributes. Enchanting rolls an enchant from the item's slot table and costs materials + gold. Re-enchanting replaces it. **Each enchant on the same item multiplies its next gold cost by 1.5** (`enchantCount` stored on the item), which makes it the escalating late-game gold sink (finding B-2). Items keep their enchant when upgraded.
 
-**Edge cases:** the inventory is full (200 slots, expandable with gold) → new drops are auto-salvaged by the filter and appear in the report, never silently lost. A locked item cannot be salvaged.
+**Edge cases:** the inventory is full (200 slots, +50 per gold expansion, no maximum [R2-21]) → new drops are auto-salvaged by the filter and appear in the report, never silently lost. A locked item cannot be salvaged.
 **Acceptance:** item generation is deterministic per seed. Rarity frequency over 1M rolls stays within statistical tolerance (chi-square p > 0.01).
 
 ---
@@ -200,9 +200,9 @@ Each Rare+ item has **one enchant socket**, separate from its random attributes.
 **Rules**
 - [SPEC] Per class: **Common branch** (available) + **Offence / Defence / Utility** (unlocked by prestige), with class-adapted skills.
 - [SPEC] Skills are passive effects or automatic combat abilities.
-- [PROPOSED] **Skill points:** 1 per 5 levels. They reset with levels on prestige; tree *unlocks* are permanent.
+- [APPROVED R2-8] **Skill points:** (gold respec mid-run, free on prestige, optional auto-spend preset) 1 per 5 levels. They reset with levels on prestige; tree *unlocks* are permanent.
 - [APPROVED D-028] **Branch unlock:** Branches unlock with an artifact called **Sigil**, bought with Artifact Dust. The first branch for a class costs 15 dust, the second 100, the third 1 000. Unlocks are per class and permanent.
-- [PROPOSED] **Active skills:** up to 3 equipped, fired automatically on cooldown (priority order set by the player). Example Fighter Common branch: *Heavy Swing* (active, 250% damage, 8 s cooldown), *Toughness* (passive, +HP%), *Second Wind* (passive, heal 20% when below 30%, once per fight).
+- [APPROVED R2-9] **Active skills:** (cooldowns in real seconds, cooldown reduction cap 50%, optional slot conditions in a later milestone) up to 3 equipped, fired automatically on cooldown (priority order set by the player). Example Fighter Common branch: *Heavy Swing* (active, 250% damage, 8 s cooldown), *Toughness* (passive, +HP%), *Second Wind* (passive, heal 20% when below 30%, once per fight).
 - Each branch has about 12 nodes in 4 tiers. A tier needs 5 points spent in the branch.
 
 **Acceptance:** skill effects come only from data (`SkillDefinition` + effect components). Unlocks survive prestige; points don't.
@@ -214,10 +214,10 @@ Each Rare+ item has **one enchant socket**, separate from its random attributes.
 ### 8.1 Structure
 - [SPEC] Regions → **5 subzones** [APPROVED D-016] → region boss. Region N+1 unlocks when boss N is defeated.
 - [SPEC] Each subzone has an enemy family, element mix, archetype mix, level and loot table.
-- [PROPOSED] Region definitions are data. Region 1–10 are hand-authored for v1. Region 11+ can be **generated from templates** (family × element × biome palette), so content can reach hundreds of zones without new art for each one.
+- [APPROVED R2-10] Region definitions are data. Generated regions are produced in the editor and shipped as fixed data, never random at runtime. Region 1–10 are hand-authored for v1. Region 11+ can be **generated from templates** (family × element × biome palette), so content can reach hundreds of zones without new art for each one.
 
 ### 8.2 Enemy families [SPEC]
-Humanoids, Beasts, Undead, Demons, Elementals, Constructs, Dragons. Data-driven, so new families can be added. Family traits [PROPOSED]: Beasts have evasion, Constructs armour, Undead are Dark, Elementals have an element, Demons have high damage, Dragons high HP, and Humanoids are mixed archetypes.
+Humanoids, Beasts, Undead, Demons, Elementals, Constructs, Dragons. Data-driven, so new families can be added. Family traits [APPROVED R2-11, all data-driven]: Elementals −75% to their own element; Constructs require armour penetration (new gear/skill stat); Beasts have evasion, Constructs armour, Undead are Dark, Elementals have an element, Demons have high damage, Dragons high HP, and Humanoids are mixed archetypes.
 
 ### 8.3 Kill requirements — `K(r) = min(100, 10 + 5(r−1))` per subzone.
 ### 8.4 Rare drops — loot tables support probabilities down to 0.01% (doubles; RNG tested, §TESTING).
@@ -233,8 +233,8 @@ Old zones keep their value through:
 
 - [SPEC] Collectible, start at level 1, have rarities, give passive bonuses, are upgraded with dungeon-only items, and get active effects at higher rarity. The collection is shared.
 - [APPROVED D-004] One equipped per character; a pet can be equipped by one character at a time.
-- [PROPOSED] **Pet Soul Shards** (per pet) and **Pet Essence** (generic) drop only in dungeons. Level-up costs Essence. Every 10 levels needs Shards ("star" breakpoints).
-- [PROPOSED] Active effects from Epic+: e.g. 10% chance to attack twice, cleave 30% of overkill to the next enemy, +5% crit chance, +10% item drop rate.
+- [APPROVED R2-12] Max pet level 50 (5 stars × 10). 10 Soul Shards summon an unowned pet; duplicates convert into Shards. **Effective pet level = min(pet level, wearer's level).** **Pet Soul Shards** (per pet) and **Pet Essence** (generic) drop only in dungeons. Level-up costs Essence. Every 10 levels needs Shards ("star" breakpoints).
+- [APPROVED R2-13] Active effects from Epic+ (Legendary stronger, Mythical adds a second passive; cleave carries at most 50% of overkill): e.g. 10% chance to attack twice, cleave 30% of overkill to the next enemy, +5% crit chance, +10% item drop rate.
 - v1: 12 pets (2 Common, 3 Uncommon, 3 Rare, 2 Epic, 1 Legendary, 1 Mythical).
 - Pets survive prestige [APPROVED D-023], including unspent Pet Essence and Soul Shards.
 
@@ -261,8 +261,8 @@ Old zones keep their value through:
 - [SPEC] It keeps artifacts, permanent scrolls, cosmetics and prestige-exclusive equipment. [APPROVED D-023] It also keeps the pet collection (with Essence and Shards), skill-tree unlocks, gems, achievements, statistics and subzone mastery.
 - [APPROVED D-023] Gold, materials, **dungeon tokens**, inventory and dungeon unlocks reset.
 - [APPROVED D-021] Unlocks after defeating the region 4 boss. [APPROVED D-037] The first 3 prestiges give **×3 dust**.
-- [PROPOSED P-001] A "recommended prestige" hint compares the dust gain with the time to the next region. Dust formula in GAME_BALANCE §8.
-- [PROPOSED] **Confirmation screen** lists exactly what resets and what's kept, plus the dust gain and the gain ratio vs current dust.
+- [APPROVED R2-15] The prestige button shows **numbers only**: dust now, dust at the next region boss, estimated time to reach it. No verdict. Dust formula in GAME_BALANCE §8.
+- [APPROVED R2-14] **Confirmation screen** (with warnings such as unspent dungeon tokens and equipped gear; **hold-to-confirm by default, a setting switches to tap**; opens the artifact shop afterwards) lists exactly what resets and what's kept, plus the dust gain and the gain ratio vs current dust.
 
 **v1 artifacts [APPROVED D-022]**
 | Artifact | Effect per level |
@@ -275,6 +275,7 @@ Old zones keep their value through:
 | Fortune | +2% item drop chance (additive, max +50%) |
 | Sigils (×3 per class) | Unlock a skill branch (§7) |
 | Swiftness | Start new runs with region N unlocked (N = level × 2, max = 50% of best) |
+| Haste [R2-1b] | +5% attack speed per level, max level 40 (+200%); cost 50 × 1.7^level |
 
 **Prestige-exclusive equipment [APPROVED D-038]:** **item level = the wearer's level**, so it never gets outdated. **Extremely rare:** about 0.05% per region boss kill, from prestige 3 onward. **Strong but situational** effects (e.g. +60% vs Undead, +40% in boss fights, first hit always crits, +30% damage below 50% HP). Base stats are modest (×1.2), so normal drops remain better in general play.
 
@@ -292,7 +293,7 @@ Old zones keep their value through:
 | Artifact Dust | prestige | artifacts | kept |
 | Dungeon Tokens (×dungeon) | dungeon runs | that dungeon's chests | kept |
 
-[APPROVED D-001] **Gems** never buy equipment, stats or permanent power. **Speedups** are "pay to progress faster, never further" (D-001). [PROPOSED] A speedup = **Time Flask**: instantly simulates N hours at offline efficiency (it doesn't bypass the offline cap mechanics). Earnable for free through achievements.
+[APPROVED D-001] **Gems** never buy equipment, stats or permanent power. **Speedups** are "pay to progress faster, never further" (D-001). [APPROVED R2-17] A speedup = **Time Flask** (1 h / 4 h / 8 h; daily limit 24 h, configurable, unlimited in development builds): instantly simulates N hours at offline efficiency (it doesn't bypass the offline cap mechanics). Earnable for free through achievements.
 
 ---
 
@@ -300,8 +301,8 @@ Old zones keep their value through:
 
 - [SPEC] Kills, gold, drops, materials, XP, boss kills [D-006], dungeon runs [D-039], elapsed time. Capped, less efficient than active play.
 - [APPROVED D-020] 50% efficiency, 12 h cap (Hourglass up to 24 h). Uses the **same engine** as active play, so there's one code path.
-- [PROPOSED] Loot is held during offline time. On return, the **offline report** shows time away, time credited, kills, bosses, levels, gold, materials, items by rarity, auto-salvaged count, scrolls found. Then "Collect".
-- [PROPOSED] **Clock safety:** if the device clock is earlier than the last save, credit 0 and resync. Clock jumps beyond the cap are clamped by design.
+- [APPROVED R2-18] Loot is held during offline time. **The game never equips items automatically** (online or offline); upgrades are highlighted, with a player-tapped "Equip all upgrades" button. On return, the **offline report** shows time away, time credited, kills, bosses, levels, gold, materials, items by rarity, auto-salvaged count, scrolls found. Then "Collect".
+- [APPROVED R2-19] **Clock safety:** (plus repeated-jump detection via the device uptime clock, and an optional online time check) if the device clock is earlier than the last save, credit 0 and resync. Clock jumps beyond the cap are clamped by design.
 
 ---
 
@@ -312,12 +313,27 @@ Old zones keep their value through:
 
 ---
 
-## 15. Open questions
+## 15. Additional rules approved in design review round 2 (2026-11-19)
 
-All of Q-1…Q-7 were answered on 2026-11-19 (see DECISIONS.md). Remaining:
+### 15.1 Dungeons are survival runs [R2-1c, R2-1d]
+- **Every** dungeon enemy deals real damage. HP carries over between waves and is **not** restored between waves (boss included). Healing only comes from the build (lifesteal, *Second Wind*, pets).
+- Each cleared wave pays its tokens and materials immediately. The **boss chest** (Rare+ items, Pet Shards, pets) pays only on a full clear.
+- Death ends the run. Auto-repeat continues regardless of failures (no automatic stop, owner decision); the offline report shows failures prominently (e.g. "Crypt: 14 runs, 14 failed at wave 4").
+
+### 15.2 Milestone rewards [R2-3b]
+Any region boss, dungeon or prestige count can carry a data-defined **guaranteed reward table** of two kinds:
+- **Account-first:** paid once ever, survives prestige (pets, prestige-exclusive items, accessory slot unlocks).
+- **Run-first:** paid once per run (e.g. a guaranteed Rare+ weapon at the region 4 boss, a Legendary at region 10).
+Unclaimed rewards show an icon on the boss or dungeon screen.
+
+### 15.3 Item-type pools [R2-20, resolves Q-8]
+Each slot has a **global pool** of item types that drop everywhere, and each region adds **1–3 themed types** that only drop there. Crafting picks from the global pool plus the themed types of regions unlocked in the current run.
+
+### 15.4 Mastery stays uncapped [R2-16]
++1% gold and +1% drop chance per mastery star, no cap. Future content is tuned with this in mind. If total item drop chance exceeds 100%, the excess becomes extra drops (150% = 1 guaranteed + 50% chance of a second).
+
+## 16. Open questions
 
 | ID | Question | Status |
 |---|---|---|
-| Q-8 | Does each region restrict the item-type pool for drops and crafting? | Decide with Creative Direction |
-| P-001 | "Recommended prestige" indicator | Proposed |
-| P-002 | Mastery bonus tuning | Review after M10 simulation |
+| Q-9 | Launch content runs out fast: active players beat region 10 in about 2 days, casual in about 1 week (GAME_BALANCE B-9) | Raised 2026-11-19, awaiting decision |

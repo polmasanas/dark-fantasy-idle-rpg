@@ -94,10 +94,17 @@ class Formulas:
         return int(pr["dust_base"] * pr["dust_growth_per_region"] ** (highest_boss_region - pr["min_region_boss"]))
 
     def artifact_cost(self, name: str, level: int) -> float:
+        if name == "haste":
+            c = self.c["combat"]
+            if level >= c["haste_max_level"]:
+                return float("inf")
+            return c["haste_cost_base"] * c["haste_cost_growth"] ** level
         a = self.pr["artifacts"][name]
         return a["cost_base"] * a["cost_growth"] ** level
 
     def artifact_mult(self, name: str, level: int) -> float:
+        if name == "haste":  # additive attack speed, used as a multiplier on attack rate
+            return 1 + self.c["combat"]["haste_per_level"] * level
         a = self.pr["artifacts"][name]
         return (1 + a["per_level"]) ** level
 
@@ -120,7 +127,7 @@ class Item:
 class Meta:  # survives prestige
     dust: float = 0.0
     dust_total: float = 0.0
-    artifacts: dict = field(default_factory=lambda: {"might": 0, "bulwark": 0, "greed": 0, "wisdom": 0})
+    artifacts: dict = field(default_factory=lambda: {"might": 0, "bulwark": 0, "greed": 0, "wisdom": 0, "haste": 0})
     scrolls_primary: int = 0
     prestiges: int = 0
     kills_by_subzone: dict = field(default_factory=dict)  # global subzone index -> kills (mastery)
@@ -221,7 +228,12 @@ class Sim:
         crit_pts += tot["crit_pts"]
         art = self.meta.artifacts
         dmg_mult = (1 + primary * p["dmg_per_primary_pct"]) * (1 + tot["pct_dmg"]) * f.artifact_mult("might", art["might"])
-        hit_dmg = max(3.0, tot["wdmg"]) * dmg_mult
+        cb = self.cfg["combat"]
+        base_iv = cb["base_interval_fighter"]
+        class_dmg_scale = base_iv / cb["reference_interval_s"]  # keeps early TTK unchanged
+        hit_dmg = max(3.0, tot["wdmg"]) * dmg_mult * class_dmg_scale
+        attack_speed = self.f.artifact_mult("haste", art["haste"]) - 1
+        interval = max(cb["attack_interval_floor_s"], base_iv / (1 + attack_speed))
         cc = min(p["crit_chance_cap"], p["base_crit_chance"] + crit_pts * p["crit_chance_per_point"])
         cd = p["base_crit_damage"] + crit_pts * p["crit_damage_per_point"] * 0.5
         avg_hit = hit_dmg * (1 + cc * (cd - 1))
@@ -229,7 +241,7 @@ class Sim:
             * f.artifact_mult("bulwark", art["bulwark"])
         armour = tot["armour"] * (1 + dfn * p["armour_pct_per_def"])
         counter = min(p["counter_cap"], counter_pts * p["counter_chance_per_point"])
-        return {"avg_hit": avg_hit, "hp": hp, "armour": armour, "interval": p["base_attack_interval_s"],
+        return {"avg_hit": avg_hit, "hp": hp, "armour": armour, "interval": interval,
                 "hit": p["base_hit_chance"], "cc": cc, "cd": cd, "counter": counter}
 
     @property
@@ -256,7 +268,12 @@ class Sim:
         dr = min(p["damage_reduction_cap"], s["armour"] / (s["armour"] + f.armour_k(enemy_lvl)))
         edps = f.enemy_atk(enemy_lvl, boss) * (1 - dr) / e["attack_interval_s"]
         ttd = s["hp"] / edps
-        limit = e["boss_time_limit_s"] if boss else float("inf")
+        if not boss:  # round 2, item 1c: no death vs normal enemies; enemies escape after a timer
+            esc = self.cfg["combat"]["escape_timer_s"]
+            if ttk <= esc:
+                return True, ttk + p["between_fight_s"]
+            return False, esc + p["between_fight_s"]
+        limit = e["boss_time_limit_s"]
         if ttk < ttd and ttk <= limit:
             return True, ttk + p["between_fight_s"]
         return False, min(ttd, limit) + p["between_fight_s"]
@@ -378,13 +395,17 @@ class Sim:
         lvl = f.subzone_level(region, sub)
         win, sec = self.fight(lvl)
         if not win:
-            # cannot clear current subzone: retreat one subzone (if possible) and mark stuck
-            if r.stuck_since is None:
-                r.stuck_since = self.t
-            if r.sub > 1:
-                r.sub -= 1
-                r.kills_in_sub = kreq
+            # enemy escaped; after N escapes in a row retreat one subzone (round 2, item 1c)
+            self._escapes = getattr(self, "_escapes", 0) + 1
+            if self._escapes >= self.cfg["combat"]["escapes_before_retreat"]:
+                self._escapes = 0
+                if r.stuck_since is None:
+                    r.stuck_since = self.t
+                if r.sub > 1:
+                    r.sub -= 1
+                    r.kills_in_sub = kreq
             return sec
+        self._escapes = 0
         self.on_kill(lvl, region == r.region and sub == r.sub, can_manage, pending)
         return sec
 
@@ -405,7 +426,9 @@ class Sim:
         m_gold, m_drop = self._mastery
         self.gain_xp(f.enemy_xp(lvl, r.level))
         self.gain_gold(f.gold_drop(lvl) * (1 + m_gold))
-        if self.rng.random() < g["drop_chance_normal"] * (1 + m_drop):
+        chance = g["drop_chance_normal"] * (1 + m_drop)
+        n_drops = int(chance) + (1 if self.rng.random() < chance - int(chance) else 0)
+        for _ in range(n_drops):
             it = self.make_item(lvl, self.roll_rarity())
             self.drops_by_rarity[it.rarity] += 1
             (self.consider_item(it) if can_manage else pending.append(it))
@@ -464,7 +487,7 @@ class Sim:
             costs = {a: f.artifact_cost(a, m.artifacts[a]) for a in m.artifacts}
             core = min(("might", "bulwark"), key=lambda a: costs[a])
             # utility artifacts only when no more expensive than the cheaper core artifact
-            util = min(("greed", "wisdom"), key=lambda a: costs[a])
+            util = min(("greed", "wisdom", "haste"), key=lambda a: costs[a])
             pick = util if costs[util] <= costs[core] else core
             if costs[pick] > m.dust:
                 break
@@ -627,7 +650,7 @@ def main():
         lines.append(f"| {ratio:.2f} | {mc:.2f} | {ev:.2f} | {err:+.1f}% |")
 
     lines += ["", "## 3. Profiles", ""]
-    summary = ["| Profile | Prestiges | Region (current run) | Best boss ever | Level | Dust total | Artifacts M/B/G/W | Scrolls | Boss fail rate |",
+    summary = ["| Profile | Prestiges | Region (current run) | Best boss ever | Level | Dust total | Artifacts M/B/G/W/H | Scrolls | Boss fail rate |",
                "|---|---:|---:|---:|---:|---:|---|---:|---:|"]
     detail = []
     for name, prof in PROFILES.items():
@@ -638,7 +661,7 @@ def main():
         a = m.artifacts
         fail = sim.boss_fails / max(1, sim.boss_attempts) * 100
         summary.append(f"| {name} | {m.prestiges} | {r.region} | {best} | {r.level} | {int(m.dust_total)} | "
-                       f"{a['might']}/{a['bulwark']}/{a['greed']}/{a['wisdom']} | {m.scrolls_primary} | {fail:.0f}% |")
+                       f"{a['might']}/{a['bulwark']}/{a['greed']}/{a['wisdom']}/{a['haste']} | {m.scrolls_primary} | {fail:.0f}% |")
         with open(os.path.join(args.out, f"timeseries_{name}.csv"), "w", newline="") as fh:
             w = csv.DictWriter(fh, fieldnames=list(sim.log_rows[0].keys()), lineterminator="\n")
             w.writeheader()

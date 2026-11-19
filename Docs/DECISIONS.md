@@ -70,11 +70,42 @@
 | D-029 | **Dungeons:** one per 2 regions (5 in v1), 5 waves + boss (~3–5 min); **unlimited runs, no keys or stamina**, balanced to be less efficient than zones for XP and gold; tokens per dungeon; lootbox = 1 token; choose outcome = ceil(1/p) tokens | |
 | D-039 | **Dungeons run offline** at offline efficiency, if selected before leaving | Q-3 |
 
+## Approved — 2026-11-19 (design review round 2: open items)
+Referenced in the GDD as **R2-n**. Numbers live in the `combat` section of `balance_config.json`.
+
+| ID | Decision |
+|---|---|
+| R2-1 | One enemy at a time; next enemy after 0.6 s |
+| R2-1b | Attack interval = class base ÷ (1 + attack speed %), floor 0.35 s. Bases: Fighter 3.0 s, Archer 2.2 s, Mage 3.4 s (damage per hit scaled by base ÷ 1.6). **Haste** artifact: +5% attack speed per level, max 40 (cost 50 × 1.7^level, tuned in simulation) |
+| R2-1c | **No death against normal enemies** (owner rule); HP matters in region boss fights and dungeons only. Escape timer 30 s (no rewards); 5 escapes in a row → retreat one subzone, retry after 60 s. Replaces the earlier "defeat in a normal fight" proposal |
+| R2-1c+ | **Dungeons are survival runs** (owner rule): all enemies deal damage, HP carries across waves, no healing between waves |
+| R2-1d | Dungeon death keeps cleared-wave rewards; boss chest only on full clear; **auto-repeat never stops automatically** (owner); failures shown prominently in reports |
+| R2-2 | Region boss: 60 s time limit, auto-retry every 60 s |
+| R2-3 | Repeat boss fights need K/2 kills; boss loot table only |
+| R2-3b | Data-driven milestone rewards: account-first (once ever) and run-first (once per run) on bosses, dungeons and prestige counts |
+| R2-4 | No level cap |
+| R2-5 | Accessory slots unlock at first-ever kills of bosses 2/4/6/8/10/12, account-wide; 6th slot is a locked teaser at launch |
+| R2-6 | Any class equips any item; class bonus lines only work for their class (shown greyed out otherwise); ~30% of drops are class items |
+| R2-7 | Accessories: no item-level scaling, unique effects, rarity raises the effect, zone-exclusive drops, reset on prestige |
+| R2-8 | 1 skill point per 5 levels; gold respec mid-run, free on prestige; optional auto-spend preset |
+| R2-9 | 3 active skill slots, auto-cast by priority, real-second cooldowns, cooldown reduction cap 50%, optional slot conditions later |
+| R2-10 | Hand-made headline regions + editor-generated connector regions, shipped as fixed data |
+| R2-11 | One signature trait per enemy family (fully data-driven); new stat: armour penetration (gear and skills only) |
+| R2-12 | Pets: Essence for levels, per-pet Soul Shards for 5 stars (every 10 levels, max 50), 10 Shards summon an unowned pet, duplicates → Shards. **Effective pet level = min(pet level, wearer's level)** (owner) |
+| R2-13 | Pet active effects from Epic+; Legendary stronger; Mythical adds a second passive; cleave carries ≤ 50% of overkill |
+| R2-14 | Prestige confirmation: summary, reset/kept lists, warnings, then hold-to-confirm (**setting: Hold / Tap**, owner); opens the artifact shop |
+| R2-15 | Prestige button shows numbers only (dust now, dust at next boss, estimated time). Supersedes proposal P-001's verdict |
+| R2-16 | Mastery stays +1% gold/drop per star, uncapped (owner: future content scales harder). Supersedes P-002. Drop chance above 100% gives extra drops |
+| R2-17 | Time Flask speedups (1 h / 4 h / 8 h) at offline efficiency; daily limit 24 h, configurable; **unlimited in development builds** (owner) |
+| R2-18 | Offline loot held and reported; **the game never equips items automatically** (owner); player-tapped "Equip all upgrades" button; auto-salvage filter applies |
+| R2-19 | Clock safety: rollback = no credit, forward jumps capped, repeated-jump detection via uptime clock, optional online time check |
+| R2-20 | Item-type pools: global pool + 1–3 regional themed types per slot; crafting includes themed types of regions unlocked this run (resolves Q-8) |
+| R2-21 | Caps: hit chance 30–99%, **crit chance cap 100%** (owner; was 75%), crit damage uncapped (base 150%), damage reduction cap 75%, resist −50%…+75%, Luck `L/(L+200)`; fixed damage order (GDD §4.2); inventory 200 + 50 per gold expansion, no maximum |
+
 ## Proposed (new, awaiting approval)
 | ID | Proposal | Doc |
 |---|---|---|
-| P-001 | "Recommended prestige" indicator: shows dust gain vs time to reach next region; highlights when resetting is better | GAME_BALANCE B-7 |
-| P-002 | Possible mastery tuning (cap total bonus, or 0.5% per star) after M10 content simulation | GAME_BALANCE B-6 |
+| Q-9 | How to handle launch content running out (region 10 in about 2 days active / 1 week casual) | GAME_BALANCE B-9 |
 
 ## Superseded
 _None yet._
