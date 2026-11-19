@@ -46,6 +46,9 @@ namespace DarkFantasy.Core.Session
             World = new WorldSystem(config);
         }
 
+        /// <summary>Pause between a fight ending and the next enemy appearing (R2-1).</summary>
+        public double RespawnSeconds => _c.Combat.EnemyRespawnS;
+
         /// <summary>Current combat stats of the active character.</summary>
         public CombatStats PlayerStats() => _stats.Compute(_builder.Build(State.Character));
 
