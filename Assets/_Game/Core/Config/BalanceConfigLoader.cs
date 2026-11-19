@@ -116,6 +116,7 @@ namespace DarkFantasy.Core.Config
                     AffixValuePct = D(g, "gear", "affix_value_pct"),
                     DropChanceNormal = D(g, "gear", "drop_chance_normal"),
                     BossMinRarity = I(g, "gear", "boss_min_rarity"),
+                    SlotDropWeights = Section(g, "slot_drop_weights", "gear.slot_drop_weights").ToObject<Dictionary<string, double>>(),
                 },
                 Economy = new EconomyConfig
                 {

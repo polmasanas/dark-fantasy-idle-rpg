@@ -110,6 +110,9 @@ namespace DarkFantasy.Core.Config
         public double AffixValuePct { get; set; }
         public double DropChanceNormal { get; set; }
         public int BossMinRarity { get; set; }
+
+        /// <summary>Drop weight per slot group: main_hand, off_hand, armour, jewellery, accessory.</summary>
+        public Dictionary<string, double> SlotDropWeights { get; set; }
     }
 
     public sealed class EconomyConfig
