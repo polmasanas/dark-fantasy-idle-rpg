@@ -1,0 +1,14 @@
+{
+    "name": "Game.Editor",
+    "rootNamespace": "DarkFantasy.EditorTools",
+    "references": ["Game.Presentation"],
+    "includePlatforms": ["Editor"],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -15,20 +15,23 @@ git checkout m2/playable-loop
 
 Open the project from Unity Hub. If the Console shows **red compile errors**, copy the first one or two to Claude before continuing: the Unity layer was written without access to the editor, so a small fix may be needed.
 
-## 2. Create the UI settings asset
-1. In the **Project** window, right-click `Assets/_Game` → **Create → UI Toolkit → Panel Settings Asset**. Name it `GamePanelSettings`.
-   (Unity also creates a default theme file next to it the first time; keep it.)
-2. Select `GamePanelSettings` and in the **Inspector** set:
-   - **Scale Mode:** Scale With Screen Size
-   - **Reference Resolution:** X `1080`, Y `1920`
-   - **Screen Match Mode:** Match Width Or Height, **Match** `0.5`
+## 2. Set up the scene (one click)
+In Unity's top menu bar choose **DFIRPG → Set Up M2 Scene**. It:
+- opens `Assets/Scenes/SampleScene`,
+- creates `Assets/_Game/UI/GamePanelSettings` (scale with screen size, 1080 × 1920, match 0.5) using the theme in `Assets/_Game/UI/GameRuntimeTheme.tss`,
+- adds a `Game` object with **UI Document** (using those panel settings) and **Game Bootstrap** (with `balance_config.json` assigned),
+- saves the scene. The Console says "M2 setup done".
 
-## 3. Set up the scene
-1. Open `Assets/Scenes/SampleScene` (double-click).
-2. **GameObject → Create Empty**, name it `Game`.
-3. With `Game` selected, **Add Component → UI Document**. Drag `GamePanelSettings` into its **Panel Settings** field. Leave **Source Asset** empty (the UI is built in code).
-4. **Add Component → Game Bootstrap**. Drag `Assets/_Game/Data/balance_config.json` into its **Balance Config** field. Leave **Seed** at 0.
-5. Save the scene (**Ctrl+S**).
+If the **DFIRPG** menu is missing, the scripts have not compiled: check the Console for red errors and send the first ones to Claude.
+
+<details><summary>Manual alternative (if the menu fails)</summary>
+
+1. Project window: right-click `Assets/_Game` → **Create → UI Toolkit → Panel Settings Asset**, name it `GamePanelSettings`; set Scale Mode *Scale With Screen Size*, Reference Resolution 1080 × 1920, Screen Match Mode *Match Width Or Height*, Match 0.5.
+2. Open `Assets/Scenes/SampleScene`, **GameObject → Create Empty** named `Game`.
+3. **Add Component → UI Document**, assign `GamePanelSettings`. **Add Component → Game Bootstrap**, assign `Assets/_Game/Data/balance_config.json`. Save.
+</details>
+
+## 3. (removed: done by the menu)
 
 ## 4. Make the Game view portrait
 In the **Game** tab, open the resolution dropdown (says "Free Aspect" by default) → **+** → add `1080 x 1920` (Fixed Resolution), and select it.
