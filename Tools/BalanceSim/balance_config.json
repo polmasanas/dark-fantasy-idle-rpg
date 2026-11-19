@@ -230,5 +230,99 @@
     "time_flask_daily_limit_h": 24.0,
     "milestone_class_item_share": 0.3,
     "dungeon_failures_autostop": 0
+  },
+  "classes": {
+    "_comment": "Owner decisions D-014/D-034/5b: 3 automatic points per level from a 4-level pattern (12 points), 1 manual point.",
+    "fighter": {
+      "primary": "str",
+      "growth_pattern": [
+        [
+          "str",
+          "str",
+          "vit"
+        ],
+        [
+          "str",
+          "vit",
+          "def"
+        ],
+        [
+          "str",
+          "str",
+          "vit"
+        ],
+        [
+          "str",
+          "vit",
+          "counter"
+        ]
+      ]
+    },
+    "archer": {
+      "primary": "dex",
+      "growth_pattern": [
+        [
+          "dex",
+          "dex",
+          "vit"
+        ],
+        [
+          "dex",
+          "def",
+          "vit"
+        ],
+        [
+          "dex",
+          "dex",
+          "def"
+        ],
+        [
+          "dex",
+          "vit",
+          "crit_chance"
+        ]
+      ]
+    },
+    "mage": {
+      "primary": "int",
+      "growth_pattern": [
+        [
+          "int",
+          "int",
+          "vit"
+        ],
+        [
+          "int",
+          "crit_damage",
+          "vit"
+        ],
+        [
+          "int",
+          "int",
+          "def"
+        ],
+        [
+          "int",
+          "crit_damage",
+          "vit"
+        ]
+      ]
+    }
+  },
+  "allocation_presets": {
+    "_comment": "Auto-allocate presets for manual points; 'primary' means the class primary attribute.",
+    "primary": {
+      "primary": 1.0
+    },
+    "balanced": {
+      "primary": 0.5,
+      "vit": 0.25,
+      "crit_chance": 0.25
+    },
+    "tank": {
+      "vit": 0.5,
+      "def": 0.25,
+      "counter": 0.25
+    }
   }
 }

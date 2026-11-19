@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using DarkFantasy.Core.Characters;
+using DarkFantasy.Core.Stats;
 
 namespace DarkFantasy.Core.Config
 {
@@ -18,6 +20,18 @@ namespace DarkFantasy.Core.Config
         public OfflineConfig Offline { get; set; }
         public PrestigeConfig Prestige { get; set; }
         public CombatConfig Combat { get; set; }
+        public Dictionary<ClassId, ClassConfig> Classes { get; set; }
+
+        /// <summary>Preset name → attribute key ("primary" = class primary) → share of manual points.</summary>
+        public Dictionary<string, Dictionary<string, double>> AllocationPresets { get; set; }
+    }
+
+    public sealed class ClassConfig
+    {
+        public AttributeId Primary { get; set; }
+
+        /// <summary>4 rows (one per level-up in the cycle) × 3 automatic points (D-014, D-034).</summary>
+        public AttributeId[][] GrowthPattern { get; set; }
     }
 
     public sealed class WorldConfig
