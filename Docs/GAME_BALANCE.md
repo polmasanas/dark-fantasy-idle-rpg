@@ -189,12 +189,14 @@ A random attribute is worth +6% (damage, HP or another stat) and adds into its c
 
 | Profile | Behaviour | Prestiges (median) | Best region boss: min / median / max | Day 7 best (median) |
 |---|---|---:|---:|---:|
-| **active** | 4 × 45 min/day, continuous upgrades | 25 | 42 / **43** / 45 | 19 |
-| **optimiser** | active + balanced stat points | 24 | 42 / **44** / 45 | 19 |
-| **casual** | 3 × 10 min/day | 16 | 24 / **27** / 28 | 11 |
-| **farmer** | casual, farms 1 region back for 30 min after a failed boss | 16 | 25 / **26** / 26 | 10 |
-| **offline-focused** | 2 × 3 min/day, 12 h gaps | 12 | 20 / **22** / 24 | 11 |
-| **never prestige** | active, never resets | 0 | 20 / **20** / 21 | 18 |
+| **active** | 4 × 45 min/day, continuous upgrades | 23 | 38 / **40** / 40 | 19 |
+| **optimiser** | active + balanced stat points | 25 | 39 / **41** / 42 | 18 |
+| **casual** | 3 × 10 min/day | 16 | 25 / **26** / 27 | 12 |
+| **farmer** | casual, farms 1 region back for 30 min after a failed boss | 16 | 23 / **25** / 25 | 10 |
+| **offline-focused** | 2 × 3 min/day, 12 h gaps | 12 | 20 / **21** / 22 | 11 |
+| **never prestige** | active, never resets | 0 | 17 / **18** / 19 | 16 |
+
+**M3 item model (current table):** the simulation now uses the game's item model: 11 slots (no accessories yet, M3-1), three trade-off types per slot, the 12-attribute pool with rarity-biased rolls, class lines, Luck, gold find and drop chance. Compared with the previous model (which counted 6 accessory slots as +1.5% damage each), active players reach region 40 instead of 43 and casual 26 instead of 27.
 
 **Boss-retry change (R2-2, M2 playtest):** a failed boss now returns after a new wave of K kills instead of every 60 s. Stuck players no longer spend up to half their time in hopeless 60 s boss fights that pay nothing, so everyone progresses faster (active 39 → 43, casual 23 → 27). First region-25 boss kill (end of launch content, R2-22): active about day 11, casual about day 24–26, offline-focused not within 30 days. Casual is slightly ahead of the M10 target ("no earlier than about day 30"); retune in M10 (B-10).
 
