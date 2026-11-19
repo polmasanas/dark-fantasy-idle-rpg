@@ -184,6 +184,8 @@ Enemies have exactly one element (or none = Physical). Elemental damage comes on
 ### 6.3 Accessories [APPROVED R2-7]
 Six utility slots with unique effects, e.g. *Rope* (+5% gold), *Silver Cross* (+20% damage vs Undead), *Clockwork Gear* (+3% attack speed), *Lucky Dice* (+10 Luck). There is no item-level scaling, so accessories are a horizontal, collection-driven layer.
 
+- [APPROVED M3-1…M3-5] M3 activates 11 slots (accessories and pet later); three trade-off item types per slot; the random attribute pool; the inventory screen with power score and stat differences; boss Rare+ only on the first kill per run (DECISIONS.md).
+
 ### 6.4 Upgrading — gold, +5% base stats per level, max by rarity (GAME_BALANCE §6.4).
 ### 6.5 Salvaging — gives materials by rarity + 50% of gold spent on upgrades. A bulk-salvage filter ("all Common/Uncommon not better than equipped") and item locking protect valuables.
 ### 6.6 Crafting [APPROVED D-026] — spend materials to create an item for **a chosen slot** at the highest unlocked subzone level. **Item type** (from the slot's pool) and **rarity** are both random. This is the tool against bad luck. *Open detail (Q-8):* whether each region restricts the item-type pool.
