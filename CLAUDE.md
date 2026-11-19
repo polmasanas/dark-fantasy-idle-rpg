@@ -12,7 +12,8 @@ Dark fantasy, flat-cartoon 2D **idle RPG for Android** (portrait), Unity + C#, b
 |---|---|
 | M0 Design foundation | Done (merged, PR #1) |
 | M1 Core skeleton | Done (merged, PR #2) |
-| **M2 Playable loop** | **In progress on branch `m2/playable-loop`.** Core done and tested (88 tests); Unity layer compiles and the scene is set up (`DFIRPG → Set Up M2 Scene`, committed by the owner). Next: owner plays and gives feedback on pacing/readability, fixes if needed, then PR + merge |
+| M2 Playable loop | Done (merged, PR #3). Owner playtest changed R2-2: a failed boss returns after a new full wave of kills |
+| **M3 Loot & inventory** | **Next** (Jira DFIRPG-4). Removes the dev-only placeholder armour |
 | M3–M12 | Planned in `Docs/DEVELOPMENT_ROADMAP.md`; one Jira epic each (project key `DFIRPG`, epic key = milestone number + 1, e.g. M3 = DFIRPG-4) |
 
 ## Where things live
