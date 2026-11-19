@@ -229,7 +229,8 @@
     "time_flask_daily_limit_h": 24.0,
     "milestone_class_item_share": 0.3,
     "dungeon_failures_autostop": 0,
-    "boss_retry_kill_fraction": 1.0
+    "boss_retry_kill_fraction": 1.0,
+    "item_level_requirement_margin": 5
   },
   "classes": {
     "_comment": "Owner decisions D-014/D-034/5b: 3 automatic points per level from a 4-level pattern (12 points), 1 manual point.",

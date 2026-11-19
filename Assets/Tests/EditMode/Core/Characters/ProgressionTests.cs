@@ -103,37 +103,24 @@ namespace DarkFantasy.Core.Tests.Characters
             var c = Fighter();
             Prog().AddXp(c, XpFromLevel1To(5) + 1e-6);
             c.ManualPoints[AttributeId.Str] = 2;
-            var i = new CharacterStatsBuilder(TestConfig.Load()).Build(c);
+            var sword = new DarkFantasy.Core.Items.ItemInstance
+            { Kind = DarkFantasy.Core.Items.ItemKind.MainHand, TypeId = "sword", ItemLevel = 1 };
+            var i = new CharacterStatsBuilder(TestConfig.Load()).Build(c, new[] { sword });
             Assert.AreEqual(ClassId.Fighter, i.Class);
             Assert.AreEqual(5, i.Level);
             Assert.AreEqual(8, i.Primary);
             Assert.AreEqual(4, i.Vit);
             Assert.AreEqual(1, i.Def);
             Assert.AreEqual(1, i.CounterPoints);
-            Assert.AreEqual(10.0, i.WeaponDamage, 1e-9); // starter weapon: Common, item level 1
+            Assert.AreEqual(10.0, i.WeaponDamage, 1e-9); // Common sword, item level 1
         }
 
         [Test]
-        public void Build_PlaceholderArmour_AddsSixCommonPieces()
+        public void Build_NoItems_NoWeaponDamage()
         {
-            var c = Fighter();
-            var none = new CharacterStatsBuilder(TestConfig.Load()).Build(c);
-            Assert.AreEqual(0.0, none.GearArmour);
-            Assert.AreEqual(0.0, none.GearHp);
-            c.PlaceholderArmourItemLevel = 10;
-            var i = new CharacterStatsBuilder(TestConfig.Load()).Build(c);
-            double growth = System.Math.Pow(1.07, 9);
-            Assert.AreEqual(6 * 6.0 * growth, i.GearArmour, 1e-9);
-            Assert.AreEqual(6 * 12.0 * growth, i.GearHp, 1e-9);
-        }
-
-        [Test]
-        public void Build_WeaponScalesWithItemLevel()
-        {
-            var c = Fighter();
-            c.WeaponItemLevel = 11;
-            var i = new CharacterStatsBuilder(TestConfig.Load()).Build(c);
-            Assert.AreEqual(10.0 * System.Math.Pow(1.07, 10), i.WeaponDamage, 1e-9);
+            var i = new CharacterStatsBuilder(TestConfig.Load()).Build(Fighter(), new DarkFantasy.Core.Items.ItemInstance[0]);
+            Assert.AreEqual(0.0, i.WeaponDamage);
+            Assert.AreEqual(0.0, i.GearArmour);
         }
     }
 }

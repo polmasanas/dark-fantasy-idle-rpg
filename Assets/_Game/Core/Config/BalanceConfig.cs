@@ -126,6 +126,7 @@ namespace DarkFantasy.Core.Config
         public double CraftCostBase { get; set; }
         public double CraftCostPerIlvl { get; set; }
         public double ScrollDropChance { get; set; }
+        public double[] MaterialPerSalvage { get; set; }
     }
 
     public sealed class MasteryConfig
@@ -186,5 +187,8 @@ namespace DarkFantasy.Core.Config
 
         /// <summary>Share of K kills needed again after a failed boss attempt (R2-2 as changed by the owner: 1.0 = full wave).</summary>
         public double BossRetryKillFraction { get; set; }
+        public int InventoryBaseSlots { get; set; }
+        public int InventorySlotsPerExpansion { get; set; }
+        public int ItemLevelRequirementMargin { get; set; }
     }
 }

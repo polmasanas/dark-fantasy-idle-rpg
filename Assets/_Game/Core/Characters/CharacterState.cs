@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DarkFantasy.Core.Items;
 using DarkFantasy.Core.Stats;
 
 namespace DarkFantasy.Core.Characters
@@ -17,17 +18,8 @@ namespace DarkFantasy.Core.Characters
         /// <summary>Auto-allocate preset key from balance_config.json allocation_presets.</summary>
         public string Preset = "primary";
 
-        /// <summary>
-        /// Item level of the equipped Common starter weapon. Loot replaces this in M3;
-        /// until then the development panel can raise it to test later content.
-        /// </summary>
-        public double WeaponItemLevel = 1;
-
-        /// <summary>
-        /// Development placeholder until loot exists (M3): when above 0, six Common armour pieces
-        /// at this item level. 0 = no armour, the real starting state.
-        /// </summary>
-        public double PlaceholderArmourItemLevel;
+        /// <summary>Equipped item ids by slot (items live in the shared inventory, D-004).</summary>
+        public Dictionary<EquipSlot, long> Equipped = new Dictionary<EquipSlot, long>();
 
         public static CharacterState Create(ClassId cls)
         {

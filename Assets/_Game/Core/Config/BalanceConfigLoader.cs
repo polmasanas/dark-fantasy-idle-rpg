@@ -129,6 +129,7 @@ namespace DarkFantasy.Core.Config
                     CraftCostBase = D(ec, "economy", "craft_cost_base"),
                     CraftCostPerIlvl = D(ec, "economy", "craft_cost_per_ilvl"),
                     ScrollDropChance = D(ec, "economy", "scroll_drop_chance"),
+                    MaterialPerSalvage = Arr<double>(ec, "economy", "material_per_salvage"),
                 },
                 Mastery = new MasteryConfig
                 {
@@ -174,6 +175,9 @@ namespace DarkFantasy.Core.Config
                     EnemyRespawnS = D(cb, "combat", "enemy_respawn_s"),
                     BossRepeatKillFraction = D(cb, "combat", "boss_repeat_kill_fraction"),
                     BossRetryKillFraction = D(cb, "combat", "boss_retry_kill_fraction"),
+                    InventoryBaseSlots = I(cb, "combat", "inventory_base_slots"),
+                    InventorySlotsPerExpansion = I(cb, "combat", "inventory_slots_per_expansion"),
+                    ItemLevelRequirementMargin = I(cb, "combat", "item_level_requirement_margin"),
                 },
                 Classes = Classes(Section(root, "classes")),
                 AllocationPresets = Presets(Section(root, "allocation_presets")),
