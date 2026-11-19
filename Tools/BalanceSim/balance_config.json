@@ -1,0 +1,115 @@
+{
+  "_comment": "Single source of balance truth for the design phase. Mirrors the future BalanceConfig ScriptableObject. All values are PROPOSALS pending approval (see Docs/GAME_BALANCE.md).",
+
+  "world": {
+    "subzones_per_region": 5,
+    "levels_per_subzone": 2,
+    "kills_to_advance_base": 10,
+    "kills_to_advance_per_region": 5,
+    "kills_to_advance_cap": 100
+  },
+
+  "enemy": {
+    "hp_base": 30.0,
+    "hp_growth": 1.10,
+    "atk_base": 4.0,
+    "atk_growth": 1.09,
+    "attack_interval_s": 2.0,
+    "boss_hp_mult": 12.0,
+    "boss_atk_mult": 2.0,
+    "boss_time_limit_s": 60.0,
+    "variance_mult_min": 0.9,
+    "variance_mult_max": 1.1
+  },
+
+  "player": {
+    "points_per_level_auto": 3,
+    "points_per_level_manual": 1,
+    "base_hp": 100.0,
+    "hp_per_vit_pct": 0.02,
+    "dmg_per_primary_pct": 0.015,
+    "armour_pct_per_def": 0.01,
+    "base_attack_interval_s": 1.6,
+    "base_hit_chance": 0.92,
+    "base_crit_chance": 0.05,
+    "crit_chance_per_point": 0.002,
+    "crit_chance_cap": 0.75,
+    "base_crit_damage": 1.5,
+    "crit_damage_per_point": 0.01,
+    "armour_k_base": 40.0,
+    "armour_k_growth": 1.07,
+    "damage_reduction_cap": 0.75,
+    "between_fight_s": 0.6
+  },
+
+  "xp": {
+    "enemy_xp_base": 3.0,
+    "enemy_xp_growth": 1.06,
+    "level_req_growth": 1.06,
+    "kills_per_level_base": 10.0,
+    "kills_per_level_per_level": 0.5,
+    "boss_xp_mult": 10.0,
+    "overlevel_penalty_per_level": 0.05,
+    "overlevel_penalty_floor": 0.1
+  },
+
+  "gear": {
+    "weapon_dmg_base": 10.0,
+    "offhand_dmg_share": 0.35,
+    "armour_base": 6.0,
+    "armour_hp_base": 12.0,
+    "jewel_crit_points_base": 2.0,
+    "jewel_crit_points_per_ilvl": 0.08,
+    "item_growth": 1.07,
+    "upgrade_base_pct": 0.05,
+    "upgrade_max_by_rarity": [5, 10, 15, 20, 25, 30],
+    "rarity_names": ["Common", "Uncommon", "Rare", "Epic", "Legendary", "Mythical"],
+    "rarity_base_mult": [1.0, 1.2, 1.45, 1.75, 2.1, 2.5],
+    "rarity_weights": [60.0, 25.0, 10.0, 4.0, 0.9, 0.1],
+    "random_affixes": [0, 0, 1, 1, 2, 3],
+    "affix_value_pct": 0.06,
+    "drop_chance_normal": 0.08,
+    "boss_min_rarity": 2,
+    "slot_drop_weights": {"main_hand": 3.0, "off_hand": 1.0, "armour": 1.0, "jewellery": 1.0, "accessory": 1.0},
+    "slot_counts": {"main_hand": 1, "off_hand": 1, "armour": 6, "jewellery": 3, "accessory": 6}
+  },
+
+  "economy": {
+    "gold_base": 2.0,
+    "gold_growth": 1.07,
+    "boss_gold_mult": 15.0,
+    "upgrade_cost_base": 12.0,
+    "upgrade_cost_growth": 1.2,
+    "salvage_upgrade_refund": 0.5,
+    "material_per_salvage": [1, 2, 4, 8, 16, 32],
+    "craft_cost_base": 20.0,
+    "craft_cost_per_ilvl": 0.5,
+    "scroll_drop_chance": 0.0002
+  },
+
+  "offline": {
+    "efficiency": 0.5,
+    "cap_hours": 12.0
+  },
+
+  "prestige": {
+    "min_region_boss": 4,
+    "dust_base": 10.0,
+    "dust_growth_per_region": 1.5,
+    "artifacts": {
+      "might":   {"stat": "damage_mult", "per_level": 0.10, "cost_base": 5.0, "cost_growth": 1.28},
+      "bulwark": {"stat": "hp_mult",     "per_level": 0.10, "cost_base": 5.0, "cost_growth": 1.28},
+      "greed":   {"stat": "gold_mult",   "per_level": 0.10, "cost_base": 8.0, "cost_growth": 1.25},
+      "wisdom":  {"stat": "xp_mult",     "per_level": 0.10, "cost_base": 8.0, "cost_growth": 1.25}
+    },
+    "artifact_compounding": "multiplicative_per_level"
+  },
+
+  "simulation": {
+    "days": 30,
+    "seed": 12345,
+    "stuck_retry_boss_every_s": 60.0,
+    "prestige_when_stuck_hours": 1.5,
+    "prestige_min_dust_share": 0.5
+  }
+}
