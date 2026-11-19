@@ -146,3 +146,7 @@ __pycache__/
 Thumbs.db
 .vscode/
 .idea/
+
+# .NET build output (Core.Tests.Dotnet, Tools/BalanceSim.CSharp)
+**/bin/
+**/obj/
