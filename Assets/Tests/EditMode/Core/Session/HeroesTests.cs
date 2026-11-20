@@ -171,5 +171,23 @@ namespace DarkFantasy.Core.Tests.Session
             Assert.That(typeof(AccountState).GetField("HeroesUnlocked"), Is.Not.Null);
             Assert.That(typeof(WorldState).GetField("HeroesUnlocked"), Is.Null);
         }
+
+        [Test]
+        public void Unlock_WithFullBag_StillEquipsStarterWeapons_AndPaysNothing()
+        {
+            var s = NewSession();
+            var inv = s.State.Inventory;
+            inv.Capacity = 0; // a completely full bag
+            double materials = s.State.Wallet.Materials;
+            s.State.Account.HeroesUnlocked = true;
+            s.EnsureHeroKits();
+            foreach (var cls in new[] { ClassId.Archer, ClassId.Mage })
+                Assert.IsTrue(s.State.Heroes[(int)cls].Equipped.ContainsKey(EquipSlot.MainHand), cls + " has a weapon");
+            Assert.AreEqual(materials, s.State.Wallet.Materials, "nothing salvaged");
+            int items = inv.Items.Count;
+            s.EnsureHeroKits(); // a second launch adds nothing
+            Assert.AreEqual(items, inv.Items.Count);
+            Assert.AreEqual(materials, s.State.Wallet.Materials);
+        }
     }
 }

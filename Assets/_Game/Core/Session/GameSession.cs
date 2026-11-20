@@ -107,10 +107,12 @@ namespace DarkFantasy.Core.Session
         private void GiveStarterWeapon(CharacterState hero)
         {
             if (hero.Equipped.ContainsKey(EquipSlot.MainHand)) return;
+            // Added straight to the bag and worn at once: a worn item takes no bag space, so a full bag
+            // must not salvage it (which would also pay materials again on every launch).
             var starter = new ItemInstance { Kind = ItemKind.MainHand, TypeId = _loot.StarterWeaponType(hero.Class), ItemLevel = 1, Rarity = Rarity.Common };
-            var added = Inventory.Store(State.Inventory, State.Wallet, starter);
-            if (added.Outcome == AddOutcome.Kept)
-                Inventory.Equip(State.Inventory, State.Characters, hero, added.Item.Id, EquipSlot.MainHand, force: true);
+            starter.Id = State.Inventory.NextId++;
+            State.Inventory.Items.Add(starter);
+            Inventory.Equip(State.Inventory, State.Characters, hero, starter.Id, EquipSlot.MainHand, force: true);
         }
 
         /// <summary>

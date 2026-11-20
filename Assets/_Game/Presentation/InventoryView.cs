@@ -193,7 +193,8 @@ namespace DarkFantasy.Presentation
             foreach (var item in shown)
             {
                 var it = item;
-                string marks = (_session.IsUpgrade(it) ? "▲ " : "") + (it.Locked ? "🔒" : "");
+                string wearer = WornBy(it.Id);
+                string marks = (_session.IsUpgrade(it) ? "▲ " : "") + (it.Locked ? "🔒" : "") + (wearer != null ? " " + wearer : "");
                 var cell = Ui.Button(marks + "\n" + Short(it) + "\nLv " + it.ItemLevel, () => Select(it.Id), 20);
                 cell.style.width = 150;
                 cell.style.height = 120;
@@ -207,7 +208,9 @@ namespace DarkFantasy.Presentation
         private IEnumerable<ItemInstance> Filtered()
         {
             var inv = _session.State.Inventory;
-            var items = inv.Items.Where(i => !inv.WornIds.Contains(i.Id));
+            // Items the active hero wears are in the equipment row; items other heroes wear stay listed (M5, D-004).
+            var mine = _session.State.Character.Equipped;
+            var items = inv.Items.Where(i => !mine.ContainsValue(i.Id));
             switch (_filter)
             {
                 case "Upgrades": items = items.Where(_session.IsUpgrade); break;
@@ -241,7 +244,8 @@ namespace DarkFantasy.Presentation
                 return;
             }
 
-            bool worn = st.Inventory.WornIds.Contains(item.Id);
+            bool worn = st.Inventory.WornIds.Contains(item.Id);          // by any hero: cannot be salvaged
+            bool wornByMe = st.Character.Equipped.ContainsValue(item.Id); // by the active hero
             var slot = TargetSlot(item);
             ItemInstance current = st.Character.Equipped.TryGetValue(slot, out var cid) ? st.Inventory.Find(cid) : null;
 
@@ -267,7 +271,7 @@ namespace DarkFantasy.Presentation
                 _detail.Add(Ui.Label($"+{_config.Items.ClassBonusPctDamage * 100:0}% damage ({item.ClassBonus.Value} only)", 22,
                     item.ClassBonus.Value == st.Character.Class ? Ui.Gold : Ui.Muted));
 
-            if (!worn)
+            if (!wornByMe)
             {
                 double now = _session.Score();
                 double with = _session.Score(slot, item);
@@ -277,7 +281,7 @@ namespace DarkFantasy.Presentation
 
             var buttons = Ui.Row();
             buttons.style.flexWrap = Wrap.Wrap;
-            if (!worn) buttons.Add(Ui.Button("Equip", () => Do(() => Equip(item))));
+            if (!wornByMe) buttons.Add(Ui.Button("Equip", () => Do(() => Equip(item))));
             var upgrades = _session.Upgrades;
             buttons.Add(item.Upgrade >= upgrades.MaxLevel(item)
                 ? Ui.Button("Max upgrade", () => { })
@@ -322,11 +326,13 @@ namespace DarkFantasy.Presentation
         {
             var st = _session.State;
             string from = WornBy(item.Id);
-            _confirmText.text = $"{from} is wearing {_session.Items.DisplayName(item)}. Move it to the {st.Character.Class}?";
+            var target = st.Character;   // captured now: a switch while the dialog is open must not change who gets it
+            var slot = TargetSlot(item);
+            _confirmText.text = $"The {from} is wearing {_session.Items.DisplayName(item)}. Move it to the {target.Class}?";
             _confirmYes.clicked -= _confirmAction;
             _confirmAction = () =>
             {
-                _session.Inventory.Equip(st.Inventory, st.Characters, st.Character, item.Id, TargetSlot(item), force: true);
+                _session.Inventory.Equip(st.Inventory, st.Characters, target, item.Id, slot, force: true);
                 _confirm.style.display = DisplayStyle.None;
                 _dirty = true;
             };
