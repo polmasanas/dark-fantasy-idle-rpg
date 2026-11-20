@@ -220,6 +220,7 @@ Each Rare+ item has **one enchant socket**, separate from its random attributes.
 - [APPROVED R2-10] Region definitions are data. Generated regions are produced in the editor and shipped as fixed data, never random at runtime. Region 1–10 are hand-authored for v1, and **launch adds about 15 generated connector regions (11–25)** [R2-22]. Region 11+ can be **generated from templates** (family × element × biome palette), so content can reach hundreds of zones without new art for each one.
 
 ### 8.2 Enemy families [SPEC]
+> **Built in M5:** regions 2–5 = Humanoids, Beasts, Elementals (Fire/Nature/Water, with Light **Wizards** in the Frost Pass's last subzone, M5-6), Undead. Each family has a dominant fighting style so each region has a clearly best hero (M5-B1); family data in `balance_config.json` `families` / `regions`.
 Humanoids, Beasts, Undead, Demons, Elementals, Constructs, Dragons. Data-driven, so new families can be added. Family traits [APPROVED R2-11, all data-driven]: Elementals −75% to their own element; Constructs require armour penetration (new gear/skill stat); Beasts have evasion, Constructs armour, Undead are Dark, Elementals have an element, Demons have high damage, Dragons high HP, and Humanoids are mixed archetypes.
 
 ### 8.3 Kill requirements — `K(r) = min(100, 10 + 5(r−1))` per subzone.
