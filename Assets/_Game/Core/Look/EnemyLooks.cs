@@ -24,6 +24,9 @@ namespace DarkFantasy.Core.Look
 
         /// <summary>Region bosses pull the camera back (CD-2); the first-run training boss does not.</summary>
         public bool UseBossCamera;
+
+        /// <summary>Drawn size relative to a regular enemy (1 for normal enemies and the training boss).</summary>
+        public double SizeVsRegular = 1.0;
     }
 
     public sealed class EnemyLooks
@@ -42,7 +45,13 @@ namespace DarkFantasy.Core.Look
             var region = _regions.For(e.Region);
             string glow = element != null && _c.ElementColors.TryGetValue(element, out var hex) ? hex : region.Palette.Accent.ToHex();
             if (e.IsTraining) return Boss(_c.TrainingBoss, glow, false);
-            if (e.IsBoss) return Boss(region.Boss, glow, true);
+            if (e.IsBoss)
+            {
+                var boss = Boss(region.Boss, glow, true);
+                var cam = _c.Camera;
+                boss.SizeVsRegular = Math.Min(cam.BossScaleMax, cam.BossScaleFirst + cam.BossScalePerRegion * (e.Region - 1));
+                return boss;
+            }
             var kit = _c.Kits[region.Kit];
             string body = kit[(Math.Max(1, e.Subzone) - 1) % kit.Length];
             return new EnemyLook { Body = body, Rank = LookRank.Normal, GlowHex = glow, DisplayName = Pretty(body) };

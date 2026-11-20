@@ -179,11 +179,65 @@
   "camera": {
     "boss_zoom": 0.6,
     "zoom_in_s": 1.5,
-    "zoom_out_s": 1.0
+    "zoom_out_s": 1.0,
+    "boss_scale_first": 1.5,
+    "boss_scale_per_region": 0.1,
+    "boss_scale_max": 3.0
   },
   "audio": {
     "crossfade_s": 2.0,
     "ambient_volume": 0.6,
     "boss_volume": 0.8
+  },
+  "motions": {
+    "_comment": "Per-part animation (owner playtest: characters move part by part). Degrees and seconds; parts not listed stay still.",
+    "cloak": {
+      "idle_deg": 2.5,
+      "period_s": 3.4,
+      "attack_deg": -6,
+      "hit_deg": 5
+    },
+    "legs": {
+      "idle_deg": 0.0,
+      "period_s": 3.0,
+      "attack_deg": 0,
+      "hit_deg": 0
+    },
+    "torso": {
+      "idle_deg": 1.2,
+      "period_s": 3.0,
+      "attack_deg": 6,
+      "hit_deg": -6
+    },
+    "head": {
+      "idle_deg": 2.0,
+      "period_s": 4.1,
+      "attack_deg": 4,
+      "hit_deg": -10
+    },
+    "weapon": {
+      "idle_deg": 3.0,
+      "period_s": 3.0,
+      "attack_deg": 55,
+      "hit_deg": 8
+    },
+    "offhand": {
+      "idle_deg": 2.0,
+      "period_s": 3.6,
+      "attack_deg": 10,
+      "hit_deg": 6
+    },
+    "target": {
+      "idle_deg": 0.6,
+      "period_s": 5.0,
+      "attack_deg": 0,
+      "hit_deg": -14
+    },
+    "banner": {
+      "idle_deg": 4.0,
+      "period_s": 2.6,
+      "attack_deg": 0,
+      "hit_deg": 6
+    }
   }
 }

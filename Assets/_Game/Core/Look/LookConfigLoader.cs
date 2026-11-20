@@ -81,7 +81,28 @@ namespace DarkFantasy.Core.Look
             c.ElementColors = Colors(Obj(root, "element_colors", "element_colors"), "element_colors");
 
             var cam = Obj(root, "camera", "camera");
-            c.Camera = new CameraLook { BossZoom = Num(cam, "camera", "boss_zoom"), ZoomInS = Num(cam, "camera", "zoom_in_s"), ZoomOutS = Num(cam, "camera", "zoom_out_s") };
+            c.Camera = new CameraLook
+            {
+                BossZoom = Num(cam, "camera", "boss_zoom"),
+                ZoomInS = Num(cam, "camera", "zoom_in_s"),
+                ZoomOutS = Num(cam, "camera", "zoom_out_s"),
+                BossScaleFirst = Num(cam, "camera", "boss_scale_first"),
+                BossScalePerRegion = Num(cam, "camera", "boss_scale_per_region"),
+                BossScaleMax = Num(cam, "camera", "boss_scale_max"),
+            };
+            foreach (var prop in Obj(root, "motions", "motions").Properties())
+            {
+                if (prop.Name.StartsWith("_")) continue;
+                string path = "motions." + prop.Name;
+                var m = prop.Value as JObject ?? throw new LookConfigException(path + " must be an object");
+                c.Motions[prop.Name] = new PartMotion
+                {
+                    IdleDeg = Num(m, path, "idle_deg"),
+                    PeriodS = Num(m, path, "period_s"),
+                    AttackDeg = Num(m, path, "attack_deg"),
+                    HitDeg = Num(m, path, "hit_deg"),
+                };
+            }
             var audio = Obj(root, "audio", "audio");
             c.Audio = new AudioLook
             {

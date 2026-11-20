@@ -90,6 +90,20 @@ namespace DarkFantasy.Core.Look
         public double BossZoom;
         public double ZoomInS;
         public double ZoomOutS;
+
+        /// <summary>Region boss size vs a regular enemy: first + per_region × (region − 1), capped at max (owner, CD playtest).</summary>
+        public double BossScaleFirst;
+        public double BossScalePerRegion;
+        public double BossScaleMax;
+    }
+
+    /// <summary>How one body part moves (owner, CD playtest: characters move part by part).</summary>
+    public sealed class PartMotion
+    {
+        public double IdleDeg;
+        public double PeriodS;
+        public double AttackDeg;
+        public double HitDeg;
     }
 
     public sealed class AudioLook
@@ -115,6 +129,7 @@ namespace DarkFantasy.Core.Look
         public Dictionary<string, string> ElementColors = new Dictionary<string, string>();
         public CameraLook Camera;
         public AudioLook Audio;
+        public Dictionary<string, PartMotion> Motions = new Dictionary<string, PartMotion>();
     }
 
     public sealed class LookConfigException : Exception
