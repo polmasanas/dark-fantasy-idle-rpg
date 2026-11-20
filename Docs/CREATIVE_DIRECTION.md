@@ -1,6 +1,6 @@
 # CREATIVE_DIRECTION.md: how the game looks, sounds and is named
 
-> **Status:** v0.1 draft, 2026-11-20, awaiting owner approval. Decisions CD-1…CD-7 were taken one at a time in conversation (logged in DECISIONS.md on approval). Items marked **[Claude's call]** were not asked; the owner can overrule them.
+> **Status:** v0.2, approved by the owner on 2026-11-20 (with CD-8 and CD-9 added in review). Decisions CD-1…CD-9 are logged in DECISIONS.md. Items marked **[Claude's call]** were not asked; the owner can overrule them.
 > **Replaces:** coloured placeholder boxes, "Region N" names and the default UI colours from M2–M4.
 
 ## 1. Intent
@@ -13,7 +13,7 @@ The owner's brief: the vibe of **Game of Thrones × Attack on Titan × Hollow Kn
 | Attack on Titan | Scale and dread: small humans against enormous threats, humanity behind walls | Titans, uniforms, gear, anime styling |
 | Hollow Knight | 2D silhouettes, muted layered backgrounds, melancholy quiet, colour only in small glows | Its characters (masked bug-knights), its world or its art |
 
-**Premise (CD-0, accepted with the vibe):** the last kingdom lives behind great walls. The heroes are **wardens** who push out into a darkening wilderness; each region is further from the walls and darker. Prestige is a retreat behind the walls to rebuild stronger, which matches the pillar "the wall is a friend".
+**Premise (CD-0, accepted with the vibe):** the last kingdom lives behind great walls. The heroes are **wardens** who push out into a darkening wilderness; each region is further from the walls and darker. **Region 1 is the Training Grounds inside the walls** (CD-8): recruits train against practice targets before the gates open; region 2 is the first land beyond the walls. Prestige is a retreat behind the walls to rebuild stronger, which matches the pillar "the wall is a friend".
 
 **Goals:** a look that is recognisable from one screenshot; readable at phone size during thousands of idle fights; cheap to extend to hundreds of generated regions (R2-10, R2-22).
 **Non-goals (for now):** painted art, character portraits, cutscenes, voice acting, final music.
@@ -29,6 +29,8 @@ The owner's brief: the vibe of **Game of Thrones × Attack on Titan × Hollow Kn
 | CD-4 | **Hero body style** | **Cloaked wardens**: lean hooded figures (about 1:5). One big shape names each class: Fighter broad pauldrons + huge blade; Archer deep hood + long cape + bow; Mage tall pointed cowl + long robe + staff. A thin glowing eye-slit carries the class colour |
 | CD-5 | **Interface style** | **Iron and ember**: dark slate panels, bevelled iron border, small ember-gold corner marks, carved-capital titles |
 | CD-6 | **Naming** | Places mostly plain English (the Ashen March, the Frost Pass), **with invented fantasy names here and there** (the Vael Marshes, Kharath Deep). People and houses get invented names ("Oskar Venn, Warden of the Third Gate", House Varrow). The share of invented place names is a data setting |
+| CD-8 | **Region 1 = the Training Grounds** (owner, design review) | Inside the walls. Normal enemies are **practice targets** (straw dummies, target posts, sparring frames); the **region 1 boss is a recruit** (the top of your training class, a graduation duel). Regions 2+ are the wilderness |
+| CD-9 | **Enemy shapes = 5 bodies per family + accents** (owner, design review) | Each family has **5 base body shapes** to pick from; **accents** layered on top tell the rest: damage element, combat archetype, rank (normal / elite / boss) and family traits |
 | CD-7 | **Sound** | Sparse and melancholy for everyday play (wind, distant bells, a lone cello or piano motif per biome); when a boss arrives, drums and low brass swell in, then fade back after the fight |
 
 ## 3. Visual language
@@ -39,7 +41,18 @@ The owner's brief: the vibe of **Game of Thrones × Attack on Titan × Hollow Kn
 - **Backgrounds are 3–4 flat layers** (sky gradient, far layer, near layer, ground) with slow parallax. Layers are drawn in greyscale and **tinted from the region palette**, so one set of shapes serves every biome.
 - **Size rules:** heroes about 1/6 of screen height in normal fights; normal enemies 0.6–1.2× hero height by family; bosses 3–5× hero height and drawn larger than the frame, cut off by an edge.
 
-### 3.2 Enemy families (shape language) [Claude's call]
+### 3.2 Enemy families (CD-9)
+An enemy picture = **one of its family's 5 base bodies** + **accents**. The base body says *what* it is; accents say *how it fights*. Both are chosen in data per enemy (or rolled by the generator), so the same parts make many enemies.
+
+| Accent | Shows | How |
+|---|---|---|
+| Element | Damage element (Fire, Nature, Water, Light, Dark; none = Physical) | Colour of eyes, weapon edge and core glow (§3.3) |
+| Archetype | Brute / Marksman / Caster (GDD §4) | Held item: heavy weapon or shield / bow, spear-thrower / staff, orb, floating runes |
+| Rank | Normal / Elite / Boss | Elite: a second glow ring and a tattered banner or crown shape; Boss: drawn 3–5× larger plus a name card |
+| Trait marks | Family traits (R2-11) | Constructs: armour plates; Beasts: motion streaks (evasion); Undead: cracked outline; Demons: ember sparks |
+
+Base-body ideas per family [Claude's call; the 5 bodies are drawn in the milestone that introduces the family]:
+
 | Family | Outline idea | Glow |
 |---|---|---|
 | Humanoids | Ragged soldiers, deserters, cultists: spears, banners | Torch orange |
@@ -49,8 +62,9 @@ The owner's brief: the vibe of **Game of Thrones × Attack on Titan × Hollow Kn
 | Elementals | Shapeless masses with a bright element core | Their element colour |
 | Constructs | Blocky, riveted, wall-like; the walls' own failed guardians | Ember cracks |
 | Dragons | Long necks and wings; usually bosses, always cut off by the frame | Throat glow by element |
+| *Training* (region 1 look only) | Straw dummy, target post, sparring frame, shield-board on a pole, a weighted sack; the boss is a recruit (a cloaked-warden silhouette with a plain hood) | Faint chalk-white marks |
 
-Each family is a small kit of body parts (torso, head, limbs, weapon) assembled from data, so variants and generated regions reuse it.
+**The Training look is visual only** [Claude's call]: region 1 keeps the stat family it has today (no Construct armour-penetration rule in the first region), so the M2–M4 balance and the ON-1 tuning do not change.
 
 ### 3.3 Colour
 **Base (world and UI):**
@@ -67,6 +81,7 @@ Each family is a small kit of body parts (torso, head, limbs, weapon) assembled 
 **Biome palettes (CD-3)**, each = sky top, sky bottom, far layer, near layer, accent glow. Starting set (more are added as data):
 | Biome | Sky top | Sky bottom | Far | Near | Accent |
 |---|---|---|---|---|---|
+| Garrison (region 1, inside the walls) | `#8A8174` | `#4A443C` | `#5A5248` | `#35302A` | `#F2C66D` |
 | Ash | `#76767A` | `#3A3B40` | `#4A4B51` | `#2C2D32` | `#E8A24A` |
 | Moss | `#5F6E5F` | `#2D362F` | `#3A463B` | `#222A24` | `#B6E07A` |
 | Frost | `#647A8E` | `#2A3644` | `#344354` | `#1E2731` | `#8FD3FF` |
@@ -106,7 +121,8 @@ Each family is a small kit of body parts (torso, head, limbs, weapon) assembled 
 - **Bosses:** "[Invented first name] [invented surname], [title]" for humanoid bosses; "[Title] of the [place]" for beasts and dragons ("the Maw of Kharath Deep").
 - **Houses:** "House [invented name]", used for banners, prestige flavour and item names later.
 - **Items:** keep the M3 type names, with optional house or place prefixes later (not in this scope).
-- **Regions 1–5 (proposal, hand-written for M5):** 1 the Ashen March (ash), 2 the Drowned Fen (moss), 3 the Frost Pass (frost), 4 the Vael Wastes (ochre), 5 Kharath Deep (rust). The owner may rename any of them.
+- **Regions 1–5 (hand-written):** 1 **the Training Grounds** (garrison, CD-8), 2 the Ashen March (ash), 3 the Drowned Fen (moss), 4 the Frost Pass (frost), 5 the Vael Wastes (ochre). Kharath Deep (rust) is kept for region 6. The owner may rename any of them.
+- **Region 1 people [Claude's call]:** the region 1 boss is a named recruit ("Bram Hollis, First of the Recruits"); the ON-1 training boss after subzone 1 is the instructor ("Sergeant Maera Dunn, Drillmaster"), which keeps "it cannot kill you" believable.
 - The **game's title** stays a placeholder until M12 (D-042).
 
 ## 5. Sound (CD-7)
@@ -129,9 +145,9 @@ Each family is a small kit of body parts (torso, head, limbs, weapon) assembled 
 
 ## 7. Scope and order (proposal)
 
-1. **Creative Direction milestone (now, before M5):** the UI theme (iron and ember) across HUD, Bag, report and dev panel; the Fighter silhouette with idle and attack motion; region 1 (Ashen March) background layers; 3 Humanoid and 1 Beast enemy silhouettes; the region 1 boss with the camera pull-back; region names from data; placeholder ambient and boss sound layers with the crossfade. Ends with an owner playtest in the editor.
-2. **M5:** Archer and Mage silhouettes, regions 2–5 (biomes, names, enemies of their families), the naming generator for later regions.
+1. **Creative Direction milestone (now, before M5):** the UI theme (iron and ember) across HUD, Bag, report and dev panel; the Fighter silhouette with idle and attack motion; the region 1 Training Grounds (garrison background, the 5 practice-target bodies with accents, the instructor training boss, the recruit boss with the camera pull-back); region names from data; placeholder ambient and boss sound layers with the crossfade. Ends with an owner playtest in the editor.
+2. **M5:** Archer and Mage silhouettes, regions 2–5 (biomes, names, the 5 bodies of each family they introduce), the naming generator for later regions.
 3. **M10:** the region generator uses biome × depth × family × naming data.
 
 ## 8. Left to the builder
-Exact SVG shapes and animation curves, sprite resolutions per screen density, sound file selection within the direction above, the word and syllable lists (reviewed by the owner before shipping), USS class names.
+Exact SVG shapes (5 bodies per family, accents) and animation curves, sprite resolutions per screen density, sound file selection within the direction above, the word and syllable lists (reviewed by the owner before shipping), USS class names.
