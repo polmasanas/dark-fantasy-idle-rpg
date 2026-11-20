@@ -1,6 +1,7 @@
 using System;
 using DarkFantasy.Core.Config;
 using DarkFantasy.Core.Events;
+using DarkFantasy.Core.Items;
 using DarkFantasy.Core.Random;
 using DarkFantasy.Core.Session;
 using DarkFantasy.Core.Stats;
@@ -29,6 +30,7 @@ namespace DarkFantasy.Presentation
         private FightReplayer _replayer;
         private CombatView _combat;
         private HudView _hud;
+        private InventoryView _inventory;
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         private DebugPanel _debug;
 #endif
@@ -66,7 +68,8 @@ namespace DarkFantasy.Presentation
             root.style.paddingLeft = 16;
             root.style.paddingRight = 16;
 
-            _hud = new HudView(_session, config);
+            _inventory = new InventoryView(_session, config);
+            _hud = new HudView(_session, config, _inventory.Open);
             _combat = new CombatView();
             root.Add(_hud.Top);
             root.Add(_combat.Root);
@@ -75,9 +78,11 @@ namespace DarkFantasy.Presentation
             _debug = new DebugPanel(this, _session, config);
             root.Add(_debug.Root);
 #endif
+            root.Add(_inventory.Root); // overlay, added last so it draws on top
 
             _session.Events.Subscribe<WorldChanged>(OnWorldChanged);
             _session.Events.Subscribe<LevelUp>(e => _combat.SetStatus($"Level up! Level {e.Level}"));
+            _session.Events.Subscribe<ItemDropped>(OnItemDropped);
             _replayer = new FightReplayer(_session, _combat);
         }
 
@@ -86,9 +91,28 @@ namespace DarkFantasy.Presentation
             if (_replayer == null) return;
             _replayer.Tick(Time.deltaTime * GameSpeed);
             _hud.Refresh();
+            _inventory.Tick(Time.deltaTime);
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             _debug.Refresh();
 #endif
+        }
+
+        /// <summary>Shows a short message in the combat status line.</summary>
+        public void Toast(string text) => _combat?.SetStatus(text);
+
+        private void OnItemDropped(ItemDropped e)
+        {
+            string name = $"{e.Item.Rarity} {_session.Items.DisplayName(e.Item)}";
+            switch (e.Outcome)
+            {
+                case AddOutcome.Kept:
+                    if (e.Item.Rarity >= Rarity.Rare || e.FromBoss)
+                        Toast((_session.IsUpgrade(e.Item) ? "Upgrade! " : "Loot: ") + name);
+                    break;
+                case AddOutcome.SalvagedInventoryFull:
+                    Toast("Bag full: salvaged " + name);
+                    break;
+            }
         }
 
         private void OnWorldChanged(WorldChanged e)
@@ -97,6 +121,9 @@ namespace DarkFantasy.Presentation
             {
                 case WorldChange.SubzoneUnlocked:
                     _combat.SetStatus($"Subzone {e.World.Region}-{e.World.UnlockedSubzone} unlocked");
+                    break;
+                case WorldChange.TrainingBossDefeated:
+                    _combat.SetStatus("Training complete! Bosses appear after a full wave of kills. Untick 'Fight boss when available' to keep farming.");
                     break;
                 case WorldChange.BossDefeated:
                     _combat.SetStatus($"Boss defeated! Welcome to Region {e.World.Region}");

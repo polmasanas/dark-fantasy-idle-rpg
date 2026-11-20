@@ -38,7 +38,7 @@ namespace DarkFantasy.Presentation
         private readonly List<Button> _plusButtons = new List<Button>();
         private readonly Toggle _bossToggle;
 
-        public HudView(GameSession session, BalanceConfig config)
+        public HudView(GameSession session, BalanceConfig config, Action openInventory)
         {
             _session = session ?? throw new ArgumentNullException(nameof(session));
             _formulas = new GameFormulas(config);
@@ -61,6 +61,7 @@ namespace DarkFantasy.Presentation
             row2.Add(_level);
             row2.Add(_xp.Root);
             row2.Add(_gold);
+            row2.Add(Ui.Button("Bag", openInventory));
             Top.Add(row2);
 
             // ---- Bottom: attribute points and boss toggle ----
@@ -121,7 +122,7 @@ namespace DarkFantasy.Presentation
                 : $"Kills {w.KillsInSubzone(w.UnlockedSubzone)} / {k}";
             _level.text = $"Level {c.Level}";
             _xp.Set(c.Xp / _formulas.XpToNext(c.Level));
-            _gold.text = "Gold " + NumberFormat.Short(st.Gold);
+            _gold.text = "Gold " + NumberFormat.Short(st.Gold) + " · Mat " + NumberFormat.Short(st.Wallet.Materials);
             _unspent.text = $"Points: {c.UnspentPoints}";
 
             foreach (var (id, name) in Attributes)

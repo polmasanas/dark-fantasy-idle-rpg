@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DarkFantasy.Core.Characters;
+using DarkFantasy.Core.Items;
 using DarkFantasy.Core.Stats;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -115,6 +116,7 @@ namespace DarkFantasy.Core.Config
                     AffixValuePct = D(g, "gear", "affix_value_pct"),
                     DropChanceNormal = D(g, "gear", "drop_chance_normal"),
                     BossMinRarity = I(g, "gear", "boss_min_rarity"),
+                    SlotDropWeights = Section(g, "slot_drop_weights", "gear.slot_drop_weights").ToObject<Dictionary<string, double>>(),
                 },
                 Economy = new EconomyConfig
                 {
@@ -127,6 +129,7 @@ namespace DarkFantasy.Core.Config
                     CraftCostBase = D(ec, "economy", "craft_cost_base"),
                     CraftCostPerIlvl = D(ec, "economy", "craft_cost_per_ilvl"),
                     ScrollDropChance = D(ec, "economy", "scroll_drop_chance"),
+                    MaterialPerSalvage = Arr<double>(ec, "economy", "material_per_salvage"),
                 },
                 Mastery = new MasteryConfig
                 {
@@ -172,9 +175,14 @@ namespace DarkFantasy.Core.Config
                     EnemyRespawnS = D(cb, "combat", "enemy_respawn_s"),
                     BossRepeatKillFraction = D(cb, "combat", "boss_repeat_kill_fraction"),
                     BossRetryKillFraction = D(cb, "combat", "boss_retry_kill_fraction"),
+                    InventoryBaseSlots = I(cb, "combat", "inventory_base_slots"),
+                    InventorySlotsPerExpansion = I(cb, "combat", "inventory_slots_per_expansion"),
+                    ItemLevelRequirementMargin = I(cb, "combat", "item_level_requirement_margin"),
                 },
                 Classes = Classes(Section(root, "classes")),
                 AllocationPresets = Presets(Section(root, "allocation_presets")),
+                Items = Items(Section(root, "items")),
+                Onboarding = Onboarding(Section(root, "onboarding")),
             };
         }
 
@@ -224,6 +232,110 @@ namespace DarkFantasy.Core.Config
                 };
             }
             return result;
+        }
+
+        private static ItemsConfig Items(JObject items)
+        {
+            var typesSection = Section(items, "types", "items.types");
+            var types = new Dictionary<ItemKind, List<ItemTypeConfig>>();
+            foreach (ItemKind kind in Enum.GetValues(typeof(ItemKind)))
+            {
+                bool armour = kind >= ItemKind.Helmet && kind <= ItemKind.Gloves;
+                string key = armour ? "armour" : ItemKeys.Kind(kind);
+                string path = "items.types." + key;
+                if (!(Req(typesSection, "items.types", key) is JArray list))
+                    throw new BalanceConfigException(path + " must be an array");
+                var result = new List<ItemTypeConfig>();
+                foreach (JObject t in list)
+                {
+                    string id = Req(t, path, "id").Value<string>();
+                    var lines = new List<StatLineConfig>();
+                    foreach (JObject l in (JArray)Req(t, path + "." + id, "lines"))
+                    {
+                        string lp = path + "." + id + ".lines";
+                        lines.Add(new StatLineConfig
+                        {
+                            Stat = Stat(Req(l, lp, "stat").Value<string>(), lp),
+                            Base = D(l, lp, "base"),
+                            Scaling = Scaling(Req(l, lp, "scaling").Value<string>(), lp),
+                            PerItemLevel = D(l, lp, "per_item_level"),
+                        });
+                    }
+                    result.Add(new ItemTypeConfig { Id = id, Name = Req(t, path, "name").Value<string>(), Lines = lines });
+                }
+                types[kind] = result;
+            }
+
+            var attributes = new List<AttributeConfig>();
+            if (!(Req(items, "items", "attributes") is JArray pool))
+                throw new BalanceConfigException("items.attributes must be an array");
+            foreach (JObject a in pool)
+            {
+                string id = Req(a, "items.attributes", "id").Value<string>();
+                string path = "items.attributes." + id;
+                var kinds = new List<ItemKind>();
+                foreach (var k in (JArray)Req(a, path, "kinds"))
+                {
+                    if (!ItemKeys.TryKind((string)k, out var kind))
+                        throw new BalanceConfigException(path + ": unknown item kind '" + k + "'");
+                    kinds.Add(kind);
+                }
+                attributes.Add(new AttributeConfig
+                {
+                    Id = id,
+                    Stat = Stat(Req(a, path, "stat").Value<string>(), path),
+                    Min = D(a, path, "min"),
+                    Max = D(a, path, "max"),
+                    PerItemLevel = D(a, path, "per_item_level"),
+                    Kinds = kinds,
+                });
+            }
+
+            return new ItemsConfig
+            {
+                Types = types,
+                Attributes = attributes,
+                ClassItemShare = D(items, "items", "class_item_share"),
+                ClassBonusPctDamage = D(items, "items", "class_bonus_pct_damage"),
+                RarityRollBias = D(items, "items", "rarity_roll_bias"),
+                ExpansionCostBase = D(items, "items", "expansion_cost_base"),
+                ExpansionCostGrowth = D(items, "items", "expansion_cost_growth"),
+            };
+        }
+
+        private static OnboardingConfig Onboarding(JObject o)
+        {
+            var overrides = new Dictionary<int, double>();
+            foreach (var prop in Section(o, "boss_hp_mult_overrides", "onboarding.boss_hp_mult_overrides").Properties())
+            {
+                if (!int.TryParse(prop.Name, out int region))
+                    throw new BalanceConfigException("onboarding.boss_hp_mult_overrides: '" + prop.Name + "' is not a region number");
+                overrides[region] = D((JObject)o["boss_hp_mult_overrides"], "onboarding.boss_hp_mult_overrides", prop.Name);
+            }
+            var enabled = Req(o, "onboarding", "training_boss_enabled");
+            if (enabled.Type != JTokenType.Boolean)
+                throw new BalanceConfigException("onboarding.training_boss_enabled must be true or false");
+            return new OnboardingConfig
+            {
+                TrainingBossEnabled = enabled.Value<bool>(),
+                TrainingBossAfterSubzone = I(o, "onboarding", "training_boss_after_subzone"),
+                TrainingBossHpMult = D(o, "onboarding", "training_boss_hp_mult"),
+                BossHpMultOverrides = overrides,
+            };
+        }
+
+        private static GearStat Stat(string key, string path)
+        {
+            if (key == null || !ItemKeys.TryStat(key, out var s))
+                throw new BalanceConfigException(path + ": unknown stat '" + key + "'");
+            return s;
+        }
+
+        private static StatLineScaling Scaling(string key, string path)
+        {
+            if (key == null || !ItemKeys.TryScaling(key, out var s))
+                throw new BalanceConfigException(path + ": unknown scaling '" + key + "'");
+            return s;
         }
 
         private static Dictionary<string, Dictionary<string, double>> Presets(JObject presets)

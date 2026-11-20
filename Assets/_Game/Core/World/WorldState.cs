@@ -17,6 +17,9 @@ namespace DarkFantasy.Core.World
         public int HighestBossDefeated;
         public int ConsecutiveEscapes;
 
+        /// <summary>The first-run training boss is still to be fought (ON-1); set by the session from the account.</summary>
+        public bool TrainingBossPending;
+
         /// <summary>Game time until which the character farms one subzone below the frontier (R2-1c).</summary>
         public double RetreatUntil;
 
@@ -37,21 +40,27 @@ namespace DarkFantasy.Core.World
         public readonly int Level;
         public readonly bool IsBoss;
 
-        public Encounter(int region, int subzone, int level, bool isBoss)
+        /// <summary>The first-run training boss (ON-1): boss timer, cannot kill, weak.</summary>
+        public readonly bool IsTraining;
+
+        public Encounter(int region, int subzone, int level, bool isBoss, bool isTraining = false)
         {
             Region = region;
             Subzone = subzone;
             Level = level;
             IsBoss = isBoss;
+            IsTraining = isTraining;
         }
 
-        public override string ToString() => IsBoss ? $"Region {Region} boss (lvl {Level})" : $"Subzone {Region}-{Subzone} (lvl {Level})";
+        public override string ToString() => IsTraining ? "Training boss"
+            : IsBoss ? $"Region {Region} boss (lvl {Level})" : $"Subzone {Region}-{Subzone} (lvl {Level})";
     }
 
     public enum WorldChange
     {
         None,
         SubzoneUnlocked,
+        TrainingBossDefeated,
         BossDefeated,
         BossFailed,
         Escaped,

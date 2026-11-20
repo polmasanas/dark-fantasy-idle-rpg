@@ -86,6 +86,20 @@ class Formulas:
         return (self.ec["upgrade_cost_base"] * self.g["item_growth"] ** (ilvl - 1)
                 * self.ec["upgrade_cost_growth"] ** current_upgrade)
 
+    # 6.1 item stat lines (M3-4)
+    def item_line(self, base: float, scaling: str, per_item_level: float, ilvl: int, rarity: int, upgrade: int) -> float:
+        rm = self.g["rarity_base_mult"][rarity]
+        up = 1 + self.g["upgrade_base_pct"] * upgrade
+        if scaling == "exponential":
+            return base * self.g["item_growth"] ** (ilvl - 1) * rm * up
+        if scaling == "linear":
+            return (base + per_item_level * ilvl) * rm * up
+        if scaling == "rarity":
+            return base * rm * up
+        if scaling == "fixed":
+            return base
+        raise ValueError(scaling)
+
     # 2.8 prestige
     def dust_for_run(self, highest_boss_region: int) -> int:
         pr = self.pr
@@ -124,8 +138,10 @@ class Item:
     slot: str
     ilvl: int
     rarity: int
-    affix_dmg: int = 0
-    affix_hp: int = 0
+    kind: str = "main_hand"
+    type_id: str = "sword"
+    attrs: list = field(default_factory=list)   # [(stat, value)] (M3-3)
+    class_bonus: str = None                      # class whose +damage line is active (R2-6)
     upgrade: int = 0
     gold_spent: float = 0.0
 
@@ -154,7 +170,19 @@ class Run:  # reset on prestige
     stuck_since: float | None = None
 
 
-SLOT_TYPES = ["main_hand", "off_hand", "armour", "jewellery", "accessory"]
+ARMOUR_KINDS = ["helmet", "chest", "legs", "boots", "armguards", "gloves"]
+# M3-1: 11 active slots (accessories and pet come later)
+SLOT_IDS = ["main_hand0", "off_hand0"] + [k + "0" for k in ARMOUR_KINDS] + ["ring0", "ring1", "amulet0"]
+GEAR_STATS = ["weapon_damage", "armour", "hp", "pct_damage", "primary", "crit_points", "crit_damage_points",
+              "attack_speed", "counter", "pct_hp", "pct_armour", "vit", "gold_find", "luck", "drop_chance"]
+
+
+def kind_of_slot(slot_id: str) -> str:
+    return slot_id.rstrip("0123456789")
+
+
+def type_group(kind: str) -> str:
+    return "armour" if kind in ARMOUR_KINDS else kind
 
 
 class Sim:
@@ -165,7 +193,10 @@ class Sim:
         self.meta, self.run = Meta(), self.new_run()
         self.t = 0.0           # wall-clock seconds
         self.active = True     # current period active or offline
-        self.slot_ids = [f"{st}{i}" for st, n in cfg["gear"]["slot_counts"].items() for i in range(n)]
+        self.slot_ids = list(SLOT_IDS)
+        sw = cfg["gear"]["slot_drop_weights"]
+        self.kinds = ["main_hand", "off_hand"] + ARMOUR_KINDS + ["ring", "amulet"]
+        self.kind_weights = [sw["main_hand"], sw["off_hand"]] + [sw["armour"]] * 6 + [2 * sw["jewellery"], sw["jewellery"]]
         self._stats = None
         self.log_rows = []
         self.events = []
@@ -182,30 +213,21 @@ class Sim:
     @staticmethod
     def new_run() -> Run:
         r = Run()
-        r.gear["main_hand0"] = Item(slot="main_hand0", ilvl=1, rarity=0)  # class starter weapon
+        r.gear["main_hand0"] = Item(slot="main_hand0", ilvl=1, rarity=0, kind="main_hand", type_id="sword")  # D-015
         return r
 
     # ---------------- stats ----------------
     def item_power(self, it: Item) -> dict:
-        g = self.cfg["gear"]
-        rm = g["rarity_base_mult"][it.rarity]
-        up = 1 + g["upgrade_base_pct"] * it.upgrade
-        growth = g["item_growth"] ** (it.ilvl - 1)
-        out = {"wdmg": 0.0, "armour": 0.0, "hp": 0.0, "crit_pts": 0.0, "pct_dmg": 0.0, "pct_hp": 0.0}
-        st = it.slot.rstrip("0123456789")
-        if st == "main_hand":
-            out["wdmg"] = g["weapon_dmg_base"] * growth * rm * up
-        elif st == "off_hand":
-            out["wdmg"] = g["weapon_dmg_base"] * g["offhand_dmg_share"] * growth * rm * up
-        elif st == "armour":
-            out["armour"] = g["armour_base"] * growth * rm * up
-            out["hp"] = g["armour_hp_base"] * growth * rm * up
-        elif st == "jewellery":
-            out["crit_pts"] = (g["jewel_crit_points_base"] + g["jewel_crit_points_per_ilvl"] * it.ilvl) * rm * up
-        elif st == "accessory":
-            out["pct_dmg"] = 0.015 * rm * up
-        out["pct_dmg"] += it.affix_dmg * g["affix_value_pct"]
-        out["pct_hp"] += it.affix_hp * g["affix_value_pct"]
+        """Stats an item adds (M3-3/M3-4), mirroring C# ItemStats.Contributions."""
+        out = {k: 0.0 for k in GEAR_STATS}
+        ttype = next(t for t in self.cfg["items"]["types"][type_group(it.kind)] if t["id"] == it.type_id)
+        for line in ttype["lines"]:
+            out[line["stat"]] += self.f.item_line(line["base"], line["scaling"], line["per_item_level"],
+                                                  it.ilvl, it.rarity, it.upgrade)
+        for stat, value in it.attrs:
+            out[stat] += value
+        if it.class_bonus == "fighter":
+            out["pct_damage"] += self.cfg["items"]["class_bonus_pct_damage"]
         return out
 
     def compute_stats(self, gear=None) -> dict:
@@ -228,28 +250,33 @@ class Sim:
             primary += manual * 0.5
             crit_pts += manual * 0.25
             vit += manual * 0.25
-        tot = {"wdmg": 0.0, "armour": 0.0, "hp": 0.0, "crit_pts": 0.0, "pct_dmg": 0.0, "pct_hp": 0.0}
+        tot = {k: 0.0 for k in GEAR_STATS}
         for it in gear.values():
             for k, v in self.item_power(it).items():
                 tot[k] += v
-        crit_pts += tot["crit_pts"]
+        crit_pts += tot["crit_points"]
+        primary += tot["primary"]
+        vit += tot["vit"]
+        counter_pts += tot["counter"]
         art = self.meta.artifacts
-        dmg_mult = (1 + primary * p["dmg_per_primary_pct"]) * (1 + tot["pct_dmg"]) * f.artifact_mult("might", art["might"])
+        dmg_mult = (1 + primary * p["dmg_per_primary_pct"]) * (1 + tot["pct_damage"]) * f.artifact_mult("might", art["might"])
         cb = self.cfg["combat"]
         base_iv = cb["base_interval_fighter"]
         class_dmg_scale = base_iv / cb["reference_interval_s"]  # keeps early TTK unchanged
-        hit_dmg = max(3.0, tot["wdmg"]) * dmg_mult * class_dmg_scale
-        attack_speed = self.f.artifact_mult("haste", art["haste"]) - 1
+        hit_dmg = max(3.0, tot["weapon_damage"]) * dmg_mult * class_dmg_scale
+        attack_speed = max(-0.9, self.f.artifact_mult("haste", art["haste"]) - 1 + tot["attack_speed"])
         interval = max(cb["attack_interval_floor_s"], base_iv / (1 + attack_speed))
         cc = min(p["crit_chance_cap"], p["base_crit_chance"] + crit_pts * p["crit_chance_per_point"])
-        cd = p["base_crit_damage"] + crit_pts * p["crit_damage_per_point"] * 0.5
+        cd = p["base_crit_damage"] + crit_pts * p["crit_damage_per_point"] * 0.5 \
+            + tot["crit_damage_points"] * p["crit_damage_per_point"]
         avg_hit = hit_dmg * (1 + cc * (cd - 1))
         hp = (p["base_hp"] + tot["hp"]) * (1 + vit * p["hp_per_vit_pct"]) * (1 + tot["pct_hp"]) \
             * f.artifact_mult("bulwark", art["bulwark"])
-        armour = tot["armour"] * (1 + dfn * p["armour_pct_per_def"])
+        armour = tot["armour"] * (1 + dfn * p["armour_pct_per_def"]) * (1 + tot["pct_armour"])
         counter = min(p["counter_cap"], counter_pts * p["counter_chance_per_point"])
         return {"avg_hit": avg_hit, "hp": hp, "armour": armour, "interval": interval,
-                "hit": p["base_hit_chance"], "cc": cc, "cd": cd, "counter": counter}
+                "hit": p["base_hit_chance"], "cc": cc, "cd": cd, "counter": counter,
+                "gold_find": tot["gold_find"], "luck": tot["luck"], "drop_chance": tot["drop_chance"]}
 
     @property
     def stats(self):
@@ -267,6 +294,11 @@ class Sim:
         e, p, f = self.cfg["enemy"], self.cfg["player"], self.f
         var = self.rng.uniform(e["variance_mult_min"], e["variance_mult_max"])
         ehp = f.enemy_hp(enemy_lvl, boss) * var
+        if boss:  # ON-1: per-region boss HP override (region 1 softened for onboarding)
+            region = enemy_lvl // (self.cfg["world"]["subzones_per_region"] * self.cfg["world"]["levels_per_subzone"])
+            override = self.cfg["onboarding"]["boss_hp_mult_overrides"].get(str(region))
+            if override is not None:
+                ehp = ehp / self.cfg["enemy"]["boss_hp_mult"] * override
         swings = math.ceil(ehp / s["avg_hit"]) / s["hit"]
         # Counter (5b): each enemy attack has s["counter"] chance of a free 60% hit.
         main_dps = s["avg_hit"] * s["hit"] / s["interval"]
@@ -299,10 +331,11 @@ class Sim:
         self.run.gold += amount
         self.gold_earned += amount
 
-    def roll_rarity(self, min_rarity=0) -> int:
+    def roll_rarity(self, min_rarity=0, luck=0.0) -> int:
         w = self.cfg["gear"]["rarity_weights"][:]
-        for i in range(min_rarity):
-            w[i] = 0
+        mult = 1 + luck / (luck + self.cfg["combat"]["luck_k"]) if luck > 0 else 1.0
+        for i in range(len(w)):
+            w[i] = 0 if i < min_rarity else w[i] * (mult if i > 0 else 1.0)
         return self.rng.choices(range(6), weights=w)[0]
 
     def craft(self):
@@ -318,24 +351,48 @@ class Sim:
             if worst in r.gear and r.gear[worst].ilvl >= ilvl:
                 return
             r.materials -= cost
-            n = self.cfg["gear"]["random_affixes"]
-            rar = self.roll_rarity()
-            dmg = sum(1 for _ in range(n[rar]) if self.rng.random() < 0.5)
             self.crafted += 1
-            self.consider_item(Item(slot=worst, ilvl=ilvl, rarity=rar, affix_dmg=dmg, affix_hp=n[rar] - dmg))
+            it = self.make_item(ilvl, self.roll_rarity(0, self.stats["luck"]), kind=kind_of_slot(worst))
+            it.slot = worst
+            self.consider_item(it)
 
-    def make_item(self, ilvl: int, rarity: int) -> Item:
-        sw = self.cfg["gear"]["slot_drop_weights"]
-        slot = self.rng.choices(self.slot_ids, weights=[sw.get(i.rstrip("0123456789"), 1.0) for i in self.slot_ids])[0]
-        n = self.cfg["gear"]["random_affixes"][rarity]
-        dmg = sum(1 for _ in range(n) if self.rng.random() < 0.5)
-        return Item(slot=slot, ilvl=ilvl, rarity=rarity, affix_dmg=dmg, affix_hp=n - dmg)
+    def make_item(self, ilvl: int, rarity: int, kind: str = None) -> Item:
+        """Mirrors C# LootSystem.Roll (kind weights, type, attributes, class line)."""
+        it_cfg = self.cfg["items"]
+        if kind is None:
+            kind = self.rng.choices(self.kinds, weights=self.kind_weights)[0]
+        types = it_cfg["types"][type_group(kind)]
+        ttype = types[int(self.rng.random() * len(types))]
+        candidates = [a for a in it_cfg["attributes"] if kind in a["kinds"]]
+        attrs = []
+        for _ in range(self.cfg["gear"]["random_affixes"][rarity]):
+            if not candidates:
+                break
+            a = candidates.pop(int(self.rng.random() * len(candidates)))
+            q = self.rng.random() ** (1.0 / (1.0 + it_cfg["rarity_roll_bias"] * rarity))
+            attrs.append((a["stat"], a["min"] + (a["max"] - a["min"]) * q + a["per_item_level"] * ilvl))
+        class_bonus = None
+        if self.rng.random() < it_cfg["class_item_share"]:
+            class_bonus = self.rng.choice(["fighter", "archer", "mage"])
+        slot = "ring0" if kind == "ring" else kind + "0"
+        return Item(slot=slot, ilvl=ilvl, rarity=rarity, kind=kind, type_id=ttype["id"], attrs=attrs, class_bonus=class_bonus)
 
     def score(self, stats: dict) -> float:
         # power proxy: damage x survivability (sqrt to keep both relevant)
         return stats["avg_hit"] * math.sqrt(stats["hp"] * (1 + stats["armour"] / 100))
 
     def consider_item(self, it: Item):
+        if it.kind == "ring":  # two ring slots: try the one where the swap helps most
+            best = None
+            for slot in ("ring0", "ring1"):
+                trial = dict(self.run.gear)
+                trial[slot] = Item(**{**it.__dict__, "slot": slot})
+                sc = self.score(self.compute_stats(trial))
+                if best is None or sc > best[0] or slot not in self.run.gear:
+                    best = (sc, slot)
+                    if slot not in self.run.gear:
+                        break
+            it.slot = best[1]
         cur = self.run.gear.get(it.slot)
         trial = dict(self.run.gear)
         trial[it.slot] = Item(**{**it.__dict__})
@@ -434,11 +491,12 @@ class Sim:
             self._mastery = self.mastery_bonus()
         m_gold, m_drop = self._mastery
         self.gain_xp(f.enemy_xp(lvl, r.level))
-        self.gain_gold(f.gold_drop(lvl) * (1 + m_gold))
-        chance = g["drop_chance_normal"] * (1 + m_drop)
+        st = self.stats
+        self.gain_gold(f.gold_drop(lvl) * (1 + m_gold) * (1 + st["gold_find"]))
+        chance = g["drop_chance_normal"] * (1 + m_drop) * (1 + st["drop_chance"])
         n_drops = int(chance) + (1 if self.rng.random() < chance - int(chance) else 0)
         for _ in range(n_drops):
-            it = self.make_item(lvl, self.roll_rarity())
+            it = self.make_item(lvl, self.roll_rarity(0, st["luck"]))
             self.drops_by_rarity[it.rarity] += 1
             (self.consider_item(it) if can_manage else pending.append(it))
         if self.rng.random() < self.cfg["economy"]["scroll_drop_chance"]:
@@ -457,7 +515,8 @@ class Sim:
         lvl = f.boss_level(region)
         self.gain_xp(f.enemy_xp(lvl, r.level, boss=True))
         self.gain_gold(f.gold_drop(lvl, boss=True))
-        it = self.make_item(lvl, self.roll_rarity(g["boss_min_rarity"]))
+        # M3-2: Rare+ guaranteed on the first kill of each boss per run (the sim kills each boss once per run)
+        it = self.make_item(lvl, self.roll_rarity(g["boss_min_rarity"], self.stats["luck"]))
         self.drops_by_rarity[it.rarity] += 1
         (self.consider_item(it) if can_manage else pending.append(it))
         r.highest_boss = max(r.highest_boss, region)
@@ -647,6 +706,14 @@ def export_golden(cfg: dict, path: str):
         for lvl in (0, 1, 5, 20, 39, 40):
             add("ArtifactCost", [name, lvl], f.artifact_cost(name, lvl))
             add("ArtifactMult", [name, lvl], f.artifact_mult(name, lvl))
+    for group, types in cfg["items"]["types"].items():
+        for t in types:
+            for i, line in enumerate(t["lines"]):
+                for ilvl in (1, 11, 60, 250):
+                    for rarity in (0, 2, 5):
+                        for up in (0, 3):
+                            add("ItemLine", [group, t["id"], i, ilvl, rarity, up],
+                                f.item_line(line["base"], line["scaling"], line["per_item_level"], ilvl, rarity, up))
     with open(path, "w") as fh:
         json.dump(rows, fh, indent=1, allow_nan=True)
     print(f"golden values: {len(rows)} rows -> {path}")

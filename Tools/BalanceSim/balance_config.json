@@ -229,7 +229,8 @@
     "time_flask_daily_limit_h": 24.0,
     "milestone_class_item_share": 0.3,
     "dungeon_failures_autostop": 0,
-    "boss_retry_kill_fraction": 1.0
+    "boss_retry_kill_fraction": 1.0,
+    "item_level_requirement_margin": 5
   },
   "classes": {
     "_comment": "Owner decisions D-014/D-034/5b: 3 automatic points per level from a 4-level pattern (12 points), 1 manual point.",
@@ -323,6 +324,428 @@
       "vit": 0.5,
       "def": 0.25,
       "counter": 0.25
+    }
+  },
+  "items": {
+    "_comment": "M3-3/M3-4. Scaling: exponential = base x item_growth^(ilvl-1) x rarity x upgrade; linear = (base + per_item_level x ilvl) x rarity x upgrade; rarity = base x rarity x upgrade; fixed = base.",
+    "types": {
+      "main_hand": [
+        {
+          "id": "sword",
+          "name": "Sword",
+          "lines": [
+            {
+              "stat": "weapon_damage",
+              "base": 10.0,
+              "scaling": "exponential",
+              "per_item_level": 0.0
+            }
+          ]
+        },
+        {
+          "id": "greataxe",
+          "name": "Greataxe",
+          "lines": [
+            {
+              "stat": "weapon_damage",
+              "base": 12.5,
+              "scaling": "exponential",
+              "per_item_level": 0.0
+            },
+            {
+              "stat": "attack_speed",
+              "base": -0.1,
+              "scaling": "fixed",
+              "per_item_level": 0.0
+            }
+          ]
+        },
+        {
+          "id": "dagger",
+          "name": "Dagger",
+          "lines": [
+            {
+              "stat": "weapon_damage",
+              "base": 8.0,
+              "scaling": "exponential",
+              "per_item_level": 0.0
+            },
+            {
+              "stat": "attack_speed",
+              "base": 0.12,
+              "scaling": "fixed",
+              "per_item_level": 0.0
+            }
+          ]
+        }
+      ],
+      "off_hand": [
+        {
+          "id": "parrying_blade",
+          "name": "Parrying Blade",
+          "lines": [
+            {
+              "stat": "weapon_damage",
+              "base": 3.5,
+              "scaling": "exponential",
+              "per_item_level": 0.0
+            }
+          ]
+        },
+        {
+          "id": "shield",
+          "name": "Shield",
+          "lines": [
+            {
+              "stat": "armour",
+              "base": 7.8,
+              "scaling": "exponential",
+              "per_item_level": 0.0
+            },
+            {
+              "stat": "hp",
+              "base": 9.6,
+              "scaling": "exponential",
+              "per_item_level": 0.0
+            }
+          ]
+        },
+        {
+          "id": "focus_orb",
+          "name": "Focus Orb",
+          "lines": [
+            {
+              "stat": "pct_damage",
+              "base": 0.06,
+              "scaling": "rarity",
+              "per_item_level": 0.0
+            },
+            {
+              "stat": "crit_points",
+              "base": 4.0,
+              "scaling": "rarity",
+              "per_item_level": 0.0
+            }
+          ]
+        }
+      ],
+      "armour": [
+        {
+          "id": "heavy",
+          "name": "Heavy",
+          "lines": [
+            {
+              "stat": "armour",
+              "base": 7.8,
+              "scaling": "exponential",
+              "per_item_level": 0.0
+            },
+            {
+              "stat": "hp",
+              "base": 9.6,
+              "scaling": "exponential",
+              "per_item_level": 0.0
+            }
+          ]
+        },
+        {
+          "id": "medium",
+          "name": "Medium",
+          "lines": [
+            {
+              "stat": "armour",
+              "base": 6.0,
+              "scaling": "exponential",
+              "per_item_level": 0.0
+            },
+            {
+              "stat": "hp",
+              "base": 12.0,
+              "scaling": "exponential",
+              "per_item_level": 0.0
+            }
+          ]
+        },
+        {
+          "id": "light",
+          "name": "Light",
+          "lines": [
+            {
+              "stat": "armour",
+              "base": 4.2,
+              "scaling": "exponential",
+              "per_item_level": 0.0
+            },
+            {
+              "stat": "hp",
+              "base": 14.4,
+              "scaling": "exponential",
+              "per_item_level": 0.0
+            },
+            {
+              "stat": "counter",
+              "base": 0.0,
+              "scaling": "linear",
+              "per_item_level": 0.1
+            }
+          ]
+        }
+      ],
+      "ring": [
+        {
+          "id": "band_of_power",
+          "name": "Band of Power",
+          "lines": [
+            {
+              "stat": "pct_damage",
+              "base": 0.04,
+              "scaling": "rarity",
+              "per_item_level": 0.0
+            }
+          ]
+        },
+        {
+          "id": "band_of_precision",
+          "name": "Band of Precision",
+          "lines": [
+            {
+              "stat": "crit_points",
+              "base": 2.0,
+              "scaling": "linear",
+              "per_item_level": 0.08
+            }
+          ]
+        },
+        {
+          "id": "band_of_fortune",
+          "name": "Band of Fortune",
+          "lines": [
+            {
+              "stat": "luck",
+              "base": 3.0,
+              "scaling": "linear",
+              "per_item_level": 0.05
+            }
+          ]
+        }
+      ],
+      "amulet": [
+        {
+          "id": "talisman",
+          "name": "Talisman",
+          "lines": [
+            {
+              "stat": "crit_damage_points",
+              "base": 3.0,
+              "scaling": "linear",
+              "per_item_level": 0.1
+            }
+          ]
+        },
+        {
+          "id": "ward",
+          "name": "Ward",
+          "lines": [
+            {
+              "stat": "pct_hp",
+              "base": 0.05,
+              "scaling": "rarity",
+              "per_item_level": 0.0
+            }
+          ]
+        },
+        {
+          "id": "charm",
+          "name": "Charm",
+          "lines": [
+            {
+              "stat": "gold_find",
+              "base": 0.05,
+              "scaling": "rarity",
+              "per_item_level": 0.0
+            }
+          ]
+        }
+      ]
+    },
+    "attributes": [
+      {
+        "id": "pct_damage",
+        "stat": "pct_damage",
+        "min": 0.04,
+        "max": 0.08,
+        "per_item_level": 0.0,
+        "kinds": [
+          "main_hand",
+          "off_hand",
+          "ring",
+          "amulet"
+        ]
+      },
+      {
+        "id": "primary",
+        "stat": "primary",
+        "min": 1.0,
+        "max": 3.0,
+        "per_item_level": 0.1,
+        "kinds": [
+          "main_hand",
+          "off_hand",
+          "helmet",
+          "chest",
+          "legs",
+          "boots",
+          "armguards",
+          "gloves",
+          "ring",
+          "amulet"
+        ]
+      },
+      {
+        "id": "crit_points",
+        "stat": "crit_points",
+        "min": 3.0,
+        "max": 8.0,
+        "per_item_level": 0.0,
+        "kinds": [
+          "gloves",
+          "ring",
+          "amulet"
+        ]
+      },
+      {
+        "id": "crit_damage_points",
+        "stat": "crit_damage_points",
+        "min": 5.0,
+        "max": 12.0,
+        "per_item_level": 0.0,
+        "kinds": [
+          "main_hand",
+          "off_hand",
+          "amulet"
+        ]
+      },
+      {
+        "id": "attack_speed",
+        "stat": "attack_speed",
+        "min": 0.02,
+        "max": 0.05,
+        "per_item_level": 0.0,
+        "kinds": [
+          "gloves",
+          "armguards",
+          "ring"
+        ]
+      },
+      {
+        "id": "counter",
+        "stat": "counter",
+        "min": 2.0,
+        "max": 6.0,
+        "per_item_level": 0.0,
+        "kinds": [
+          "chest",
+          "legs",
+          "off_hand"
+        ]
+      },
+      {
+        "id": "pct_hp",
+        "stat": "pct_hp",
+        "min": 0.04,
+        "max": 0.08,
+        "per_item_level": 0.0,
+        "kinds": [
+          "helmet",
+          "chest",
+          "legs",
+          "boots",
+          "armguards",
+          "gloves",
+          "amulet"
+        ]
+      },
+      {
+        "id": "pct_armour",
+        "stat": "pct_armour",
+        "min": 0.04,
+        "max": 0.08,
+        "per_item_level": 0.0,
+        "kinds": [
+          "helmet",
+          "chest",
+          "legs",
+          "boots",
+          "armguards",
+          "gloves",
+          "off_hand"
+        ]
+      },
+      {
+        "id": "vit",
+        "stat": "vit",
+        "min": 1.0,
+        "max": 3.0,
+        "per_item_level": 0.1,
+        "kinds": [
+          "helmet",
+          "chest",
+          "legs",
+          "boots",
+          "armguards",
+          "gloves"
+        ]
+      },
+      {
+        "id": "gold_find",
+        "stat": "gold_find",
+        "min": 0.03,
+        "max": 0.06,
+        "per_item_level": 0.0,
+        "kinds": [
+          "helmet",
+          "boots",
+          "ring",
+          "amulet"
+        ]
+      },
+      {
+        "id": "luck",
+        "stat": "luck",
+        "min": 3.0,
+        "max": 8.0,
+        "per_item_level": 0.0,
+        "kinds": [
+          "boots",
+          "ring",
+          "amulet"
+        ]
+      },
+      {
+        "id": "drop_chance",
+        "stat": "drop_chance",
+        "min": 0.02,
+        "max": 0.04,
+        "per_item_level": 0.0,
+        "kinds": [
+          "helmet",
+          "amulet"
+        ]
+      }
+    ],
+    "class_item_share": 0.3,
+    "class_bonus_pct_damage": 0.08,
+    "rarity_roll_bias": 0.25,
+    "expansion_cost_base": 1000.0,
+    "expansion_cost_growth": 2.0
+  },
+  "onboarding": {
+    "_comment": "Owner decision ON-1 (M3 playtest): training boss in the first run + softer region 1 boss.",
+    "training_boss_enabled": true,
+    "training_boss_after_subzone": 1,
+    "training_boss_hp_mult": 3.0,
+    "boss_hp_mult_overrides": {
+      "1": 4.0
     }
   }
 }

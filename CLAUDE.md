@@ -13,13 +13,14 @@ Dark fantasy, flat-cartoon 2D **idle RPG for Android** (portrait), Unity + C#, b
 | M0 Design foundation | Done (merged, PR #1) |
 | M1 Core skeleton | Done (merged, PR #2) |
 | M2 Playable loop | Done (merged, PR #3). Owner playtest changed R2-2: a failed boss returns after a new full wave of kills |
-| **M3 Loot & inventory** | **Next** (Jira DFIRPG-4). Removes the dev-only placeholder armour |
+| M3 Loot & inventory | Done (merged, PR #4). Decisions M3-1…M3-5; playtest added ON-1 (first-run training boss, region 1 boss HP ×4) |
+| **M4 Save & offline** | **Next** (Jira DFIRPG-5) |
 | M3–M12 | Planned in `Docs/DEVELOPMENT_ROADMAP.md`; one Jira epic each (project key `DFIRPG`, epic key = milestone number + 1, e.g. M3 = DFIRPG-4) |
 
 ## Where things live
 | Path | What |
 |---|---|
-| `Docs/` | GDD, TECHNICAL_ARCHITECTURE, GAME_BALANCE, DATA_DICTIONARY, SAVE_SYSTEM, DEVELOPMENT_ROADMAP, **DECISIONS** (D-*, R2-*), TESTING_STRATEGY, UNITY_SETUP, M2_SCENE_SETUP, `plans/` (one implementation plan per milestone) |
+| `Docs/` | M3_PLAYTEST, GDD, TECHNICAL_ARCHITECTURE, GAME_BALANCE, DATA_DICTIONARY, SAVE_SYSTEM, DEVELOPMENT_ROADMAP, **DECISIONS** (D-*, R2-*), TESTING_STRATEGY, UNITY_SETUP, M2_SCENE_SETUP, `plans/` (one implementation plan per milestone) |
 | `Assets/_Game/Core/` | **Game.Core**: all game rules in pure C# (no UnityEngine): RNG, config, formulas, stats, combat, characters, world, session, events |
 | `Assets/_Game/Presentation/` | **Game.Presentation**: thin Unity layer (bootstrap, views, HUD, dev panel). Draws only; no rules |
 | `Assets/_Game/Editor/` | **Game.Editor**: editor tools (e.g. `DFIRPG → Set Up M2 Scene`) |
@@ -58,6 +59,7 @@ dotnet run --project Tools/BalanceSim.CSharp        # C# combat table
 - Unity Hub installs from an `.msix`; use Windows App Installer or `Add-AppxPackage`, not third-party MSIX tools.
 
 ## Temporary, dev-only things (remove when their milestone lands)
-- `CharacterState.PlaceholderArmourItemLevel` and the dev panel's **Gear +10**: stand-ins for loot until M3 (without armour the region 1 boss is unbeatable, by design).
+- Dev panel buttons (speed, +5 levels, Drop Rare/Epic/Legendary): development builds only.
+- Inventory expansion cost (`items.expansion_cost_*`) is provisional: rebalance once mid-game gold is known.
 - Placeholder visuals (coloured boxes) and names ("Region N"): replaced by Creative Direction / art (suggested before M5).
 - Placeholder company and package ID `com.dfirpg.placeholder`: replace in M12 before any Play Store upload.

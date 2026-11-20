@@ -3768,5 +3768,6629 @@
    40
   ],
   "value": 3.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 10.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 11.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 14.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 16.674999999999997
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 25.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 28.749999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 19.671513572895666
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 22.622240608830015
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 28.523694680698714
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 32.80224888280352
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 49.17878393223916
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 56.55560152207504
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 541.5553909769504
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 622.7886996234929
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 785.2553169165781
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 903.0436144540647
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 1353.8884774423761
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 1556.9717490587325
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 207281548.12948728
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 238373780.34891036
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 300558244.78775656
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 345641981.50592
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 518203870.3237182
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "sword",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 595934450.8722758
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 12.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 14.374999999999998
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 18.125
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 20.84375
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 31.25
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 35.9375
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 24.58939196611958
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 28.27780076103752
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 35.65461835087339
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 41.0028111035044
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 61.47347991529895
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 70.69450190259379
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 676.944238721188
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 778.4858745293661
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 981.5691461457225
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 1128.8045180675808
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 1692.36059680297
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 1946.2146863234152
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 259101935.16185907
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 297967225.4361379
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 375697805.9846956
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 432052476.8823999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 647754837.9046477
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 744918063.5903448
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   1,
+   0,
+   0
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   1,
+   0,
+   3
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   1,
+   2,
+   0
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   1,
+   2,
+   3
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   1,
+   5,
+   0
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   1,
+   5,
+   3
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   11,
+   0,
+   0
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   11,
+   0,
+   3
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   11,
+   2,
+   0
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   11,
+   2,
+   3
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   11,
+   5,
+   0
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   11,
+   5,
+   3
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   60,
+   0,
+   0
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   60,
+   0,
+   3
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   60,
+   2,
+   0
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   60,
+   2,
+   3
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   60,
+   5,
+   0
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   60,
+   5,
+   3
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   250,
+   0,
+   0
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   250,
+   0,
+   3
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   250,
+   2,
+   0
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   250,
+   2,
+   3
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   250,
+   5,
+   0
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "greataxe",
+   1,
+   250,
+   5,
+   3
+  ],
+  "value": -0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 8.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 9.2
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 11.6
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 13.339999999999998
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 20.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 23.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 15.737210858316532
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 18.09779248706401
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 22.81895574455897
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 26.241799106242812
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 39.34302714579133
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 45.24448121766003
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 433.2443127815603
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 498.2309596987943
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 628.2042535332624
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 722.4348915632518
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 1083.1107819539009
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 1245.5773992469858
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 165825238.5035898
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 190699024.27912825
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 240446595.8302052
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 276513585.20473593
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 414563096.25897455
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 476747560.6978207
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   1,
+   0,
+   0
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   1,
+   0,
+   3
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   1,
+   2,
+   0
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   1,
+   2,
+   3
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   1,
+   5,
+   0
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   1,
+   5,
+   3
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   11,
+   0,
+   0
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   11,
+   0,
+   3
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   11,
+   2,
+   0
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   11,
+   2,
+   3
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   11,
+   5,
+   0
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   11,
+   5,
+   3
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   60,
+   0,
+   0
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   60,
+   0,
+   3
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   60,
+   2,
+   0
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   60,
+   2,
+   3
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   60,
+   5,
+   0
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   60,
+   5,
+   3
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   250,
+   0,
+   0
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   250,
+   0,
+   3
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   250,
+   2,
+   0
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   250,
+   2,
+   3
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   250,
+   5,
+   0
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "dagger",
+   1,
+   250,
+   5,
+   3
+  ],
+  "value": 0.12
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 3.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 4.0249999999999995
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 5.075
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 5.83625
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 8.75
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 10.0625
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 6.885029750513483
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 7.9177842130905045
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 9.98329313824455
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 11.48078710898123
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 17.21257437628371
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 19.794460532726262
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 189.54438684193263
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 217.97604486822252
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 274.83936092080233
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 316.06526505892265
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 473.8609671048316
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 544.9401121705563
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 72548541.84532054
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 83430823.1221186
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 105195385.67571478
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 120974693.52707198
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 181371354.61330134
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "parrying_blade",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 208577057.8052965
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 7.8
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 8.969999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 11.309999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 13.006499999999997
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 19.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 22.424999999999997
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 15.343780586858617
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 17.645347674887407
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 22.248481850944994
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 25.585754128586743
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 38.35945146714654
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 44.11336918721852
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 422.4132049620213
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 485.77518570632446
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 612.4991471949309
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 704.3740192741705
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 1056.0330124050533
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 1214.4379642658112
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 161679607.54100007
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 185931548.67215008
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 234435430.9344501
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 269600745.57461756
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 404199018.8525002
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 464828871.6803752
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   1,
+   0,
+   0
+  ],
+  "value": 9.6
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   1,
+   0,
+   3
+  ],
+  "value": 11.04
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   1,
+   2,
+   0
+  ],
+  "value": 13.92
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   1,
+   2,
+   3
+  ],
+  "value": 16.008
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   1,
+   5,
+   0
+  ],
+  "value": 24.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   1,
+   5,
+   3
+  ],
+  "value": 27.599999999999998
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   11,
+   0,
+   0
+  ],
+  "value": 18.884653029979837
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   11,
+   0,
+   3
+  ],
+  "value": 21.717350984476813
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   11,
+   2,
+   0
+  ],
+  "value": 27.382746893470763
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   11,
+   2,
+   3
+  ],
+  "value": 31.490158927491375
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   11,
+   5,
+   0
+  ],
+  "value": 47.21163257494959
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   11,
+   5,
+   3
+  ],
+  "value": 54.29337746119202
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   60,
+   0,
+   0
+  ],
+  "value": 519.8931753378723
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   60,
+   0,
+   3
+  ],
+  "value": 597.8771516385531
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   60,
+   2,
+   0
+  ],
+  "value": 753.8451042399148
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   60,
+   2,
+   3
+  ],
+  "value": 866.921869875902
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   60,
+   5,
+   0
+  ],
+  "value": 1299.7329383446809
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   60,
+   5,
+   3
+  ],
+  "value": 1494.692879096383
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   250,
+   0,
+   0
+  ],
+  "value": 198990286.20430776
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   250,
+   0,
+   3
+  ],
+  "value": 228838829.13495392
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   250,
+   2,
+   0
+  ],
+  "value": 288535914.9962463
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   250,
+   2,
+   3
+  ],
+  "value": 331816302.2456832
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   250,
+   5,
+   0
+  ],
+  "value": 497475715.5107694
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "shield",
+   1,
+   250,
+   5,
+   3
+  ],
+  "value": 572097072.8373848
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 0.06
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 0.06899999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 0.087
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 0.10004999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 0.15
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 0.1725
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 0.06
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 0.06899999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 0.087
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 0.10004999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 0.15
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 0.1725
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 0.06
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 0.06899999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 0.087
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 0.10004999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 0.15
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 0.1725
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 0.06
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 0.06899999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 0.087
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 0.10004999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 0.15
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 0.1725
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   1,
+   0,
+   0
+  ],
+  "value": 4.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   1,
+   0,
+   3
+  ],
+  "value": 4.6
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   1,
+   2,
+   0
+  ],
+  "value": 5.8
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   1,
+   2,
+   3
+  ],
+  "value": 6.669999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   1,
+   5,
+   0
+  ],
+  "value": 10.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   1,
+   5,
+   3
+  ],
+  "value": 11.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   11,
+   0,
+   0
+  ],
+  "value": 4.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   11,
+   0,
+   3
+  ],
+  "value": 4.6
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   11,
+   2,
+   0
+  ],
+  "value": 5.8
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   11,
+   2,
+   3
+  ],
+  "value": 6.669999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   11,
+   5,
+   0
+  ],
+  "value": 10.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   11,
+   5,
+   3
+  ],
+  "value": 11.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   60,
+   0,
+   0
+  ],
+  "value": 4.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   60,
+   0,
+   3
+  ],
+  "value": 4.6
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   60,
+   2,
+   0
+  ],
+  "value": 5.8
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   60,
+   2,
+   3
+  ],
+  "value": 6.669999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   60,
+   5,
+   0
+  ],
+  "value": 10.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   60,
+   5,
+   3
+  ],
+  "value": 11.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   250,
+   0,
+   0
+  ],
+  "value": 4.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   250,
+   0,
+   3
+  ],
+  "value": 4.6
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   250,
+   2,
+   0
+  ],
+  "value": 5.8
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   250,
+   2,
+   3
+  ],
+  "value": 6.669999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   250,
+   5,
+   0
+  ],
+  "value": 10.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "off_hand",
+   "focus_orb",
+   1,
+   250,
+   5,
+   3
+  ],
+  "value": 11.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 7.8
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 8.969999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 11.309999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 13.006499999999997
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 19.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 22.424999999999997
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 15.343780586858617
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 17.645347674887407
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 22.248481850944994
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 25.585754128586743
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 38.35945146714654
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 44.11336918721852
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 422.4132049620213
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 485.77518570632446
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 612.4991471949309
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 704.3740192741705
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 1056.0330124050533
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 1214.4379642658112
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 161679607.54100007
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 185931548.67215008
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 234435430.9344501
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 269600745.57461756
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 404199018.8525002
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 464828871.6803752
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   1,
+   0,
+   0
+  ],
+  "value": 9.6
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   1,
+   0,
+   3
+  ],
+  "value": 11.04
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   1,
+   2,
+   0
+  ],
+  "value": 13.92
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   1,
+   2,
+   3
+  ],
+  "value": 16.008
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   1,
+   5,
+   0
+  ],
+  "value": 24.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   1,
+   5,
+   3
+  ],
+  "value": 27.599999999999998
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   11,
+   0,
+   0
+  ],
+  "value": 18.884653029979837
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   11,
+   0,
+   3
+  ],
+  "value": 21.717350984476813
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   11,
+   2,
+   0
+  ],
+  "value": 27.382746893470763
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   11,
+   2,
+   3
+  ],
+  "value": 31.490158927491375
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   11,
+   5,
+   0
+  ],
+  "value": 47.21163257494959
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   11,
+   5,
+   3
+  ],
+  "value": 54.29337746119202
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   60,
+   0,
+   0
+  ],
+  "value": 519.8931753378723
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   60,
+   0,
+   3
+  ],
+  "value": 597.8771516385531
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   60,
+   2,
+   0
+  ],
+  "value": 753.8451042399148
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   60,
+   2,
+   3
+  ],
+  "value": 866.921869875902
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   60,
+   5,
+   0
+  ],
+  "value": 1299.7329383446809
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   60,
+   5,
+   3
+  ],
+  "value": 1494.692879096383
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   250,
+   0,
+   0
+  ],
+  "value": 198990286.20430776
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   250,
+   0,
+   3
+  ],
+  "value": 228838829.13495392
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   250,
+   2,
+   0
+  ],
+  "value": 288535914.9962463
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   250,
+   2,
+   3
+  ],
+  "value": 331816302.2456832
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   250,
+   5,
+   0
+  ],
+  "value": 497475715.5107694
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "heavy",
+   1,
+   250,
+   5,
+   3
+  ],
+  "value": 572097072.8373848
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 6.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 6.8999999999999995
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 8.7
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 10.004999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 15.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 17.25
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 11.8029081437374
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 13.573344365298007
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 17.11421680841923
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 19.681349329682114
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 29.507270359343497
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 33.93336091324502
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 324.9332345861702
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 373.67321977409574
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 471.1531901499468
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 541.8261686724388
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 812.3330864654256
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 934.1830494352394
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 124368928.87769236
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 143024268.2093462
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 180334946.8726539
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 207385188.90355197
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 310922322.1942309
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 357560670.5233655
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   1,
+   0,
+   0
+  ],
+  "value": 12.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   1,
+   0,
+   3
+  ],
+  "value": 13.799999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   1,
+   2,
+   0
+  ],
+  "value": 17.4
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   1,
+   2,
+   3
+  ],
+  "value": 20.009999999999998
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   1,
+   5,
+   0
+  ],
+  "value": 30.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   1,
+   5,
+   3
+  ],
+  "value": 34.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   11,
+   0,
+   0
+  ],
+  "value": 23.6058162874748
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   11,
+   0,
+   3
+  ],
+  "value": 27.146688730596015
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   11,
+   2,
+   0
+  ],
+  "value": 34.22843361683846
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   11,
+   2,
+   3
+  ],
+  "value": 39.36269865936423
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   11,
+   5,
+   0
+  ],
+  "value": 59.014540718686995
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   11,
+   5,
+   3
+  ],
+  "value": 67.86672182649004
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   60,
+   0,
+   0
+  ],
+  "value": 649.8664691723404
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   60,
+   0,
+   3
+  ],
+  "value": 747.3464395481915
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   60,
+   2,
+   0
+  ],
+  "value": 942.3063802998936
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   60,
+   2,
+   3
+  ],
+  "value": 1083.6523373448777
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   60,
+   5,
+   0
+  ],
+  "value": 1624.6661729308512
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   60,
+   5,
+   3
+  ],
+  "value": 1868.3660988704787
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   250,
+   0,
+   0
+  ],
+  "value": 248737857.7553847
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   250,
+   0,
+   3
+  ],
+  "value": 286048536.4186924
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   250,
+   2,
+   0
+  ],
+  "value": 360669893.7453078
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   250,
+   2,
+   3
+  ],
+  "value": 414770377.80710393
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   250,
+   5,
+   0
+  ],
+  "value": 621844644.3884618
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "medium",
+   1,
+   250,
+   5,
+   3
+  ],
+  "value": 715121341.046731
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 4.2
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 4.83
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 6.09
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 7.003499999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 10.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 12.075
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 8.26203570061618
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 9.501341055708606
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 11.97995176589346
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 13.77694453077748
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 20.65508925154045
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 23.753352639271515
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 227.4532642103192
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 261.5712538418671
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 329.8072331049628
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 379.2783180707072
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 568.633160525798
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 653.9281346046677
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 87058250.21438466
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 100116987.74654235
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 126234462.81085776
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 145169632.2324864
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 217645625.53596166
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 250292469.3663559
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   1,
+   0,
+   0
+  ],
+  "value": 14.4
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   1,
+   0,
+   3
+  ],
+  "value": 16.56
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   1,
+   2,
+   0
+  ],
+  "value": 20.88
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   1,
+   2,
+   3
+  ],
+  "value": 24.011999999999997
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   1,
+   5,
+   0
+  ],
+  "value": 36.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   1,
+   5,
+   3
+  ],
+  "value": 41.4
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   11,
+   0,
+   0
+  ],
+  "value": 28.326979544969756
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   11,
+   0,
+   3
+  ],
+  "value": 32.576026476715214
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   11,
+   2,
+   0
+  ],
+  "value": 41.07412034020614
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   11,
+   2,
+   3
+  ],
+  "value": 47.23523839123706
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   11,
+   5,
+   0
+  ],
+  "value": 70.81744886242438
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   11,
+   5,
+   3
+  ],
+  "value": 81.44006619178803
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   60,
+   0,
+   0
+  ],
+  "value": 779.8397630068087
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   60,
+   0,
+   3
+  ],
+  "value": 896.8157274578299
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   60,
+   2,
+   0
+  ],
+  "value": 1130.7676563598725
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   60,
+   2,
+   3
+  ],
+  "value": 1300.3828048138532
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   60,
+   5,
+   0
+  ],
+  "value": 1949.5994075170215
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   60,
+   5,
+   3
+  ],
+  "value": 2242.0393186445745
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   250,
+   0,
+   0
+  ],
+  "value": 298485429.3064617
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   250,
+   0,
+   3
+  ],
+  "value": 343258243.7024309
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   250,
+   2,
+   0
+  ],
+  "value": 432803872.49436945
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   250,
+   2,
+   3
+  ],
+  "value": 497724453.36852485
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   250,
+   5,
+   0
+  ],
+  "value": 746213573.2661543
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   1,
+   250,
+   5,
+   3
+  ],
+  "value": 858145609.2560774
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   1,
+   0,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   1,
+   0,
+   3
+  ],
+  "value": 0.11499999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   1,
+   2,
+   0
+  ],
+  "value": 0.145
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   1,
+   2,
+   3
+  ],
+  "value": 0.16674999999999998
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   1,
+   5,
+   0
+  ],
+  "value": 0.25
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   1,
+   5,
+   3
+  ],
+  "value": 0.2875
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   11,
+   0,
+   0
+  ],
+  "value": 1.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   11,
+   0,
+   3
+  ],
+  "value": 1.265
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   11,
+   2,
+   0
+  ],
+  "value": 1.595
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   11,
+   2,
+   3
+  ],
+  "value": 1.83425
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   11,
+   5,
+   0
+  ],
+  "value": 2.75
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   11,
+   5,
+   3
+  ],
+  "value": 3.1624999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   60,
+   0,
+   0
+  ],
+  "value": 6.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   60,
+   0,
+   3
+  ],
+  "value": 6.8999999999999995
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   60,
+   2,
+   0
+  ],
+  "value": 8.7
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   60,
+   2,
+   3
+  ],
+  "value": 10.004999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   60,
+   5,
+   0
+  ],
+  "value": 15.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   60,
+   5,
+   3
+  ],
+  "value": 17.25
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   250,
+   0,
+   0
+  ],
+  "value": 25.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   250,
+   0,
+   3
+  ],
+  "value": 28.749999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   250,
+   2,
+   0
+  ],
+  "value": 36.25
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   250,
+   2,
+   3
+  ],
+  "value": 41.6875
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   250,
+   5,
+   0
+  ],
+  "value": 62.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "armour",
+   "light",
+   2,
+   250,
+   5,
+   3
+  ],
+  "value": 71.875
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 0.04
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 0.046
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 0.057999999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 0.0667
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 0.11499999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 0.04
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 0.046
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 0.057999999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 0.0667
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 0.11499999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 0.04
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 0.046
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 0.057999999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 0.0667
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 0.11499999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 0.04
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 0.046
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 0.057999999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 0.0667
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_power",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 0.11499999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 2.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 2.392
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 3.016
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 3.4684
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 5.2
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 5.9799999999999995
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 2.88
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 3.312
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 4.176
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 4.8024
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 7.199999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 8.28
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 6.8
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 7.819999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 9.86
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 11.338999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 17.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 19.549999999999997
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 22.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 25.299999999999997
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 31.9
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 36.684999999999995
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 55.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_precision",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 63.24999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 3.05
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 3.5074999999999994
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 4.422499999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 5.085874999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 7.625
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 8.768749999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 3.55
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 4.0825
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 5.1475
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 5.919625
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 8.875
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 10.206249999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 6.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 6.8999999999999995
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 8.7
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 10.004999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 15.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 17.25
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 15.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 17.825
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 22.474999999999998
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 25.846249999999994
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 38.75
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "ring",
+   "band_of_fortune",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 44.5625
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 3.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 3.565
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 4.495
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 5.16925
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 7.75
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 8.9125
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 4.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 4.714999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 5.944999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 6.8367499999999986
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 10.25
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 11.7875
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 9.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 10.35
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 13.049999999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 15.007499999999997
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 22.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 25.874999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 28.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 32.199999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 40.6
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 46.69
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 70.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "talisman",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 80.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 0.05
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 0.057499999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 0.0725
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 0.08337499999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 0.125
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 0.14375
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 0.05
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 0.057499999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 0.0725
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 0.08337499999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 0.125
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 0.14375
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 0.05
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 0.057499999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 0.0725
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 0.08337499999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 0.125
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 0.14375
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 0.05
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 0.057499999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 0.0725
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 0.08337499999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 0.125
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "ward",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 0.14375
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 0.05
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 0.057499999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 0.0725
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 0.08337499999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 0.125
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 0.14375
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 0.05
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 0.057499999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 0.0725
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 0.08337499999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 0.125
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 0.14375
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 0.05
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 0.057499999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 0.0725
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 0.08337499999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 0.125
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 0.14375
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 0.05
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 0.057499999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 0.0725
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 0.08337499999999999
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 0.125
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "amulet",
+   "charm",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 0.14375
  }
 ]

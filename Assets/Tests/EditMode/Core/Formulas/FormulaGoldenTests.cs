@@ -30,7 +30,7 @@ namespace DarkFantasy.Core.Tests.Formulas
                     failures.Add($"{fn}({string.Join(", ", a)}) expected {expected:R} got {actual:R}");
             }
             Assert.IsEmpty(failures, string.Join("\n", failures));
-            Assert.That(rows.Count, Is.GreaterThan(400));
+            Assert.That(rows.Count, Is.GreaterThan(1000));
         }
 
         [Test]
@@ -60,8 +60,22 @@ namespace DarkFantasy.Core.Tests.Formulas
                 case "UpgradeCost": return f.UpgradeCost((int)a[0], (int)a[1]);
                 case "ArtifactCost": return f.ArtifactCost((string)a[0], (int)a[1]);
                 case "ArtifactMult": return f.ArtifactMult((string)a[0], (int)a[1]);
+                case "ItemLine": return ItemLine((string)a[0], (string)a[1], (int)a[2], (int)a[3], (int)a[4], (int)a[5]);
                 default: throw new ArgumentException("Unknown golden function " + fn);
             }
+        }
+
+        private static double ItemLine(string group, string typeId, int line, int ilvl, int rarity, int upgrade)
+        {
+            var cfg = TestConfig.Load();
+            var kind = group == "armour" ? DarkFantasy.Core.Items.ItemKind.Chest
+                : group == "main_hand" ? DarkFantasy.Core.Items.ItemKind.MainHand
+                : group == "off_hand" ? DarkFantasy.Core.Items.ItemKind.OffHand
+                : group == "ring" ? DarkFantasy.Core.Items.ItemKind.Ring
+                : DarkFantasy.Core.Items.ItemKind.Amulet;
+            var type = System.Linq.Enumerable.Single(cfg.Items.TypesFor(kind), t => t.Id == typeId);
+            return new DarkFantasy.Core.Items.ItemStats(cfg).LineValue(type.Lines[line], ilvl,
+                (DarkFantasy.Core.Items.Rarity)rarity, upgrade);
         }
 
         private static bool Close(double expected, double actual)

@@ -110,6 +110,20 @@ Referenced in the GDD as **R2-n**. Numbers live in the `combat` section of `bala
 | R2-22 | **Launch with about 25 regions:** 10 hand-made + about 15 editor-generated connector regions (resolves Q-9). Dungeons stay at 5 for launch (one per 2 hand-made regions); connector regions reuse existing dungeons |
 | R2-21 | Caps: hit chance 30–99%, **crit chance cap 100%** (owner; was 75%), crit damage uncapped (base 150%), damage reduction cap 75%, resist −50%…+75%, Luck `L/(L+200)`; fixed damage order (GDD §4.2); inventory 200 + 50 per gold expansion, no maximum |
 
+## Approved — M3 design (loot and inventory)
+| ID | Decision |
+|---|---|
+| M3-1 | M3 activates **11 slots**: main hand, off-hand, 6 armour, 2 rings, amulet. Accessories (6) arrive with the effect system and real regions; the pet slot with pets (M9). They show as locked |
+| M3-2 | **Boss guaranteed Rare+ item only on the first kill of each boss per run** (run-first milestone reward, R2-3b). Later kills of that boss drop 1 item at normal rarity odds. Supersedes "every boss kill drops Rare+" (GAME_BALANCE 6.3) |
+| M3-3 | **Random attribute pool:** % damage, +primary attribute, crit chance points, crit damage points, % attack speed, Counter points, % HP, % armour, VIT, % gold, Luck, % item drop chance, with per-slot availability and ranges as proposed. Percentages do not scale with item level; flat attributes scale linearly; higher rarity rolls higher; no duplicates per item. Open to later tuning (owner) |
+| M3-4 | **Item types are equal-value trade-offs, 3 per slot:** main hand Sword / Greataxe / Dagger; off-hand Parrying blade / Shield / Focus orb; armour Heavy / Medium / Light; rings Power / Precision / Fortune; amulet Talisman / Ward / Charm. Regional themed types come with real regions (M10) |
+| M3-5 | **Inventory screen:** equipped slots with upgrade markers, rarity-coloured inventory grid with sort/filter, item detail panel with stat differences. "Better" = power score (expected DPS × survivability, from the real stat calculator), always shown alongside actual stat differences; player-tapped "Equip upgrades". Salvage manual, filtered or automatic (auto-salvage **off by default**; off / Common / Common+Uncommon / below Rare and not an upgrade). Locked items are never salvaged. A full inventory auto-salvages new drops and reports it, so nothing is lost silently |
+
+## Approved — onboarding (M3 playtest)
+| ID | Decision |
+|---|---|
+| ON-1 | **First-run training boss + softer region 1 boss** (owner, option C). The training boss appears after subzone 1's first wave, before subzone 2 unlocks, **only until the account has beaten it once** (account-level, survives prestige). It has the boss 60 s timer but **cannot kill the player**, ignores the boss toggle, has 3 × normal-enemy HP and normal attack, pays boss-sized XP and gold and the guaranteed Rare+ first-kill item. A failed attempt needs a new wave, like real bosses. **Region 1 boss HP multiplier 4 instead of 12** (`onboarding.boss_hp_mult_overrides`), tuned so a player who equips upgrades beats it in about 9 minutes at ×1 (median of 10 runs; floor about 6 min, unlucky runs up to about 26 min). The training boss falls at about 1.5 min |
+
 ## Proposed (new, awaiting approval)
 | ID | Proposal | Doc |
 |---|---|---|

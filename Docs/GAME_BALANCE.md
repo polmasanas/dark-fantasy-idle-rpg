@@ -40,7 +40,7 @@
 |---|---|---|
 | HP | `30 · 1.10^(L−1)` | `enemy.hp_base`, `hp_growth` |
 | Attack | `4 · 1.09^(L−1)` per hit, one hit every 2.0 s | `atk_base`, `atk_growth`, `attack_interval_s` |
-| Boss | HP ×12, attack ×2, **60 s time limit** (enrage = fail) | `boss_*` |
+| Boss | HP ×12, attack ×2, **60 s time limit** (enrage = fail). **Region 1 boss HP ×4** and a first-run training boss (3 × normal HP, cannot kill) for onboarding (ON-1) | `boss_*`, `onboarding.*` |
 | Variance | Each spawn gets HP ×U(0.9, 1.1) | `variance_mult_*` |
 
 Family, element and archetype modifiers (GDD §4) apply on top of these numbers. They average out to 1.0 across a region's mix, so the simulation ignores them.
@@ -141,7 +141,7 @@ A random attribute is worth +6% (damage, HP or another stat) and adds into its c
 |---|---|
 | Item drop chance per normal kill | 8% |
 | Slot weights | main hand ×3, every other slot ×1 (reduces weapon-drought variance) |
-| Boss drop | 1 guaranteed item, rarity ≥ Rare |
+| Boss drop | First kill of each boss **per run**: 1 guaranteed item, rarity ≥ Rare (M3-2). Later kills: 1 item at normal rarity odds |
 | Item level | = enemy level |
 | Luck | Rarity weights above Common get ×(1 + Luck/(Luck+200)), i.e. up to ×2, with diminishing returns |
 | Permanent scroll | 0.02% per kill (+1 to an attribute, permanent). Observed: 20–26 in 30 days for active players |
@@ -189,12 +189,14 @@ A random attribute is worth +6% (damage, HP or another stat) and adds into its c
 
 | Profile | Behaviour | Prestiges (median) | Best region boss: min / median / max | Day 7 best (median) |
 |---|---|---:|---:|---:|
-| **active** | 4 × 45 min/day, continuous upgrades | 25 | 42 / **43** / 45 | 19 |
-| **optimiser** | active + balanced stat points | 24 | 42 / **44** / 45 | 19 |
-| **casual** | 3 × 10 min/day | 16 | 24 / **27** / 28 | 11 |
-| **farmer** | casual, farms 1 region back for 30 min after a failed boss | 16 | 25 / **26** / 26 | 10 |
-| **offline-focused** | 2 × 3 min/day, 12 h gaps | 12 | 20 / **22** / 24 | 11 |
-| **never prestige** | active, never resets | 0 | 20 / **20** / 21 | 18 |
+| **active** | 4 × 45 min/day, continuous upgrades | 23 | 38 / **40** / 40 | 19 |
+| **optimiser** | active + balanced stat points | 25 | 39 / **41** / 42 | 18 |
+| **casual** | 3 × 10 min/day | 16 | 25 / **26** / 27 | 12 |
+| **farmer** | casual, farms 1 region back for 30 min after a failed boss | 16 | 23 / **25** / 25 | 10 |
+| **offline-focused** | 2 × 3 min/day, 12 h gaps | 12 | 20 / **21** / 22 | 11 |
+| **never prestige** | active, never resets | 0 | 17 / **18** / 19 | 16 |
+
+**M3 item model (current table):** the simulation now uses the game's item model: 11 slots (no accessories yet, M3-1), three trade-off types per slot, the 12-attribute pool with rarity-biased rolls, class lines, Luck, gold find and drop chance. Compared with the previous model (which counted 6 accessory slots as +1.5% damage each), active players reach region 40 instead of 43 and casual 26 instead of 27.
 
 **Boss-retry change (R2-2, M2 playtest):** a failed boss now returns after a new wave of K kills instead of every 60 s. Stuck players no longer spend up to half their time in hopeless 60 s boss fights that pay nothing, so everyone progresses faster (active 39 → 43, casual 23 → 27). First region-25 boss kill (end of launch content, R2-22): active about day 11, casual about day 24–26, offline-focused not within 30 days. Casual is slightly ahead of the M10 target ("no earlier than about day 30"); retune in M10 (B-10).
 

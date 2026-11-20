@@ -33,6 +33,12 @@ namespace DarkFantasy.Core.Stats
         public double PctDamage;
         public double PctHp;
         public double AttackSpeedPct;
+        public double PctArmour;
+
+        // Utility (used by the session for rewards, not by combat)
+        public double GoldFind;
+        public double Luck;
+        public double DropChance;
 
         // Artifact levels
         public int MightLevel;

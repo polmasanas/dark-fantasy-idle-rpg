@@ -57,7 +57,7 @@ namespace DarkFantasy.Core.Stats
                 HitDamage = hitDamage,
                 MaxHp = (p.BaseHp + i.GearHp) * (1 + i.Vit * p.HpPerVitPct) * (1 + i.PctHp)
                         * _f.ArtifactMult("bulwark", i.BulwarkLevel),
-                Armour = i.GearArmour * (1 + i.Def * p.ArmourPctPerDef),
+                Armour = i.GearArmour * (1 + i.Def * p.ArmourPctPerDef) * (1 + i.PctArmour),
                 AttackInterval = interval,
                 Accuracy = i.Accuracy,
                 BaseHitChance = p.BaseHitChance,

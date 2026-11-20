@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using DarkFantasy.Core.Characters;
 using DarkFantasy.Core.Combat;
 using DarkFantasy.Core.Config;
 using DarkFantasy.Core.Events;
 using DarkFantasy.Core.Formulas;
+using DarkFantasy.Core.Items;
 using DarkFantasy.Core.Random;
 using DarkFantasy.Core.Stats;
 using DarkFantasy.Core.World;
@@ -25,11 +27,22 @@ namespace DarkFantasy.Core.Session
         private readonly StatCalculator _stats;
         private readonly CharacterStatsBuilder _builder;
         private readonly EnemyFactory _enemies;
+        private readonly LootSystem _loot;
+        private readonly PowerScore _power;
+
+        private static readonly EquipSlot[] ActiveSlots =
+        {
+            EquipSlot.MainHand, EquipSlot.OffHand, EquipSlot.Helmet, EquipSlot.Chest, EquipSlot.Legs, EquipSlot.Boots,
+            EquipSlot.Armguards, EquipSlot.Gloves, EquipSlot.Ring1, EquipSlot.Ring2, EquipSlot.Amulet,
+        };
 
         public GameState State { get; }
         public EventBus Events { get; }
         public ProgressionSystem Progression { get; }
         public WorldSystem World { get; }
+        public InventorySystem Inventory { get; }
+        public UpgradeSystem Upgrades { get; }
+        public ItemStats Items { get; }
 
         public GameSession(BalanceConfig config, GameState state, IRng rng, EventBus events)
         {
@@ -42,15 +55,104 @@ namespace DarkFantasy.Core.Session
             _stats = new StatCalculator(config);
             _builder = new CharacterStatsBuilder(config);
             _enemies = new EnemyFactory(config);
+            _loot = new LootSystem(config);
+            _power = new PowerScore(config);
             Progression = new ProgressionSystem(config);
             World = new WorldSystem(config);
+            Inventory = new InventorySystem(config);
+            Upgrades = new UpgradeSystem(config);
+            Items = new ItemStats(config);
+            EnsureStarterKit();
+            if (_c.Onboarding.TrainingBossEnabled && !State.Account.TrainingBossDone
+                && State.World.Region == 1 && State.World.UnlockedSubzone <= _c.Onboarding.TrainingBossAfterSubzone)
+                State.World.TrainingBossPending = true;
+        }
+
+        /// <summary>Each run starts with a Common level-1 class weapon, equipped (D-015).</summary>
+        private void EnsureStarterKit()
+        {
+            if (State.Inventory == null) State.Inventory = InventoryState.Create(_c);
+            if (State.Character.Equipped.ContainsKey(EquipSlot.MainHand)) return;
+            var starter = new ItemInstance { Kind = ItemKind.MainHand, TypeId = "sword", ItemLevel = 1, Rarity = Rarity.Common };
+            var added = Inventory.Add(State.Inventory, State.Wallet, starter, _ => true);
+            Inventory.Equip(State.Inventory, State.Characters, State.Character, added.Item.Id, EquipSlot.MainHand);
+        }
+
+        public IEnumerable<ItemInstance> EquippedItems(CharacterState c)
+        {
+            foreach (var id in c.Equipped.Values)
+            {
+                var item = State.Inventory.Find(id);
+                if (item != null) yield return item;
+            }
+        }
+
+        public StatInputs PlayerInputs() => _builder.Build(State.Character, EquippedItems(State.Character));
+
+        /// <summary>Power score of the active character with an optional item swapped into a slot.</summary>
+        public double Score(EquipSlot? slot = null, ItemInstance candidate = null)
+        {
+            var c = State.Character;
+            var items = new List<ItemInstance>();
+            foreach (var kv in c.Equipped)
+                if (!(slot.HasValue && kv.Key == slot.Value)) items.Add(State.Inventory.Find(kv.Value));
+            if (candidate != null) items.Add(candidate);
+            return _power.Of(_stats.Compute(_builder.Build(c, items)), c.Level);
+        }
+
+        /// <summary>True when the item would raise the power score in some slot it fits (and its level allows it).</summary>
+        public bool IsUpgrade(ItemInstance item)
+        {
+            var c = State.Character;
+            if (c.Level < item.ItemLevel - _c.Combat.ItemLevelRequirementMargin) return false;
+            double now = Score();
+            foreach (var slot in ActiveSlots)
+                if (ItemKeys.KindForSlot(slot) == item.Kind && Score(slot, item) > now * (1 + 1e-9)) return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Player-triggered "Equip upgrades" (M3-5): repeatedly equips the unworn item that raises the
+        /// power score most, until nothing improves. Never called automatically (R2-18). Returns items equipped.
+        /// </summary>
+        public int EquipUpgrades()
+        {
+            var c = State.Character;
+            int equipped = 0;
+            for (int guard = 0; guard < 64; guard++)
+            {
+                double now = Score();
+                ItemInstance best = null;
+                EquipSlot bestSlot = default;
+                double bestScore = now * (1 + 1e-9);
+                foreach (var item in State.Inventory.Items)
+                {
+                    if (State.Inventory.WornIds.Contains(item.Id)) continue;
+                    if (c.Level < item.ItemLevel - _c.Combat.ItemLevelRequirementMargin) continue;
+                    foreach (var slot in ActiveSlots)
+                    {
+                        if (ItemKeys.KindForSlot(slot) != item.Kind) continue;
+                        double s = Score(slot, item);
+                        if (s > bestScore)
+                        {
+                            bestScore = s;
+                            best = item;
+                            bestSlot = slot;
+                        }
+                    }
+                }
+                if (best == null) break;
+                Inventory.Equip(State.Inventory, State.Characters, c, best.Id, bestSlot);
+                equipped++;
+            }
+            return equipped;
         }
 
         /// <summary>Pause between a fight ending and the next enemy appearing (R2-1).</summary>
         public double RespawnSeconds => _c.Combat.EnemyRespawnS;
 
         /// <summary>Current combat stats of the active character.</summary>
-        public CombatStats PlayerStats() => _stats.Compute(_builder.Build(State.Character));
+        public CombatStats PlayerStats() => _stats.Compute(PlayerInputs());
 
         /// <summary>Resolves the next fight without changing the game state (only the RNG advances).</summary>
         public PreparedFight PrepareNextFight()
@@ -77,19 +179,51 @@ namespace DarkFantasy.Core.Session
             {
                 var e = fight.Encounter;
                 double xp = _f.EnemyXp(e.Level, State.Character.Level, e.IsBoss);
-                double gold = _f.GoldDrop(e.Level, e.IsBoss);
+                var inputs = PlayerInputs();
+                double gold = _f.GoldDrop(e.Level, e.IsBoss) * (1 + inputs.GoldFind);
                 State.Gold += gold;
+                bool firstBossKill = e.IsTraining ? !State.Account.TrainingBossDone
+                    : e.IsBoss && e.Region > State.World.HighestBossDefeated;
                 int before = State.Character.Level;
                 Progression.AddXp(State.Character, xp);
                 Events.Publish(new EnemyKilled(e, xp, gold));
                 for (int lvl = before + 1; lvl <= State.Character.Level; lvl++)
                     Events.Publish(new LevelUp(lvl));
+                RollDrops(e, inputs, firstBossKill);
             }
 
             var change = World.OnFightFinished(State.World, fight.Encounter, fight.Result.Outcome, State.GameTime);
+            if (change == WorldChange.TrainingBossDefeated) State.Account.TrainingBossDone = true;
             Events.Publish(new FightResolved(fight));
             if (change != WorldChange.None)
                 Events.Publish(new WorldChanged(change, State.World));
+        }
+
+        /// <summary>
+        /// Normal kills: 8% × (1 + drop chance bonus), excess over 100% becomes extra drops (R2-16).
+        /// Bosses: always one item; Rare+ guaranteed on the first kill of that boss in this run (M3-2).
+        /// </summary>
+        private void RollDrops(Encounter e, StatInputs inputs, bool firstBossKill)
+        {
+            int count;
+            var minRarity = Rarity.Common;
+            if (e.IsBoss)
+            {
+                count = 1;
+                if (firstBossKill) minRarity = (Rarity)_c.Gear.BossMinRarity;
+            }
+            else
+            {
+                double chance = _c.Gear.DropChanceNormal * (1 + inputs.DropChance);
+                count = (int)Math.Floor(chance);
+                if (_rng.Chance(chance - count)) count++;
+            }
+            for (int i = 0; i < count; i++)
+            {
+                var item = _loot.Roll(e.Level, _rng, minRarity, inputs.Luck);
+                var report = Inventory.Add(State.Inventory, State.Wallet, item, IsUpgrade);
+                Events.Publish(new ItemDropped(report.Item, e.IsBoss, report.Outcome, report.Materials));
+            }
         }
 
         /// <summary>Plays fights headlessly until <paramref name="seconds"/> of game time are used. Returns fights played.</summary>

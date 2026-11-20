@@ -21,9 +21,22 @@ namespace DarkFantasy.Core.Config
         public PrestigeConfig Prestige { get; set; }
         public CombatConfig Combat { get; set; }
         public Dictionary<ClassId, ClassConfig> Classes { get; set; }
+        public ItemsConfig Items { get; set; }
+        public OnboardingConfig Onboarding { get; set; }
 
         /// <summary>Preset name → attribute key ("primary" = class primary) → share of manual points.</summary>
         public Dictionary<string, Dictionary<string, double>> AllocationPresets { get; set; }
+    }
+
+    /// <summary>Owner decision ON-1: training boss in the first run and per-region boss strength overrides.</summary>
+    public sealed class OnboardingConfig
+    {
+        public bool TrainingBossEnabled { get; set; }
+        public int TrainingBossAfterSubzone { get; set; }
+        public double TrainingBossHpMult { get; set; }
+
+        /// <summary>Region → boss HP multiplier replacing enemy.boss_hp_mult for that region's boss.</summary>
+        public Dictionary<int, double> BossHpMultOverrides { get; set; }
     }
 
     public sealed class ClassConfig
@@ -109,6 +122,9 @@ namespace DarkFantasy.Core.Config
         public double AffixValuePct { get; set; }
         public double DropChanceNormal { get; set; }
         public int BossMinRarity { get; set; }
+
+        /// <summary>Drop weight per slot group: main_hand, off_hand, armour, jewellery, accessory.</summary>
+        public Dictionary<string, double> SlotDropWeights { get; set; }
     }
 
     public sealed class EconomyConfig
@@ -122,6 +138,7 @@ namespace DarkFantasy.Core.Config
         public double CraftCostBase { get; set; }
         public double CraftCostPerIlvl { get; set; }
         public double ScrollDropChance { get; set; }
+        public double[] MaterialPerSalvage { get; set; }
     }
 
     public sealed class MasteryConfig
@@ -182,5 +199,8 @@ namespace DarkFantasy.Core.Config
 
         /// <summary>Share of K kills needed again after a failed boss attempt (R2-2 as changed by the owner: 1.0 = full wave).</summary>
         public double BossRetryKillFraction { get; set; }
+        public int InventoryBaseSlots { get; set; }
+        public int InventorySlotsPerExpansion { get; set; }
+        public int ItemLevelRequirementMargin { get; set; }
     }
 }

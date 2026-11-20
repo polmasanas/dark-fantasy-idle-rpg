@@ -78,12 +78,12 @@ namespace DarkFantasy.Core.Combat
                     playerHp -= damageTaken;
                     if (playerHp <= 0)
                     {
-                        if (enemy.IsBoss)
+                        if (enemy.IsBoss && enemy.CanKillPlayer)
                         {
                             Add(events, t, CombatEventType.PlayerDied, 0);
                             return Result(FightOutcome.Died, t, 0, events);
                         }
-                        playerHp = 1; // normal enemies can never kill (R2-1c)
+                        playerHp = 1; // normal enemies and the training boss can never kill (R2-1c, ON-1)
                     }
 
                     if (player.CounterChance > 0 && rng.Chance(player.CounterChance))

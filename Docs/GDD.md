@@ -136,6 +136,7 @@ Enemies have exactly one element (or none = Physical). Elemental damage comes on
 - **Counter:** each time the character is hit, a `CounterChance` roll triggers an immediate extra attack at 60% damage. It doesn't reset or delay the attack timer. Counters can crit but cannot trigger further counters.
 
 ### 4.6 Boss encounters
+- [APPROVED ON-1] **First-run training boss** after subzone 1's first wave (cannot kill, 60 s timer, guaranteed Rare+ reward, once per account) and a **softer region 1 boss** (HP ×4 instead of ×12). See DECISIONS.md.
 - [SPEC] Available after K(r) kills in the region's last subzone (GAME_BALANCE §2).
 - [SPEC] Toggle **"Fight boss when available"** (default ON). When OFF, the character farms the last subzone indefinitely.
 - [APPROVED R2-2, changed in M2 playtest] **60 s time limit** (enrage). Failure returns the character to farming: the last subzone's kill counter resets, and the boss is fought again after a **new full wave of K kills** while the toggle is ON (configurable share of K: `boss_retry_kill_fraction`).
@@ -183,6 +184,8 @@ Enemies have exactly one element (or none = Physical). Elemental damage comes on
 
 ### 6.3 Accessories [APPROVED R2-7]
 Six utility slots with unique effects, e.g. *Rope* (+5% gold), *Silver Cross* (+20% damage vs Undead), *Clockwork Gear* (+3% attack speed), *Lucky Dice* (+10 Luck). There is no item-level scaling, so accessories are a horizontal, collection-driven layer.
+
+- [APPROVED M3-1…M3-5] M3 activates 11 slots (accessories and pet later); three trade-off item types per slot; the random attribute pool; the inventory screen with power score and stat differences; boss Rare+ only on the first kill per run (DECISIONS.md).
 
 ### 6.4 Upgrading — gold, +5% base stats per level, max by rarity (GAME_BALANCE §6.4).
 ### 6.5 Salvaging — gives materials by rarity + 50% of gold spent on upgrades. A bulk-salvage filter ("all Common/Uncommon not better than equipped") and item locking protect valuables.
