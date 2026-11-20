@@ -86,9 +86,34 @@ Label {
     color: #E6E1D6;
 }
 
+/* Checkboxes: large, light iron border; checked = ember fill with a dark tick (owner, CD playtest) */
 .unity-toggle__checkmark {
-    background-color: #232834;
-    border-color: #5A6070;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    background-color: #12151C;
+    border-width: 2px;
+    border-color: #9AA0AE;
+    border-radius: 3px;
+    -unity-background-image-tint-color: rgba(0, 0, 0, 0);
+}
+
+.unity-toggle:hover .unity-toggle__checkmark {
+    border-color: #E8A24A;
+}
+
+.unity-toggle:checked .unity-toggle__checkmark {
+    background-color: #E8A24A;
+    border-color: #F2C66D;
+    -unity-background-image-tint-color: #0B0D12;
+}
+
+.unity-toggle__input {
+    align-items: center;
+}
+
+.unity-toggle__label {
+    margin-right: 10px;
 }
 
 .unity-scroll-view {
