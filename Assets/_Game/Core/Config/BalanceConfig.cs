@@ -26,6 +26,8 @@ namespace DarkFantasy.Core.Config
         public OfflineRulesConfig OfflineRules { get; set; }
         public AllocationRulesConfig AllocationRules { get; set; }
         public SaveConfig Save { get; set; }
+        public ElementsConfig Elements { get; set; }
+        public TriangleConfig Triangle { get; set; }
 
         /// <summary>Preset name → attribute key ("primary" = class primary) → share of manual points.</summary>
         public Dictionary<string, Dictionary<string, double>> AllocationPresets { get; set; }
@@ -169,6 +171,29 @@ namespace DarkFantasy.Core.Config
     public sealed class AllocationRulesConfig
     {
         public int CustomWeightMax { get; set; }
+    }
+
+    /// <summary>D-019 / D-035: element matrix rules.</summary>
+    public sealed class ElementsConfig
+    {
+        public double StrongMult { get; set; }
+        public double WeakMult { get; set; }
+        public Dictionary<DarkFantasy.Core.Combat.Element, DarkFantasy.Core.Combat.Element> Beats { get; set; }
+        public List<DarkFantasy.Core.Combat.Element> ResistsSelf { get; set; }
+        public List<DarkFantasy.Core.Combat.Element> PhysicalWeakVs { get; set; }
+        public double ResistMin { get; set; }
+        public double ResistMax { get; set; }
+    }
+
+    /// <summary>D-017: class triangle.</summary>
+    public sealed class TriangleConfig
+    {
+        public double AdvantageDealt { get; set; }
+        public double AdvantageTaken { get; set; }
+        public double DisadvantageDealt { get; set; }
+        public double DisadvantageTaken { get; set; }
+        public Dictionary<ClassId, DarkFantasy.Core.Combat.Archetype> ClassBeats { get; set; }
+        public Dictionary<ClassId, DarkFantasy.Core.Combat.Archetype> ClassAs { get; set; }
     }
 
     /// <summary>D-030: save cadence.</summary>

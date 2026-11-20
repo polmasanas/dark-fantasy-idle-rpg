@@ -184,6 +184,8 @@ namespace DarkFantasy.Core.Config
                 Items = Items(Section(root, "items")),
                 Onboarding = Onboarding(Section(root, "onboarding")),
                 OfflineRules = OfflineRules(Section(root, "offline_rules")),
+                Elements = ElementRules(Section(root, "elements")),
+                Triangle = TriangleRules(Section(root, "triangle")),
                 Save = new SaveConfig
                 {
                     AutosaveIntervalS = D(Section(root, "save"), "save", "autosave_interval_s"),
@@ -309,6 +311,70 @@ namespace DarkFantasy.Core.Config
                 RarityRollBias = D(items, "items", "rarity_roll_bias"),
                 ExpansionCostBase = D(items, "items", "expansion_cost_base"),
                 ExpansionCostGrowth = D(items, "items", "expansion_cost_growth"),
+            };
+        }
+
+        private static ElementsConfig ElementRules(JObject o)
+        {
+            var beats = new Dictionary<Combat.Element, Combat.Element>();
+            foreach (var prop in Section(o, "beats", "elements.beats").Properties())
+                beats[ElementKey(prop.Name, "elements.beats")] = ElementKey((string)prop.Value, "elements.beats." + prop.Name);
+            return new ElementsConfig
+            {
+                StrongMult = D(o, "elements", "strong_mult"),
+                WeakMult = D(o, "elements", "weak_mult"),
+                Beats = beats,
+                ResistsSelf = ElementList(o, "resists_self"),
+                PhysicalWeakVs = ElementList(o, "physical_weak_vs"),
+                ResistMin = D(o, "elements", "resist_min"),
+                ResistMax = D(o, "elements", "resist_max"),
+            };
+        }
+
+        private static List<Combat.Element> ElementList(JObject o, string key)
+        {
+            if (!(Req(o, "elements", key) is JArray list)) throw new BalanceConfigException("elements." + key + " must be a list");
+            var result = new List<Combat.Element>();
+            for (int i = 0; i < list.Count; i++) result.Add(ElementKey((string)list[i], "elements." + key + "[" + i + "]"));
+            return result;
+        }
+
+        internal static Combat.Element ElementKey(string key, string path)
+        {
+            if (key == null || !Combat.Elements.TryParse(key, out var e))
+                throw new BalanceConfigException(path + ": unknown element '" + key + "'");
+            return e;
+        }
+
+        internal static Combat.Archetype ArchetypeKey(string key, string path)
+        {
+            if (key != null)
+                foreach (Combat.Archetype a in Enum.GetValues(typeof(Combat.Archetype)))
+                    if (string.Equals(a.ToString(), key, StringComparison.OrdinalIgnoreCase)) return a;
+            throw new BalanceConfigException(path + ": unknown archetype '" + key + "'");
+        }
+
+        private static TriangleConfig TriangleRules(JObject o)
+        {
+            Dictionary<ClassId, Combat.Archetype> PerClass(string key)
+            {
+                var section = Section(o, key, "triangle." + key);
+                var map = new Dictionary<ClassId, Combat.Archetype>();
+                foreach (ClassId cls in Enum.GetValues(typeof(ClassId)))
+                {
+                    string k = cls.ToString().ToLowerInvariant();
+                    map[cls] = ArchetypeKey((string)Req(section, "triangle." + key, k), "triangle." + key + "." + k);
+                }
+                return map;
+            }
+            return new TriangleConfig
+            {
+                AdvantageDealt = D(o, "triangle", "advantage_dealt"),
+                AdvantageTaken = D(o, "triangle", "advantage_taken"),
+                DisadvantageDealt = D(o, "triangle", "disadvantage_dealt"),
+                DisadvantageTaken = D(o, "triangle", "disadvantage_taken"),
+                ClassBeats = PerClass("class_beats"),
+                ClassAs = PerClass("class_as"),
             };
         }
 
