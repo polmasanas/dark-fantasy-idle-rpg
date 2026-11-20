@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using DarkFantasy.Core.Characters;
 using DarkFantasy.Core.Config;
 using DarkFantasy.Core.Formulas;
@@ -12,11 +11,11 @@ namespace DarkFantasy.Presentation
 {
     /// <summary>
     /// Placeholder HUD (M2): location and kills, level and XP, gold, attribute points with
-    /// manual + and preset auto-allocation, and the "Fight boss when available" toggle.
+    /// manual + and auto-allocation (default or Custom weights), and the "Fight boss when available" toggle.
     /// </summary>
     internal sealed class HudView
     {
-        private static readonly (AttributeId Id, string Name)[] Attributes =
+        internal static readonly (AttributeId Id, string Name)[] AttributeNames =
         {
             (AttributeId.Str, "STR"), (AttributeId.Dex, "DEX"), (AttributeId.Int, "INT"),
             (AttributeId.Vit, "VIT"), (AttributeId.Def, "DEF"), (AttributeId.Counter, "COUNTER"),
@@ -37,8 +36,10 @@ namespace DarkFantasy.Presentation
         private readonly Dictionary<AttributeId, Label> _values = new Dictionary<AttributeId, Label>();
         private readonly List<Button> _plusButtons = new List<Button>();
         private readonly Toggle _bossToggle;
+        private readonly Toggle _autoToggle;
+        private readonly Toggle _custom;
 
-        public HudView(GameSession session, BalanceConfig config, Action openInventory)
+        public HudView(GameSession session, BalanceConfig config, Action openInventory, Action openCustomPreset)
         {
             _session = session ?? throw new ArgumentNullException(nameof(session));
             _formulas = new GameFormulas(config);
@@ -70,21 +71,31 @@ namespace DarkFantasy.Presentation
             _unspent = Ui.Label("", 28, Ui.Gold, true);
             header.Add(_unspent);
 
-            var presetKeys = config.AllocationPresets.Keys.OrderBy(k => k).ToList();
-            int presetIndex = Math.Max(0, presetKeys.IndexOf(character.Preset));
-            var preset = new DropdownField("Preset", presetKeys, presetIndex);
-            preset.style.fontSize = 24;
-            preset.style.minWidth = 260;
-            preset.labelElement.style.color = Ui.Text;
-            preset.RegisterValueChangedCallback(evt => character.Preset = evt.newValue);
-            header.Add(preset);
+            // Owner, M4 playtest: only two choices, default (class primary) or the player's custom weights.
+            var custom = _custom = new Toggle("Custom") { value = character.Preset == ProgressionSystem.CustomPreset };
+            custom.style.fontSize = 24;
+            custom.labelElement.style.color = Ui.Text;
+            custom.RegisterValueChangedCallback(evt =>
+                character.Preset = evt.newValue ? ProgressionSystem.CustomPreset : ProgressionSystem.DefaultPreset);
+            header.Add(custom);
+            header.Add(Ui.Button("Edit", openCustomPreset, 22));
             header.Add(Ui.Button("Auto", () => _session.Progression.AutoAllocate(character)));
             Bottom.Add(header);
+
+            _autoToggle = new Toggle("Auto-allocate on level-up") { value = character.AutoAllocateOnLevelUp };
+            _autoToggle.style.fontSize = 24;
+            _autoToggle.labelElement.style.color = Ui.Text;
+            _autoToggle.RegisterValueChangedCallback(evt =>
+            {
+                character.AutoAllocateOnLevelUp = evt.newValue;
+                if (evt.newValue) _session.Progression.AutoAllocate(character); // spend what is already waiting
+            });
+            Bottom.Add(_autoToggle);
 
             var grid = Ui.Row();
             grid.style.flexWrap = Wrap.Wrap;
             grid.style.marginTop = 8;
-            foreach (var (id, name) in Attributes)
+            foreach (var (id, name) in AttributeNames)
             {
                 var cell = Ui.Row(Justify.SpaceBetween);
                 cell.style.width = new Length(33f, LengthUnit.Percent);
@@ -125,10 +136,14 @@ namespace DarkFantasy.Presentation
             _gold.text = "Gold " + NumberFormat.Short(st.Gold) + " · Mat " + NumberFormat.Short(st.Wallet.Materials);
             _unspent.text = $"Points: {c.UnspentPoints}";
 
-            foreach (var (id, name) in Attributes)
+            foreach (var (id, name) in AttributeNames)
                 _values[id].text = $"{name} {_session.Progression.Total(c, id)}";
             foreach (var b in _plusButtons)
                 b.SetEnabled(c.UnspentPoints > 0);
+            bool isCustom = c.Preset == ProgressionSystem.CustomPreset;
+            if (_custom.value != isCustom) _custom.SetValueWithoutNotify(isCustom);
+            if (_autoToggle.value != c.AutoAllocateOnLevelUp)
+                _autoToggle.SetValueWithoutNotify(c.AutoAllocateOnLevelUp);
             if (_bossToggle.value != w.FightBossWhenAvailable)
                 _bossToggle.SetValueWithoutNotify(w.FightBossWhenAvailable);
         }

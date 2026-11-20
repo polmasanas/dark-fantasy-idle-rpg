@@ -99,9 +99,30 @@ namespace DarkFantasy.Core.Items
             item.Id = inv.NextId++;
             if (ShouldAutoSalvage(inv.AutoSalvage, item, isUpgrade))
                 return new AddReport(AddOutcome.AutoSalvaged, item, Pay(wallet, item));
+            return Store(inv, wallet, item);
+        }
+
+        /// <summary>Puts an item in the bag without the auto-salvage check (used by Collect: held loot already passed it).</summary>
+        public AddReport Store(InventoryState inv, Wallet wallet, ItemInstance item)
+        {
+            if (item == null) throw new ArgumentNullException(nameof(item));
+            if (item.Id == 0) item.Id = inv.NextId++;
             if (inv.Items.Count - inv.WornIds.Count >= inv.Capacity)
                 return new AddReport(AddOutcome.SalvagedInventoryFull, item, Pay(wallet, item));
             inv.Items.Add(item);
+            return new AddReport(AddOutcome.Kept, item, 0);
+        }
+
+        /// <summary>
+        /// Offline drops (M4-1): auto-salvage applies now; anything kept waits in <paramref name="pending"/>
+        /// until the player taps Collect (the full-bag rule is applied then, by <see cref="Store"/>).
+        /// </summary>
+        public AddReport Hold(InventoryState inv, List<ItemInstance> pending, Wallet wallet, ItemInstance item, Func<ItemInstance, bool> isUpgrade)
+        {
+            if (item == null) throw new ArgumentNullException(nameof(item));
+            if (ShouldAutoSalvage(inv.AutoSalvage, item, isUpgrade))
+                return new AddReport(AddOutcome.AutoSalvaged, item, Pay(wallet, item));
+            pending.Add(item);
             return new AddReport(AddOutcome.Kept, item, 0);
         }
 

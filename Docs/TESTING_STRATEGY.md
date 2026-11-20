@@ -17,7 +17,7 @@
 | Property / fuzz | NUnit with random command sequences | pre-milestone | no negative currency, no duplicate equipped item, no NaN or Inf in stats |
 | Integration | Unity EditMode | every push | definitions convert and validate, save → load round-trip |
 | PlayMode smoke | Unity PlayMode | pre-milestone | boot → fight → kill → loot → save |
-| Device / perf | manual + profiler | each milestone from M4 | FPS, memory, battery mode, offline sim time on a low-end device |
+| Device / perf | manual + profiler | each milestone from M4 | FPS, memory, battery mode, offline sim time on a low-end device. Steps: `ANDROID_DEVICE_TEST.md` |
 
 ## 3. Critical areas & mandatory tests
 
@@ -30,7 +30,7 @@
 | Economy | Spending more than the balance fails; every currency change carries a reason; no negative balances |
 | Prestige | Run state fully replaced; account state byte-identical except dust, prestige count and stats; dust paid once; cannot prestige below the unlock |
 | Offline | Credited time = min(elapsed, cap) × efficiency; clock rollback ⇒ 0; result equals running the same fights online (same seed); the reward ceiling holds for any input time (including `long.MaxValue`) |
-| Save | Round-trip equality; every historical fixture migrates; corrupted file ⇒ backup used; newer schema refused |
+| Save | Round-trip equality; every historical fixture (`Assets/Tests/SaveFixtures/`) loads; corrupted file ⇒ backup used; newer schema refused |
 | Numbers | Formulas stay finite up to region 700; formatter handles 1e3…1e300 |
 
 ## 4. Exploit checklist (QA, every milestone)

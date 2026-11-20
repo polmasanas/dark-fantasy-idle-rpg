@@ -166,7 +166,10 @@ A random attribute is worth +6% (damage, HP or another stat) and adds into its c
 |---|---|
 | Efficiency | 50% (offline time counts at half speed) |
 | Cap | 12 h real time (= 6 h simulated). Artifact "Hourglass" can raise it (GDD §11), max 24 h |
-| Loot | Held until return, then auto-equip and salvage rules apply. Shown in the offline report |
+| Report threshold | Absences under 2 min are credited silently (`offline_rules.report_min_seconds`) |
+| Clock safety | Clock moved back = no credit; in the same boot, credit never exceeds the device uptime that passed + 60 s (`offline_rules.clock_tolerance_s`) |
+| Simulation | Fight by fight with the real engine (M4-3); 12 h away (6 h simulated, about 1,600–1,900 fights) takes 10–30 ms on a desktop CPU; phone target < 200 ms, checked on device (M4-4) |
+| Loot | Auto-salvage applies as items drop; the rest is held (and saved) until the player taps **Collect**, where the full-bag rule applies. Never equipped automatically (R2-18). Shown in the offline report |
 
 ---
 

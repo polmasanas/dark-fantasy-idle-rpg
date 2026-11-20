@@ -18,6 +18,10 @@ namespace DarkFantasy.Core.Tests.Config
             Assert.AreEqual(5, c.World.SubzonesPerRegion);
             Assert.AreEqual(6, c.Gear.RarityBaseMult.Length);
             Assert.AreEqual(30.0, c.Combat.EscapeTimerS, 1e-12);
+            Assert.AreEqual(120.0, c.OfflineRules.ReportMinSeconds, 1e-12);
+            Assert.AreEqual(60.0, c.OfflineRules.ClockToleranceS, 1e-12);
+            Assert.AreEqual(10, c.AllocationRules.CustomWeightMax);
+            Assert.AreEqual(30.0, c.Save.AutosaveIntervalS, 1e-12);
         }
 
         [Test]

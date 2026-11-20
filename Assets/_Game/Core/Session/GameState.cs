@@ -25,6 +25,9 @@ namespace DarkFantasy.Core.Session
         /// <summary>Created by <see cref="GameSession"/> with the configured capacity when null.</summary>
         public InventoryState Inventory;
 
+        /// <summary>Offline loot waiting for "Collect" on the welcome-back report (M4-1).</summary>
+        public List<ItemInstance> PendingOfflineLoot = new List<ItemInstance>();
+
         /// <summary>Simulated seconds since the run started; drives retreat timers.</summary>
         public double GameTime;
 

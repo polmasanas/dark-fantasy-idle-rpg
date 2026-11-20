@@ -89,6 +89,40 @@ namespace DarkFantasy.Core.Tests.Characters
         }
 
         [Test]
+        public void Custom_DefaultsToPrimary()
+        {
+            var c = CharacterState.Create(ClassId.Mage);
+            c.Preset = ProgressionSystem.CustomPreset;
+            c.UnspentPoints = 4;
+            Assert.AreEqual(4, Prog().AutoAllocate(c));
+            Assert.AreEqual(4, c.ManualPoints[AttributeId.Int]);
+        }
+
+        [Test]
+        public void Custom_WeightsRespected()
+        {
+            var c = Fighter();
+            c.Preset = ProgressionSystem.CustomPreset;
+            Prog().SetCustomWeight(c, AttributeId.Vit, 3);
+            Prog().SetCustomWeight(c, AttributeId.Counter, 1);
+            c.UnspentPoints = 8;
+            Prog().AutoAllocate(c);
+            Assert.AreEqual(6, c.ManualPoints[AttributeId.Vit]);
+            Assert.AreEqual(2, c.ManualPoints[AttributeId.Counter]);
+            Assert.AreEqual(0, c.ManualPoints[AttributeId.Str]);
+        }
+
+        [Test]
+        public void Custom_WeightClampedToConfigRange()
+        {
+            var c = Fighter();
+            Prog().SetCustomWeight(c, AttributeId.Luck, 99);
+            Assert.AreEqual(TestConfig.Load().AllocationRules.CustomWeightMax, c.CustomWeights[AttributeId.Luck]);
+            Prog().SetCustomWeight(c, AttributeId.Luck, -5);
+            Assert.IsFalse(c.CustomWeights.ContainsKey(AttributeId.Luck), "0 removes the weight");
+        }
+
+        [Test]
         public void Total_SumsAutoAndManual()
         {
             var c = Fighter();
