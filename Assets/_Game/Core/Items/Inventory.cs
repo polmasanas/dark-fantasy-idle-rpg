@@ -70,6 +70,9 @@ namespace DarkFantasy.Core.Items
         NotFound,
         WrongSlot,
         LevelTooLow,
+
+        /// <summary>Another hero wears the item: ask the player, then call again with force (D-004).</summary>
+        NeedsConfirmation,
     }
 
     /// <summary>
@@ -137,12 +140,15 @@ namespace DarkFantasy.Core.Items
             }
         }
 
-        public EquipResult Equip(InventoryState inv, IList<CharacterState> characters, CharacterState wearer, long itemId, EquipSlot slot)
+        public EquipResult Equip(InventoryState inv, IList<CharacterState> characters, CharacterState wearer, long itemId, EquipSlot slot, bool force = false)
         {
             var item = inv.Find(itemId);
             if (item == null) return EquipResult.NotFound;
             if (ItemKeys.KindForSlot(slot) != item.Kind) return EquipResult.WrongSlot;
             if (wearer.Level < item.ItemLevel - _c.Combat.ItemLevelRequirementMargin) return EquipResult.LevelTooLow;
+            if (!force)
+                foreach (var c in characters)
+                    if (!ReferenceEquals(c, wearer) && c.Equipped.ContainsValue(itemId)) return EquipResult.NeedsConfirmation;
 
             // One wearer per item (D-004): take it off whoever wears it, in whichever slot.
             foreach (var c in characters)
@@ -223,6 +229,9 @@ namespace DarkFantasy.Core.Items
                     if (v == itemId) return true;
             return false;
         }
+
+        /// <summary>Recomputes which items are worn by any hero (derived data).</summary>
+        public void RebuildWornIndex(InventoryState inv, IEnumerable<CharacterState> characters) => RebuildWorn(inv, characters);
 
         private static void RebuildWorn(InventoryState inv, IEnumerable<CharacterState> characters)
         {

@@ -34,16 +34,14 @@ namespace DarkFantasy.Core.Save
 
         public static SaveData FromJson(JObject p)
         {
-            var state = new GameState
-            {
-                GameTime = (double)p["gameTime"],
-                Account = new AccountState { TrainingBossDone = (bool)p["account"]["trainingBossDone"] },
-                Wallet = new Wallet { Gold = (double)p["wallet"]["gold"], Materials = (double)p["wallet"]["materials"] },
-                Character = Character((JObject)p["character"]),
-                World = World((JObject)p["world"]),
-                Inventory = Inventory((JObject)p["inventory"]),
-                PendingOfflineLoot = Items((JArray)p["pendingOfflineLoot"]),
-            };
+            var state = GameState.NewRun(ClassId.Fighter);
+            state.GameTime = (double)p["gameTime"];
+            state.Account = new AccountState { TrainingBossDone = (bool)p["account"]["trainingBossDone"] };
+            state.Wallet = new Wallet { Gold = (double)p["wallet"]["gold"], Materials = (double)p["wallet"]["materials"] };
+            state.Character = Character((JObject)p["character"]);
+            state.World = World((JObject)p["world"]);
+            state.Inventory = Inventory((JObject)p["inventory"]);
+            state.PendingOfflineLoot = Items((JArray)p["pendingOfflineLoot"]);
             return new SaveData
             {
                 State = state,
