@@ -124,6 +124,14 @@ Referenced in the GDD as **R2-n**. Numbers live in the `combat` section of `bala
 |---|---|
 | ON-1 | **First-run training boss + softer region 1 boss** (owner, option C). The training boss appears after subzone 1's first wave, before subzone 2 unlocks, **only until the account has beaten it once** (account-level, survives prestige). It has the boss 60 s timer but **cannot kill the player**, ignores the boss toggle, has 3 × normal-enemy HP and normal attack, pays boss-sized XP and gold and the guaranteed Rare+ first-kill item. A failed attempt needs a new wave, like real bosses. **Region 1 boss HP multiplier 4 instead of 12** (`onboarding.boss_hp_mult_overrides`), tuned so a player who equips upgrades beats it in about 9 minutes at ×1 (median of 10 runs; floor about 6 min, unlucky runs up to about 26 min). The training boss falls at about 1.5 min |
 
+## Approved — M4 design (save and offline)
+| ID | Decision |
+|---|---|
+| M4-1 | **Welcome-back report with Collect** after 2+ minutes away (shorter absences credited silently): time away, time credited (50% and 12 h cap shown), kills, bosses beaten/failed, levels, gold, materials, items by rarity with ▲ for upgrades, items auto-salvaged. Loot is held (and saved) until **Collect**; full-bag rule applies on Collect |
+| M4-2 | **"Auto-allocate on level-up" toggle** (off by default, online and offline) plus a per-character **Custom preset** where the player sets a weight 0–10 per attribute (default: all into the primary attribute) |
+| M4-3 | **Offline time is simulated fight by fight with the real engine.** Boss toggle, auto-salvage and retreat rules apply; items are never equipped (R2-18). **Must be checked on a real phone: 12 h credited in < 200 ms**; fallback is a summary fight mode without event logs |
+| M4-4 | **Device testing on the owner's Android phone over USB** (guide in `Docs/ANDROID_DEVICE_TEST.md`), deferred until the owner has the phone. M4 may merge after the editor playtest; the device checks (offline performance, save on app kill) stay as an open Jira task under the M4 epic |
+
 ## Proposed (new, awaiting approval)
 | ID | Proposal | Doc |
 |---|---|---|
