@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 150" data-height="1024">
+  <g id="part:tail" data-pivot="34 98">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M38 96 C26 90 14 92 6 104 C16 102 24 104 36 106 Z"/></g>
+  </g>
+  <g id="part:legs" data-pivot="70 108">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M40 104 L47 104 C50 122 46 134 47 146 L51 150 L38 150 C40 134 37 122 40 104 Z"/><path d="M50 106 L57 106 C60 124 56 136 57 146 L61 150 L48 150 C50 136 47 124 50 106 Z"/><path d="M98 102 L105 102 C108 120 104 132 105 146 L109 150 L96 150 C98 132 95 120 98 102 Z"/><path d="M108 100 L115 100 C118 118 114 130 115 146 L119 150 L106 150 C108 130 105 118 108 100 Z"/></g>
+  </g>
+  <g id="part:body" data-pivot="72 110">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M34 92 C40 80 70 76 98 82 C110 85 116 96 112 108 C100 116 60 118 40 112 C30 108 28 100 34 92 Z"/><path d="M84 80 L88 64 L94 78 L100 62 L104 80 L110 68 L110 86 Z"/></g>
+  </g>
+  <g id="part:head" data-pivot="108 88">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M100 84 C106 74 114 70 122 72 L124 60 L130 72 C138 74 148 80 154 88 C150 93 140 94 130 93 C124 99 114 100 104 96 Z"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><circle cx="132" cy="80" r="2.2"/></g>
+  </g>
+</svg>

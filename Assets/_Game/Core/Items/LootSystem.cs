@@ -33,7 +33,11 @@ namespace DarkFantasy.Core.Items
             }
         }
 
-        public ItemInstance Roll(int itemLevel, IRng rng, Rarity minRarity = Rarity.Common, double luck = 0)
+        /// <summary>D-015 / M5: the starter main-hand type for a class (items.starter_types).</summary>
+        public string StarterWeaponType(ClassId cls) => _c.Items.StarterTypes[cls];
+
+        /// <param name="elementalLineMult">Weight multiplier for elemental "adds" lines (M5-6: higher on elemental enemies' drops).</param>
+        public ItemInstance Roll(int itemLevel, IRng rng, Rarity minRarity = Rarity.Common, double luck = 0, double elementalLineMult = 1.0)
         {
             if (rng == null) throw new ArgumentNullException(nameof(rng));
             var kind = RollKind(rng);
@@ -47,7 +51,7 @@ namespace DarkFantasy.Core.Items
                 ItemLevel = Math.Max(1, itemLevel),
                 Rarity = rarity,
             };
-            RollAttributes(item, rng);
+            RollAttributes(item, rng, elementalLineMult);
             if (rng.Chance(_c.Items.ClassItemShare))
             {
                 var classes = (ClassId[])Enum.GetValues(typeof(ClassId));
@@ -73,7 +77,7 @@ namespace DarkFantasy.Core.Items
         public double RollQuality(IRng rng, Rarity rarity) =>
             Math.Pow(rng.NextDouble(), 1.0 / (1.0 + _c.Items.RarityRollBias * (int)rarity));
 
-        private void RollAttributes(ItemInstance item, IRng rng)
+        private void RollAttributes(ItemInstance item, IRng rng, double elementalLineMult)
         {
             int count = _c.Gear.RandomAffixes[(int)item.Rarity];
             var candidates = new List<AttributeConfig>();
@@ -81,13 +85,19 @@ namespace DarkFantasy.Core.Items
                 if (a.Kinds.Contains(item.Kind)) candidates.Add(a);
             for (int i = 0; i < count && candidates.Count > 0; i++)
             {
-                int pick = (int)(rng.NextDouble() * candidates.Count);
+                // Weighted pick (all weights 1 except elemental lines): with every weight at 1 this is the same
+                // draw as the uniform pick it replaces, so loot from other enemies is unchanged.
+                var weights = new double[candidates.Count];
+                for (int w = 0; w < weights.Length; w++) weights[w] = IsElementalLine(candidates[w].Stat) ? elementalLineMult : 1.0;
+                int pick = Weighted(rng, weights);
                 var a = candidates[pick];
                 candidates.RemoveAt(pick);
                 double value = a.Min + (a.Max - a.Min) * RollQuality(rng, item.Rarity) + a.PerItemLevel * item.ItemLevel;
                 item.Attributes.Add(new RolledAttribute(a.Id, a.Stat, value));
             }
         }
+
+        private static bool IsElementalLine(GearStat s) => s >= GearStat.AddsFire && s <= GearStat.AddsDark;
 
         private static int Weighted(IRng rng, double[] weights)
         {

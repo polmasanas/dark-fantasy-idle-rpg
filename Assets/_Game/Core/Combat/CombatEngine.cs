@@ -22,11 +22,15 @@ namespace DarkFantasy.Core.Combat
 
         private readonly BalanceConfig _c;
         private readonly GameFormulas _f;
+        private readonly ElementTable _elements;
+        private readonly TriangleTable _triangle;
 
         public CombatEngine(BalanceConfig config)
         {
             _c = config ?? throw new ArgumentNullException(nameof(config));
             _f = new GameFormulas(config);
+            _elements = new ElementTable(config);
+            _triangle = new TriangleTable(config);
         }
 
         public FightResult Resolve(CombatStats player, EnemySnapshot enemy, IRng rng, bool recordEvents)
@@ -40,7 +44,7 @@ namespace DarkFantasy.Core.Combat
             var events = recordEvents ? new List<CombatEvent>() : null;
             double limit = enemy.IsBoss ? _c.Enemy.BossTimeLimitS : _c.Combat.EscapeTimerS;
             double hitChance = HitChance(player, enemy);
-            double damageTaken = enemy.Attack * (1 - DamageReduction(player.Armour, enemy.Level));
+            double damageTaken = DamageTaken(player, enemy);
 
             double enemyHp = enemy.Hp;
             double playerHp = player.MaxHp;
@@ -64,7 +68,7 @@ namespace DarkFantasy.Core.Combat
                 if (playerTurn)
                 {
                     playerSwings++;
-                    enemyHp -= Strike(player, hitChance, 1.0, rng, events, t, false);
+                    enemyHp -= Strike(player, enemy, hitChance, 1.0, rng, events, t, false);
                     if (enemyHp <= 0)
                     {
                         Add(events, t, CombatEventType.EnemyDied, 0);
@@ -88,7 +92,7 @@ namespace DarkFantasy.Core.Combat
 
                     if (player.CounterChance > 0 && rng.Chance(player.CounterChance))
                     {
-                        enemyHp -= Strike(player, hitChance, player.CounterDamage, rng, events, t, true);
+                        enemyHp -= Strike(player, enemy, hitChance, player.CounterDamage, rng, events, t, true);
                         if (enemyHp <= 0)
                         {
                             Add(events, t, CombatEventType.EnemyDied, 0);
@@ -117,7 +121,40 @@ namespace DarkFantasy.Core.Combat
             return Math.Min(_c.Player.DamageReductionCap, armour / (armour + _f.ArmourK(enemyLevel)));
         }
 
-        private static double Strike(CombatStats p, double hitChance, double damageScale, IRng rng,
+        /// <summary>Damage one enemy hit does to the hero: attack × (1 − DR) × triangle (D-017).</summary>
+        public double DamageTaken(CombatStats player, EnemySnapshot enemy) =>
+            enemy.Attack * (1 - DamageReduction(player.Armour, enemy.Level)) * _triangle.TakenBy(player.Class, enemy.Archetype);
+
+        /// <summary>
+        /// One hero hit (GDD 4.2, R2-21): a Physical component plus one per element the hero adds; each is
+        /// multiplied by the element matrix and the target's clamped resistance, then the sum by the triangle,
+        /// the damage scale (1, or the counter share) and the crit multiplier.
+        /// </summary>
+        public double HitAmount(CombatStats p, EnemySnapshot enemy, double damageScale, bool crit) =>
+            Components(p, enemy, out _) * _triangle.DealtBy(p.Class, enemy.Archetype) * damageScale * (crit ? p.CritDamage : 1.0);
+
+        private double Components(CombatStats p, EnemySnapshot enemy, out Element largest)
+        {
+            double total = 0, best = -1;
+            largest = Element.Physical;
+            for (int i = 0; i < Elements.Count; i++)
+            {
+                double share = i == 0 ? 1.0 : p.ElementShare[i] * (1 + p.PctElemental);
+                if (share <= 0) continue;
+                double resist = enemy.Resist[i];
+                resist = resist < _c.Elements.ResistMin ? _c.Elements.ResistMin : resist > _c.Elements.ResistMax ? _c.Elements.ResistMax : resist;
+                double part = p.HitDamage * share * _elements.Multiplier((Element)i, enemy.Element) * (1 - resist);
+                if (part > best)
+                {
+                    best = part;
+                    largest = (Element)i;
+                }
+                total += part;
+            }
+            return total;
+        }
+
+        private double Strike(CombatStats p, EnemySnapshot enemy, double hitChance, double damageScale, IRng rng,
             List<CombatEvent> events, double t, bool isCounter)
         {
             if (!rng.Chance(hitChance))
@@ -126,8 +163,9 @@ namespace DarkFantasy.Core.Combat
                 return 0;
             }
             bool crit = rng.Chance(p.CritChance);
-            double dmg = p.HitDamage * damageScale * (crit ? p.CritDamage : 1.0);
-            Add(events, t, isCounter ? CombatEventType.Counter : crit ? CombatEventType.PlayerCrit : CombatEventType.PlayerHit, dmg);
+            double baseDamage = Components(p, enemy, out var element);
+            double dmg = baseDamage * _triangle.DealtBy(p.Class, enemy.Archetype) * damageScale * (crit ? p.CritDamage : 1.0);
+            events?.Add(new CombatEvent(t, isCounter ? CombatEventType.Counter : crit ? CombatEventType.PlayerCrit : CombatEventType.PlayerHit, dmg, element));
             return dmg;
         }
 

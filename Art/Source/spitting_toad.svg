@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 150" data-height="512">
+  <g id="part:legs" data-pivot="70 130">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M36 128 C30 110 46 100 60 108 C64 118 56 130 66 146 L72 150 L40 150 C38 142 38 136 36 128 Z"/><path d="M96 120 L104 120 L106 146 L110 150 L94 150 L98 140 Z"/></g>
+  </g>
+  <g id="part:body" data-pivot="72 128">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M34 120 C34 96 60 84 90 86 C112 88 122 102 120 118 C118 132 96 140 70 140 C48 140 34 134 34 120 Z"/></g>
+  </g>
+  <g id="part:head" data-pivot="106 104">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M98 92 C106 82 120 82 128 90 C134 96 134 104 128 110 C120 114 106 114 98 108 Z"/><path d="M104 88 C106 82 112 80 116 84 Z"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><circle cx="116" cy="92" r="2.2"/><path d="M106 110 C112 120 124 120 128 112 C120 114 112 114 106 110 Z"/></g>
+  </g>
+</svg>

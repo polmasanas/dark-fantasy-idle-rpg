@@ -52,7 +52,7 @@ namespace DarkFantasy.Core.Look
                 boss.SizeVsRegular = Math.Min(cam.BossScaleMax, cam.BossScaleFirst + cam.BossScalePerRegion * (e.Region - 1));
                 return boss;
             }
-            var kit = _c.Kits[region.Kit];
+            var kit = _c.Kits[_regions.KitFor(e.Region, e.Subzone)];
             string body = kit[(Math.Max(1, e.Subzone) - 1) % kit.Length];
             return new EnemyLook { Body = body, Rank = LookRank.Normal, GlowHex = glow, DisplayName = Pretty(body) };
         }

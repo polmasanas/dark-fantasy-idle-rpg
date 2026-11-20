@@ -66,6 +66,9 @@ namespace DarkFantasy.Core.Stats
                              + i.CritDamagePoints * p.CritDamagePerPoint,
                 CounterChance = Math.Min(p.CounterCap, i.CounterPoints * p.CounterChancePerPoint),
                 CounterDamage = p.CounterDamage,
+                Class = i.Class,
+                ElementShare = (double[])i.ElementShare.Clone(),
+                PctElemental = i.PctElemental,
             };
         }
     }

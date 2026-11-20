@@ -377,6 +377,42 @@
               "per_item_level": 0.0
             }
           ]
+        },
+        {
+          "id": "bow",
+          "name": "Bow",
+          "lines": [
+            {
+              "stat": "weapon_damage",
+              "base": 9.3,
+              "scaling": "exponential",
+              "per_item_level": 0.0
+            },
+            {
+              "stat": "attack_speed",
+              "base": 0.08,
+              "scaling": "fixed",
+              "per_item_level": 0.0
+            }
+          ]
+        },
+        {
+          "id": "staff",
+          "name": "Staff",
+          "lines": [
+            {
+              "stat": "weapon_damage",
+              "base": 10.0,
+              "scaling": "exponential",
+              "per_item_level": 0.0
+            },
+            {
+              "stat": "pct_elemental",
+              "base": 0.1,
+              "scaling": "fixed",
+              "per_item_level": 0.0
+            }
+          ]
         }
       ],
       "off_hand": [
@@ -731,13 +767,83 @@
           "helmet",
           "amulet"
         ]
+      },
+      {
+        "id": "adds_fire",
+        "stat": "adds_fire",
+        "min": 0.08,
+        "max": 0.16,
+        "per_item_level": 0.0,
+        "kinds": [
+          "main_hand",
+          "off_hand",
+          "ring",
+          "amulet"
+        ]
+      },
+      {
+        "id": "adds_nature",
+        "stat": "adds_nature",
+        "min": 0.08,
+        "max": 0.16,
+        "per_item_level": 0.0,
+        "kinds": [
+          "main_hand",
+          "off_hand",
+          "ring",
+          "amulet"
+        ]
+      },
+      {
+        "id": "adds_water",
+        "stat": "adds_water",
+        "min": 0.08,
+        "max": 0.16,
+        "per_item_level": 0.0,
+        "kinds": [
+          "main_hand",
+          "off_hand",
+          "ring",
+          "amulet"
+        ]
+      },
+      {
+        "id": "adds_light",
+        "stat": "adds_light",
+        "min": 0.08,
+        "max": 0.16,
+        "per_item_level": 0.0,
+        "kinds": [
+          "main_hand",
+          "off_hand",
+          "ring",
+          "amulet"
+        ]
+      },
+      {
+        "id": "adds_dark",
+        "stat": "adds_dark",
+        "min": 0.08,
+        "max": 0.16,
+        "per_item_level": 0.0,
+        "kinds": [
+          "main_hand",
+          "off_hand",
+          "ring",
+          "amulet"
+        ]
       }
     ],
     "class_item_share": 0.3,
     "class_bonus_pct_damage": 0.08,
     "rarity_roll_bias": 0.25,
     "expansion_cost_base": 1000.0,
-    "expansion_cost_growth": 2.0
+    "expansion_cost_growth": 2.0,
+    "starter_types": {
+      "fighter": "sword",
+      "archer": "bow",
+      "mage": "staff"
+    }
   },
   "onboarding": {
     "_comment": "Owner decision ON-1 (M3 playtest): training boss in the first run + softer region 1 boss.",
@@ -760,5 +866,205 @@
   "save": {
     "_comment": "D-030: autosave cadence while playing (also saved on pause/quit and after key moments).",
     "autosave_interval_s": 30.0
+  },
+  "elements": {
+    "_comment": "D-019 / D-035 element matrix (GDD 4.4). beats: attack element -> target element it is strong against.",
+    "strong_mult": 1.5,
+    "weak_mult": 0.75,
+    "beats": {
+      "fire": "nature",
+      "nature": "water",
+      "water": "fire",
+      "light": "dark",
+      "dark": "light"
+    },
+    "resists_self": [
+      "light",
+      "dark"
+    ],
+    "physical_weak_vs": [
+      "light",
+      "dark"
+    ],
+    "resist_min": -0.5,
+    "resist_max": 0.75
+  },
+  "triangle": {
+    "_comment": "D-017 class triangle. class_beats: archetype each class is strong against; class_as: archetype that fights like each class.",
+    "advantage_dealt": 1.2,
+    "advantage_taken": 0.85,
+    "disadvantage_dealt": 0.85,
+    "disadvantage_taken": 1.2,
+    "class_beats": {
+      "fighter": "caster",
+      "archer": "brute",
+      "mage": "marksman"
+    },
+    "class_as": {
+      "fighter": "brute",
+      "archer": "marksman",
+      "mage": "caster"
+    }
+  },
+  "families": {
+    "_comment": "M5-2 / M5-6 / R2-11 enemy families: element (fixed) or element_pool (weights, rolled per enemy), resist_own on that element, evasion, loot weight for elemental lines, archetype per subzone index and for the boss.",
+    "training": {
+      "group": null,
+      "element": null,
+      "element_pool": {},
+      "resist_own": 0.0,
+      "resist": {},
+      "evasion": 0.0,
+      "elemental_line_mult": 1.0,
+      "archetypes": [
+        "none",
+        "none",
+        "none",
+        "none",
+        "none"
+      ],
+      "boss_archetype": "none"
+    },
+    "humanoids": {
+      "group": "humanoids",
+      "element": null,
+      "element_pool": {},
+      "resist_own": 0.0,
+      "resist": {},
+      "evasion": 0.0,
+      "elemental_line_mult": 1.0,
+      "archetypes": [
+        "brute",
+        "marksman",
+        "caster",
+        "marksman",
+        "brute"
+      ],
+      "boss_archetype": "brute"
+    },
+    "beasts": {
+      "group": "beasts",
+      "element": null,
+      "element_pool": {},
+      "resist_own": 0.0,
+      "resist": {},
+      "evasion": 125.0,
+      "elemental_line_mult": 1.0,
+      "archetypes": [
+        "brute",
+        "brute",
+        "marksman",
+        "brute",
+        "brute"
+      ],
+      "boss_archetype": "brute"
+    },
+    "elementals": {
+      "group": "elementals",
+      "element": null,
+      "element_pool": {
+        "fire": 1.0,
+        "nature": 1.0,
+        "water": 2.0
+      },
+      "resist_own": 0.75,
+      "resist": {},
+      "evasion": 0.0,
+      "elemental_line_mult": 3.0,
+      "archetypes": [
+        "marksman",
+        "marksman",
+        "marksman",
+        "marksman",
+        "brute"
+      ],
+      "boss_archetype": "caster"
+    },
+    "wizards": {
+      "group": "elementals",
+      "element": "light",
+      "element_pool": {},
+      "resist_own": 0.75,
+      "resist": {},
+      "evasion": 0.0,
+      "elemental_line_mult": 3.0,
+      "archetypes": [
+        "brute",
+        "marksman",
+        "caster",
+        "brute",
+        "caster"
+      ],
+      "boss_archetype": "caster"
+    },
+    "undead": {
+      "group": "undead",
+      "element": "dark",
+      "element_pool": {},
+      "resist_own": 0.0,
+      "resist": {},
+      "evasion": 0.0,
+      "elemental_line_mult": 1.0,
+      "archetypes": [
+        "caster",
+        "brute",
+        "caster",
+        "caster",
+        "caster"
+      ],
+      "boss_archetype": "caster"
+    }
+  },
+  "regions": {
+    "_comment": "M5-2 / M5-5: family per subzone for hand-made regions (index 0 = region 1) and per region boss; later regions use the fallback.",
+    "subzone_families": [
+      [
+        "training",
+        "training",
+        "training",
+        "training",
+        "training"
+      ],
+      [
+        "humanoids",
+        "humanoids",
+        "humanoids",
+        "humanoids",
+        "humanoids"
+      ],
+      [
+        "beasts",
+        "beasts",
+        "beasts",
+        "beasts",
+        "beasts"
+      ],
+      [
+        "elementals",
+        "elementals",
+        "elementals",
+        "elementals",
+        "wizards"
+      ],
+      [
+        "undead",
+        "undead",
+        "undead",
+        "undead",
+        "undead"
+      ]
+    ],
+    "boss_families": [
+      "training",
+      "humanoids",
+      "beasts",
+      "elementals",
+      "undead"
+    ],
+    "fallback_family": "humanoids"
+  },
+  "item_rules": {
+    "_comment": "M5-1: Mage class line bonus to elemental damage (kept out of 'items' so Sheets rows do not shift).",
+    "class_bonus_pct_elemental": 0.15
   }
 }

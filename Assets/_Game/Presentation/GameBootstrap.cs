@@ -55,6 +55,7 @@ namespace DarkFantasy.Presentation
         private InventoryView _inventory;
         private CustomPresetView _customPreset;
         private OfflineReportView _report;
+        private HeroBarView _heroBar;
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         private DebugPanel _debug;
 #endif
@@ -176,6 +177,8 @@ namespace DarkFantasy.Presentation
             _music.SetBoss(false);
             _combat.Reset(_session.State.World.Region);
             _report = new OfflineReportView(_session, OnCollected);
+            _heroBar = new HeroBarView(_session, OnHeroTapped);
+            _hud.Top.Add(_heroBar.Root);
             root.Add(_hud.Top);
             root.Add(_combat.Root);
             root.Add(_hud.Bottom);
@@ -191,6 +194,12 @@ namespace DarkFantasy.Presentation
             _session.Events.Subscribe<WorldChanged>(OnWorldChanged);
             _session.Events.Subscribe<LevelUp>(e => _combat.SetStatus($"Level up! Level {e.Level}"));
             _session.Events.Subscribe<ItemDropped>(OnItemDropped);
+            _session.Events.Subscribe<HeroesUnlocked>(_ =>
+            {
+                Toast("The Archer and the Mage join you. Tap a hero above to switch.");
+                _heroBar.Pulse();
+                _saveRequested = true;
+            });
             _replayer = new FightReplayer(_session, _combat);
         }
 
@@ -199,6 +208,7 @@ namespace DarkFantasy.Presentation
             if (_replayer == null) return;
             _replayer.Tick(Time.deltaTime * GameSpeed);
             _combat.Tick(Time.unscaledDeltaTime);
+            _heroBar.Refresh(Time.unscaledDeltaTime);
             _music.Tick(Time.unscaledDeltaTime);
             _hud.Refresh();
             _inventory.Tick(Time.deltaTime);
@@ -290,6 +300,27 @@ namespace DarkFantasy.Presentation
             set
             {
                 if (_music != null) _music.Muted = !value;
+            }
+        }
+
+        /// <summary>Hero bar tap (M5-3): switch now, dropping the normal fight on screen; refused during boss fights.</summary>
+        private void OnHeroTapped(ClassId hero)
+        {
+            switch (_session.SwitchTo(hero))
+            {
+                case SwitchResult.Switched:
+                    _replayer.Abandon();
+                    _combat.Reset(_session.State.World.Region);
+                    _combat.ShowHero(hero);
+                    Toast($"The {hero} takes the field");
+                    _saveRequested = true;
+                    break;
+                case SwitchResult.Locked:
+                    Toast("Beat the region 1 boss to unlock the Archer and the Mage");
+                    break;
+                case SwitchResult.BossFight:
+                    Toast("You can't switch heroes during a boss fight");
+                    break;
             }
         }
 

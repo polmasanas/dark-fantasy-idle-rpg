@@ -38,6 +38,18 @@ namespace DarkFantasy.Core.Events
         public LevelUp(int level) { Level = level; }
     }
 
+    /// <summary>The Archer and Mage became playable (M5-4).</summary>
+    public sealed class HeroesUnlocked
+    {
+    }
+
+    /// <summary>The active hero changed (M5-3).</summary>
+    public sealed class HeroSwitched
+    {
+        public readonly Stats.ClassId Hero;
+        public HeroSwitched(Stats.ClassId hero) { Hero = hero; }
+    }
+
     public sealed class WorldChanged
     {
         public readonly WorldChange Change;

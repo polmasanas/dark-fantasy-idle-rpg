@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 150" data-height="512">
+  <g id="part:tail" data-pivot="40 116">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M42 112 C24 112 12 120 2 132 C14 130 26 126 44 124 Z"/></g>
+  </g>
+  <g id="part:legs" data-pivot="80 124">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M50 122 L56 122 C62 140 55 152 56 146 L60 150 L48 150 C50 152 44 140 50 122 Z"/><path d="M62 124 L68 124 C74 142 67 154 68 146 L72 150 L60 150 C62 154 56 142 62 124 Z"/><path d="M100 122 L106 122 C112 140 105 152 106 146 L110 150 L98 150 C100 152 94 140 100 122 Z"/><path d="M112 120 L118 120 C124 138 117 150 118 146 L122 150 L110 150 C112 150 106 138 112 120 Z"/></g>
+  </g>
+  <g id="part:body" data-pivot="80 126">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M40 114 C50 102 84 98 112 104 C124 106 130 114 126 122 C112 130 72 132 48 128 C38 126 34 120 40 114 Z"/><path d="M60 102 L64 94 L68 102 L74 92 L78 102 L84 94 L88 104 Z"/></g>
+  </g>
+  <g id="part:jaw" data-pivot="122 114">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M120 114 C132 116 144 116 154 114 C146 120 134 122 122 120 Z"/></g>
+  </g>
+  <g id="part:head" data-pivot="122 112">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M118 104 C128 100 142 102 156 108 C150 112 140 114 128 116 C124 116 120 114 118 110 Z"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><circle cx="134" cy="106" r="1.8"/></g>
+  </g>
+</svg>

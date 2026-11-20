@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 150" data-height="512">
+  <g id="part:body" data-pivot="72 96">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M40 100 L50 72 L72 62 L96 70 L106 96 L96 120 L70 128 L48 120 Z"/><path d="M58 128 L62 140 L66 128 Z"/><path d="M78 128 L82 142 L86 128 Z"/></g>
+  </g>
+  <g id="part:core" data-pivot="74 96">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><circle cx="74" cy="96" r="9"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><circle cx="74" cy="96" r="6"/></g>
+  </g>
+  <g id="part:jaw" data-pivot="100 98">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M98 92 L122 88 L118 98 L100 104 Z"/></g>
+  </g>
+</svg>

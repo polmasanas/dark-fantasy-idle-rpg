@@ -19,6 +19,15 @@ namespace DarkFantasy.Core.Session
     /// (<see cref="PrepareNextFight"/> then <see cref="Apply"/>); <see cref="Advance"/> does both
     /// for headless play (tests, and offline progress in M4).
     /// </summary>
+    /// <summary>Result of asking to switch heroes (M5-3, M5-4).</summary>
+    public enum SwitchResult
+    {
+        Switched,
+        AlreadyActive,
+        Locked,
+        BossFight,
+    }
+
     public sealed class GameSession
     {
         private readonly BalanceConfig _c;
@@ -30,6 +39,9 @@ namespace DarkFantasy.Core.Session
         private readonly EnemyFactory _enemies;
         private readonly LootSystem _loot;
         private readonly PowerScore _power;
+
+        /// <summary>True from preparing a boss or training-boss fight until it is applied or dropped (M5-3).</summary>
+        public bool InBossFight { get; private set; }
 
         /// <summary>Set while simulating time away: no events, no fight logs, drops held for Collect.</summary>
         private OfflineReport _offline;
@@ -67,6 +79,7 @@ namespace DarkFantasy.Core.Session
             Upgrades = new UpgradeSystem(config);
             Items = new ItemStats(config);
             EnsureStarterKit();
+            EnsureHeroKits();
             if (_c.Onboarding.TrainingBossEnabled && !State.Account.TrainingBossDone
                 && State.World.Region == 1 && State.World.UnlockedSubzone <= _c.Onboarding.TrainingBossAfterSubzone)
                 State.World.TrainingBossPending = true;
@@ -80,11 +93,44 @@ namespace DarkFantasy.Core.Session
             State.Inventory.WornIds.Clear();
             foreach (var ch in State.Characters)
                 foreach (var id in ch.Equipped.Values) State.Inventory.WornIds.Add(id);
-            if (State.Character.Equipped.ContainsKey(EquipSlot.MainHand)) return;
-            var starter = new ItemInstance { Kind = ItemKind.MainHand, TypeId = "sword", ItemLevel = 1, Rarity = Rarity.Common };
-            var added = Inventory.Add(State.Inventory, State.Wallet, starter, _ => true);
-            Inventory.Equip(State.Inventory, State.Characters, State.Character, added.Item.Id, EquipSlot.MainHand);
+            GiveStarterWeapon(State.Heroes[(int)ClassId.Fighter]);
         }
+
+        /// <summary>Once the heroes are unlocked (M5-4), the Archer and Mage get their starter weapons if unarmed.</summary>
+        public void EnsureHeroKits()
+        {
+            if (!State.Account.HeroesUnlocked) return;
+            GiveStarterWeapon(State.Heroes[(int)ClassId.Archer]);
+            GiveStarterWeapon(State.Heroes[(int)ClassId.Mage]);
+        }
+
+        private void GiveStarterWeapon(CharacterState hero)
+        {
+            if (hero.Equipped.ContainsKey(EquipSlot.MainHand)) return;
+            // Added straight to the bag and worn at once: a worn item takes no bag space, so a full bag
+            // must not salvage it (which would also pay materials again on every launch).
+            var starter = new ItemInstance { Kind = ItemKind.MainHand, TypeId = _loot.StarterWeaponType(hero.Class), ItemLevel = 1, Rarity = Rarity.Common };
+            starter.Id = State.Inventory.NextId++;
+            State.Inventory.Items.Add(starter);
+            Inventory.Equip(State.Inventory, State.Characters, hero, starter.Id, EquipSlot.MainHand, force: true);
+        }
+
+        /// <summary>
+        /// Makes another hero active (M5-3): refused while a boss fight is prepared or running, and for the
+        /// Archer and Mage before the unlock (M5-4). The caller drops the normal fight it was showing.
+        /// </summary>
+        public SwitchResult SwitchTo(ClassId hero)
+        {
+            if ((int)hero == State.ActiveHero) return SwitchResult.AlreadyActive;
+            if (hero != ClassId.Fighter && !State.Account.HeroesUnlocked) return SwitchResult.Locked;
+            if (InBossFight) return SwitchResult.BossFight;
+            State.ActiveHero = (int)hero;
+            Publish(new HeroSwitched(hero));
+            return SwitchResult.Switched;
+        }
+
+        /// <summary>The prepared fight will never be applied (switch, offline catch-up): clears the boss lock.</summary>
+        public void DropPreparedFight() => InBossFight = false;
 
         public IEnumerable<ItemInstance> EquippedItems(CharacterState c)
         {
@@ -166,6 +212,7 @@ namespace DarkFantasy.Core.Session
         public PreparedFight PrepareNextFight()
         {
             var encounter = World.NextEncounter(State.World, State.GameTime);
+            InBossFight = encounter.IsBoss;
             var enemy = _enemies.Create(encounter, _rng);
             var player = PlayerStats();
             return new PreparedFight
@@ -181,6 +228,7 @@ namespace DarkFantasy.Core.Session
         public void Apply(PreparedFight fight)
         {
             if (fight == null) throw new ArgumentNullException(nameof(fight));
+            InBossFight = false;
             State.GameTime += fight.Result.Duration + _c.Combat.EnemyRespawnS;
 
             if (fight.Result.Outcome == FightOutcome.Won)
@@ -197,7 +245,7 @@ namespace DarkFantasy.Core.Session
                 Publish(new EnemyKilled(e, xp, gold));
                 for (int lvl = before + 1; lvl <= State.Character.Level; lvl++)
                     Publish(new LevelUp(lvl));
-                RollDrops(e, inputs, firstBossKill);
+                RollDrops(e, inputs, firstBossKill, fight.Enemy?.ElementalLineMult ?? 1.0);
             }
 
             if (_offline != null)
@@ -209,6 +257,12 @@ namespace DarkFantasy.Core.Session
 
             var change = World.OnFightFinished(State.World, fight.Encounter, fight.Result.Outcome, State.GameTime);
             if (change == WorldChange.TrainingBossDefeated) State.Account.TrainingBossDone = true;
+            if (change == WorldChange.BossDefeated && fight.Encounter.Region == 1 && !State.Account.HeroesUnlocked)
+            {
+                State.Account.HeroesUnlocked = true; // M5-4: the Archer and Mage join after the recruit duel
+                EnsureHeroKits();
+                Publish(new HeroesUnlocked());
+            }
             Publish(new FightResolved(fight));
             if (change != WorldChange.None)
                 Publish(new WorldChanged(change, State.World));
@@ -218,7 +272,7 @@ namespace DarkFantasy.Core.Session
         /// Normal kills: 8% × (1 + drop chance bonus), excess over 100% becomes extra drops (R2-16).
         /// Bosses: always one item; Rare+ guaranteed on the first kill of that boss in this run (M3-2).
         /// </summary>
-        private void RollDrops(Encounter e, StatInputs inputs, bool firstBossKill)
+        private void RollDrops(Encounter e, StatInputs inputs, bool firstBossKill, double elementalLineMult)
         {
             int count;
             var minRarity = Rarity.Common;
@@ -235,7 +289,7 @@ namespace DarkFantasy.Core.Session
             }
             for (int i = 0; i < count; i++)
             {
-                var item = _loot.Roll(e.Level, _rng, minRarity, inputs.Luck);
+                var item = _loot.Roll(e.Level, _rng, minRarity, inputs.Luck, elementalLineMult);
                 var report = _offline == null
                     ? Inventory.Add(State.Inventory, State.Wallet, item, IsUpgrade)
                     : Inventory.Hold(State.Inventory, State.PendingOfflineLoot, State.Wallet, item, IsUpgrade);
@@ -254,6 +308,9 @@ namespace DarkFantasy.Core.Session
         /// </summary>
         public int GrantXp(double xp)
         {
+            int highest = 0;
+            foreach (var h in State.Heroes) highest = Math.Max(highest, h.Level);
+            if (State.Character.Level < highest) xp *= 1 + _c.Player.CatchupXpBonus; // D-024
             int gained = Progression.AddXp(State.Character, xp);
             if (gained > 0 && State.Character.AutoAllocateOnLevelUp) Progression.AutoAllocate(State.Character);
             return gained;

@@ -116,6 +116,9 @@ Base-body ideas per family [Claude's call; the 5 bodies are drawn in the milesto
 - **Boss arrival:** about 1.5 s pull-back (camera zoom out to about 60%, hero shrinks, boss slides in from the right), a low rumble, the boss name card in Cinzel ("Oskar Venn · Warden of the Third Gate"). After the fight the camera eases back. All durations are data.
 - The existing "animations on/off gives identical results" rule (M2) still holds: the camera and effects are presentation only.
 
+### 3.7 Families drawn in M5
+Beasts (fen wolf, bog boar, spitting toad, marsh stalker, mire bear; boss Grisel the Fen Mother) and Elementals (shard thrower, hail spitter, frost wisp, rime lancer, ice brute; boss the Frozen Oath) come from `Tools/ArtBuild/make_creatures.py`; Wizards (battle magus, lancer adept, lightcaller, warding monk, hierophant) and Undead (wight, ghoul, grave priest, bone seer, lich acolyte; boss Dorran Vael the Hollow Lord) from `make_figures.py` (gaunt build for the undead). Body order in each kit matches the family's fighting styles. Enemy glows use the enemy's element colour.
+
 ## 4. Naming (CD-6)
 
 - **Places:** "the [adjective] [landform]" from word lists by biome (Ashen / Drowned / Frozen / Hollow … + March / Fen / Pass / Reach / Deep …). A data setting `invented_place_share` (proposed 0.2) swaps the adjective for an invented name ("the Vael Marshes").

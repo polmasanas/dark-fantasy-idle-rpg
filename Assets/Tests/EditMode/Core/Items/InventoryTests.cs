@@ -61,7 +61,8 @@ namespace DarkFantasy.Core.Tests.Items
             all.Add(archer);
             var boots = Inv().Add(inv, wallet, Item(ItemKind.Boots, "light"), _ => false).Item;
             Inv().Equip(inv, all, fighter, boots.Id, EquipSlot.Boots);
-            Assert.AreEqual(EquipResult.Ok, Inv().Equip(inv, all, archer, boots.Id, EquipSlot.Boots));
+            Assert.AreEqual(EquipResult.NeedsConfirmation, Inv().Equip(inv, all, archer, boots.Id, EquipSlot.Boots)); // D-004: ask first
+            Assert.AreEqual(EquipResult.Ok, Inv().Equip(inv, all, archer, boots.Id, EquipSlot.Boots, force: true));
             Assert.IsFalse(fighter.Equipped.ContainsKey(EquipSlot.Boots));
             Assert.AreEqual(boots.Id, archer.Equipped[EquipSlot.Boots]);
         }

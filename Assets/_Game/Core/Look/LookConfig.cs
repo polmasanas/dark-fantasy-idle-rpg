@@ -76,6 +76,9 @@ namespace DarkFantasy.Core.Look
         public string Name;
         public string Biome;
         public string Kit;
+
+        /// <summary>Optional kit per subzone (M5-6: Frost Pass subzone 5 shows wizards); null = <see cref="Kit"/> everywhere.</summary>
+        public string[] SubzoneKits;
         public CharacterLook Boss;
     }
 

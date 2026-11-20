@@ -61,6 +61,14 @@ namespace DarkFantasy.Core.Items
         GoldFind,
         Luck,
         DropChance,
+
+        // M5-1: share of each hit added as an element, and the Mage's bonus to all elemental damage
+        AddsFire,
+        AddsNature,
+        AddsWater,
+        AddsLight,
+        AddsDark,
+        PctElemental,
     }
 
     public enum StatLineScaling
@@ -116,6 +124,12 @@ namespace DarkFantasy.Core.Items
                 case GearStat.GoldFind: return "gold_find";
                 case GearStat.Luck: return "luck";
                 case GearStat.DropChance: return "drop_chance";
+                case GearStat.AddsFire: return "adds_fire";
+                case GearStat.AddsNature: return "adds_nature";
+                case GearStat.AddsWater: return "adds_water";
+                case GearStat.AddsLight: return "adds_light";
+                case GearStat.AddsDark: return "adds_dark";
+                case GearStat.PctElemental: return "pct_elemental";
                 default: throw new ArgumentOutOfRangeException(nameof(s), s, null);
             }
         }

@@ -14,6 +14,19 @@ namespace DarkFantasy.Core.Combat
 
         /// <summary>False for the training boss (ON-1): boss timer, but the player cannot die.</summary>
         public bool CanKillPlayer = true;
+
+        /// <summary>The enemy's element (none = Physical) and how it fights (D-017, D-019).</summary>
+        public Element Element = Element.Physical;
+        public Archetype Archetype = Archetype.None;
+
+        /// <summary>Resistance per damage element, indexed by (int)Element; clamped by elements.resist_min/max.</summary>
+        public double[] Resist = new double[Elements.Count];
+
+        /// <summary>Family id from balance_config.json "families" (M5-2).</summary>
+        public string Family = "";
+
+        /// <summary>Weight multiplier for elemental gear lines on this enemy's drops (M5-6).</summary>
+        public double ElementalLineMult = 1.0;
     }
 
     public enum FightOutcome
@@ -47,11 +60,15 @@ namespace DarkFantasy.Core.Combat
         public readonly CombatEventType Type;
         public readonly double Amount;
 
-        public CombatEvent(double time, CombatEventType type, double amount)
+        /// <summary>The element of the largest damage component of a hit (for the damage-number colour).</summary>
+        public readonly Element Element;
+
+        public CombatEvent(double time, CombatEventType type, double amount, Element element = Element.Physical)
         {
             Time = time;
             Type = type;
             Amount = amount;
+            Element = element;
         }
 
         public override string ToString() => $"{Time:0.###}s {Type} {Amount:0.###}";

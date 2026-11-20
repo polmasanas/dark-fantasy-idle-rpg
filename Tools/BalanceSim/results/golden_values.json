@@ -5212,6 +5212,1158 @@
  {
   "fn": "ItemLine",
   "args": [
+   "main_hand",
+   "bow",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 9.3
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 10.695
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 13.485000000000001
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 15.50775
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 23.25
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 26.737499999999997
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 18.29450762279297
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 21.038683766211914
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 26.527036053049805
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 30.506091461007273
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 45.73626905698242
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 52.59670941552978
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 503.6465136085639
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 579.1934906498484
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 730.2874447324176
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 839.8305614422802
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 1259.1162840214097
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 1447.983726624621
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 192771839.76042315
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 221687615.72448662
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 279519167.6526136
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 321447042.8005056
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 481929599.4010579
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 554219039.3112166
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   1,
+   0,
+   0
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   1,
+   0,
+   3
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   1,
+   2,
+   0
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   1,
+   2,
+   3
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   1,
+   5,
+   0
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   1,
+   5,
+   3
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   11,
+   0,
+   0
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   11,
+   0,
+   3
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   11,
+   2,
+   0
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   11,
+   2,
+   3
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   11,
+   5,
+   0
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   11,
+   5,
+   3
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   60,
+   0,
+   0
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   60,
+   0,
+   3
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   60,
+   2,
+   0
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   60,
+   2,
+   3
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   60,
+   5,
+   0
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   60,
+   5,
+   3
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   250,
+   0,
+   0
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   250,
+   0,
+   3
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   250,
+   2,
+   0
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   250,
+   2,
+   3
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   250,
+   5,
+   0
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "bow",
+   1,
+   250,
+   5,
+   3
+  ],
+  "value": 0.08
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   1,
+   0,
+   0
+  ],
+  "value": 10.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   1,
+   0,
+   3
+  ],
+  "value": 11.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   1,
+   2,
+   0
+  ],
+  "value": 14.5
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   1,
+   2,
+   3
+  ],
+  "value": 16.674999999999997
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   1,
+   5,
+   0
+  ],
+  "value": 25.0
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   1,
+   5,
+   3
+  ],
+  "value": 28.749999999999996
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   11,
+   0,
+   0
+  ],
+  "value": 19.671513572895666
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   11,
+   0,
+   3
+  ],
+  "value": 22.622240608830015
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   11,
+   2,
+   0
+  ],
+  "value": 28.523694680698714
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   11,
+   2,
+   3
+  ],
+  "value": 32.80224888280352
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   11,
+   5,
+   0
+  ],
+  "value": 49.17878393223916
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   11,
+   5,
+   3
+  ],
+  "value": 56.55560152207504
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   60,
+   0,
+   0
+  ],
+  "value": 541.5553909769504
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   60,
+   0,
+   3
+  ],
+  "value": 622.7886996234929
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   60,
+   2,
+   0
+  ],
+  "value": 785.2553169165781
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   60,
+   2,
+   3
+  ],
+  "value": 903.0436144540647
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   60,
+   5,
+   0
+  ],
+  "value": 1353.8884774423761
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   60,
+   5,
+   3
+  ],
+  "value": 1556.9717490587325
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   250,
+   0,
+   0
+  ],
+  "value": 207281548.12948728
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   250,
+   0,
+   3
+  ],
+  "value": 238373780.34891036
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   250,
+   2,
+   0
+  ],
+  "value": 300558244.78775656
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   250,
+   2,
+   3
+  ],
+  "value": 345641981.50592
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   250,
+   5,
+   0
+  ],
+  "value": 518203870.3237182
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   0,
+   250,
+   5,
+   3
+  ],
+  "value": 595934450.8722758
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   1,
+   0,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   1,
+   0,
+   3
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   1,
+   2,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   1,
+   2,
+   3
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   1,
+   5,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   1,
+   5,
+   3
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   11,
+   0,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   11,
+   0,
+   3
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   11,
+   2,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   11,
+   2,
+   3
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   11,
+   5,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   11,
+   5,
+   3
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   60,
+   0,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   60,
+   0,
+   3
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   60,
+   2,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   60,
+   2,
+   3
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   60,
+   5,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   60,
+   5,
+   3
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   250,
+   0,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   250,
+   0,
+   3
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   250,
+   2,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   250,
+   2,
+   3
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   250,
+   5,
+   0
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
+   "main_hand",
+   "staff",
+   1,
+   250,
+   5,
+   3
+  ],
+  "value": 0.1
+ },
+ {
+  "fn": "ItemLine",
+  "args": [
    "off_hand",
    "parrying_blade",
    0,

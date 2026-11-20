@@ -41,6 +41,7 @@ namespace DarkFantasy.Core.Session
         /// </summary>
         public void Abandon()
         {
+            if (_current != null) _session.DropPreparedFight();
             _current = null;
             _elapsed = 0;
             _next = 0;

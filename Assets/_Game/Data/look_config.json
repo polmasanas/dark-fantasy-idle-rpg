@@ -79,31 +79,38 @@
     {
       "name": "the Drowned Fen",
       "biome": "moss",
-      "kit": "humanoid",
+      "kit": "beasts",
       "boss": {
-        "name": "Ysolde Marr",
-        "title": "the Fen Witch",
-        "body": "humanoid_boss"
+        "name": "Grisel",
+        "title": "the Fen Mother",
+        "body": "fen_mother"
       }
     },
     {
       "name": "the Frost Pass",
       "biome": "frost",
-      "kit": "humanoid",
+      "kit": "elementals",
       "boss": {
-        "name": "Halvard Kesh",
-        "title": "the Frozen Oath",
-        "body": "humanoid_boss"
-      }
+        "name": "The Frozen Oath",
+        "title": "Heart of the Pass",
+        "body": "frozen_oath"
+      },
+      "subzone_kits": [
+        "elementals",
+        "elementals",
+        "elementals",
+        "elementals",
+        "wizards"
+      ]
     },
     {
       "name": "the Vael Wastes",
       "biome": "ochre",
-      "kit": "humanoid",
+      "kit": "undead",
       "boss": {
         "name": "Dorran Vael",
-        "title": "Lord of the Wastes",
-        "body": "humanoid_boss"
+        "title": "the Hollow Lord",
+        "body": "hollow_lord"
       }
     },
     {
@@ -145,6 +152,34 @@
       "cultist",
       "archer",
       "brute"
+    ],
+    "beasts": [
+      "fen_wolf",
+      "bog_boar",
+      "spitting_toad",
+      "marsh_stalker",
+      "mire_bear"
+    ],
+    "elementals": [
+      "shard_thrower",
+      "hail_spitter",
+      "frost_wisp",
+      "rime_lancer",
+      "ice_brute"
+    ],
+    "wizards": [
+      "battle_magus",
+      "lancer_adept",
+      "lightcaller",
+      "warding_monk",
+      "hierophant"
+    ],
+    "undead": [
+      "wight",
+      "ghoul",
+      "grave_priest",
+      "bone_seer",
+      "lich_acolyte"
     ]
   },
   "classes": {
@@ -250,6 +285,30 @@
       "period_s": 3.6,
       "attack_deg": -25,
       "hit_deg": 6
+    },
+    "body": {
+      "idle_deg": 1.2,
+      "period_s": 2.8,
+      "attack_deg": 7,
+      "hit_deg": -7
+    },
+    "tail": {
+      "idle_deg": 7,
+      "period_s": 2.2,
+      "attack_deg": -10,
+      "hit_deg": 12
+    },
+    "core": {
+      "idle_deg": 5,
+      "period_s": 3.0,
+      "attack_deg": -8,
+      "hit_deg": 8
+    },
+    "jaw": {
+      "idle_deg": 3,
+      "period_s": 3.6,
+      "attack_deg": 18,
+      "hit_deg": -6
     }
   }
 }

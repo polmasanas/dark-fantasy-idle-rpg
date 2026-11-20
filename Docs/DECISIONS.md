@@ -148,6 +148,17 @@ Referenced in the GDD as **R2-n**. Numbers live in the `combat` section of `bala
 | CD-11 | **Owner's CD playtest, round 1:** (a) region bosses are drawn **1.5× a regular enemy in region 1, +0.1× per region, up to 3×** (`camera.boss_scale_*` in look_config; amends CD-2's "boss fills the frame" — the camera still pulls back); (b) the "While you were away" report is a **pop-up window** over the dimmed game; (c) characters are **built from separate parts** (cloak, legs, torso, head, weapon, …) that each move; (d) halos are **shaped like each part** and sit **behind the floor** |
 | CD-10 | **Build order:** a small Creative Direction milestone before M5 (UI theme, Fighter, Training Grounds with the boss camera, names from data, placeholder sound), ending with an owner playtest |
 
+## Approved — M5 design (three classes and the world; details in Docs/specs/2026-11-20-m5-three-classes-world-design.md)
+| ID | Decision |
+|---|---|
+| M5-1 | **Elemental damage comes from new gear lines:** "adds X% of each hit as Fire / Nature / Water / Light / Dark", plus a Mage-only "+% elemental damage" class line. Elements still come only from gear and skills |
+| M5-2 | **One enemy family per region for now:** 2 Ashen March = Humanoids, 3 Drowned Fen = Beasts, 4 Frost Pass = Elementals (Water), 5 Vael Wastes = Undead (Dark). Later regions mix families so no hero is always the obvious pick |
+| M5-3 | **Hero switching is instant during normal fights** (the fight in progress is dropped, no rewards) **and locked during boss fights** (training boss included) |
+| M5-4 | **The Archer and Mage unlock when the account first beats the region 1 boss** (Bram Hollis). Account-wide, survives prestige. Amends GDD §3 "all available from the start"; new accounts start as the Fighter |
+| M5-6 | **Elementals and wizards** (owner, plan review): Elementals can be **Fire, Nature or Water** (never Light or Dark), rolled per enemy; they resist their own element. Enemies of the Elemental group drop items whose **elemental damage lines are 3× more likely**. **Wizards** are a sub-family of the Elementals: robed human casters, always **Light**, in the Frost Pass's last subzone |
+| M5-B1 | **Balance (M5 simulation, logged per the balance rule):** families get a dominant fighting style so each region of 3–5 has a clearly best hero (Fen beasts mostly brutes → Archer; Frost Pass elementals mostly marksmen → Mage; Vael Wastes undead mostly casters → Fighter; 24–30% faster); bow 9.3 + 8% speed and staff 10 + 10% elemental to level the classes; beasts' evasion 125. Values in GAME_BALANCE §6b |
+| M5-5 | Region data supports several families per region (per-subzone family), even though M5 uses one per region |
+
 ## Proposed (new, awaiting approval)
 | ID | Proposal | Doc |
 |---|---|---|

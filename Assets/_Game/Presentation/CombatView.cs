@@ -30,7 +30,8 @@ namespace DarkFantasy.Presentation
         private readonly LookConfig _look;
         private readonly RegionLooks _regions;
         private readonly EnemyLooks _enemies;
-        private readonly ClassLook _heroLook;
+        private readonly Label _heroName;
+        private ClassId? _heroShown;
         private readonly Label _status;
         private readonly VisualElement _arena;
         private readonly SceneryView _scenery;
@@ -57,7 +58,6 @@ namespace DarkFantasy.Presentation
             _look = look ?? throw new ArgumentNullException(nameof(look));
             _regions = regions ?? throw new ArgumentNullException(nameof(regions));
             _enemies = enemies ?? throw new ArgumentNullException(nameof(enemies));
-            _heroLook = enemies.ForClass(heroClass);
 
             Root = new VisualElement();
             Root.style.flexGrow = 1;
@@ -113,7 +113,8 @@ namespace DarkFantasy.Presentation
             bars.style.marginTop = 8;
             var left = Ui.Column();
             left.style.alignItems = Align.FlexStart;
-            left.Add(Ui.Title(Capitalise(heroClass.ToString()), 24));
+            _heroName = Ui.Title("", 24);
+            left.Add(_heroName);
             _playerHp = new Bar(Ui.Hp, 300, 14);
             left.Add(_playerHp.Root);
             _playerHpText = Ui.Label("", 22, Ui.Muted);
@@ -129,10 +130,24 @@ namespace DarkFantasy.Presentation
             bars.Add(right);
             Root.Add(bars);
 
-            _hero.Show(_heroLook.Body, Ui.Hex(_heroLook.Glow));
+            ShowHero(heroClass);
         }
 
         public void SetStatus(string text) => _status.text = text;
+
+        /// <summary>Shows the active hero's silhouette and name (M5: changes when the player switches).</summary>
+        public void ShowHero(ClassId hero)
+        {
+            if (_heroShown == hero) return;
+            _heroShown = hero;
+            var look = _enemies.ForClass(hero);
+            _hero.Show(look.Body, Ui.Hex(look.Glow));
+            _heroName.text = Capitalise(hero.ToString());
+        }
+
+        /// <summary>Damage numbers take the colour of the hit's main element (M5); Physical keeps the default.</summary>
+        private Color HitColor(CombatEvent e, Color physical) =>
+            e.Element != Element.Physical && _look.ElementColors.TryGetValue(e.Element.ToString().ToLowerInvariant(), out var hex) ? Ui.Hex(hex) : physical;
 
         /// <summary>Snaps the camera back to normal (boot, offline catch-up, a fight thrown away) and shows the region.</summary>
         public void Reset(int region)
@@ -153,7 +168,8 @@ namespace DarkFantasy.Presentation
         {
             _bossFight = f.Encounter.IsBoss && f.Enemy.CanKillPlayer;
             ShowRegion(f.Encounter.Region);
-            var look = _enemies.For(f.Encounter);
+            ShowHero(f.Player.Class);
+            var look = _enemies.For(f.Encounter, f.Enemy.Element == Element.Physical ? null : f.Enemy.Element.ToString().ToLowerInvariant());
             _enemyIsBoss = look.Rank == LookRank.Boss && look.UseBossCamera;
             _enemySize = (float)look.SizeVsRegular;
             _enemy.Show(look.Body, Ui.Hex(look.GlowHex));
@@ -178,13 +194,13 @@ namespace DarkFantasy.Presentation
                     _hero.Attack();
                     _enemy.Hit();
                     DamageEnemy(e.Amount);
-                    Float(true, NumberFormat.Short(e.Amount), Ui.Text, 34);
+                    Float(true, NumberFormat.Short(e.Amount), HitColor(e, Ui.Text), 34);
                     break;
                 case CombatEventType.PlayerCrit:
                     _hero.Attack();
                     _enemy.Hit();
                     DamageEnemy(e.Amount);
-                    Float(true, NumberFormat.Short(e.Amount) + "!", Ui.Gold, 46);
+                    Float(true, NumberFormat.Short(e.Amount) + "!", HitColor(e, Ui.Gold), 46);
                     break;
                 case CombatEventType.Counter:
                     _hero.Attack();

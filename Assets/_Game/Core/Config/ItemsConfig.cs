@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DarkFantasy.Core.Stats;
 using DarkFantasy.Core.Items;
 
 namespace DarkFantasy.Core.Config
@@ -10,6 +11,8 @@ namespace DarkFantasy.Core.Config
         public List<AttributeConfig> Attributes { get; set; }
         public double ClassItemShare { get; set; }
         public double ClassBonusPctDamage { get; set; }
+        public double ClassBonusPctElemental { get; set; }
+        public Dictionary<ClassId, string> StarterTypes { get; set; }
         public double RarityRollBias { get; set; }
         public double ExpansionCostBase { get; set; }
         public double ExpansionCostGrowth { get; set; }

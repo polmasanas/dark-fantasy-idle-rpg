@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DarkFantasy.Core.Characters;
 using DarkFantasy.Core.Combat;
@@ -12,12 +13,26 @@ namespace DarkFantasy.Core.Session
     {
         /// <summary>The first-run training boss has been beaten (ON-1).</summary>
         public bool TrainingBossDone;
+
+        /// <summary>The Archer and Mage are playable (M5-4: first region 1 boss kill). Survives prestige.</summary>
+        public bool HeroesUnlocked;
     }
 
     /// <summary>Everything that changes during play (saved from M4).</summary>
     public sealed class GameState
     {
-        public CharacterState Character;
+        /// <summary>The three heroes, indexed by (int)ClassId (M5).</summary>
+        public List<CharacterState> Heroes = new List<CharacterState>();
+
+        /// <summary>Index into <see cref="Heroes"/> of the hero who fights (only they earn XP, D-024).</summary>
+        public int ActiveHero;
+
+        /// <summary>The active hero. Setting it replaces the hero in its slot (used when loading).</summary>
+        public CharacterState Character
+        {
+            get => Heroes[ActiveHero];
+            set => Heroes[ActiveHero] = value;
+        }
         public WorldState World;
         public Wallet Wallet = new Wallet();
         public AccountState Account = new AccountState();
@@ -37,14 +52,17 @@ namespace DarkFantasy.Core.Session
             set => Wallet.Gold = value;
         }
 
-        /// <summary>All characters (M3: one). Equipment rules work across this list (D-004).</summary>
-        public IList<CharacterState> Characters => new[] { Character };
+        /// <summary>All heroes. Equipment rules work across this list (D-004).</summary>
+        public IList<CharacterState> Characters => Heroes;
 
-        public static GameState NewRun(ClassId cls) => new GameState
+        /// <summary>A new run: all three heroes at level 1, <paramref name="active"/> fighting.</summary>
+        public static GameState NewRun(ClassId active)
         {
-            Character = CharacterState.Create(cls),
-            World = new WorldState(),
-        };
+            var s = new GameState { World = new WorldState() };
+            foreach (ClassId cls in Enum.GetValues(typeof(ClassId))) s.Heroes.Add(CharacterState.Create(cls));
+            s.ActiveHero = (int)active;
+            return s;
+        }
     }
 
     /// <summary>A fight that has been resolved but not yet applied (the view replays it first).</summary>

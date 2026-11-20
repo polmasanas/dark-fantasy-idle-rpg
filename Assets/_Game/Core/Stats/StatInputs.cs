@@ -40,6 +40,10 @@ namespace DarkFantasy.Core.Stats
         public double Luck;
         public double DropChance;
 
+        /// <summary>Elemental gear lines (M5-1): share of each hit added per element, indexed by (int)Element.</summary>
+        public double[] ElementShare = new double[DarkFantasy.Core.Combat.Elements.Count];
+        public double PctElemental;
+
         // Artifact levels
         public int MightLevel;
         public int BulwarkLevel;
@@ -49,6 +53,15 @@ namespace DarkFantasy.Core.Stats
     /// <summary>Final combat numbers used by the combat engine.</summary>
     public sealed class CombatStats
     {
+        /// <summary>The hero's class, for the triangle (D-017).</summary>
+        public ClassId Class;
+
+        /// <summary>Share of each hit added as elemental damage, indexed by (int)Element (index 0 unused) (M5-1).</summary>
+        public double[] ElementShare = new double[DarkFantasy.Core.Combat.Elements.Count];
+
+        /// <summary>Bonus to every elemental component (Mage line, M5-1).</summary>
+        public double PctElemental;
+
         public double HitDamage;
         public double MaxHp;
         public double Armour;

@@ -87,7 +87,7 @@ namespace DarkFantasy.Core.Tests.Save
             var (s, rng) = PlayedSession(1800);
             var loaded = new SaveSerializer().Deserialize(new SaveSerializer().Serialize(Snapshot(s, rng)));
             var s2 = new GameSession(TestConfig.Load(), loaded.State, Pcg32.FromState(loaded.RngState, loaded.RngIncrement), new EventBus());
-            CollectionAssert.AreEquivalent(s.State.Character.Equipped.Values, s2.State.Inventory.WornIds);
+            CollectionAssert.AreEquivalent(s.State.Heroes.SelectMany(h => h.Equipped.Values), s2.State.Inventory.WornIds); // every hero's gear (M5)
             Assert.AreEqual(0, s2.EquipUpgrades(), "nothing should look unequipped after loading");
         }
 

@@ -26,6 +26,15 @@ namespace DarkFantasy.Core.Look
             _c = config ?? throw new ArgumentNullException(nameof(config));
         }
 
+        /// <summary>The body kit shown in a subzone (per-subzone kits when the region lists them, M5-6).</summary>
+        public string KitFor(int region, int subzone)
+        {
+            if (region < 1) throw new ArgumentOutOfRangeException(nameof(region), region, "Regions start at 1");
+            var entry = region <= _c.Regions.Count ? _c.Regions[region - 1] : _c.Fallback;
+            if (entry.SubzoneKits == null || entry.SubzoneKits.Length == 0) return entry.Kit;
+            return entry.SubzoneKits[Math.Min(Math.Max(1, subzone), entry.SubzoneKits.Length) - 1];
+        }
+
         public RegionLook For(int region)
         {
             if (region < 1) throw new ArgumentOutOfRangeException(nameof(region), region, "Regions start at 1");

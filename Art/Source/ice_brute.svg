@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 150" data-height="512">
+  <g id="part:legs" data-pivot="72 120">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M46 150 L48 118 L66 116 L64 150 Z"/><path d="M80 150 L80 116 L98 118 L100 150 Z"/></g>
+  </g>
+  <g id="part:body" data-pivot="72 120">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M38 120 L34 80 L48 62 L96 60 L110 80 L106 120 Z"/></g>
+  </g>
+  <g id="part:core" data-pivot="72 92">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M66 92 L72 82 L78 92 L72 102 Z"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><circle cx="72" cy="92" r="5"/></g>
+  </g>
+  <g id="part:head" data-pivot="72 62">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M60 64 L62 46 L82 46 L84 64 Z"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><circle cx="67" cy="55" r="1.8"/><circle cx="77" cy="55" r="1.8"/></g>
+  </g>
+  <g id="part:weapon" data-pivot="100 70">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M98 66 L114 74 L122 104 L108 110 L100 84 Z"/></g>
+  </g>
+</svg>

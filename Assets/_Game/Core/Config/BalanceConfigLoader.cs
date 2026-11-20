@@ -43,7 +43,7 @@ namespace DarkFantasy.Core.Config
             var pr = Section(root, "prestige");
             var cb = Section(root, "combat");
 
-            return new BalanceConfig
+            var config = new BalanceConfig
             {
                 World = new WorldConfig
                 {
@@ -184,6 +184,9 @@ namespace DarkFantasy.Core.Config
                 Items = Items(Section(root, "items")),
                 Onboarding = Onboarding(Section(root, "onboarding")),
                 OfflineRules = OfflineRules(Section(root, "offline_rules")),
+                Elements = ElementRules(Section(root, "elements")),
+                Triangle = TriangleRules(Section(root, "triangle")),
+                Families = Families(Section(root, "families")),
                 Save = new SaveConfig
                 {
                     AutosaveIntervalS = D(Section(root, "save"), "save", "autosave_interval_s"),
@@ -193,6 +196,9 @@ namespace DarkFantasy.Core.Config
                     CustomWeightMax = I(Section(root, "allocation_rules"), "allocation_rules", "custom_weight_max"),
                 },
             };
+            config.Regions = Regions(Section(root, "regions"), config.Families);
+            config.Items.ClassBonusPctElemental = D(Section(root, "item_rules"), "item_rules", "class_bonus_pct_elemental");
+            return config;
         }
 
         private static Dictionary<string, ArtifactConfig> Artifacts(JObject prestige)
@@ -306,9 +312,153 @@ namespace DarkFantasy.Core.Config
                 Attributes = attributes,
                 ClassItemShare = D(items, "items", "class_item_share"),
                 ClassBonusPctDamage = D(items, "items", "class_bonus_pct_damage"),
+                StarterTypes = StarterTypes(Section(items, "starter_types", "items.starter_types"), types),
                 RarityRollBias = D(items, "items", "rarity_roll_bias"),
                 ExpansionCostBase = D(items, "items", "expansion_cost_base"),
                 ExpansionCostGrowth = D(items, "items", "expansion_cost_growth"),
+            };
+        }
+
+        private static Dictionary<ClassId, string> StarterTypes(JObject o, Dictionary<ItemKind, List<ItemTypeConfig>> types)
+        {
+            var result = new Dictionary<ClassId, string>();
+            foreach (ClassId cls in Enum.GetValues(typeof(ClassId)))
+            {
+                string key = cls.ToString().ToLowerInvariant();
+                string id = (string)Req(o, "items.starter_types", key);
+                if (!types[ItemKind.MainHand].Exists(t => t.Id == id))
+                    throw new BalanceConfigException("items.starter_types." + key + ": unknown main-hand type '" + id + "'");
+                result[cls] = id;
+            }
+            return result;
+        }
+
+        private static ElementsConfig ElementRules(JObject o)
+        {
+            var beats = new Dictionary<Combat.Element, Combat.Element>();
+            foreach (var prop in Section(o, "beats", "elements.beats").Properties())
+                beats[ElementKey(prop.Name, "elements.beats")] = ElementKey((string)prop.Value, "elements.beats." + prop.Name);
+            return new ElementsConfig
+            {
+                StrongMult = D(o, "elements", "strong_mult"),
+                WeakMult = D(o, "elements", "weak_mult"),
+                Beats = beats,
+                ResistsSelf = ElementList(o, "resists_self"),
+                PhysicalWeakVs = ElementList(o, "physical_weak_vs"),
+                ResistMin = D(o, "elements", "resist_min"),
+                ResistMax = D(o, "elements", "resist_max"),
+            };
+        }
+
+        private static List<Combat.Element> ElementList(JObject o, string key)
+        {
+            if (!(Req(o, "elements", key) is JArray list)) throw new BalanceConfigException("elements." + key + " must be a list");
+            var result = new List<Combat.Element>();
+            for (int i = 0; i < list.Count; i++) result.Add(ElementKey((string)list[i], "elements." + key + "[" + i + "]"));
+            return result;
+        }
+
+        internal static Combat.Element ElementKey(string key, string path)
+        {
+            if (key == null || !Combat.Elements.TryParse(key, out var e))
+                throw new BalanceConfigException(path + ": unknown element '" + key + "'");
+            return e;
+        }
+
+        internal static Combat.Archetype ArchetypeKey(string key, string path)
+        {
+            if (key != null)
+                foreach (Combat.Archetype a in Enum.GetValues(typeof(Combat.Archetype)))
+                    if (string.Equals(a.ToString(), key, StringComparison.OrdinalIgnoreCase)) return a;
+            throw new BalanceConfigException(path + ": unknown archetype '" + key + "'");
+        }
+
+        private static TriangleConfig TriangleRules(JObject o)
+        {
+            Dictionary<ClassId, Combat.Archetype> PerClass(string key)
+            {
+                var section = Section(o, key, "triangle." + key);
+                var map = new Dictionary<ClassId, Combat.Archetype>();
+                foreach (ClassId cls in Enum.GetValues(typeof(ClassId)))
+                {
+                    string k = cls.ToString().ToLowerInvariant();
+                    map[cls] = ArchetypeKey((string)Req(section, "triangle." + key, k), "triangle." + key + "." + k);
+                }
+                return map;
+            }
+            return new TriangleConfig
+            {
+                AdvantageDealt = D(o, "triangle", "advantage_dealt"),
+                AdvantageTaken = D(o, "triangle", "advantage_taken"),
+                DisadvantageDealt = D(o, "triangle", "disadvantage_dealt"),
+                DisadvantageTaken = D(o, "triangle", "disadvantage_taken"),
+                ClassBeats = PerClass("class_beats"),
+                ClassAs = PerClass("class_as"),
+            };
+        }
+
+        private static Dictionary<string, FamilyConfig> Families(JObject o)
+        {
+            var result = new Dictionary<string, FamilyConfig>();
+            foreach (var prop in o.Properties())
+            {
+                if (prop.Name.StartsWith("_")) continue;
+                string path = "families." + prop.Name;
+                var f = prop.Value as JObject ?? throw new BalanceConfigException(path + " must be an object");
+                var pool = new Dictionary<Combat.Element, double>();
+                foreach (var e in Section(f, "element_pool", path + ".element_pool").Properties())
+                    pool[ElementKey(e.Name, path + ".element_pool")] = D((JObject)f["element_pool"], path + ".element_pool", e.Name);
+                var resist = new Dictionary<Combat.Element, double>();
+                foreach (var e in Section(f, "resist", path + ".resist").Properties())
+                    resist[ElementKey(e.Name, path + ".resist")] = D((JObject)f["resist"], path + ".resist", e.Name);
+                if (!(Req(f, path, "archetypes") is JArray arch) || arch.Count == 0)
+                    throw new BalanceConfigException(path + ".archetypes must be a non-empty list");
+                var archetypes = new Combat.Archetype[arch.Count];
+                for (int i = 0; i < arch.Count; i++) archetypes[i] = ArchetypeKey((string)arch[i], path + ".archetypes[" + i + "]");
+                var elementProp = f.Property("element") ?? throw new BalanceConfigException("balance config is missing key '" + path + ".element' (use null for none)");
+                var element = elementProp.Value;
+                var groupProp = f.Property("group") ?? throw new BalanceConfigException("balance config is missing key '" + path + ".group' (use null for none)");
+                result[prop.Name] = new FamilyConfig
+                {
+                    Id = prop.Name,
+                    Group = groupProp.Value.Type == JTokenType.Null ? null : (string)groupProp.Value,
+                    Element = element.Type == JTokenType.Null ? (Combat.Element?)null : ElementKey((string)element, path + ".element"),
+                    ElementPool = pool,
+                    ResistOwn = D(f, path, "resist_own"),
+                    Resist = resist,
+                    Evasion = D(f, path, "evasion"),
+                    ElementalLineMult = D(f, path, "elemental_line_mult"),
+                    Archetypes = archetypes,
+                    BossArchetype = ArchetypeKey((string)Req(f, path, "boss_archetype"), path + ".boss_archetype"),
+                };
+            }
+            return result;
+        }
+
+        private static RegionsConfig Regions(JObject o, Dictionary<string, FamilyConfig> families)
+        {
+            string Known(string id, string path)
+            {
+                if (id == null || !families.ContainsKey(id)) throw new BalanceConfigException(path + ": unknown family '" + id + "'");
+                return id;
+            }
+            if (!(Req(o, "regions", "subzone_families") is JArray subs)) throw new BalanceConfigException("regions.subzone_families must be a list");
+            var subzoneFamilies = new List<string[]>();
+            for (int r = 0; r < subs.Count; r++)
+            {
+                if (!(subs[r] is JArray row) || row.Count == 0) throw new BalanceConfigException("regions.subzone_families[" + r + "] must be a non-empty list");
+                var ids = new string[row.Count];
+                for (int s = 0; s < row.Count; s++) ids[s] = Known((string)row[s], "regions.subzone_families[" + r + "][" + s + "]");
+                subzoneFamilies.Add(ids);
+            }
+            if (!(Req(o, "regions", "boss_families") is JArray bosses)) throw new BalanceConfigException("regions.boss_families must be a list");
+            var bossFamilies = new List<string>();
+            for (int r = 0; r < bosses.Count; r++) bossFamilies.Add(Known((string)bosses[r], "regions.boss_families[" + r + "]"));
+            return new RegionsConfig
+            {
+                SubzoneFamilies = subzoneFamilies,
+                BossFamilies = bossFamilies,
+                FallbackFamily = Known((string)Req(o, "regions", "fallback_family"), "regions.fallback_family"),
             };
         }
 

@@ -95,5 +95,37 @@ namespace DarkFantasy.Core.Tests.Look
             Assert.AreEqual(3.4, c.Motions["cloak"].PeriodS, 1e-9);
             Assert.IsFalse(c.Motions.ContainsKey("_comment"));
         }
+
+        [Test]
+        public void Region4_Subzones_ElementalsThenWizards()
+        {
+            var looks = Looks();
+            Assert.AreEqual("shard_thrower", looks.For(new Encounter(4, 1, 40, false)).Body);
+            Assert.AreEqual("hierophant", looks.For(new Encounter(4, 5, 48, false)).Body);
+            Assert.AreEqual("frozen_oath", looks.For(new Encounter(4, 5, 50, true)).Body);
+        }
+
+        [Test]
+        public void Glow_UsesTheEnemysElement()
+        {
+            var l = Looks().For(new Encounter(4, 2, 42, false), "fire");
+            Assert.AreEqual("#FF7A3D", l.GlowHex);
+        }
+
+        [Test]
+        public void KitOrder_MatchesFamilyArchetypes()
+        {
+            var balance = TestConfig.Load();
+            var factory = new EnemyFactory(balance);
+            var look = LookConfigLoader.FromJson(TestPaths.ReadRepoFile(TestPaths.LookConfigPath));
+            var regions = new RegionLooks(look);
+            for (int r = 1; r <= balance.Regions.SubzoneFamilies.Count; r++)
+                for (int sub = 1; sub <= 5; sub++)
+                {
+                    var family = factory.FamilyFor(new Encounter(r, sub, 1, false));
+                    string kit = regions.KitFor(r, sub);
+                    Assert.AreEqual(family.Archetypes.Length, look.Kits[kit].Length, $"region {r} subzone {sub}: kit {kit} vs family {family.Id}");
+                }
+        }
     }
 }

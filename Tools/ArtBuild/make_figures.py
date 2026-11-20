@@ -12,7 +12,7 @@ from pathlib import Path
 SRC = Path(__file__).resolve().parents[2] / "Art" / "Source"
 K = "#07080B"
 VIEWBOX = "12 2 94 150"
-BUILDS = {"lean": 1.0, "broad": 1.14, "huge": 1.32}
+BUILDS = {"gaunt": 0.84, "lean": 1.0, "broad": 1.14, "huge": 1.32}
 
 
 def mapx(d, k):
@@ -208,6 +208,19 @@ FIGURES = [
     dict(name="cultist", height=512, build="lean", head_kind="cult_hood", weapon_kind="orb", pose="forward", robe_flare=0.8),
     dict(name="archer", height=512, build="lean", head_kind="hood", weapon_kind="bow", pose="forward", quiver=True),
     dict(name="brute", height=512, build="huge", head_kind="bare", weapon_kind="maul", pose="down"),
+    # wizards (M5-6): robed human casters of Light (glow tinted by the game)
+    dict(name="battle_magus", height=512, build="broad", head_kind="plain_hood", weapon_kind="quarterstaff", pose="raised", robe_flare=0.4, pauldrons=True),
+    dict(name="lancer_adept", height=512, build="lean", head_kind="helm", weapon_kind="spear", pose="down", robe_flare=0.5),
+    dict(name="lightcaller", height=512, build="lean", head_kind="cowl", weapon_kind="orb", pose="raised", robe_flare=1.0, cloak_kind="long"),
+    dict(name="warding_monk", height=512, build="broad", head_kind="bare", weapon_kind="quarterstaff", pose="down", robe_flare=0.5, shield=True),
+    dict(name="hierophant", height=512, build="lean", head_kind="cult_hood", weapon_kind="staff", pose="raised", robe_flare=1.0, cloak_kind="cape"),
+    # undead people (M5): gaunt bodies, torn cloth
+    dict(name="wight", height=512, build="gaunt", head_kind="deep_hood", weapon_kind="orb", pose="forward", robe_flare=0.6, cloak_kind="torn"),
+    dict(name="ghoul", height=512, build="gaunt", head_kind="bare", weapon_kind="sword", pose="down", cloak_kind="torn"),
+    dict(name="grave_priest", height=512, build="gaunt", head_kind="cult_hood", weapon_kind="staff", pose="raised", robe_flare=0.7),
+    dict(name="bone_seer", height=512, build="gaunt", head_kind="cowl", weapon_kind="orb", pose="raised", robe_flare=0.9),
+    dict(name="lich_acolyte", height=512, build="gaunt", head_kind="horned", weapon_kind="staff", pose="raised", robe_flare=0.8, cloak_kind="long"),
+    dict(name="hollow_lord", height=1024, build="broad", head_kind="horned", weapon_kind="staff", pose="raised", robe_flare=1.0, cloak_kind="long", pauldrons=True, banner=True),
     dict(name="humanoid_boss", height=1024, build="huge", head_kind="horned", weapon_kind="greatsword", pose="down", cloak_kind="long", pauldrons=True, banner=True),
 ]
 

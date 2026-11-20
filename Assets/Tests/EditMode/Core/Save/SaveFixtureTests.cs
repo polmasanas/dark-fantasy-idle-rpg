@@ -4,6 +4,7 @@ using DarkFantasy.Core.Events;
 using DarkFantasy.Core.Random;
 using DarkFantasy.Core.Save;
 using DarkFantasy.Core.Session;
+using DarkFantasy.Core.Stats;
 using NUnit.Framework;
 
 namespace DarkFantasy.Core.Tests.Save
@@ -38,6 +39,22 @@ namespace DarkFantasy.Core.Tests.Save
             var s = new GameSession(TestConfig.Load(), d.State, Pcg32.FromState(d.RngState, d.RngIncrement), new EventBus());
             s.Collect();
             Assert.That(s.Advance(600), Is.GreaterThan(10));
+        }
+
+        [Test]
+        public void V2_Loads_WithThreeHeroes()
+        {
+            var d = LoadFixture("v2.dfrs");
+            Assert.AreEqual(638_100_000_000_000_000, d.SavedUtcTicks);
+            Assert.AreEqual(1, d.State.ActiveHero);
+            Assert.AreEqual(ClassId.Archer, d.State.Character.Class);
+            Assert.AreEqual(27, d.State.Heroes[0].Level);
+            Assert.AreEqual(14, d.State.Heroes[1].Level);
+            Assert.AreEqual(1, d.State.Heroes[2].Level);
+            Assert.AreEqual(2, d.State.World.Region);
+            Assert.AreEqual(36, d.State.Inventory.Items.Count);
+            Assert.AreEqual(3302.9713123117986, d.State.Gold, 1e-9);
+            Assert.IsTrue(d.State.Account.HeroesUnlocked);
         }
     }
 }

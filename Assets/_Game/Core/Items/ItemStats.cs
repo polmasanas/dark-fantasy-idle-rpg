@@ -1,4 +1,5 @@
 using System;
+using DarkFantasy.Core.Combat;
 using System.Collections.Generic;
 using DarkFantasy.Core.Config;
 using DarkFantasy.Core.Stats;
@@ -49,7 +50,11 @@ namespace DarkFantasy.Core.Items
             foreach (var a in item.Attributes)
                 yield return new KeyValuePair<GearStat, double>(a.Stat, a.Value);
             if (item.ClassBonus.HasValue && item.ClassBonus.Value == wearer)
+            {
                 yield return new KeyValuePair<GearStat, double>(GearStat.PctDamage, _c.Items.ClassBonusPctDamage);
+                if (wearer == ClassId.Mage) // M5-1: the Mage's class line also boosts elemental damage
+                    yield return new KeyValuePair<GearStat, double>(GearStat.PctElemental, _c.Items.ClassBonusPctElemental);
+            }
         }
 
         public string DisplayName(ItemInstance item)
@@ -101,6 +106,12 @@ namespace DarkFantasy.Core.Items
                 case GearStat.GoldFind: i.GoldFind += v; break;
                 case GearStat.Luck: i.Luck += v; break;
                 case GearStat.DropChance: i.DropChance += v; break;
+                case GearStat.AddsFire: i.ElementShare[(int)Element.Fire] += v; break;
+                case GearStat.AddsNature: i.ElementShare[(int)Element.Nature] += v; break;
+                case GearStat.AddsWater: i.ElementShare[(int)Element.Water] += v; break;
+                case GearStat.AddsLight: i.ElementShare[(int)Element.Light] += v; break;
+                case GearStat.AddsDark: i.ElementShare[(int)Element.Dark] += v; break;
+                case GearStat.PctElemental: i.PctElemental += v; break;
                 default: throw new ArgumentOutOfRangeException(nameof(stat), stat, null);
             }
         }
