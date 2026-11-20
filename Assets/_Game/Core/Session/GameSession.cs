@@ -63,6 +63,9 @@ namespace DarkFantasy.Core.Session
             Upgrades = new UpgradeSystem(config);
             Items = new ItemStats(config);
             EnsureStarterKit();
+            if (_c.Onboarding.TrainingBossEnabled && !State.Account.TrainingBossDone
+                && State.World.Region == 1 && State.World.UnlockedSubzone <= _c.Onboarding.TrainingBossAfterSubzone)
+                State.World.TrainingBossPending = true;
         }
 
         /// <summary>Each run starts with a Common level-1 class weapon, equipped (D-015).</summary>
@@ -179,7 +182,8 @@ namespace DarkFantasy.Core.Session
                 var inputs = PlayerInputs();
                 double gold = _f.GoldDrop(e.Level, e.IsBoss) * (1 + inputs.GoldFind);
                 State.Gold += gold;
-                bool firstBossKill = e.IsBoss && e.Region > State.World.HighestBossDefeated;
+                bool firstBossKill = e.IsTraining ? !State.Account.TrainingBossDone
+                    : e.IsBoss && e.Region > State.World.HighestBossDefeated;
                 int before = State.Character.Level;
                 Progression.AddXp(State.Character, xp);
                 Events.Publish(new EnemyKilled(e, xp, gold));
@@ -189,6 +193,7 @@ namespace DarkFantasy.Core.Session
             }
 
             var change = World.OnFightFinished(State.World, fight.Encounter, fight.Result.Outcome, State.GameTime);
+            if (change == WorldChange.TrainingBossDefeated) State.Account.TrainingBossDone = true;
             Events.Publish(new FightResolved(fight));
             if (change != WorldChange.None)
                 Events.Publish(new WorldChanged(change, State.World));

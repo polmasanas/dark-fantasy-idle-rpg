@@ -176,7 +176,7 @@ namespace DarkFantasy.Core.Tests.World
             var boss = f.Create(new Encounter(1, 5, 10, true), new Pcg32(2));
             Assert.IsTrue(boss.IsBoss);
             Assert.AreEqual(10, boss.Level);
-            Assert.That(boss.Hp, Is.GreaterThan(700));
+            Assert.That(boss.Hp, Is.GreaterThan(200)); // region 1 boss uses the onboarding HP override (ON-1)
         }
     }
 }

@@ -294,6 +294,11 @@ class Sim:
         e, p, f = self.cfg["enemy"], self.cfg["player"], self.f
         var = self.rng.uniform(e["variance_mult_min"], e["variance_mult_max"])
         ehp = f.enemy_hp(enemy_lvl, boss) * var
+        if boss:  # ON-1: per-region boss HP override (region 1 softened for onboarding)
+            region = enemy_lvl // (self.cfg["world"]["subzones_per_region"] * self.cfg["world"]["levels_per_subzone"])
+            override = self.cfg["onboarding"]["boss_hp_mult_overrides"].get(str(region))
+            if override is not None:
+                ehp = ehp / self.cfg["enemy"]["boss_hp_mult"] * override
         swings = math.ceil(ehp / s["avg_hit"]) / s["hit"]
         # Counter (5b): each enemy attack has s["counter"] chance of a free 60% hit.
         main_dps = s["avg_hit"] * s["hit"] / s["interval"]

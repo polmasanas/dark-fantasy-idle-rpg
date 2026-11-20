@@ -25,9 +25,24 @@ namespace DarkFantasy.Core.World
         {
             if (rng == null) throw new ArgumentNullException(nameof(rng));
             double variance = rng.Range(_c.Enemy.VarianceMultMin, _c.Enemy.VarianceMultMax);
+            if (e.IsTraining)
+            {
+                return new EnemySnapshot
+                {
+                    Hp = _f.EnemyHp(e.Level, false) * _c.Onboarding.TrainingBossHpMult * variance,
+                    Attack = _f.EnemyAtk(e.Level, false),
+                    AttackInterval = _c.Enemy.AttackIntervalS,
+                    Level = e.Level,
+                    IsBoss = true,
+                    CanKillPlayer = false,
+                };
+            }
+            double hp = _f.EnemyHp(e.Level, e.IsBoss);
+            if (e.IsBoss && _c.Onboarding.BossHpMultOverrides.TryGetValue(e.Region, out var mult))
+                hp = hp / _c.Enemy.BossHpMult * mult; // per-region boss strength (ON-1)
             return new EnemySnapshot
             {
-                Hp = _f.EnemyHp(e.Level, e.IsBoss) * variance,
+                Hp = hp * variance,
                 Attack = _f.EnemyAtk(e.Level, e.IsBoss),
                 AttackInterval = _c.Enemy.AttackIntervalS,
                 Level = e.Level,

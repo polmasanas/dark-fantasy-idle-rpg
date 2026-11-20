@@ -67,13 +67,22 @@ namespace DarkFantasy.Presentation
 
         public void BeginFight(PreparedFight f)
         {
-            _bossFight = f.Encounter.IsBoss;
-            _enemyName.text = _bossFight
-                ? $"Region {f.Encounter.Region} Boss · lvl {f.Encounter.Level}"
-                : $"Enemy · lvl {f.Encounter.Level}";
-            _enemyBox.style.backgroundColor = _bossFight ? Ui.Boss : Ui.Enemy;
-            _enemyBox.style.width = _bossFight ? 190 : 140;
-            _enemyBox.style.height = _bossFight ? 280 : 220;
+            _bossFight = f.Encounter.IsBoss && f.Enemy.CanKillPlayer;
+            if (f.Encounter.IsTraining)
+            {
+                _enemyName.text = "Training Boss";
+                SetStatus("A training boss! Beat it within 60 s. It cannot defeat you.");
+            }
+            else
+            {
+                _enemyName.text = f.Encounter.IsBoss
+                    ? $"Region {f.Encounter.Region} Boss · lvl {f.Encounter.Level}"
+                    : $"Enemy · lvl {f.Encounter.Level}";
+            }
+            _enemyBox.style.backgroundColor = f.Encounter.IsTraining ? new Color(0.55f, 0.35f, 0.15f)
+                : f.Encounter.IsBoss ? Ui.Boss : Ui.Enemy;
+            _enemyBox.style.width = f.Encounter.IsBoss ? 190 : 140;
+            _enemyBox.style.height = f.Encounter.IsBoss ? 280 : 220;
             _enemyBox.style.opacity = 1f;
             _playerBox.style.opacity = 1f;
 

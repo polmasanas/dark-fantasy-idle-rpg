@@ -738,5 +738,14 @@
     "rarity_roll_bias": 0.25,
     "expansion_cost_base": 1000.0,
     "expansion_cost_growth": 2.0
+  },
+  "onboarding": {
+    "_comment": "Owner decision ON-1 (M3 playtest): training boss in the first run + softer region 1 boss.",
+    "training_boss_enabled": true,
+    "training_boss_after_subzone": 1,
+    "training_boss_hp_mult": 3.0,
+    "boss_hp_mult_overrides": {
+      "1": 4.0
+    }
   }
 }

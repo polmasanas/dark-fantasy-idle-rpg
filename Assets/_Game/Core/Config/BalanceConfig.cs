@@ -22,9 +22,21 @@ namespace DarkFantasy.Core.Config
         public CombatConfig Combat { get; set; }
         public Dictionary<ClassId, ClassConfig> Classes { get; set; }
         public ItemsConfig Items { get; set; }
+        public OnboardingConfig Onboarding { get; set; }
 
         /// <summary>Preset name → attribute key ("primary" = class primary) → share of manual points.</summary>
         public Dictionary<string, Dictionary<string, double>> AllocationPresets { get; set; }
+    }
+
+    /// <summary>Owner decision ON-1: training boss in the first run and per-region boss strength overrides.</summary>
+    public sealed class OnboardingConfig
+    {
+        public bool TrainingBossEnabled { get; set; }
+        public int TrainingBossAfterSubzone { get; set; }
+        public double TrainingBossHpMult { get; set; }
+
+        /// <summary>Region → boss HP multiplier replacing enemy.boss_hp_mult for that region's boss.</summary>
+        public Dictionary<int, double> BossHpMultOverrides { get; set; }
     }
 
     public sealed class ClassConfig

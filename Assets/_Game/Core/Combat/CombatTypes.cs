@@ -11,6 +11,9 @@ namespace DarkFantasy.Core.Combat
         public int Level = 1;
         public double Evasion;
         public bool IsBoss;
+
+        /// <summary>False for the training boss (ON-1): boss timer, but the player cannot die.</summary>
+        public bool CanKillPlayer = true;
     }
 
     public enum FightOutcome

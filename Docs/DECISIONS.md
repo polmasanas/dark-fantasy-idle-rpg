@@ -119,6 +119,11 @@ Referenced in the GDD as **R2-n**. Numbers live in the `combat` section of `bala
 | M3-4 | **Item types are equal-value trade-offs, 3 per slot:** main hand Sword / Greataxe / Dagger; off-hand Parrying blade / Shield / Focus orb; armour Heavy / Medium / Light; rings Power / Precision / Fortune; amulet Talisman / Ward / Charm. Regional themed types come with real regions (M10) |
 | M3-5 | **Inventory screen:** equipped slots with upgrade markers, rarity-coloured inventory grid with sort/filter, item detail panel with stat differences. "Better" = power score (expected DPS × survivability, from the real stat calculator), always shown alongside actual stat differences; player-tapped "Equip upgrades". Salvage manual, filtered or automatic (auto-salvage **off by default**; off / Common / Common+Uncommon / below Rare and not an upgrade). Locked items are never salvaged. A full inventory auto-salvages new drops and reports it, so nothing is lost silently |
 
+## Approved — onboarding (M3 playtest)
+| ID | Decision |
+|---|---|
+| ON-1 | **First-run training boss + softer region 1 boss** (owner, option C). The training boss appears after subzone 1's first wave, before subzone 2 unlocks, **only until the account has beaten it once** (account-level, survives prestige). It has the boss 60 s timer but **cannot kill the player**, ignores the boss toggle, has 3 × normal-enemy HP and normal attack, pays boss-sized XP and gold and the guaranteed Rare+ first-kill item. A failed attempt needs a new wave, like real bosses. **Region 1 boss HP multiplier 4 instead of 12** (`onboarding.boss_hp_mult_overrides`), tuned so a player who equips upgrades beats it in about 9 minutes at ×1 (median of 10 runs; floor about 6 min, unlucky runs up to about 26 min). The training boss falls at about 1.5 min |
+
 ## Proposed (new, awaiting approval)
 | ID | Proposal | Doc |
 |---|---|---|

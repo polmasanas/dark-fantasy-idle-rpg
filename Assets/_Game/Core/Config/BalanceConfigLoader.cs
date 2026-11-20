@@ -182,6 +182,7 @@ namespace DarkFantasy.Core.Config
                 Classes = Classes(Section(root, "classes")),
                 AllocationPresets = Presets(Section(root, "allocation_presets")),
                 Items = Items(Section(root, "items")),
+                Onboarding = Onboarding(Section(root, "onboarding")),
             };
         }
 
@@ -299,6 +300,27 @@ namespace DarkFantasy.Core.Config
                 RarityRollBias = D(items, "items", "rarity_roll_bias"),
                 ExpansionCostBase = D(items, "items", "expansion_cost_base"),
                 ExpansionCostGrowth = D(items, "items", "expansion_cost_growth"),
+            };
+        }
+
+        private static OnboardingConfig Onboarding(JObject o)
+        {
+            var overrides = new Dictionary<int, double>();
+            foreach (var prop in Section(o, "boss_hp_mult_overrides", "onboarding.boss_hp_mult_overrides").Properties())
+            {
+                if (!int.TryParse(prop.Name, out int region))
+                    throw new BalanceConfigException("onboarding.boss_hp_mult_overrides: '" + prop.Name + "' is not a region number");
+                overrides[region] = D((JObject)o["boss_hp_mult_overrides"], "onboarding.boss_hp_mult_overrides", prop.Name);
+            }
+            var enabled = Req(o, "onboarding", "training_boss_enabled");
+            if (enabled.Type != JTokenType.Boolean)
+                throw new BalanceConfigException("onboarding.training_boss_enabled must be true or false");
+            return new OnboardingConfig
+            {
+                TrainingBossEnabled = enabled.Value<bool>(),
+                TrainingBossAfterSubzone = I(o, "onboarding", "training_boss_after_subzone"),
+                TrainingBossHpMult = D(o, "onboarding", "training_boss_hp_mult"),
+                BossHpMultOverrides = overrides,
             };
         }
 

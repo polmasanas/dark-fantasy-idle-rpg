@@ -7,12 +7,20 @@ using DarkFantasy.Core.World;
 
 namespace DarkFantasy.Core.Session
 {
+    /// <summary>Account-wide progress that survives prestige (grows in M7). </summary>
+    public sealed class AccountState
+    {
+        /// <summary>The first-run training boss has been beaten (ON-1).</summary>
+        public bool TrainingBossDone;
+    }
+
     /// <summary>Everything that changes during play (saved from M4).</summary>
     public sealed class GameState
     {
         public CharacterState Character;
         public WorldState World;
         public Wallet Wallet = new Wallet();
+        public AccountState Account = new AccountState();
 
         /// <summary>Created by <see cref="GameSession"/> with the configured capacity when null.</summary>
         public InventoryState Inventory;

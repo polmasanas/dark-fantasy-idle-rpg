@@ -136,6 +136,7 @@ Enemies have exactly one element (or none = Physical). Elemental damage comes on
 - **Counter:** each time the character is hit, a `CounterChance` roll triggers an immediate extra attack at 60% damage. It doesn't reset or delay the attack timer. Counters can crit but cannot trigger further counters.
 
 ### 4.6 Boss encounters
+- [APPROVED ON-1] **First-run training boss** after subzone 1's first wave (cannot kill, 60 s timer, guaranteed Rare+ reward, once per account) and a **softer region 1 boss** (HP ×4 instead of ×12). See DECISIONS.md.
 - [SPEC] Available after K(r) kills in the region's last subzone (GAME_BALANCE §2).
 - [SPEC] Toggle **"Fight boss when available"** (default ON). When OFF, the character farms the last subzone indefinitely.
 - [APPROVED R2-2, changed in M2 playtest] **60 s time limit** (enrage). Failure returns the character to farming: the last subzone's kill counter resets, and the boss is fought again after a **new full wave of K kills** while the toggle is ON (configurable share of K: `boss_retry_kill_fraction`).

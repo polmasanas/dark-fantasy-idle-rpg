@@ -122,6 +122,9 @@ namespace DarkFantasy.Presentation
                 case WorldChange.SubzoneUnlocked:
                     _combat.SetStatus($"Subzone {e.World.Region}-{e.World.UnlockedSubzone} unlocked");
                     break;
+                case WorldChange.TrainingBossDefeated:
+                    _combat.SetStatus("Training complete! Bosses appear after a full wave of kills. Untick 'Fight boss when available' to keep farming.");
+                    break;
                 case WorldChange.BossDefeated:
                     _combat.SetStatus($"Boss defeated! Welcome to Region {e.World.Region}");
                     break;

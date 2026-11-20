@@ -40,7 +40,7 @@
 |---|---|---|
 | HP | `30 · 1.10^(L−1)` | `enemy.hp_base`, `hp_growth` |
 | Attack | `4 · 1.09^(L−1)` per hit, one hit every 2.0 s | `atk_base`, `atk_growth`, `attack_interval_s` |
-| Boss | HP ×12, attack ×2, **60 s time limit** (enrage = fail) | `boss_*` |
+| Boss | HP ×12, attack ×2, **60 s time limit** (enrage = fail). **Region 1 boss HP ×4** and a first-run training boss (3 × normal HP, cannot kill) for onboarding (ON-1) | `boss_*`, `onboarding.*` |
 | Variance | Each spawn gets HP ×U(0.9, 1.1) | `variance_mult_*` |
 
 Family, element and archetype modifiers (GDD §4) apply on top of these numbers. They average out to 1.0 across a region's mix, so the simulation ignores them.
