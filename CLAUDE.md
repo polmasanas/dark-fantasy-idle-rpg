@@ -14,7 +14,8 @@ Dark fantasy, flat-cartoon 2D **idle RPG for Android** (portrait), Unity + C#, b
 | M1 Core skeleton | Done (merged, PR #2) |
 | M2 Playable loop | Done (merged, PR #3). Owner playtest changed R2-2: a failed boss returns after a new full wave of kills |
 | M3 Loot & inventory | Done (merged, PR #4). Decisions M3-1…M3-5; playtest added ON-1 (first-run training boss, region 1 boss HP ×4) |
-| **M4 Save & offline** | **Built on branch `m4/save-offline`**, awaiting the owner's editor playtest (`Docs/M4_PLAYTEST.md`). Decisions M4-1…M4-4. Device checks (`Docs/ANDROID_DEVICE_TEST.md`) stay open in Jira until the owner has a phone (Jira DFIRPG-5) |
+| M4 Save & offline | Done (merged). Decisions M4-1…M4-4; playtest made auto-allocate a single "Custom" checkbox (M4-2 amended). **Device checks still open** in Jira DFIRPG-14 (`Docs/ANDROID_DEVICE_TEST.md`) until the owner has a phone |
+| **M5 Three classes & world** | **Next** (Jira DFIRPG-6). Creative Direction suggested first |
 | M3–M12 | Planned in `Docs/DEVELOPMENT_ROADMAP.md`; one Jira epic each (project key `DFIRPG`, epic key = milestone number + 1, e.g. M3 = DFIRPG-4) |
 
 ## Where things live
@@ -50,6 +51,7 @@ dotnet run --project Tools/BalanceSim.CSharp        # C# combat table
 - **Balance changes:** edit `Tools/BalanceSim/balance_config.json` → copy to `Assets/_Game/Data/` → re-run sims → regenerate golden values → update `Docs/GAME_BALANCE.md` → log in `Docs/DECISIONS.md`.
 - **Config keys are append-only** at the end of a section or in a new section: the Google Sheets workbook ("Dark Fantasy Idle RPG – Balance", owner's Drive) references Config cells by row. Its locale is **es_ES**: formulas use `;` as argument separator.
 - **Never** let the game equip items automatically (R2-18); normal enemies never kill the player (R2-1c); gems never buy power (D-002).
+- **New Unity files:** Unity creates a `.meta` for every new file and folder; after the owner's first import, have them commit those (`git add -A Assets` when only `.meta` files are untracked).
 - **Git:** work on a milestone branch, never commit to `main` directly; merge through a pull request when the owner approves. Unity's `*.csproj` are ignored except `Core.Tests.Dotnet/` and `Tools/BalanceSim.CSharp/`. Don't commit `Library/`, `Temp/`, `Logs/`, `UserSettings/`.
 - **Milestone done** = feature works, integrated, tests pass, edge cases checked, docs updated, no critical regressions, owner approved.
 
