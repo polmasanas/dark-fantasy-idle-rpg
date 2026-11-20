@@ -7,8 +7,8 @@ namespace DarkFantasy.Presentation
 {
     /// <summary>
     /// One character on stage, assembled from its parts (rigs.json): each part is a black sprite, an
-    /// optional glow sprite tinted from data and a part-shaped halo behind it, all rotating together
-    /// around the part's pivot. Parts sway on their own rhythm, swing on attack and recoil on a hit
+    /// optional glow sprite tinted from data and a part-shaped halo, all rotating together
+    /// around the part's pivot. All halos sit in one layer behind every part, so only the outer edge glows. Parts sway on their own rhythm, swing on attack and recoil on a hit
     /// (motions in look_config.json). Presentation only (CD-4, CD-9, owner playtest).
     /// </summary>
     internal sealed class Silhouette
@@ -25,6 +25,7 @@ namespace DarkFantasy.Presentation
         private readonly RigLibrary _rigs;
         private readonly Dictionary<string, PartMotion> _motions;
         private readonly List<PartView> _parts = new List<PartView>();
+        private VisualElement _auras; // all halos, behind every part: only the figure's outer edge glows
         private float _aspect = 0.6f;
         private float _time;
         private float _attack = -1f;
@@ -34,7 +35,8 @@ namespace DarkFantasy.Presentation
         private sealed class PartView
         {
             public VisualElement Root;
-            public VisualElement Aura;
+            public VisualElement Aura;      // the halo image (tinted)
+            public VisualElement AuraPivot; // full-canvas holder that rotates with the part
             public PartMotion Motion;
             public float Phase;
         }
@@ -59,6 +61,8 @@ namespace DarkFantasy.Presentation
         {
             Root.Clear();
             _parts.Clear();
+            _auras = Layer();
+            Root.Add(_auras);
             _glow = glow;
             var rig = _rigs?.Get(body);
             if (rig == null)
@@ -116,7 +120,9 @@ namespace DarkFantasy.Presentation
                 if (m == null) continue;
                 float idle = m.PeriodS > 0 ? Mathf.Sin(_time * 2f * Mathf.PI / (float)m.PeriodS + part.Phase) * (float)m.IdleDeg : 0f;
                 float angle = idle + attack * (float)m.AttackDeg + hit * (float)m.HitDeg;
-                part.Root.style.rotate = new Rotate(new Angle(angle, AngleUnit.Degree));
+                var rotate = new Rotate(new Angle(angle, AngleUnit.Degree));
+                part.Root.style.rotate = rotate;
+                if (part.AuraPivot != null) part.AuraPivot.style.rotate = rotate;
             }
         }
 
@@ -135,10 +141,12 @@ namespace DarkFantasy.Presentation
             var root = Layer();
             root.style.transformOrigin = new TransformOrigin(Length.Percent(pivotX * 100f), Length.Percent(pivotY * 100f));
 
-            VisualElement aura = null;
+            VisualElement aura = null, auraPivot = null;
             var auraTex = auraSprite != null ? ArtLibrary.Get(auraSprite) : null;
             if (auraTex != null)
             {
+                auraPivot = Layer();
+                auraPivot.style.transformOrigin = root.style.transformOrigin;
                 aura = Layer();
                 float padY = auraPad * 100f;
                 float padX = _aspect > 0 ? auraPad / _aspect * 100f : padY;
@@ -148,7 +156,8 @@ namespace DarkFantasy.Presentation
                 aura.style.bottom = Length.Percent(-padY);
                 aura.style.backgroundImage = new StyleBackground(auraTex);
                 aura.style.backgroundSize = new BackgroundSize(Length.Percent(100), Length.Percent(100));
-                root.Add(aura);
+                auraPivot.Add(aura);
+                _auras.Add(auraPivot);
             }
 
             var body = Layer();
@@ -175,7 +184,7 @@ namespace DarkFantasy.Presentation
             }
 
             Root.Add(root);
-            _parts.Add(new PartView { Root = root, Aura = aura, Motion = motion });
+            _parts.Add(new PartView { Root = root, Aura = aura, AuraPivot = auraPivot, Motion = motion });
         }
 
         private static VisualElement Layer()

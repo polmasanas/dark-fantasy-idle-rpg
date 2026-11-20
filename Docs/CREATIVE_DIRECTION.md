@@ -38,7 +38,7 @@ The owner's brief: the vibe of **Game of Thrones × Attack on Titan × Hollow Kn
 ### 3.1 Shapes
 - **Everything alive is a black silhouette** (`#07080B`). Detail comes from the outline, never from interior drawing.
 - **Characters are built from parts** (CD-11): cloak, legs, torso, head, weapon, off-hand, banner; practice targets have a still base and a moving target. Each part rotates around its own pivot: an idle sway on its own rhythm, a swing when attacking, a recoil when hit (angles in `look_config.json` → `motions`).
-- **Halos** are a soft glow shaped like each part, drawn behind it and clipped at the floor line, so they never sit on top of the floor (CD-11).
+- **Halos** are a soft glow shaped like each part; all of them sit in one layer behind the whole figure, so only its outer edge glows, and they are clipped at the floor line (CD-11).
 - **Glow is the only colour on characters:** eyes, eye-slits, weapon edges, spells. Glows are tinted by data (class, element, rarity, biome).
 - **Backgrounds are 3–4 flat layers** (sky gradient, far layer, near layer, ground) with slow parallax. Layers are drawn in greyscale and **tinted from the region palette**, so one set of shapes serves every biome.
 - **Size rules:** heroes about 1/6 of screen height in normal fights; normal enemies about 0.9× hero height; **region bosses 1.5× a regular enemy in region 1, growing 0.1× per region up to 3×** (CD-11, data in `look_config.json`).
