@@ -69,7 +69,7 @@ namespace DarkFantasy.Presentation
             var c = _session.State.Character;
             double xp = -c.Xp;
             for (int l = c.Level; l < c.Level + 5; l++) xp += _formulas.XpToNext(l);
-            _session.Progression.AddXp(c, xp + 1e-6);
+            _session.GrantXp(xp + 1e-6); // respects "Auto-allocate on level-up"
         }
     }
 }

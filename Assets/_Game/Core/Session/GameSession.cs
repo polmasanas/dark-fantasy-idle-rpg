@@ -193,8 +193,7 @@ namespace DarkFantasy.Core.Session
                 bool firstBossKill = e.IsTraining ? !State.Account.TrainingBossDone
                     : e.IsBoss && e.Region > State.World.HighestBossDefeated;
                 int before = State.Character.Level;
-                if (Progression.AddXp(State.Character, xp) > 0 && State.Character.AutoAllocateOnLevelUp)
-                    Progression.AutoAllocate(State.Character); // M4-2, online and offline
+                GrantXp(xp);
                 Publish(new EnemyKilled(e, xp, gold));
                 for (int lvl = before + 1; lvl <= State.Character.Level; lvl++)
                     Publish(new LevelUp(lvl));
@@ -247,6 +246,17 @@ namespace DarkFantasy.Core.Session
                 }
                 Publish(new ItemDropped(report.Item, e.IsBoss, report.Outcome, report.Materials));
             }
+        }
+
+        /// <summary>
+        /// Adds XP to the active character; when levels are gained and "Auto-allocate on level-up" is on,
+        /// the new manual points are spent by the preset (M4-2). Returns levels gained.
+        /// </summary>
+        public int GrantXp(double xp)
+        {
+            int gained = Progression.AddXp(State.Character, xp);
+            if (gained > 0 && State.Character.AutoAllocateOnLevelUp) Progression.AutoAllocate(State.Character);
+            return gained;
         }
 
         /// <summary>Plays fights headlessly until <paramref name="seconds"/> of game time are used. Returns fights played.</summary>

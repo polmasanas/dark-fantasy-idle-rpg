@@ -70,6 +70,7 @@ namespace DarkFantasy.Presentation
             var c = _session.State.Character;
             c.CustomWeights.TryGetValue(a, out int w);
             _session.Progression.SetCustomWeight(c, a, w + delta);
+            c.Preset = ProgressionSystem.CustomPreset; // editing the weights means "use them" (the HUD dropdown follows)
             Refresh();
         }
 
@@ -78,7 +79,9 @@ namespace DarkFantasy.Presentation
             var c = _session.State.Character;
             foreach (var kv in _values)
                 kv.Value.text = (c.CustomWeights.TryGetValue(kv.Key, out int w) ? w : 0).ToString();
-            _hint.text = c.Preset == ProgressionSystem.CustomPreset ? "" : "Tip: choose the \"custom\" preset to use these weights.";
+            _hint.text = c.Preset == ProgressionSystem.CustomPreset
+                ? "The \"custom\" preset is active."
+                : "Changing a weight switches the preset to \"custom\".";
         }
     }
 }

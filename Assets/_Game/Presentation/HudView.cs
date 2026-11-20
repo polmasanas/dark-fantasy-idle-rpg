@@ -38,6 +38,7 @@ namespace DarkFantasy.Presentation
         private readonly List<Button> _plusButtons = new List<Button>();
         private readonly Toggle _bossToggle;
         private readonly Toggle _autoToggle;
+        private readonly DropdownField _preset;
 
         public HudView(GameSession session, BalanceConfig config, Action openInventory, Action openCustomPreset)
         {
@@ -74,7 +75,7 @@ namespace DarkFantasy.Presentation
             var presetKeys = config.AllocationPresets.Keys.OrderBy(k => k).ToList();
             if (!presetKeys.Contains(ProgressionSystem.CustomPreset)) presetKeys.Add(ProgressionSystem.CustomPreset);
             int presetIndex = Math.Max(0, presetKeys.IndexOf(character.Preset));
-            var preset = new DropdownField("Preset", presetKeys, presetIndex);
+            var preset = _preset = new DropdownField("Preset", presetKeys, presetIndex);
             preset.style.fontSize = 24;
             preset.style.minWidth = 260;
             preset.labelElement.style.color = Ui.Text;
@@ -142,6 +143,10 @@ namespace DarkFantasy.Presentation
                 _values[id].text = $"{name} {_session.Progression.Total(c, id)}";
             foreach (var b in _plusButtons)
                 b.SetEnabled(c.UnspentPoints > 0);
+            if (_preset.value != c.Preset && _preset.choices.Contains(c.Preset))
+                _preset.SetValueWithoutNotify(c.Preset);
+            if (_autoToggle.value != c.AutoAllocateOnLevelUp)
+                _autoToggle.SetValueWithoutNotify(c.AutoAllocateOnLevelUp);
             if (_bossToggle.value != w.FightBossWhenAvailable)
                 _bossToggle.SetValueWithoutNotify(w.FightBossWhenAvailable);
         }

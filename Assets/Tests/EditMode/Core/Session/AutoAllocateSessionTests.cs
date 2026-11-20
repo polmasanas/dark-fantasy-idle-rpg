@@ -36,6 +36,19 @@ namespace DarkFantasy.Core.Tests.Session
         }
 
         [Test]
+        public void GrantXp_RespectsToggle()
+        {
+            var s = NewSession();
+            var c = s.State.Character;
+            c.AutoAllocateOnLevelUp = true;
+            c.Preset = "tank";
+            Assert.That(s.GrantXp(1e6), Is.GreaterThan(0));
+            Assert.AreEqual(0, c.UnspentPoints);
+            Assert.AreEqual(0, c.ManualPoints[AttributeId.Str]);
+            Assert.That(c.ManualPoints[AttributeId.Vit], Is.GreaterThan(0));
+        }
+
+        [Test]
         public void ToggleOff_KeepsPoints()
         {
             var s = NewSession();
