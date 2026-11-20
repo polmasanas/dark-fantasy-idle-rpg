@@ -155,6 +155,7 @@ Referenced in the GDD as **R2-n**. Numbers live in the `combat` section of `bala
 | M5-2 | **One enemy family per region for now:** 2 Ashen March = Humanoids, 3 Drowned Fen = Beasts, 4 Frost Pass = Elementals (Water), 5 Vael Wastes = Undead (Dark). Later regions mix families so no hero is always the obvious pick |
 | M5-3 | **Hero switching is instant during normal fights** (the fight in progress is dropped, no rewards) **and locked during boss fights** (training boss included) |
 | M5-4 | **The Archer and Mage unlock when the account first beats the region 1 boss** (Bram Hollis). Account-wide, survives prestige. Amends GDD §3 "all available from the start"; new accounts start as the Fighter |
+| M5-6 | **Elementals and wizards** (owner, plan review): Elementals can be **Fire, Nature or Water** (never Light or Dark), rolled per enemy; they resist their own element. Enemies of the Elemental group drop items whose **elemental damage lines are 3× more likely**. **Wizards** are a sub-family of the Elementals: robed human casters, always **Light**, in the Frost Pass's last subzone |
 | M5-5 | Region data supports several families per region (per-subzone family), even though M5 uses one per region |
 
 ## Proposed (new, awaiting approval)

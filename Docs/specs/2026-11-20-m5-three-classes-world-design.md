@@ -25,6 +25,7 @@ The Fighter gets two companions, the **Archer** and the **Mage**, and the world 
 | M5-2 | **One enemy family per region for now** (option A): 2 Ashen March = Humanoids · 3 Drowned Fen = Beasts · 4 Frost Pass = Elementals (Water) · 5 Vael Wastes = Undead (Dark). **Later regions will mix families** so that no single hero is always the obvious pick (owner's intent; design it in, build it later) |
 | M5-3 | **Switching: instant during normal fights, locked during boss fights** (option A). The normal fight in progress is dropped (no rewards); the button is greyed out while a boss fight runs. Resolves the GDD's "free and instant" vs "disabled mid-fight" conflict |
 | M5-4 | **The Archer and Mage unlock when the account first beats the region 1 boss** (Bram Hollis, the recruit duel). Account-wide, survives prestige. Amends the GDD's "all available from the start". New accounts start as the Fighter |
+| M5-6 | Elementals are Fire / Nature / Water (rolled per enemy, never Light or Dark) and drop elemental gear lines 3× more often; **Wizards** are an Elemental sub-family, Light, in the Frost Pass's last subzone (owner, plan review) |
 | M5-5 | Recorded intent from M5-2: region data must allow several families per region (subzone-level family), even though M5 uses one per region |
 
 ## 3. Rules in detail
@@ -55,7 +56,7 @@ The Fighter gets two companions, the **Archer** and the **Mage**, and the world 
 | 1 Training Grounds | (Training look, Humanoid stats) | — | none | practice targets (existing), **no archetype** | Bram Hollis, First of the Recruits (**no archetype**) |
 | 2 Ashen March | Humanoids | none | mixed archetypes | deserter (Brute), brute (Brute), spearman (Marksman), archer (Marksman), cultist (Caster) — existing | Oskar Venn, Captain of Deserters (Brute) |
 | 3 Drowned Fen | Beasts | none | **evasion** (harder to hit) | fen wolf (Brute), bog boar (Brute), marsh stalker (Marksman), spitting toad (Marksman), wisp-moth (Caster) | Grisel, the Fen Mother (Brute) |
-| 4 Frost Pass | Elementals | **Water** | **−75% Water damage taken** | ice brute (Brute), shard thrower (Marksman), frost wisp (Caster), sleet golem (Brute), rime caller (Caster) | the Frozen Oath (Caster) |
+| 4 Frost Pass | Elementals (subzones 1–4) + **Wizards** (subzone 5) (M5-6) | Elementals: **Fire, Nature or Water**, rolled per enemy (Frost Pass weights Water); Wizards: **Light** | −75% damage of their own element; **elemental gear lines 3× more likely** on their drops | ice brute (Brute), shard thrower (Marksman), frost wisp (Caster), sleet golem (Brute), rime caller (Caster); wizards: battle magus (Brute), lancer adept (Marksman), lightcaller (Caster), warding monk (Brute), hierophant (Caster) | the Frozen Oath (Caster, element rolled like other elementals) |
 | 5 Vael Wastes | Undead | **Dark** | Dark element (weak to Light, resists Dark) | ghoul (Brute), skeleton archer (Marksman), wight (Caster), bone hound (Brute), grave priest (Caster) | Dorran Vael, the Hollow Lord (Caster) |
 
 - Trait magnitudes (evasion value, resistances) live in a new `families` config section; first values come from the balance simulation, aiming at "the right hero clears about 25–40% faster" **[Claude's call]**.
