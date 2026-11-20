@@ -56,6 +56,7 @@ python3 Tools/ArtBuild/make_audio.py                # regenerate the placeholder
 - **Game.Core never references UnityEngine**, `System.Random` or wall-clock time; randomness only via `IRng` (PCG32, deterministic).
 - **C# 9 only** (Unity 6 compiler): no file-scoped namespaces, record structs, global usings. Warnings are errors in the .NET projects.
 - **Test first** for all Core code (watch it fail, then pass). Unity-layer code is verified by the owner in the editor or via the Unity connector.
+- **Tests must compile with Unity's bundled NUnit (3.5-era)** as well as with `dotnet test`: avoid newer helpers such as `Is.AnyOf`; use `CollectionAssert`, `Has.Member`, `Is.InRange` instead.
 - **Balance changes:** edit `Tools/BalanceSim/balance_config.json` → copy to `Assets/_Game/Data/` → re-run sims → regenerate golden values → update `Docs/GAME_BALANCE.md` → log in `Docs/DECISIONS.md`.
 - **Config keys are append-only** at the end of a section or in a new section: the Google Sheets workbook ("Dark Fantasy Idle RPG – Balance", owner's Drive) references Config cells by row. Its locale is **es_ES**: formulas use `;` as argument separator.
 - **Never** let the game equip items automatically (R2-18); normal enemies never kill the player (R2-1c); gems never buy power (D-002).
