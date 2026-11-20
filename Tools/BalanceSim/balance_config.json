@@ -799,5 +799,162 @@
       "archer": "marksman",
       "mage": "caster"
     }
+  },
+  "families": {
+    "_comment": "M5-2 / M5-6 / R2-11 enemy families: element (fixed) or element_pool (weights, rolled per enemy), resist_own on that element, evasion, loot weight for elemental lines, archetype per subzone index and for the boss.",
+    "training": {
+      "group": null,
+      "element": null,
+      "element_pool": {},
+      "resist_own": 0.0,
+      "resist": {},
+      "evasion": 0.0,
+      "elemental_line_mult": 1.0,
+      "archetypes": [
+        "none",
+        "none",
+        "none",
+        "none",
+        "none"
+      ],
+      "boss_archetype": "none"
+    },
+    "humanoids": {
+      "group": "humanoids",
+      "element": null,
+      "element_pool": {},
+      "resist_own": 0.0,
+      "resist": {},
+      "evasion": 0.0,
+      "elemental_line_mult": 1.0,
+      "archetypes": [
+        "brute",
+        "marksman",
+        "caster",
+        "marksman",
+        "brute"
+      ],
+      "boss_archetype": "brute"
+    },
+    "beasts": {
+      "group": "beasts",
+      "element": null,
+      "element_pool": {},
+      "resist_own": 0.0,
+      "resist": {},
+      "evasion": 125.0,
+      "elemental_line_mult": 1.0,
+      "archetypes": [
+        "brute",
+        "brute",
+        "marksman",
+        "marksman",
+        "caster"
+      ],
+      "boss_archetype": "brute"
+    },
+    "elementals": {
+      "group": "elementals",
+      "element": null,
+      "element_pool": {
+        "fire": 1.0,
+        "nature": 1.0,
+        "water": 2.0
+      },
+      "resist_own": 0.75,
+      "resist": {},
+      "evasion": 0.0,
+      "elemental_line_mult": 3.0,
+      "archetypes": [
+        "brute",
+        "marksman",
+        "caster",
+        "brute",
+        "caster"
+      ],
+      "boss_archetype": "caster"
+    },
+    "wizards": {
+      "group": "elementals",
+      "element": "light",
+      "element_pool": {},
+      "resist_own": 0.75,
+      "resist": {},
+      "evasion": 0.0,
+      "elemental_line_mult": 3.0,
+      "archetypes": [
+        "brute",
+        "marksman",
+        "caster",
+        "brute",
+        "caster"
+      ],
+      "boss_archetype": "caster"
+    },
+    "undead": {
+      "group": "undead",
+      "element": "dark",
+      "element_pool": {},
+      "resist_own": 0.0,
+      "resist": {},
+      "evasion": 0.0,
+      "elemental_line_mult": 1.0,
+      "archetypes": [
+        "brute",
+        "marksman",
+        "caster",
+        "brute",
+        "caster"
+      ],
+      "boss_archetype": "caster"
+    }
+  },
+  "regions": {
+    "_comment": "M5-2 / M5-5: family per subzone for hand-made regions (index 0 = region 1) and per region boss; later regions use the fallback.",
+    "subzone_families": [
+      [
+        "training",
+        "training",
+        "training",
+        "training",
+        "training"
+      ],
+      [
+        "humanoids",
+        "humanoids",
+        "humanoids",
+        "humanoids",
+        "humanoids"
+      ],
+      [
+        "beasts",
+        "beasts",
+        "beasts",
+        "beasts",
+        "beasts"
+      ],
+      [
+        "elementals",
+        "elementals",
+        "elementals",
+        "elementals",
+        "wizards"
+      ],
+      [
+        "undead",
+        "undead",
+        "undead",
+        "undead",
+        "undead"
+      ]
+    ],
+    "boss_families": [
+      "training",
+      "humanoids",
+      "beasts",
+      "elementals",
+      "undead"
+    ],
+    "fallback_family": "humanoids"
   }
 }

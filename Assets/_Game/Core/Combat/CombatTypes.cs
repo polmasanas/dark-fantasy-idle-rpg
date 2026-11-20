@@ -21,6 +21,12 @@ namespace DarkFantasy.Core.Combat
 
         /// <summary>Resistance per damage element, indexed by (int)Element; clamped by elements.resist_min/max.</summary>
         public double[] Resist = new double[Elements.Count];
+
+        /// <summary>Family id from balance_config.json "families" (M5-2).</summary>
+        public string Family = "";
+
+        /// <summary>Weight multiplier for elemental gear lines on this enemy's drops (M5-6).</summary>
+        public double ElementalLineMult = 1.0;
     }
 
     public enum FightOutcome

@@ -43,7 +43,7 @@ namespace DarkFantasy.Core.Config
             var pr = Section(root, "prestige");
             var cb = Section(root, "combat");
 
-            return new BalanceConfig
+            var config = new BalanceConfig
             {
                 World = new WorldConfig
                 {
@@ -186,6 +186,7 @@ namespace DarkFantasy.Core.Config
                 OfflineRules = OfflineRules(Section(root, "offline_rules")),
                 Elements = ElementRules(Section(root, "elements")),
                 Triangle = TriangleRules(Section(root, "triangle")),
+                Families = Families(Section(root, "families")),
                 Save = new SaveConfig
                 {
                     AutosaveIntervalS = D(Section(root, "save"), "save", "autosave_interval_s"),
@@ -195,6 +196,8 @@ namespace DarkFantasy.Core.Config
                     CustomWeightMax = I(Section(root, "allocation_rules"), "allocation_rules", "custom_weight_max"),
                 },
             };
+            config.Regions = Regions(Section(root, "regions"), config.Families);
+            return config;
         }
 
         private static Dictionary<string, ArtifactConfig> Artifacts(JObject prestige)
@@ -375,6 +378,71 @@ namespace DarkFantasy.Core.Config
                 DisadvantageTaken = D(o, "triangle", "disadvantage_taken"),
                 ClassBeats = PerClass("class_beats"),
                 ClassAs = PerClass("class_as"),
+            };
+        }
+
+        private static Dictionary<string, FamilyConfig> Families(JObject o)
+        {
+            var result = new Dictionary<string, FamilyConfig>();
+            foreach (var prop in o.Properties())
+            {
+                if (prop.Name.StartsWith("_")) continue;
+                string path = "families." + prop.Name;
+                var f = prop.Value as JObject ?? throw new BalanceConfigException(path + " must be an object");
+                var pool = new Dictionary<Combat.Element, double>();
+                foreach (var e in Section(f, "element_pool", path + ".element_pool").Properties())
+                    pool[ElementKey(e.Name, path + ".element_pool")] = D((JObject)f["element_pool"], path + ".element_pool", e.Name);
+                var resist = new Dictionary<Combat.Element, double>();
+                foreach (var e in Section(f, "resist", path + ".resist").Properties())
+                    resist[ElementKey(e.Name, path + ".resist")] = D((JObject)f["resist"], path + ".resist", e.Name);
+                if (!(Req(f, path, "archetypes") is JArray arch) || arch.Count == 0)
+                    throw new BalanceConfigException(path + ".archetypes must be a non-empty list");
+                var archetypes = new Combat.Archetype[arch.Count];
+                for (int i = 0; i < arch.Count; i++) archetypes[i] = ArchetypeKey((string)arch[i], path + ".archetypes[" + i + "]");
+                var elementProp = f.Property("element") ?? throw new BalanceConfigException("balance config is missing key '" + path + ".element' (use null for none)");
+                var element = elementProp.Value;
+                var groupProp = f.Property("group") ?? throw new BalanceConfigException("balance config is missing key '" + path + ".group' (use null for none)");
+                result[prop.Name] = new FamilyConfig
+                {
+                    Id = prop.Name,
+                    Group = groupProp.Value.Type == JTokenType.Null ? null : (string)groupProp.Value,
+                    Element = element.Type == JTokenType.Null ? (Combat.Element?)null : ElementKey((string)element, path + ".element"),
+                    ElementPool = pool,
+                    ResistOwn = D(f, path, "resist_own"),
+                    Resist = resist,
+                    Evasion = D(f, path, "evasion"),
+                    ElementalLineMult = D(f, path, "elemental_line_mult"),
+                    Archetypes = archetypes,
+                    BossArchetype = ArchetypeKey((string)Req(f, path, "boss_archetype"), path + ".boss_archetype"),
+                };
+            }
+            return result;
+        }
+
+        private static RegionsConfig Regions(JObject o, Dictionary<string, FamilyConfig> families)
+        {
+            string Known(string id, string path)
+            {
+                if (id == null || !families.ContainsKey(id)) throw new BalanceConfigException(path + ": unknown family '" + id + "'");
+                return id;
+            }
+            if (!(Req(o, "regions", "subzone_families") is JArray subs)) throw new BalanceConfigException("regions.subzone_families must be a list");
+            var subzoneFamilies = new List<string[]>();
+            for (int r = 0; r < subs.Count; r++)
+            {
+                if (!(subs[r] is JArray row) || row.Count == 0) throw new BalanceConfigException("regions.subzone_families[" + r + "] must be a non-empty list");
+                var ids = new string[row.Count];
+                for (int s = 0; s < row.Count; s++) ids[s] = Known((string)row[s], "regions.subzone_families[" + r + "][" + s + "]");
+                subzoneFamilies.Add(ids);
+            }
+            if (!(Req(o, "regions", "boss_families") is JArray bosses)) throw new BalanceConfigException("regions.boss_families must be a list");
+            var bossFamilies = new List<string>();
+            for (int r = 0; r < bosses.Count; r++) bossFamilies.Add(Known((string)bosses[r], "regions.boss_families[" + r + "]"));
+            return new RegionsConfig
+            {
+                SubzoneFamilies = subzoneFamilies,
+                BossFamilies = bossFamilies,
+                FallbackFamily = Known((string)Req(o, "regions", "fallback_family"), "regions.fallback_family"),
             };
         }
 

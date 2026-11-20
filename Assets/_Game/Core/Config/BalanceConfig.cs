@@ -28,6 +28,8 @@ namespace DarkFantasy.Core.Config
         public SaveConfig Save { get; set; }
         public ElementsConfig Elements { get; set; }
         public TriangleConfig Triangle { get; set; }
+        public Dictionary<string, FamilyConfig> Families { get; set; }
+        public RegionsConfig Regions { get; set; }
 
         /// <summary>Preset name → attribute key ("primary" = class primary) → share of manual points.</summary>
         public Dictionary<string, Dictionary<string, double>> AllocationPresets { get; set; }
@@ -183,6 +185,31 @@ namespace DarkFantasy.Core.Config
         public List<DarkFantasy.Core.Combat.Element> PhysicalWeakVs { get; set; }
         public double ResistMin { get; set; }
         public double ResistMax { get; set; }
+    }
+
+    /// <summary>An enemy family (M5-2, M5-6, R2-11).</summary>
+    public sealed class FamilyConfig
+    {
+        public string Id { get; set; }
+        public string Group { get; set; }
+
+        /// <summary>Fixed element, or null when rolled from <see cref="ElementPool"/> (or Physical when both are empty).</summary>
+        public DarkFantasy.Core.Combat.Element? Element { get; set; }
+        public Dictionary<DarkFantasy.Core.Combat.Element, double> ElementPool { get; set; }
+        public double ResistOwn { get; set; }
+        public Dictionary<DarkFantasy.Core.Combat.Element, double> Resist { get; set; }
+        public double Evasion { get; set; }
+        public double ElementalLineMult { get; set; }
+        public DarkFantasy.Core.Combat.Archetype[] Archetypes { get; set; }
+        public DarkFantasy.Core.Combat.Archetype BossArchetype { get; set; }
+    }
+
+    /// <summary>Which family lives where (M5-5: per subzone).</summary>
+    public sealed class RegionsConfig
+    {
+        public List<string[]> SubzoneFamilies { get; set; }
+        public List<string> BossFamilies { get; set; }
+        public string FallbackFamily { get; set; }
     }
 
     /// <summary>D-017: class triangle.</summary>
