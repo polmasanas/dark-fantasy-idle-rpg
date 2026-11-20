@@ -19,6 +19,8 @@ namespace DarkFantasy.Presentation
         private const float LungeShare = 0.06f; // of the arena width
         private const float HaloAlpha = 0.35f;
         private const float FlashAlpha = 0.85f;
+        private const float FallS = 0.5f;
+        private const float FallDegrees = 85f;
 
         public readonly VisualElement Root;
         private readonly bool _facesLeft;
@@ -30,6 +32,7 @@ namespace DarkFantasy.Presentation
         private float _time;
         private float _attack = -1f;
         private float _hit = -1f;
+        private float _fall = -1f; // -1 = standing; otherwise seconds since defeat
         private Color _glow = Color.white;
 
         private sealed class PartView
@@ -37,6 +40,7 @@ namespace DarkFantasy.Presentation
             public VisualElement Root;
             public VisualElement Aura;      // the halo image (tinted)
             public VisualElement AuraPivot; // full-canvas holder that rotates with the part
+            public VisualElement Glow;      // eye / weapon glow, faded out on defeat
             public PartMotion Motion;
             public float Phase;
         }
@@ -84,8 +88,7 @@ namespace DarkFantasy.Presentation
                     _parts[_parts.Count - 1].Phase = i * 1.3f;
                 }
             }
-            Root.style.opacity = 1f;
-            _attack = _hit = -1f;
+            _attack = _hit = _fall = -1f;
         }
 
         public void Attack()
@@ -98,7 +101,17 @@ namespace DarkFantasy.Presentation
             _hit = 0f;
         }
 
-        public void Fade() => Root.style.opacity = 0.25f;
+        /// <summary>
+        /// Defeat: the figure stays solid and topples backwards while its glow and halo fade out.
+        /// (Fading the whole figure would show the halos through the parts: UI Toolkit fades each element alone.)
+        /// </summary>
+        public void Fall()
+        {
+            if (_fall < 0f) _fall = 0f;
+        }
+
+        /// <summary>Stands back up (start of the next fight).</summary>
+        public void Revive() => _fall = -1f;
 
         /// <summary>Advances the part motions; <paramref name="arenaWidth"/> in pixels.</summary>
         public void Tick(float dt, float arenaWidth)
@@ -108,14 +121,25 @@ namespace DarkFantasy.Presentation
             float hit = Pulse(ref _hit, HitS, dt);
 
             Root.style.scale = new Scale(new Vector3(_facesLeft ? -1f : 1f, 1f, 1f));
+            float fall = 0f;
+            if (_fall >= 0f)
+            {
+                _fall += dt;
+                float p = Mathf.Clamp01(_fall / FallS);
+                fall = p * p * (3f - 2f * p); // ease in-out
+            }
+            // backwards: counter-clockwise for a right-facing figure, clockwise for a mirrored one
+            Root.style.rotate = new Rotate(new Angle(fall * FallDegrees * (_facesLeft ? 1f : -1f), AngleUnit.Degree));
             float lunge = _attack >= 0f ? Mathf.Sin(Mathf.Clamp01(_attack / LungeS) * Mathf.PI) : 0f;
             float dx = lunge * LungeShare * arenaWidth * (_facesLeft ? -1f : 1f);
             Root.style.translate = new Translate(BaseOffsetX + dx, 0f);
 
             var haloColor = Color.Lerp(new Color(_glow.r, _glow.g, _glow.b, HaloAlpha), new Color(1f, 1f, 1f, FlashAlpha), hit);
+            haloColor.a *= 1f - fall;
             foreach (var part in _parts)
             {
                 if (part.Aura != null) part.Aura.style.unityBackgroundImageTintColor = haloColor;
+                if (part.Glow != null) part.Glow.style.opacity = 1f - fall;
                 var m = part.Motion;
                 if (m == null) continue;
                 float idle = m.PeriodS > 0 ? Mathf.Sin(_time * 2f * Mathf.PI / (float)m.PeriodS + part.Phase) * (float)m.IdleDeg : 0f;
@@ -173,10 +197,11 @@ namespace DarkFantasy.Presentation
             }
             root.Add(body);
 
+            VisualElement glow = null;
             var glowTex = glowSprite != null ? ArtLibrary.Get(glowSprite) : null;
             if (glowTex != null)
             {
-                var glow = Layer();
+                glow = Layer();
                 glow.style.backgroundImage = new StyleBackground(glowTex);
                 glow.style.backgroundSize = new BackgroundSize(Length.Percent(100), Length.Percent(100));
                 glow.style.unityBackgroundImageTintColor = _glow;
@@ -184,7 +209,7 @@ namespace DarkFantasy.Presentation
             }
 
             Root.Add(root);
-            _parts.Add(new PartView { Root = root, Aura = aura, AuraPivot = auraPivot, Motion = motion });
+            _parts.Add(new PartView { Root = root, Aura = aura, AuraPivot = auraPivot, Glow = glow, Motion = motion });
         }
 
         private static VisualElement Layer()

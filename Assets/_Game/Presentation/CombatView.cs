@@ -140,6 +140,7 @@ namespace DarkFantasy.Presentation
             _zoom = _zoomTarget = 1f;
             _scenery.World.style.scale = new Scale(Vector3.one);
             _enemy.BaseOffsetX = 0f;
+            _hero.Revive();
             ShowRegion(region);
             if (_cameraBack)
             {
@@ -156,6 +157,7 @@ namespace DarkFantasy.Presentation
             _enemyIsBoss = look.Rank == LookRank.Boss && look.UseBossCamera;
             _enemySize = (float)look.SizeVsRegular;
             _enemy.Show(look.Body, Ui.Hex(look.GlowHex));
+            _hero.Revive(); // a defeated hero stands up again for the next fight
             _enemyName.text = look.Rank == LookRank.Boss ? look.DisplayName : $"{look.DisplayName} · lvl {f.Encounter.Level}";
             _enemyName.style.fontSize = look.Rank == LookRank.Boss ? 28 : 22;
             if (f.Encounter.IsTraining) SetStatus("The drillmaster wants a sparring bout. Beat her within 60 s. She cannot defeat you.");
@@ -202,10 +204,10 @@ namespace DarkFantasy.Presentation
                     Float(false, "-" + NumberFormat.Short(e.Amount), Ui.Damage, 32);
                     break;
                 case CombatEventType.EnemyDied:
-                    _enemy.Fade();
+                    _enemy.Fall();
                     break;
                 case CombatEventType.PlayerDied:
-                    _hero.Fade();
+                    _hero.Fall();
                     SetStatus("Defeated by the boss. Clear a new wave to challenge it again.");
                     break;
                 case CombatEventType.Escaped:
