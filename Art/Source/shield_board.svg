@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 20 80 112" data-height="512">
+  <g id="part:base" data-pivot="60 128">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M52 128 L68 128 L64 122 L56 122Z"/></g>
+  </g>
+  <g id="part:target" data-pivot="60 124">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><line x1="60" y1="124" x2="60" y2="40" stroke-width="4"/><path d="M42 50 L78 50 L78 76 Q78 96 60 106 Q42 96 42 76Z"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><path d="M60 56 L60 96 M48 68 L72 68" fill="none" stroke-width="1.5"/></g>
+  </g>
+</svg>

@@ -22,7 +22,7 @@ namespace DarkFantasy.Presentation
             Root = Ui.Overlay();
 
             var top = Ui.Row(Justify.SpaceBetween);
-            top.Add(Ui.Label("Custom preset", 34, Ui.Text, true));
+            top.Add(Ui.Title("Custom preset", 34));
             top.Add(Ui.Button("Done", () => Root.style.display = DisplayStyle.None));
             top.style.flexShrink = 0;
             Root.Add(top);

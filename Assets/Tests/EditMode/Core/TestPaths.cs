@@ -24,5 +24,6 @@ namespace DarkFantasy.Core.Tests
         public static string ReadRepoFile(string relativePath) => File.ReadAllText(RepoFile(relativePath));
 
         public const string ConfigPath = "Tools/BalanceSim/balance_config.json";
+        public const string LookConfigPath = "Assets/_Game/Data/look_config.json";
     }
 }

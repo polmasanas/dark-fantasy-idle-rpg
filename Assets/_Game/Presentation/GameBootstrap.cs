@@ -3,6 +3,7 @@ using System.Diagnostics;
 using DarkFantasy.Core.Config;
 using DarkFantasy.Core.Events;
 using DarkFantasy.Core.Items;
+using DarkFantasy.Core.Look;
 using DarkFantasy.Core.Offline;
 using DarkFantasy.Core.Random;
 using DarkFantasy.Core.Session;
@@ -25,12 +26,19 @@ namespace DarkFantasy.Presentation
         [Tooltip("Assets/_Game/Data/balance_config.json")]
         [SerializeField] private TextAsset balanceConfig;
 
+        [Tooltip("Assets/_Game/Data/look_config.json (filled in automatically in the editor)")]
+        [SerializeField] private TextAsset lookConfig;
+
         [Tooltip("0 = random seed for a new run; any other value replays the same run. Ignored when a save exists.")]
         [SerializeField] private int seed;
 
         public float GameSpeed { get; set; } = 1f;
 
         private BalanceConfig _config;
+        private LookConfig _look;
+        private RegionLooks _regions;
+        private EnemyLooks _enemyLooks;
+        private MusicService _music;
         private readonly IClock _clock = new UnityClock();
         private SaveService _saves;
         private OfflineCalculator _offline;
@@ -49,6 +57,15 @@ namespace DarkFantasy.Presentation
         private OfflineReportView _report;
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         private DebugPanel _debug;
+#endif
+
+#if UNITY_EDITOR
+        /// <summary>Fills in the look config in the editor so existing scenes need no manual step.</summary>
+        private void OnValidate()
+        {
+            if (lookConfig == null)
+                lookConfig = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/_Game/Data/look_config.json");
+        }
 #endif
 
         private void Start()
@@ -71,6 +88,28 @@ namespace DarkFantasy.Presentation
                 return;
             }
 
+            if (lookConfig == null)
+            {
+                Debug.LogError("GameBootstrap: assign Assets/_Game/Data/look_config.json to 'Look Config'.");
+                enabled = false;
+                return;
+            }
+
+            try
+            {
+                _look = LookConfigLoader.FromJson(lookConfig.text);
+            }
+            catch (LookConfigException e)
+            {
+                Debug.LogError("GameBootstrap: look_config.json: " + e.Message);
+                enabled = false;
+                return;
+            }
+
+            Ui.UseLook(_look);
+            _regions = new RegionLooks(_look);
+            _enemyLooks = new EnemyLooks(_look);
+            _music = new MusicService(gameObject, _look.Audio);
             _offline = new OfflineCalculator(_config);
             Boot(new SaveService(Application.persistentDataPath, _clock));
         }
@@ -120,6 +159,9 @@ namespace DarkFantasy.Presentation
         {
             var root = GetComponent<UIDocument>().rootVisualElement;
             root.Clear();
+            var theme = Resources.Load<StyleSheet>("UI/IronEmber");
+            if (theme != null && !root.styleSheets.Contains(theme)) root.styleSheets.Add(theme);
+            else if (theme == null) Debug.LogWarning("GameBootstrap: Resources/UI/IronEmber.uss not found; using default UI colours.");
             root.style.flexGrow = 1;
             root.style.backgroundColor = Ui.Background;
             root.style.paddingTop = 24;
@@ -128,8 +170,11 @@ namespace DarkFantasy.Presentation
 
             _inventory = new InventoryView(_session, _config);
             _customPreset = new CustomPresetView(_session, _config);
-            _hud = new HudView(_session, _config, _inventory.Open, _customPreset.Open);
-            _combat = new CombatView();
+            _hud = new HudView(_session, _config, _regions, _inventory.Open, _customPreset.Open);
+            _combat = new CombatView(_look, _regions, _enemyLooks, _session.State.Character.Class);
+            _combat.BossCameraChanged += on => _music.SetBoss(on);
+            _music.SetBoss(false);
+            _combat.Reset(_session.State.World.Region);
             _report = new OfflineReportView(_session, OnCollected);
             root.Add(_hud.Top);
             root.Add(_combat.Root);
@@ -153,6 +198,8 @@ namespace DarkFantasy.Presentation
         {
             if (_replayer == null) return;
             _replayer.Tick(Time.deltaTime * GameSpeed);
+            _combat.Tick(Time.unscaledDeltaTime);
+            _music.Tick(Time.unscaledDeltaTime);
             _hud.Refresh();
             _inventory.Tick(Time.deltaTime);
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -196,6 +243,7 @@ namespace DarkFantasy.Presentation
         {
             if (!(credit.CreditedSeconds > 0) && credit.Adjustment != OfflineAdjustment.ClockRolledBack) return;
             _replayer.Abandon(); // a fight prepared before the absence must not land afterwards
+            _combat.Reset(_session.State.World.Region);
             _combat.SetStatus("");
             var report = _session.SimulateOffline(credit.CreditedSeconds);
             if (credit.ShowReport || credit.Adjustment == OfflineAdjustment.ClockRolledBack)
@@ -235,6 +283,16 @@ namespace DarkFantasy.Presentation
         }
 #endif
 
+        /// <summary>Music on/off (dev panel for now; a settings screen comes in M11).</summary>
+        internal bool SoundOn
+        {
+            get => _music != null && !_music.Muted;
+            set
+            {
+                if (_music != null) _music.Muted = !value;
+            }
+        }
+
         /// <summary>Shows a short message in the combat status line.</summary>
         public void Toast(string text) => _combat?.SetStatus(text);
 
@@ -265,7 +323,7 @@ namespace DarkFantasy.Presentation
                     _saveRequested = true;
                     break;
                 case WorldChange.BossDefeated:
-                    _combat.SetStatus($"Boss defeated! Welcome to Region {e.World.Region}");
+                    _combat.SetStatus($"Boss defeated! Welcome to {_regions.For(e.World.Region).Name}");
                     _saveRequested = true;
                     break;
                 case WorldChange.Retreated:

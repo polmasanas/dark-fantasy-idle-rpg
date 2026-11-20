@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DarkFantasy.Core.Characters;
 using DarkFantasy.Core.Config;
 using DarkFantasy.Core.Formulas;
+using DarkFantasy.Core.Look;
 using DarkFantasy.Core.Session;
 using DarkFantasy.Core.Util;
 using UnityEngine.UIElements;
@@ -27,6 +28,7 @@ namespace DarkFantasy.Presentation
 
         private readonly GameSession _session;
         private readonly GameFormulas _formulas;
+        private readonly RegionLooks _regions;
         private readonly Label _location;
         private readonly Label _kills;
         private readonly Label _level;
@@ -39,16 +41,17 @@ namespace DarkFantasy.Presentation
         private readonly Toggle _autoToggle;
         private readonly Toggle _custom;
 
-        public HudView(GameSession session, BalanceConfig config, Action openInventory, Action openCustomPreset)
+        public HudView(GameSession session, BalanceConfig config, RegionLooks regions, Action openInventory, Action openCustomPreset)
         {
             _session = session ?? throw new ArgumentNullException(nameof(session));
             _formulas = new GameFormulas(config);
+            _regions = regions ?? throw new ArgumentNullException(nameof(regions));
             var character = session.State.Character;
 
             // ---- Top: where am I, how strong am I ----
-            Top = Ui.PanelBox();
+            Top = Ui.TitlePanel();
             var row1 = Ui.Row(Justify.SpaceBetween);
-            _location = Ui.Label("", 30, Ui.Text, true);
+            _location = Ui.Title("", 28);
             _kills = Ui.Label("", 28, Ui.Muted);
             row1.Add(_location);
             row1.Add(_kills);
@@ -127,7 +130,7 @@ namespace DarkFantasy.Presentation
             int k = _session.World.KillsToAdvance(w);
             bool retreating = _session.World.IsRetreating(w, st.GameTime);
 
-            _location.text = $"Region {w.Region} · Subzone {w.Region}-{w.UnlockedSubzone}" + (retreating ? " (retreating)" : "");
+            _location.text = $"{Capitalise(_regions.For(w.Region).Name)} · {w.Region}-{w.UnlockedSubzone}" + (retreating ? " (retreating)" : "");
             _kills.text = _session.World.IsBossAvailable(w)
                 ? (w.FightBossWhenAvailable ? "Boss ready" : "Boss ready (toggle off)")
                 : $"Kills {w.KillsInSubzone(w.UnlockedSubzone)} / {k}";
@@ -147,5 +150,9 @@ namespace DarkFantasy.Presentation
             if (_bossToggle.value != w.FightBossWhenAvailable)
                 _bossToggle.SetValueWithoutNotify(w.FightBossWhenAvailable);
         }
+
+        /// <summary>"the Training Grounds" → "The Training Grounds" at the start of a line.</summary>
+        internal static string Capitalise(string text) =>
+            string.IsNullOrEmpty(text) ? text : char.ToUpperInvariant(text[0]) + text.Substring(1);
     }
 }

@@ -132,6 +132,22 @@ Referenced in the GDD as **R2-n**. Numbers live in the `combat` section of `bala
 | M4-3 | **Offline time is simulated fight by fight with the real engine.** Boss toggle, auto-salvage and retreat rules apply; items are never equipped (R2-18). **Must be checked on a real phone: 12 h credited in < 200 ms**; fallback is a summary fight mode without event logs |
 | M4-4 | **Device testing on the owner's Android phone over USB** (guide in `Docs/ANDROID_DEVICE_TEST.md`), deferred until the owner has the phone. M4 may merge after the editor playtest; the device checks (offline performance, save on app kill) stay as an open Jira task under the M4 epic. **Fallback without a phone:** the Android emulator on the PC is acceptable for the app-kill/save check only (not for performance) |
 
+## Approved — Creative Direction (look, sound, naming; details in CREATIVE_DIRECTION.md)
+| ID | Decision |
+|---|---|
+| CD-0 | **Vibe and premise:** Game of Thrones × Attack on Titan × Hollow Knight (mood only, nothing copied). The last kingdom lives behind great walls; the heroes are wardens pushing into a darkening wilderness; prestige = retreat behind the walls |
+| CD-1 | **Art source:** silhouette art built by Claude (SVG source → PNG sprites, recoloured from data); an artist may replace it later without code changes |
+| CD-2 | **Fight layout:** side view for normal fights; the camera pulls back when a boss arrives and the boss fills the frame |
+| CD-3 | **Region colour:** a muted biome palette per region, darker with distance from the walls (biome × depth, from data) |
+| CD-4 | **Heroes:** cloaked wardens (lean, hooded, one big class shape, glowing eye-slit in the class colour) |
+| CD-5 | **Interface:** iron and ember (dark slate panels, bevelled iron borders, ember corner marks, carved-capital titles) |
+| CD-6 | **Naming:** places mostly plain English with invented names here and there (share is data); people and houses invented; the game title stays a placeholder until M12 (D-042) |
+| CD-7 | **Sound:** sparse and melancholy ambient per biome; drums and low brass swell in for bosses and fade back after |
+| CD-8 | **Region 1 = the Training Grounds** inside the walls: practice targets as enemies, a recruit as the region 1 boss. Visual only: region 1's stats and the ON-1 tuning stay as they are |
+| CD-9 | **Enemy shapes:** 5 base bodies per family plus accents for element, archetype, rank and family traits |
+| CD-11 | **Owner's CD playtest, round 1:** (a) region bosses are drawn **1.5× a regular enemy in region 1, +0.1× per region, up to 3×** (`camera.boss_scale_*` in look_config; amends CD-2's "boss fills the frame" — the camera still pulls back); (b) the "While you were away" report is a **pop-up window** over the dimmed game; (c) characters are **built from separate parts** (cloak, legs, torso, head, weapon, …) that each move; (d) halos are **shaped like each part** and sit **behind the floor** |
+| CD-10 | **Build order:** a small Creative Direction milestone before M5 (UI theme, Fighter, Training Grounds with the boss camera, names from data, placeholder sound), ending with an owner playtest |
+
 ## Proposed (new, awaiting approval)
 | ID | Proposal | Doc |
 |---|---|---|

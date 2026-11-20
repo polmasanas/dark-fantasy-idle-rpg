@@ -1,0 +1,255 @@
+{
+  "_comment": "Look and naming content (Docs/CREATIVE_DIRECTION.md, CD-0..CD-10). Not a balance file: not mirrored in Tools/BalanceSim, not exported to Sheets.",
+  "biomes": {
+    "garrison": {
+      "sky_top": "#8A8174",
+      "sky_bottom": "#4A443C",
+      "far": "#5A5248",
+      "near": "#35302A",
+      "accent": "#F2C66D"
+    },
+    "ash": {
+      "sky_top": "#76767A",
+      "sky_bottom": "#3A3B40",
+      "far": "#4A4B51",
+      "near": "#2C2D32",
+      "accent": "#E8A24A"
+    },
+    "moss": {
+      "sky_top": "#5F6E5F",
+      "sky_bottom": "#2D362F",
+      "far": "#3A463B",
+      "near": "#222A24",
+      "accent": "#B6E07A"
+    },
+    "frost": {
+      "sky_top": "#647A8E",
+      "sky_bottom": "#2A3644",
+      "far": "#344354",
+      "near": "#1E2731",
+      "accent": "#8FD3FF"
+    },
+    "ochre": {
+      "sky_top": "#7A6A4F",
+      "sky_bottom": "#382F22",
+      "far": "#47392A",
+      "near": "#29211A",
+      "accent": "#FFCF6E"
+    },
+    "rust": {
+      "sky_top": "#6B4C47",
+      "sky_bottom": "#2E1F1E",
+      "far": "#3B2826",
+      "near": "#211615",
+      "accent": "#FF6F5E"
+    }
+  },
+  "biome_cycle": [
+    "ash",
+    "moss",
+    "frost",
+    "ochre",
+    "rust"
+  ],
+  "depth": {
+    "darkening": 0.03,
+    "floor": 0.45
+  },
+  "regions": [
+    {
+      "name": "the Training Grounds",
+      "biome": "garrison",
+      "kit": "training",
+      "boss": {
+        "name": "Bram Hollis",
+        "title": "First of the Recruits",
+        "body": "recruit"
+      }
+    },
+    {
+      "name": "the Ashen March",
+      "biome": "ash",
+      "kit": "humanoid",
+      "boss": {
+        "name": "Oskar Venn",
+        "title": "Captain of Deserters",
+        "body": "humanoid_boss"
+      }
+    },
+    {
+      "name": "the Drowned Fen",
+      "biome": "moss",
+      "kit": "humanoid",
+      "boss": {
+        "name": "Ysolde Marr",
+        "title": "the Fen Witch",
+        "body": "humanoid_boss"
+      }
+    },
+    {
+      "name": "the Frost Pass",
+      "biome": "frost",
+      "kit": "humanoid",
+      "boss": {
+        "name": "Halvard Kesh",
+        "title": "the Frozen Oath",
+        "body": "humanoid_boss"
+      }
+    },
+    {
+      "name": "the Vael Wastes",
+      "biome": "ochre",
+      "kit": "humanoid",
+      "boss": {
+        "name": "Dorran Vael",
+        "title": "Lord of the Wastes",
+        "body": "humanoid_boss"
+      }
+    },
+    {
+      "name": "Kharath Deep",
+      "biome": "rust",
+      "kit": "humanoid",
+      "boss": {
+        "name": "Sefa Kharath",
+        "title": "Keeper of the Deep",
+        "body": "humanoid_boss"
+      }
+    }
+  ],
+  "fallback": {
+    "name": "the Wilds, depth {0}",
+    "kit": "humanoid",
+    "boss": {
+      "name": "Nameless Warlord",
+      "title": "of the Wilds",
+      "body": "humanoid_boss"
+    }
+  },
+  "training_boss": {
+    "name": "Maera Dunn",
+    "title": "Sergeant, Drillmaster",
+    "body": "instructor"
+  },
+  "kits": {
+    "training": [
+      "dummy",
+      "target_post",
+      "sparring_frame",
+      "shield_board",
+      "weighted_sack"
+    ],
+    "humanoid": [
+      "deserter",
+      "spearman",
+      "cultist",
+      "archer",
+      "brute"
+    ]
+  },
+  "classes": {
+    "fighter": {
+      "body": "fighter",
+      "glow": "#E8A24A"
+    },
+    "archer": {
+      "body": "archer_hero",
+      "glow": "#B6E07A"
+    },
+    "mage": {
+      "body": "mage",
+      "glow": "#9B7BDC"
+    }
+  },
+  "rarity_colors": {
+    "common": "#B8B4AA",
+    "uncommon": "#6FC36B",
+    "rare": "#5AA0FF",
+    "epic": "#B07CFF",
+    "legendary": "#FF9A3C",
+    "mythical": "#FF4D5E"
+  },
+  "element_colors": {
+    "fire": "#FF7A3D",
+    "nature": "#8FD45A",
+    "water": "#5EC8E8",
+    "light": "#FFE08A",
+    "dark": "#9B6BFF"
+  },
+  "camera": {
+    "boss_zoom": 0.6,
+    "zoom_in_s": 1.5,
+    "zoom_out_s": 1.0,
+    "boss_scale_first": 1.5,
+    "boss_scale_per_region": 0.1,
+    "boss_scale_max": 3.0
+  },
+  "audio": {
+    "crossfade_s": 2.0,
+    "ambient_volume": 0.6,
+    "boss_volume": 0.8
+  },
+  "motions": {
+    "_comment": "Per-part animation (owner playtest: characters move part by part). Degrees and seconds; parts not listed stay still.",
+    "cloak": {
+      "idle_deg": 2.5,
+      "period_s": 3.4,
+      "attack_deg": -6,
+      "hit_deg": 5
+    },
+    "legs": {
+      "idle_deg": 0.0,
+      "period_s": 3.0,
+      "attack_deg": 0,
+      "hit_deg": 0
+    },
+    "torso": {
+      "idle_deg": 1.2,
+      "period_s": 3.0,
+      "attack_deg": 6,
+      "hit_deg": -6
+    },
+    "head": {
+      "idle_deg": 2.0,
+      "period_s": 4.1,
+      "attack_deg": 4,
+      "hit_deg": -10
+    },
+    "weapon": {
+      "idle_deg": 3.0,
+      "period_s": 3.0,
+      "attack_deg": 55,
+      "hit_deg": 8
+    },
+    "offhand": {
+      "idle_deg": 2.0,
+      "period_s": 3.6,
+      "attack_deg": 10,
+      "hit_deg": 6
+    },
+    "target": {
+      "idle_deg": 0.6,
+      "period_s": 5.0,
+      "attack_deg": 0,
+      "hit_deg": -14
+    },
+    "banner": {
+      "idle_deg": 4.0,
+      "period_s": 2.6,
+      "attack_deg": 0,
+      "hit_deg": 6
+    },
+    "bow": {
+      "idle_deg": 1.5,
+      "period_s": 3.2,
+      "attack_deg": -10,
+      "hit_deg": 6
+    },
+    "staff": {
+      "idle_deg": 2.0,
+      "period_s": 3.6,
+      "attack_deg": -25,
+      "hit_deg": 6
+    }
+  }
+}

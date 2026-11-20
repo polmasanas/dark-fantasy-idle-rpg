@@ -46,6 +46,7 @@ namespace DarkFantasy.Presentation
             saveRow.Add(Ui.Button("Simulate 12 h away", () => _game.SimulateAway(12 * 3600), 22));
             saveRow.Add(Ui.Button("Save now", () => _game.Toast(_game.SaveNow() ? "DEV: saved" : "DEV: saving is off"), 22));
             saveRow.Add(Ui.Button("Delete save", _game.DeleteSaveAndRestart, 22));
+            saveRow.Add(Ui.Button("Sound on/off", () => { _game.SoundOn = !_game.SoundOn; _game.Toast(_game.SoundOn ? "DEV: sound on" : "DEV: sound off"); }, 22));
             Root.Add(saveRow);
         }
 

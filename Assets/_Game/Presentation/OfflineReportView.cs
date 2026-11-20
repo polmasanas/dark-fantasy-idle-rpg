@@ -22,18 +22,25 @@ namespace DarkFantasy.Presentation
         {
             _session = session ?? throw new ArgumentNullException(nameof(session));
             _collected = collected;
-            Root = Ui.Overlay();
-            _title = Ui.Label("While you were away", 36, Ui.Gold, true);
-            Root.Add(_title);
-            var box = Ui.PanelBox();
-            box.style.marginTop = 16;
-            _body = Ui.Label("", 28);
+            // Owner, CD playtest: a pop-up window over the dimmed game, not a full page.
+            var (backdrop, window) = Ui.Modal();
+            Root = backdrop;
+            _title = Ui.Title("While you were away", 34, Ui.Gold);
+            _title.style.flexShrink = 0;
+            window.Add(_title);
+            var scroll = new ScrollView(ScrollViewMode.Vertical);
+            scroll.style.flexShrink = 1;
+            scroll.style.marginTop = 12;
+            scroll.style.marginBottom = 16;
+            scroll.style.alignSelf = Align.Stretch;
+            _body = Ui.Label("", 26);
             _body.style.whiteSpace = WhiteSpace.Normal;
-            box.Add(_body);
-            Root.Add(box);
-            var collect = Ui.Button("Collect", Collect, 32);
+            scroll.Add(_body);
+            window.Add(scroll);
+            var collect = Ui.Button("Collect", Collect, 30);
             collect.style.flexShrink = 0; // always reachable, even with a long report
-            Root.Add(collect);
+            collect.style.minWidth = 240;
+            window.Add(collect);
         }
 
         /// <param name="report">Null when only loot from an earlier absence is waiting.</param>

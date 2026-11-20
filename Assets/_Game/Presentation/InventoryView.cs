@@ -62,7 +62,7 @@ namespace DarkFantasy.Presentation
             Root.style.display = DisplayStyle.None;
 
             var top = Ui.Row(Justify.SpaceBetween);
-            top.Add(Ui.Label("Equipment", 34, Ui.Text, true));
+            top.Add(Ui.Title("Equipment", 34));
             top.Add(Ui.Button("Equip upgrades", () => { _session.EquipUpgrades(); _dirty = true; }));
             top.Add(Ui.Button("Close", Close));
             Fixed(top);
@@ -180,7 +180,7 @@ namespace DarkFantasy.Presentation
                 cell.style.width = 150;
                 cell.style.height = 120;
                 Border(cell, RarityColor(it.Rarity));
-                if (it.Id == _selected) cell.style.backgroundColor = new Color(0.25f, 0.22f, 0.30f);
+                if (it.Id == _selected) cell.style.backgroundColor = Ui.Selected;
                 _grid.Add(cell);
             }
             ShowDetail();
@@ -239,7 +239,7 @@ namespace DarkFantasy.Presentation
                 double diff = kv.Value - other;
                 string delta = worn || Math.Abs(diff) < 1e-9 ? "" : (diff > 0 ? "  ▲ +" : "  ▼ ") + Format(kv.Key, diff);
                 var line = Ui.Label(StatName(kv.Key) + " " + Format(kv.Key, kv.Value) + delta, 24,
-                    delta.Contains("▲") ? new Color(0.5f, 0.9f, 0.5f) : delta.Contains("▼") ? new Color(1f, 0.45f, 0.45f) : Ui.Text);
+                    delta.Contains("▲") ? Ui.Up : delta.Contains("▼") ? Ui.Down : Ui.Text);
                 _detail.Add(line);
             }
             if (item.ClassBonus.HasValue)
@@ -339,18 +339,7 @@ namespace DarkFantasy.Presentation
             e.style.borderRightWidth = 4;
         }
 
-        public static Color RarityColor(Rarity r)
-        {
-            switch (r)
-            {
-                case Rarity.Uncommon: return new Color(0.35f, 0.80f, 0.35f);
-                case Rarity.Rare: return new Color(0.30f, 0.55f, 1.00f);
-                case Rarity.Epic: return new Color(0.70f, 0.40f, 0.95f);
-                case Rarity.Legendary: return new Color(1.00f, 0.60f, 0.15f);
-                case Rarity.Mythical: return new Color(0.95f, 0.25f, 0.30f);
-                default: return new Color(0.70f, 0.70f, 0.70f);
-            }
-        }
+        private static Color RarityColor(Rarity r) => Ui.RarityColor(r);
 
         private static string SlotName(EquipSlot s)
         {
