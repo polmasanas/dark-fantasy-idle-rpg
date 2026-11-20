@@ -23,6 +23,7 @@ namespace DarkFantasy.Core.Config
         public Dictionary<ClassId, ClassConfig> Classes { get; set; }
         public ItemsConfig Items { get; set; }
         public OnboardingConfig Onboarding { get; set; }
+        public OfflineRulesConfig OfflineRules { get; set; }
 
         /// <summary>Preset name → attribute key ("primary" = class primary) → share of manual points.</summary>
         public Dictionary<string, Dictionary<string, double>> AllocationPresets { get; set; }
@@ -153,6 +154,13 @@ namespace DarkFantasy.Core.Config
     {
         public double Efficiency { get; set; }
         public double CapHours { get; set; }
+    }
+
+    /// <summary>M4-1 / R2-19: when the "while you were away" report shows and how much clock drift is tolerated.</summary>
+    public sealed class OfflineRulesConfig
+    {
+        public double ReportMinSeconds { get; set; }
+        public double ClockToleranceS { get; set; }
     }
 
     public sealed class ArtifactConfig

@@ -747,5 +747,10 @@
     "boss_hp_mult_overrides": {
       "1": 4.0
     }
+  },
+  "offline_rules": {
+    "_comment": "M4-1/R2-19: report threshold and clock-jump tolerance.",
+    "report_min_seconds": 120.0,
+    "clock_tolerance_s": 60.0
   }
 }

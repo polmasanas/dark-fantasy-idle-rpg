@@ -183,6 +183,7 @@ namespace DarkFantasy.Core.Config
                 AllocationPresets = Presets(Section(root, "allocation_presets")),
                 Items = Items(Section(root, "items")),
                 Onboarding = Onboarding(Section(root, "onboarding")),
+                OfflineRules = OfflineRules(Section(root, "offline_rules")),
             };
         }
 
@@ -302,6 +303,12 @@ namespace DarkFantasy.Core.Config
                 ExpansionCostGrowth = D(items, "items", "expansion_cost_growth"),
             };
         }
+
+        private static OfflineRulesConfig OfflineRules(JObject o) => new OfflineRulesConfig
+        {
+            ReportMinSeconds = D(o, "offline_rules", "report_min_seconds"),
+            ClockToleranceS = D(o, "offline_rules", "clock_tolerance_s"),
+        };
 
         private static OnboardingConfig Onboarding(JObject o)
         {

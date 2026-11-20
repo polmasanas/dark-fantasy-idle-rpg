@@ -6,6 +6,7 @@ using DarkFantasy.Core.Config;
 using DarkFantasy.Core.Events;
 using DarkFantasy.Core.Formulas;
 using DarkFantasy.Core.Items;
+using DarkFantasy.Core.Offline;
 using DarkFantasy.Core.Random;
 using DarkFantasy.Core.Stats;
 using DarkFantasy.Core.World;
@@ -29,6 +30,9 @@ namespace DarkFantasy.Core.Session
         private readonly EnemyFactory _enemies;
         private readonly LootSystem _loot;
         private readonly PowerScore _power;
+
+        /// <summary>Set while simulating time away: no events, no fight logs, drops held for Collect.</summary>
+        private OfflineReport _offline;
 
         private static readonly EquipSlot[] ActiveSlots =
         {
@@ -169,7 +173,7 @@ namespace DarkFantasy.Core.Session
                 Encounter = encounter,
                 Enemy = enemy,
                 Player = player,
-                Result = _engine.Resolve(player, enemy, _rng, true),
+                Result = _engine.Resolve(player, enemy, _rng, _offline == null),
             };
         }
 
@@ -190,17 +194,24 @@ namespace DarkFantasy.Core.Session
                     : e.IsBoss && e.Region > State.World.HighestBossDefeated;
                 int before = State.Character.Level;
                 Progression.AddXp(State.Character, xp);
-                Events.Publish(new EnemyKilled(e, xp, gold));
+                Publish(new EnemyKilled(e, xp, gold));
                 for (int lvl = before + 1; lvl <= State.Character.Level; lvl++)
-                    Events.Publish(new LevelUp(lvl));
+                    Publish(new LevelUp(lvl));
                 RollDrops(e, inputs, firstBossKill);
+            }
+
+            if (_offline != null)
+            {
+                bool won = fight.Result.Outcome == FightOutcome.Won;
+                if (fight.Encounter.IsBoss) { if (won) _offline.BossesDefeated++; else _offline.BossesFailed++; }
+                else if (won) _offline.Kills++;
             }
 
             var change = World.OnFightFinished(State.World, fight.Encounter, fight.Result.Outcome, State.GameTime);
             if (change == WorldChange.TrainingBossDefeated) State.Account.TrainingBossDone = true;
-            Events.Publish(new FightResolved(fight));
+            Publish(new FightResolved(fight));
             if (change != WorldChange.None)
-                Events.Publish(new WorldChanged(change, State.World));
+                Publish(new WorldChanged(change, State.World));
         }
 
         /// <summary>
@@ -225,8 +236,15 @@ namespace DarkFantasy.Core.Session
             for (int i = 0; i < count; i++)
             {
                 var item = _loot.Roll(e.Level, _rng, minRarity, inputs.Luck);
-                var report = Inventory.Add(State.Inventory, State.Wallet, item, IsUpgrade);
-                Events.Publish(new ItemDropped(report.Item, e.IsBoss, report.Outcome, report.Materials));
+                var report = _offline == null
+                    ? Inventory.Add(State.Inventory, State.Wallet, item, IsUpgrade)
+                    : Inventory.Hold(State.Inventory, State.PendingOfflineLoot, State.Wallet, item, IsUpgrade);
+                if (_offline != null)
+                {
+                    if (report.Outcome == AddOutcome.AutoSalvaged) _offline.AutoSalvaged++;
+                    else _offline.HeldItems++;
+                }
+                Publish(new ItemDropped(report.Item, e.IsBoss, report.Outcome, report.Materials));
             }
         }
 
@@ -241,6 +259,52 @@ namespace DarkFantasy.Core.Session
                 fights++;
             }
             return fights;
+        }
+
+        private void Publish<T>(T e)
+        {
+            if (_offline == null) Events.Publish(e);
+        }
+
+        /// <summary>
+        /// Plays <paramref name="creditedSeconds"/> of game time fight by fight, exactly like online play,
+        /// but silently: no events, drops held in <see cref="GameState.PendingOfflineLoot"/> (after auto-salvage)
+        /// and nothing ever equipped (R2-18). The caller passes time already reduced by the offline efficiency.
+        /// </summary>
+        public OfflineReport SimulateOffline(double creditedSeconds)
+        {
+            var report = new OfflineReport { CreditedSeconds = Math.Max(0, creditedSeconds) };
+            double gold0 = State.Wallet.Gold, materials0 = State.Wallet.Materials;
+            int level0 = State.Character.Level;
+            _offline = report;
+            try
+            {
+                Advance(report.CreditedSeconds);
+            }
+            finally
+            {
+                _offline = null;
+            }
+            report.Gold = State.Wallet.Gold - gold0;
+            report.Materials = State.Wallet.Materials - materials0;
+            report.LevelsGained = State.Character.Level - level0;
+            return report;
+        }
+
+        /// <summary>Moves held offline loot into the bag; what does not fit is salvaged (full-bag rule).</summary>
+        public CollectReport Collect()
+        {
+            int kept = 0, salvaged = 0;
+            double materials = 0;
+            foreach (var item in State.PendingOfflineLoot)
+            {
+                var r = Inventory.Store(State.Inventory, State.Wallet, item);
+                if (r.Outcome == AddOutcome.Kept) kept++;
+                else salvaged++;
+                materials += r.Materials;
+            }
+            State.PendingOfflineLoot.Clear();
+            return new CollectReport(kept, salvaged, materials);
         }
     }
 }
