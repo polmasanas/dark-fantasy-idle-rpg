@@ -306,7 +306,7 @@ Old zones keep their value through:
 - [APPROVED D-020] 50% efficiency, 12 h cap (Hourglass up to 24 h). Uses the **same engine** as active play, so there's one code path.
 - [APPROVED R2-18] Loot is held during offline time. **The game never equips items automatically** (online or offline); upgrades are highlighted, with a player-tapped "Equip all upgrades" button. On return, the **offline report** shows time away, time credited, kills, bosses, levels, gold, materials, items by rarity, auto-salvaged count, scrolls found. Then "Collect".
 - [APPROVED M4-1] The report appears after **2+ minutes** away; shorter absences are credited silently. Held loot is saved, so closing the game before Collect loses nothing.
-- [APPROVED M4-2] **"Auto-allocate on level-up"** toggle (off by default) spends new manual points by the chosen preset, online and offline. Presets include a per-character **Custom** preset: a weight 0–10 per attribute (all 0 = everything into the class primary).
+- [APPROVED M4-2] **"Auto-allocate on level-up"** toggle (off by default) spends new manual points, online and offline. A **"Custom" checkbox** picks how: off = default (everything into the class primary attribute), on = per-character weights 0–10 per attribute set in **Edit** (all 0 = same as off).
 - [APPROVED M4-3] Offline time is simulated **fight by fight** with the real engine (boss toggle, auto-salvage and retreat rules apply).
 - [APPROVED R2-19] **Clock safety:** (plus repeated-jump detection via the device uptime clock, and an optional online time check) if the device clock is earlier than the last save, credit 0 and resync. Clock jumps beyond the cap are clamped by design.
 

@@ -16,7 +16,7 @@ namespace DarkFantasy.Core.Characters
         public int UnspentPoints;
 
         /// <summary>Auto-allocate preset key from balance_config.json allocation_presets.</summary>
-        public string Preset = "primary";
+        public string Preset = ProgressionSystem.DefaultPreset;
 
         /// <summary>Spend new manual points by the preset as soon as they are earned, online and offline (M4-2).</summary>
         public bool AutoAllocateOnLevelUp;

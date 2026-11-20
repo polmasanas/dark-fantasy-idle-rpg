@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using DarkFantasy.Core.Characters;
 using DarkFantasy.Core.Config;
 using DarkFantasy.Core.Formulas;
@@ -12,7 +11,7 @@ namespace DarkFantasy.Presentation
 {
     /// <summary>
     /// Placeholder HUD (M2): location and kills, level and XP, gold, attribute points with
-    /// manual + and preset auto-allocation, and the "Fight boss when available" toggle.
+    /// manual + and auto-allocation (default or Custom weights), and the "Fight boss when available" toggle.
     /// </summary>
     internal sealed class HudView
     {
@@ -38,7 +37,7 @@ namespace DarkFantasy.Presentation
         private readonly List<Button> _plusButtons = new List<Button>();
         private readonly Toggle _bossToggle;
         private readonly Toggle _autoToggle;
-        private readonly DropdownField _preset;
+        private readonly Toggle _custom;
 
         public HudView(GameSession session, BalanceConfig config, Action openInventory, Action openCustomPreset)
         {
@@ -72,15 +71,13 @@ namespace DarkFantasy.Presentation
             _unspent = Ui.Label("", 28, Ui.Gold, true);
             header.Add(_unspent);
 
-            var presetKeys = config.AllocationPresets.Keys.OrderBy(k => k).ToList();
-            if (!presetKeys.Contains(ProgressionSystem.CustomPreset)) presetKeys.Add(ProgressionSystem.CustomPreset);
-            int presetIndex = Math.Max(0, presetKeys.IndexOf(character.Preset));
-            var preset = _preset = new DropdownField("Preset", presetKeys, presetIndex);
-            preset.style.fontSize = 24;
-            preset.style.minWidth = 260;
-            preset.labelElement.style.color = Ui.Text;
-            preset.RegisterValueChangedCallback(evt => character.Preset = evt.newValue);
-            header.Add(preset);
+            // Owner, M4 playtest: only two choices, default (class primary) or the player's custom weights.
+            var custom = _custom = new Toggle("Custom") { value = character.Preset == ProgressionSystem.CustomPreset };
+            custom.style.fontSize = 24;
+            custom.labelElement.style.color = Ui.Text;
+            custom.RegisterValueChangedCallback(evt =>
+                character.Preset = evt.newValue ? ProgressionSystem.CustomPreset : ProgressionSystem.DefaultPreset);
+            header.Add(custom);
             header.Add(Ui.Button("Edit", openCustomPreset, 22));
             header.Add(Ui.Button("Auto", () => _session.Progression.AutoAllocate(character)));
             Bottom.Add(header);
@@ -143,8 +140,8 @@ namespace DarkFantasy.Presentation
                 _values[id].text = $"{name} {_session.Progression.Total(c, id)}";
             foreach (var b in _plusButtons)
                 b.SetEnabled(c.UnspentPoints > 0);
-            if (_preset.value != c.Preset && _preset.choices.Contains(c.Preset))
-                _preset.SetValueWithoutNotify(c.Preset);
+            bool isCustom = c.Preset == ProgressionSystem.CustomPreset;
+            if (_custom.value != isCustom) _custom.SetValueWithoutNotify(isCustom);
             if (_autoToggle.value != c.AutoAllocateOnLevelUp)
                 _autoToggle.SetValueWithoutNotify(c.AutoAllocateOnLevelUp);
             if (_bossToggle.value != w.FightBossWhenAvailable)

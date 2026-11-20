@@ -13,6 +13,9 @@ namespace DarkFantasy.Core.Characters
         /// <summary>Preset key for the per-character weights in <see cref="CharacterState.CustomWeights"/> (M4-2).</summary>
         public const string CustomPreset = "custom";
 
+        /// <summary>The default preset (allocation_presets.primary): every manual point into the class primary attribute.</summary>
+        public const string DefaultPreset = "primary";
+
         private readonly BalanceConfig _c;
         private readonly GameFormulas _f;
 

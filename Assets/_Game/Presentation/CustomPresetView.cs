@@ -27,7 +27,7 @@ namespace DarkFantasy.Presentation
             top.style.flexShrink = 0;
             Root.Add(top);
             var help = Ui.Label($"Weight 0–{max} per attribute. New points are shared in proportion to the weights. " +
-                                "All at 0 = everything into the class primary attribute.", 24, Ui.Muted);
+                                "All at 0 = everything into the class primary attribute (same as Custom off).", 24, Ui.Muted);
             help.style.whiteSpace = WhiteSpace.Normal;
             Root.Add(help);
 
@@ -70,7 +70,7 @@ namespace DarkFantasy.Presentation
             var c = _session.State.Character;
             c.CustomWeights.TryGetValue(a, out int w);
             _session.Progression.SetCustomWeight(c, a, w + delta);
-            c.Preset = ProgressionSystem.CustomPreset; // editing the weights means "use them" (the HUD dropdown follows)
+            c.Preset = ProgressionSystem.CustomPreset; // editing the weights means "use them" (the HUD checkbox follows)
             Refresh();
         }
 
@@ -80,8 +80,8 @@ namespace DarkFantasy.Presentation
             foreach (var kv in _values)
                 kv.Value.text = (c.CustomWeights.TryGetValue(kv.Key, out int w) ? w : 0).ToString();
             _hint.text = c.Preset == ProgressionSystem.CustomPreset
-                ? "The \"custom\" preset is active."
-                : "Changing a weight switches the preset to \"custom\".";
+                ? "Custom is on: new points follow these weights."
+                : "Custom is off (points go to the primary attribute). Changing a weight turns Custom on.";
         }
     }
 }
