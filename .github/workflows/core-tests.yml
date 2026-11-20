@@ -33,3 +33,8 @@ jobs:
 
       - name: C# combat runner smoke run
         run: dotnet run --project Tools/BalanceSim.CSharp -- 5 200 50
+
+      - name: Silhouette art PNGs match their SVG sources
+        run: |
+          pip install -q -r Tools/ArtBuild/requirements.txt
+          python3 Tools/ArtBuild/build_art.py --check

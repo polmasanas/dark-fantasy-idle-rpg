@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20 20 80 112" data-height="512">
+<g id="body" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0">
+<line x1="60" y1="80" x2="44" y2="128" stroke-width="3"/><line x1="60" y1="80" x2="76" y2="128" stroke-width="3"/><line x1="60" y1="80" x2="60" y2="128" stroke-width="3"/><circle cx="60" cy="70" r="22"/>
+</g>
+<g id="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0">
+<circle cx="60" cy="70" r="15" fill="none" stroke-width="1.4"/><circle cx="60" cy="70" r="8" fill="none" stroke-width="1.4"/><circle cx="60" cy="70" r="2.2"/>
+</g>
+</svg>

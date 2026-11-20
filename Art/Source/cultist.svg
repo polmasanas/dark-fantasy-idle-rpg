@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="24 20 96 112" data-height="512">
+<g id="body" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0">
+<path d="M50 58 L60 30 L70 58Z"/><path d="M46 58 L74 58 L82 128 L38 128Z"/><path d="M70 70 L86 60 L88 66 L72 76Z"/>
+</g>
+<g id="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0">
+<circle cx="57" cy="50" r="1.6"/><circle cx="63" cy="50" r="1.6"/><circle cx="91" cy="55" r="7"/>
+</g>
+</svg>
