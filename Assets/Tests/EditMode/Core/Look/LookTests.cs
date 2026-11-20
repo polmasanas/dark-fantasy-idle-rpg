@@ -98,6 +98,19 @@ namespace DarkFantasy.Core.Tests.Look
         }
 
         [Test]
+        public void Loader_MissingRarityColour_ThrowsNamedError()
+        {
+            var json = Mutate(o =>
+            {
+                var colours = (JObject)o["rarity_colors"];
+                colours.Remove("legendary");
+                colours["legendery"] = "#FF9A3C";
+            });
+            var ex = Assert.Throws<LookConfigException>(() => LookConfigLoader.FromJson(json));
+            StringAssert.Contains("rarity_colors.legendary", ex.Message);
+        }
+
+        [Test]
         public void Loader_BadHex_ThrowsNamedError()
         {
             var json = Mutate(o => o["biomes"]["ash"]["far"] = "#12");

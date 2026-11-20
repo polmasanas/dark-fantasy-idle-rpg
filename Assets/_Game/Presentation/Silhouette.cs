@@ -45,6 +45,9 @@ namespace DarkFantasy.Presentation
             Root.Add(_glow);
         }
 
+        /// <summary>Extra horizontal offset in pixels (the boss slide-in); the lunge is added on top.</summary>
+        public float BaseOffsetX { get; set; }
+
         /// <summary>Width / height of the current body sprite (to size the element).</summary>
         public float Aspect => _aspect;
 
@@ -85,7 +88,7 @@ namespace DarkFantasy.Presentation
                 dx = Mathf.Sin(p * Mathf.PI) * LungeShare * arenaWidth * (_facesLeft ? -1f : 1f);
                 if (p >= 1f) _lunge = -1f;
             }
-            Root.style.translate = new Translate(dx, 0f);
+            Root.style.translate = new Translate(BaseOffsetX + dx, 0f);
 
             if (_flash >= 0f)
             {

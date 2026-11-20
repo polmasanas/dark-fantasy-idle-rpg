@@ -125,7 +125,7 @@ namespace DarkFantasy.Presentation
         {
             _zoom = _zoomTarget = 1f;
             _scenery.World.style.scale = new Scale(Vector3.one);
-            _enemy.Root.style.translate = new Translate(0, 0);
+            _enemy.BaseOffsetX = 0f;
             ShowRegion(region);
             if (_cameraBack)
             {
@@ -232,7 +232,11 @@ namespace DarkFantasy.Presentation
             if (_enemyIsBoss)
             {
                 float back = Mathf.InverseLerp(1f, (float)_look.Camera.BossZoom, _zoom); // 0 → 1 as the camera pulls back
-                _enemy.Root.style.translate = new Translate(w * BossSlideShare * (1f - back), 0);
+                _enemy.BaseOffsetX = w * BossSlideShare * (1f - back);
+            }
+            else
+            {
+                _enemy.BaseOffsetX = 0f;
             }
 
             _hero.Tick(dt, w);

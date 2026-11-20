@@ -64,8 +64,12 @@ def build(target):
 
 
 def same(a_path, b_path):
-    a = Image.open(a_path).convert("RGBA")
-    b = Image.open(b_path).convert("RGBA")
+    try:
+        a = Image.open(a_path).convert("RGBA")
+        b = Image.open(b_path).convert("RGBA")
+    except (OSError, ValueError):
+        # Not an image: e.g. a Git LFS pointer when LFS files were not fetched.
+        return False
     if a.size != b.size:
         return False
     r, g, bl, al = ImageChops.difference(a, b).split()

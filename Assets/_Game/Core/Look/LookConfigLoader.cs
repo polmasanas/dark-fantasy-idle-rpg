@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DarkFantasy.Core.Items;
 using DarkFantasy.Core.Stats;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -72,6 +73,11 @@ namespace DarkFantasy.Core.Look
             }
 
             c.RarityColors = Colors(Obj(root, "rarity_colors", "rarity_colors"), "rarity_colors");
+            foreach (Rarity r in Enum.GetValues(typeof(Rarity)))
+            {
+                string key = r.ToString().ToLowerInvariant();
+                if (!c.RarityColors.ContainsKey(key)) throw new LookConfigException("rarity_colors." + key + ": missing (one colour per rarity)");
+            }
             c.ElementColors = Colors(Obj(root, "element_colors", "element_colors"), "element_colors");
 
             var cam = Obj(root, "camera", "camera");

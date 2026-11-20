@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true # sprites, fonts and music are LFS files; the art check needs the real PNGs
 
       - uses: actions/setup-dotnet@v4
         with:
