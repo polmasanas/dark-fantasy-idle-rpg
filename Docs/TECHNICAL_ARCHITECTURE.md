@@ -194,6 +194,7 @@ Items are referenced by `ItemId` from `Equipped`. The **Inventory** enforces the
 ## 9. Configuration
 - `BalanceConfig` (Core record) mirrors `Tools/BalanceSim/balance_config.json`. An editor tool imports the JSON into `BalanceConfigAsset`, so the Python simulation and the game read **the same numbers**.
 - Content definitions: `RegionDefinition`, `SubzoneDefinition`, `EnemyDefinition`, `FamilyDefinition`, `ItemDefinition`, `AffixDefinition`, `LootTable`, `PetDefinition`, `SkillDefinition`, `ArtifactDefinition`, `DungeonDefinition`, `AttributeDefinition`, `ElementDefinition`. All keyed by **stable string IDs**, never by asset references, in saves.
+- **Look (Creative Direction):** `Assets/_Game/Data/look_config.json` is content, not balance. `Core/Look` loads it (`LookConfigLoader`, errors name the JSON path) and answers, with no UnityEngine: `RegionLooks.For(region)` (name, biome, kit, boss, depth-shaded palette, fallback "the Wilds, depth N" beyond the list) and `EnemyLooks.For(encounter)` (body sprite, rank, glow, name card, whether the boss camera moves). The Unity layer turns those into tinted sprites (`ArtLibrary`, `Silhouette`, `SceneryView`, `CombatView`), the USS theme and two music layers (`MusicService`). Sprites come from SVG via `Tools/ArtBuild/build_art.py`; a test checks every sprite named in the config exists.
 - An editor validator runs on build: missing IDs, loot tables that don't sum correctly, unreachable regions.
 
 ## 10. Logging

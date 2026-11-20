@@ -1,6 +1,6 @@
 # CREATIVE_DIRECTION.md: how the game looks, sounds and is named
 
-> **Status:** v0.2, approved by the owner on 2026-11-20 (with CD-8 and CD-9 added in review). Decisions CD-1…CD-9 are logged in DECISIONS.md. Items marked **[Claude's call]** were not asked; the owner can overrule them.
+> **Status:** v0.2, approved by the owner on 2026-11-20 (with CD-8 and CD-9 added in review). Decisions CD-0…CD-10 are logged in DECISIONS.md. **Built** on branch `cd/creative-direction` (plan `Docs/plans/2026-11-20-creative-direction.md`): §3 (UI, Fighter, Training Grounds, humanoids, boss camera), §4 region and boss names for regions 1–6, §5 placeholder music. Not yet built: Archer/Mage in play and the other families (M5), the naming generator (M5/M10). Items marked **[Claude's call]** were not asked; the owner can overrule them.
 > **Replaces:** coloured placeholder boxes, "Region N" names and the default UI colours from M2–M4.
 
 ## 1. Intent
