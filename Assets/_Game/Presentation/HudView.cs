@@ -28,6 +28,9 @@ namespace DarkFantasy.Presentation
 
         private readonly GameSession _session;
         private readonly GameFormulas _formulas;
+
+        /// <summary>The active hero (M5: changes when the player switches).</summary>
+        private CharacterState Hero => _session.State.Character;
         private readonly RegionLooks _regions;
         private readonly Label _location;
         private readonly Label _kills;
@@ -46,7 +49,6 @@ namespace DarkFantasy.Presentation
             _session = session ?? throw new ArgumentNullException(nameof(session));
             _formulas = new GameFormulas(config);
             _regions = regions ?? throw new ArgumentNullException(nameof(regions));
-            var character = session.State.Character;
 
             // ---- Top: where am I, how strong am I ----
             Top = Ui.TitlePanel();
@@ -75,23 +77,23 @@ namespace DarkFantasy.Presentation
             header.Add(_unspent);
 
             // Owner, M4 playtest: only two choices, default (class primary) or the player's custom weights.
-            var custom = _custom = new Toggle("Custom") { value = character.Preset == ProgressionSystem.CustomPreset };
+            var custom = _custom = new Toggle("Custom") { value = Hero.Preset == ProgressionSystem.CustomPreset };
             custom.style.fontSize = 24;
             custom.labelElement.style.color = Ui.Text;
             custom.RegisterValueChangedCallback(evt =>
-                character.Preset = evt.newValue ? ProgressionSystem.CustomPreset : ProgressionSystem.DefaultPreset);
+                Hero.Preset = evt.newValue ? ProgressionSystem.CustomPreset : ProgressionSystem.DefaultPreset);
             header.Add(custom);
             header.Add(Ui.Button("Edit", openCustomPreset, 22));
-            header.Add(Ui.Button("Auto", () => _session.Progression.AutoAllocate(character)));
+            header.Add(Ui.Button("Auto", () => _session.Progression.AutoAllocate(Hero)));
             Bottom.Add(header);
 
-            _autoToggle = new Toggle("Auto-allocate on level-up") { value = character.AutoAllocateOnLevelUp };
+            _autoToggle = new Toggle("Auto-allocate on level-up") { value = Hero.AutoAllocateOnLevelUp };
             _autoToggle.style.fontSize = 24;
             _autoToggle.labelElement.style.color = Ui.Text;
             _autoToggle.RegisterValueChangedCallback(evt =>
             {
-                character.AutoAllocateOnLevelUp = evt.newValue;
-                if (evt.newValue) _session.Progression.AutoAllocate(character); // spend what is already waiting
+                Hero.AutoAllocateOnLevelUp = evt.newValue;
+                if (evt.newValue) _session.Progression.AutoAllocate(Hero); // spend what is already waiting
             });
             Bottom.Add(_autoToggle);
 
@@ -106,7 +108,7 @@ namespace DarkFantasy.Presentation
                 _values[id] = value;
                 cell.Add(value);
                 var attribute = id;
-                var plus = Ui.Button("+", () => _session.Progression.SpendPoint(character, attribute), 24);
+                var plus = Ui.Button("+", () => _session.Progression.SpendPoint(Hero, attribute), 24);
                 plus.style.minWidth = 56;
                 _plusButtons.Add(plus);
                 cell.Add(plus);

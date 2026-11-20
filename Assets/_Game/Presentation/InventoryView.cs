@@ -41,6 +41,10 @@ namespace DarkFantasy.Presentation
         private long _selected = -1;
         private bool _dirty = true;
         private float _sinceRebuild;
+        private readonly VisualElement _confirm;
+        private readonly Label _confirmText;
+        private readonly Button _confirmYes;
+        private System.Action _confirmAction = () => { };
 
         public bool IsOpen => Root.style.display == DisplayStyle.Flex;
 
@@ -121,7 +125,21 @@ namespace DarkFantasy.Presentation
             salvage.Add(_expand);
             Root.Add(salvage);
 
+            var (backdrop, window) = Ui.Modal(80f, 760f);
+            _confirm = backdrop;
+            _confirmText = Ui.Label("", 26);
+            _confirmText.style.whiteSpace = WhiteSpace.Normal;
+            window.Add(_confirmText);
+            var buttons = Ui.Row(Justify.Center);
+            buttons.style.marginTop = 16;
+            _confirmYes = Ui.Button("Move", () => { });
+            buttons.Add(_confirmYes);
+            buttons.Add(Ui.Button("Cancel", () => _confirm.style.display = DisplayStyle.None));
+            window.Add(buttons);
+            Root.Add(_confirm);
+
             _session.Events.Subscribe<ItemDropped>(_ => _dirty = true);
+            _session.Events.Subscribe<HeroSwitched>(_ => _dirty = true);
             _session.Events.Subscribe<LevelUp>(_ => _dirty = true);
         }
 
@@ -229,6 +247,9 @@ namespace DarkFantasy.Presentation
 
             string title = $"{item.Rarity} {_session.Items.DisplayName(item)}" + (item.Upgrade > 0 ? $" +{item.Upgrade}" : "");
             _detail.Add(Ui.Label(title, 30, RarityColor(item.Rarity), true));
+            string wearer = WornBy(item.Id);
+            if (wearer != null && wearer != _session.State.Character.Class.ToString())
+                _detail.Add(Ui.Label("Worn by the " + wearer, 22, Ui.Muted));
             _detail.Add(Ui.Label($"Item level {item.ItemLevel} · {SlotName(slot)}" + (worn ? " · equipped" : ""), 22, Ui.Muted));
 
             var mine = Sum(item);
@@ -284,6 +305,33 @@ namespace DarkFantasy.Presentation
             var result = _session.Inventory.Equip(st.Inventory, st.Characters, st.Character, item.Id, TargetSlot(item));
             if (result == EquipResult.LevelTooLow)
                 Debug.Log($"Needs character level {item.ItemLevel - _config.Combat.ItemLevelRequirementMargin}.");
+            else if (result == EquipResult.NeedsConfirmation)
+                AskToMove(item); // D-004: one wearer per item, ask before taking it from another hero
+            _dirty = true;
+        }
+
+        /// <summary>The hero who wears the item, if any (M5: shown in the detail panel and the move question).</summary>
+        private string WornBy(long itemId)
+        {
+            foreach (var h in _session.State.Heroes)
+                if (h.Equipped.ContainsValue(itemId)) return h.Class.ToString();
+            return null;
+        }
+
+        private void AskToMove(ItemInstance item)
+        {
+            var st = _session.State;
+            string from = WornBy(item.Id);
+            _confirmText.text = $"{from} is wearing {_session.Items.DisplayName(item)}. Move it to the {st.Character.Class}?";
+            _confirmYes.clicked -= _confirmAction;
+            _confirmAction = () =>
+            {
+                _session.Inventory.Equip(st.Inventory, st.Characters, st.Character, item.Id, TargetSlot(item), force: true);
+                _confirm.style.display = DisplayStyle.None;
+                _dirty = true;
+            };
+            _confirmYes.clicked += _confirmAction;
+            _confirm.style.display = DisplayStyle.Flex;
         }
 
         /// <summary>Rings: an empty ring slot first, otherwise the one where the swap scores best.</summary>

@@ -119,3 +119,20 @@ Label {
 .unity-scroll-view {
     background-color: rgba(0, 0, 0, 0);
 }
+
+/* Hero bar (M5): active hero in ember, locked heroes dim, new heroes pulse once */
+.hero-button--active {
+    border-color: #E8A24A;
+    border-width: 2px;
+    color: #F2C66D;
+}
+
+.hero-button--locked {
+    color: #6E6B65;
+    -unity-font-style: italic;
+}
+
+.hero-button--new {
+    background-color: #4A3A20;
+    border-color: #F2C66D;
+}
