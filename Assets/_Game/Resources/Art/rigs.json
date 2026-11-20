@@ -29,7 +29,7 @@
    },
    {
     "glow": true,
-    "id": "weapon",
+    "id": "bow",
     "pivot": [
      0.4792,
      0.4107
@@ -75,7 +75,7 @@
    },
    {
     "glow": true,
-    "id": "weapon",
+    "id": "bow",
     "pivot": [
      0.44,
      0.3673
@@ -143,7 +143,7 @@
    },
    {
     "glow": true,
-    "id": "weapon",
+    "id": "staff",
     "pivot": [
      0.4792,
      0.4464
@@ -379,7 +379,7 @@
    },
    {
     "glow": true,
-    "id": "weapon",
+    "id": "staff",
     "pivot": [
      0.5143,
      0.4821

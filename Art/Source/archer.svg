@@ -9,7 +9,7 @@
     <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M52 50 Q60 40 68 50 L68 59 L52 59Z"/></g>
     <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><circle cx="57" cy="53" r="1.6"/><circle cx="63" cy="53" r="1.6"/></g>
   </g>
-  <g id="part:weapon" data-pivot="70 66">
+  <g id="part:bow" data-pivot="70 66">
     <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M68 64 L88 80 L86 86 L66 70Z"/><path d="M90 50 Q104 84 90 118" fill="none" stroke-width="3"/></g>
     <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><line x1="90" y1="50" x2="90" y2="118" stroke-width="0.8"/></g>
   </g>

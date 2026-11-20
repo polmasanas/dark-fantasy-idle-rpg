@@ -238,6 +238,18 @@
       "period_s": 2.6,
       "attack_deg": 0,
       "hit_deg": 6
+    },
+    "bow": {
+      "idle_deg": 1.5,
+      "period_s": 3.2,
+      "attack_deg": -10,
+      "hit_deg": 6
+    },
+    "staff": {
+      "idle_deg": 2.0,
+      "period_s": 3.6,
+      "attack_deg": -25,
+      "hit_deg": 6
     }
   }
 }
