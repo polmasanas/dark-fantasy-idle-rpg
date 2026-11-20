@@ -22,7 +22,7 @@ Dark fantasy, flat-cartoon 2D **idle RPG for Android** (portrait), Unity + C#, b
 ## Where things live
 | Path | What |
 |---|---|
-| `Docs/` | M3_PLAYTEST, M4_PLAYTEST, CD_PLAYTEST, ANDROID_DEVICE_TEST, CREATIVE_DIRECTION (look, sound, naming), CREDITS (third-party fonts etc.), GDD, TECHNICAL_ARCHITECTURE, GAME_BALANCE, DATA_DICTIONARY, SAVE_SYSTEM, DEVELOPMENT_ROADMAP, **DECISIONS** (D-*, R2-*), TESTING_STRATEGY, UNITY_SETUP, M2_SCENE_SETUP, `plans/` (one implementation plan per milestone) |
+| `Docs/` | M3_PLAYTEST, M4_PLAYTEST, CD_PLAYTEST, ANDROID_DEVICE_TEST, CREATIVE_DIRECTION (look, sound, naming), ART_BRIEF (what to commission from an artist; AI prompts), CREDITS (third-party fonts etc.), GDD, TECHNICAL_ARCHITECTURE, GAME_BALANCE, DATA_DICTIONARY, SAVE_SYSTEM, DEVELOPMENT_ROADMAP, **DECISIONS** (D-*, R2-*), TESTING_STRATEGY, UNITY_SETUP, M2_SCENE_SETUP, `plans/` (one implementation plan per milestone) |
 | `Assets/_Game/Core/` | **Game.Core**: all game rules in pure C# (no UnityEngine): RNG, config, formulas, stats, combat, characters, world, items, session, events, save, offline, look (region/enemy looks from `look_config.json`) |
 | `Assets/_Game/Presentation/` | **Game.Presentation**: thin Unity layer (bootstrap, views, HUD, dev panel). Draws only; no rules |
 | `Assets/_Game/Editor/` | **Game.Editor**: editor tools (e.g. `DFIRPG → Set Up M2 Scene`) |
