@@ -1,0 +1,96 @@
+/* Iron and ember interface theme (CD-5, Docs/CREATIVE_DIRECTION.md §3.5).
+   Loaded by GameBootstrap from Resources/UI/IronEmber. Colours match Ui.cs tokens. */
+
+:root, .unity-ui-document__root {
+    -unity-font-definition: resource("Fonts/AlegreyaSans-Regular");
+}
+
+Label {
+    color: #E6E1D6;
+}
+
+.title {
+    -unity-font-definition: resource("Fonts/Cinzel");
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+}
+
+/* ---- Panels: dark slate, bevelled iron border ---- */
+.panel {
+    background-color: #191C24;
+    border-width: 2px;
+    border-color: #3A3F4C;
+    border-top-color: #4A5060;
+    border-bottom-color: #23262F;
+    border-radius: 2px;
+}
+
+.panel--title {
+    border-top-color: #565C6C;
+}
+
+.corner {
+    position: absolute;
+    top: -2px;
+    width: 10px;
+    height: 10px;
+    border-color: #E8A24A;
+    border-top-width: 2px;
+}
+
+.corner--left {
+    left: -2px;
+    border-left-width: 2px;
+}
+
+.corner--right {
+    right: -2px;
+    border-right-width: 2px;
+}
+
+/* ---- Buttons: dark iron, carved capitals ---- */
+.iron-button {
+    -unity-font-definition: resource("Fonts/Cinzel");
+    -unity-font-style: bold;
+    letter-spacing: 1px;
+    color: #E6E1D6;
+    background-color: #232834;
+    border-width: 1px;
+    border-color: #454B59;
+    border-top-color: #5A6070;
+    border-radius: 2px;
+}
+
+.iron-button:hover {
+    background-color: #2B3140;
+    border-color: #E8A24A;
+}
+
+.iron-button:active {
+    background-color: #1A1E27;
+}
+
+.iron-button:disabled {
+    color: #6E6B65;
+    background-color: #1C1F27;
+}
+
+/* ---- Form controls ---- */
+.unity-toggle__label, .unity-base-field__label {
+    color: #E6E1D6;
+}
+
+.unity-base-popup-field__input, .unity-base-dropdown-field__input {
+    background-color: #232834;
+    border-color: #454B59;
+    color: #E6E1D6;
+}
+
+.unity-toggle__checkmark {
+    background-color: #232834;
+    border-color: #5A6070;
+}
+
+.unity-scroll-view {
+    background-color: rgba(0, 0, 0, 0);
+}

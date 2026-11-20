@@ -23,7 +23,7 @@ namespace DarkFantasy.Presentation
             _session = session ?? throw new ArgumentNullException(nameof(session));
             _collected = collected;
             Root = Ui.Overlay();
-            _title = Ui.Label("While you were away", 36, Ui.Gold, true);
+            _title = Ui.Title("While you were away", 36, Ui.Gold);
             Root.Add(_title);
             var box = Ui.PanelBox();
             box.style.marginTop = 16;

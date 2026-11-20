@@ -1,21 +1,63 @@
+using System;
+using System.Collections.Generic;
+using DarkFantasy.Core.Items;
+using DarkFantasy.Core.Look;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace DarkFantasy.Presentation
 {
-    /// <summary>Small helpers to build placeholder UI Toolkit elements in code (M2).</summary>
+    /// <summary>
+    /// Helpers to build UI Toolkit elements in code. Colours are the Creative Direction tokens
+    /// (Docs/CREATIVE_DIRECTION.md §3.3); panel and button looks come from Resources/UI/IronEmber.uss.
+    /// </summary>
     internal static class Ui
     {
-        public static readonly Color Background = new Color(0.08f, 0.07f, 0.10f);
-        public static readonly Color Panel = new Color(0.14f, 0.12f, 0.17f);
-        public static readonly Color Text = new Color(0.92f, 0.90f, 0.86f);
-        public static readonly Color Muted = new Color(0.62f, 0.60f, 0.58f);
-        public static readonly Color Gold = new Color(0.95f, 0.78f, 0.30f);
-        public static readonly Color Player = new Color(0.25f, 0.45f, 0.85f);
-        public static readonly Color Enemy = new Color(0.75f, 0.22f, 0.22f);
-        public static readonly Color Boss = new Color(0.45f, 0.08f, 0.10f);
-        public static readonly Color Hp = new Color(0.30f, 0.75f, 0.35f);
-        public static readonly Color Xp = new Color(0.55f, 0.40f, 0.90f);
+        public static readonly Color Background = Hex("#0B0D12");
+        public static readonly Color Panel = Hex("#191C24");
+        public static readonly Color Iron = Hex("#3A3F4C");
+        public static readonly Color Silhouette = Hex("#07080B");
+        public static readonly Color Text = Hex("#E6E1D6");
+        public static readonly Color Muted = Hex("#9A978F");
+        public static readonly Color Gold = Hex("#E8A24A");
+        public static readonly Color Player = Hex("#5FAE6A");
+        public static readonly Color Enemy = Hex("#D0464A");
+        public static readonly Color Boss = Hex("#D0464A");
+        public static readonly Color Hp = Hex("#5FAE6A");
+        public static readonly Color Xp = Hex("#9B7BDC");
+        public static readonly Color Up = Hex("#7FD18A");
+        public static readonly Color Down = Hex("#E86A6A");
+        public static readonly Color Selected = Hex("#2B3040");
+        public static readonly Color Damage = Hex("#E86A6A");
+
+        private static readonly Dictionary<Rarity, Color> RarityColors = new Dictionary<Rarity, Color>();
+
+        /// <summary>Takes the rarity colours from look_config.json (call once at boot).</summary>
+        public static void UseLook(LookConfig look)
+        {
+            RarityColors.Clear();
+            foreach (Rarity r in Enum.GetValues(typeof(Rarity)))
+                if (look.RarityColors.TryGetValue(r.ToString().ToLowerInvariant(), out var hex)) RarityColors[r] = Hex(hex);
+        }
+
+        public static Color RarityColor(Rarity r) => RarityColors.TryGetValue(r, out var c) ? c : Muted;
+
+        /// <summary>"#RRGGBB" → Color (via the Core parser, so both layers read colours the same way).</summary>
+        public static Color Hex(string hex)
+        {
+            var rgb = Rgb.Parse(hex);
+            return new Color(rgb.R, rgb.G, rgb.B);
+        }
+
+        public static Color ToColor(Rgb rgb, float alpha = 1f) => new Color(rgb.R, rgb.G, rgb.B, alpha);
+
+        /// <summary>Carved-capital title text (Cinzel): screen titles, region and boss names only.</summary>
+        public static Label Title(string text, int size = 32, Color? color = null)
+        {
+            var l = Label(text, size, color ?? Text);
+            l.AddToClassList("title");
+            return l;
+        }
 
         public static Label Label(string text, int size = 28, Color? color = null, bool bold = false)
         {
@@ -57,12 +99,30 @@ namespace DarkFantasy.Presentation
         public static VisualElement PanelBox()
         {
             var e = new VisualElement();
-            e.style.backgroundColor = Panel;
+            e.AddToClassList("panel");
             e.style.paddingTop = 12;
             e.style.paddingBottom = 12;
             e.style.paddingLeft = 12;
             e.style.paddingRight = 12;
             e.style.marginBottom = 8;
+            return e;
+        }
+
+        /// <summary>A panel with ember corner marks (top bar, screen headers).</summary>
+        public static VisualElement TitlePanel()
+        {
+            var e = PanelBox();
+            e.AddToClassList("panel--title");
+            var left = new VisualElement();
+            left.AddToClassList("corner");
+            left.AddToClassList("corner--left");
+            left.pickingMode = PickingMode.Ignore;
+            var right = new VisualElement();
+            right.AddToClassList("corner");
+            right.AddToClassList("corner--right");
+            right.pickingMode = PickingMode.Ignore;
+            e.Add(left);
+            e.Add(right);
             return e;
         }
 
@@ -96,6 +156,7 @@ namespace DarkFantasy.Presentation
         public static Button Button(string text, System.Action onClick, int size = 26)
         {
             var b = new Button(onClick) { text = text };
+            b.AddToClassList("iron-button");
             b.style.fontSize = size;
             b.style.minHeight = 56;
             b.style.minWidth = 72;
