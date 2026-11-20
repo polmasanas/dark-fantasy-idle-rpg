@@ -65,14 +65,18 @@ namespace DarkFantasy.Presentation
             top.Add(Ui.Label("Equipment", 34, Ui.Text, true));
             top.Add(Ui.Button("Equip upgrades", () => { _session.EquipUpgrades(); _dirty = true; }));
             top.Add(Ui.Button("Close", Close));
+            Fixed(top);
             Root.Add(top);
 
             _equipped = Ui.Row();
             _equipped.style.flexWrap = Wrap.Wrap;
+            Fixed(_equipped);
             Root.Add(_equipped);
 
             var bar = Ui.Row(Justify.SpaceBetween);
+            bar.style.flexWrap = Wrap.Wrap;
             bar.style.marginTop = 10;
+            Fixed(bar);
             _capacity = Ui.Label("", 26, Ui.Muted);
             bar.Add(_capacity);
             var sort = new DropdownField("Sort", SortModes.ToList(), 0);
@@ -86,7 +90,12 @@ namespace DarkFantasy.Presentation
             Root.Add(bar);
 
             var scroll = new ScrollView(ScrollViewMode.Vertical);
+            // The grid takes whatever height is left and scrolls; basis 0 stops its content height
+            // from squeezing the fixed sections above and below it.
             scroll.style.flexGrow = 1;
+            scroll.style.flexShrink = 1;
+            scroll.style.flexBasis = 0;
+            scroll.style.minHeight = 240;
             scroll.style.marginTop = 8;
             _grid = scroll.contentContainer;
             _grid.style.flexDirection = FlexDirection.Row;
@@ -95,9 +104,13 @@ namespace DarkFantasy.Presentation
 
             _detail = Ui.PanelBox();
             _detail.style.minHeight = 260;
+            Fixed(_detail);
             Root.Add(_detail);
 
             var salvage = Ui.Row(Justify.SpaceBetween);
+            salvage.style.flexWrap = Wrap.Wrap;
+            salvage.style.paddingBottom = 16;
+            Fixed(salvage);
             salvage.Add(Ui.Button("Salvage shown", SalvageShown));
             var auto = new DropdownField("Auto-salvage", AutoModes.ToList(), (int)_session.State.Inventory.AutoSalvage);
             auto.labelElement.style.color = Ui.Text;
@@ -310,6 +323,9 @@ namespace DarkFantasy.Presentation
 
         private string Short(ItemInstance i) =>
             _session.Items.DisplayName(i) + (i.Upgrade > 0 ? " +" + i.Upgrade : "");
+
+        /// <summary>UI Toolkit shrinks every child by default; sections that must keep their size opt out.</summary>
+        private static void Fixed(VisualElement e) => e.style.flexShrink = 0;
 
         private static void Border(VisualElement e, Color c)
         {

@@ -31,7 +31,9 @@ namespace DarkFantasy.Presentation
             _body.style.whiteSpace = WhiteSpace.Normal;
             box.Add(_body);
             Root.Add(box);
-            Root.Add(Ui.Button("Collect", Collect, 32));
+            var collect = Ui.Button("Collect", Collect, 32);
+            collect.style.flexShrink = 0; // always reachable, even with a long report
+            Root.Add(collect);
         }
 
         /// <param name="report">Null when only loot from an earlier absence is waiting.</param>
