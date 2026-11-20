@@ -10,22 +10,22 @@ namespace DarkFantasy.Core.Tests.Config
     public class ItemsConfigTests
     {
         [Test]
-        public void EveryKind_HasThreeTypes()
+        public void EveryKind_HasThreeTypes_MainHandAlsoBowAndStaff()
         {
             var items = TestConfig.Load().Items;
             foreach (ItemKind kind in Enum.GetValues(typeof(ItemKind)))
-                Assert.AreEqual(3, items.TypesFor(kind).Count, kind.ToString());
-            CollectionAssert.AreEquivalent(new[] { "sword", "greataxe", "dagger" },
+                Assert.AreEqual(kind == ItemKind.MainHand ? 5 : 3, items.TypesFor(kind).Count, kind.ToString());
+            CollectionAssert.AreEquivalent(new[] { "sword", "greataxe", "dagger", "bow", "staff" },
                 items.TypesFor(ItemKind.MainHand).Select(t => t.Id));
             CollectionAssert.AreEquivalent(new[] { "heavy", "medium", "light" },
                 items.TypesFor(ItemKind.Gloves).Select(t => t.Id));
         }
 
         [Test]
-        public void AttributePool_MatchesDecisionM3_3()
+        public void AttributePool_MatchesDecisionM3_3_PlusElementalLines()
         {
             var pool = TestConfig.Load().Items.Attributes;
-            Assert.AreEqual(12, pool.Count);
+            Assert.AreEqual(12 + 5, pool.Count); // M3-3 pool + five elemental lines (M5-1)
             var crit = pool.Single(a => a.Id == "crit_points");
             Assert.AreEqual(GearStat.CritPoints, crit.Stat);
             Assert.AreEqual(3.0, crit.Min);

@@ -197,7 +197,7 @@ namespace DarkFantasy.Core.Session
                 Publish(new EnemyKilled(e, xp, gold));
                 for (int lvl = before + 1; lvl <= State.Character.Level; lvl++)
                     Publish(new LevelUp(lvl));
-                RollDrops(e, inputs, firstBossKill);
+                RollDrops(e, inputs, firstBossKill, fight.Enemy?.ElementalLineMult ?? 1.0);
             }
 
             if (_offline != null)
@@ -218,7 +218,7 @@ namespace DarkFantasy.Core.Session
         /// Normal kills: 8% × (1 + drop chance bonus), excess over 100% becomes extra drops (R2-16).
         /// Bosses: always one item; Rare+ guaranteed on the first kill of that boss in this run (M3-2).
         /// </summary>
-        private void RollDrops(Encounter e, StatInputs inputs, bool firstBossKill)
+        private void RollDrops(Encounter e, StatInputs inputs, bool firstBossKill, double elementalLineMult)
         {
             int count;
             var minRarity = Rarity.Common;
@@ -235,7 +235,7 @@ namespace DarkFantasy.Core.Session
             }
             for (int i = 0; i < count; i++)
             {
-                var item = _loot.Roll(e.Level, _rng, minRarity, inputs.Luck);
+                var item = _loot.Roll(e.Level, _rng, minRarity, inputs.Luck, elementalLineMult);
                 var report = _offline == null
                     ? Inventory.Add(State.Inventory, State.Wallet, item, IsUpgrade)
                     : Inventory.Hold(State.Inventory, State.PendingOfflineLoot, State.Wallet, item, IsUpgrade);

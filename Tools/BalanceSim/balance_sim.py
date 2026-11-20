@@ -174,7 +174,9 @@ ARMOUR_KINDS = ["helmet", "chest", "legs", "boots", "armguards", "gloves"]
 # M3-1: 11 active slots (accessories and pet come later)
 SLOT_IDS = ["main_hand0", "off_hand0"] + [k + "0" for k in ARMOUR_KINDS] + ["ring0", "ring1", "amulet0"]
 GEAR_STATS = ["weapon_damage", "armour", "hp", "pct_damage", "primary", "crit_points", "crit_damage_points",
-              "attack_speed", "counter", "pct_hp", "pct_armour", "vit", "gold_find", "luck", "drop_chance"]
+              "attack_speed", "counter", "pct_hp", "pct_armour", "vit", "gold_find", "luck", "drop_chance",
+              # M5-1 elemental lines (used once the simulation models elements, M5 task 6)
+              "adds_fire", "adds_nature", "adds_water", "adds_light", "adds_dark", "pct_elemental"]
 
 
 def kind_of_slot(slot_id: str) -> str:

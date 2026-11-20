@@ -377,6 +377,42 @@
               "per_item_level": 0.0
             }
           ]
+        },
+        {
+          "id": "bow",
+          "name": "Bow",
+          "lines": [
+            {
+              "stat": "weapon_damage",
+              "base": 8.5,
+              "scaling": "exponential",
+              "per_item_level": 0.0
+            },
+            {
+              "stat": "attack_speed",
+              "base": 0.08,
+              "scaling": "fixed",
+              "per_item_level": 0.0
+            }
+          ]
+        },
+        {
+          "id": "staff",
+          "name": "Staff",
+          "lines": [
+            {
+              "stat": "weapon_damage",
+              "base": 9.0,
+              "scaling": "exponential",
+              "per_item_level": 0.0
+            },
+            {
+              "stat": "pct_elemental",
+              "base": 0.1,
+              "scaling": "fixed",
+              "per_item_level": 0.0
+            }
+          ]
         }
       ],
       "off_hand": [
@@ -731,13 +767,84 @@
           "helmet",
           "amulet"
         ]
+      },
+      {
+        "id": "adds_fire",
+        "stat": "adds_fire",
+        "min": 0.08,
+        "max": 0.16,
+        "per_item_level": 0.0,
+        "kinds": [
+          "main_hand",
+          "off_hand",
+          "ring",
+          "amulet"
+        ]
+      },
+      {
+        "id": "adds_nature",
+        "stat": "adds_nature",
+        "min": 0.08,
+        "max": 0.16,
+        "per_item_level": 0.0,
+        "kinds": [
+          "main_hand",
+          "off_hand",
+          "ring",
+          "amulet"
+        ]
+      },
+      {
+        "id": "adds_water",
+        "stat": "adds_water",
+        "min": 0.08,
+        "max": 0.16,
+        "per_item_level": 0.0,
+        "kinds": [
+          "main_hand",
+          "off_hand",
+          "ring",
+          "amulet"
+        ]
+      },
+      {
+        "id": "adds_light",
+        "stat": "adds_light",
+        "min": 0.08,
+        "max": 0.16,
+        "per_item_level": 0.0,
+        "kinds": [
+          "main_hand",
+          "off_hand",
+          "ring",
+          "amulet"
+        ]
+      },
+      {
+        "id": "adds_dark",
+        "stat": "adds_dark",
+        "min": 0.08,
+        "max": 0.16,
+        "per_item_level": 0.0,
+        "kinds": [
+          "main_hand",
+          "off_hand",
+          "ring",
+          "amulet"
+        ]
       }
     ],
     "class_item_share": 0.3,
     "class_bonus_pct_damage": 0.08,
     "rarity_roll_bias": 0.25,
     "expansion_cost_base": 1000.0,
-    "expansion_cost_growth": 2.0
+    "expansion_cost_growth": 2.0,
+    "starter_types": {
+      "fighter": "sword",
+      "archer": "bow",
+      "mage": "staff"
+    },
+    "class_bonus_pct_elemental": 0.15
   },
   "onboarding": {
     "_comment": "Owner decision ON-1 (M3 playtest): training boss in the first run + softer region 1 boss.",

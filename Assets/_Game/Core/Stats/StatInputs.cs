@@ -40,6 +40,10 @@ namespace DarkFantasy.Core.Stats
         public double Luck;
         public double DropChance;
 
+        /// <summary>Elemental gear lines (M5-1): share of each hit added per element, indexed by (int)Element.</summary>
+        public double[] ElementShare = new double[DarkFantasy.Core.Combat.Elements.Count];
+        public double PctElemental;
+
         // Artifact levels
         public int MightLevel;
         public int BulwarkLevel;

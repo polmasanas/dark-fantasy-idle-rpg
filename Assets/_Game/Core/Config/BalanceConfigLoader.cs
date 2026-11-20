@@ -311,10 +311,26 @@ namespace DarkFantasy.Core.Config
                 Attributes = attributes,
                 ClassItemShare = D(items, "items", "class_item_share"),
                 ClassBonusPctDamage = D(items, "items", "class_bonus_pct_damage"),
+                ClassBonusPctElemental = D(items, "items", "class_bonus_pct_elemental"),
+                StarterTypes = StarterTypes(Section(items, "starter_types", "items.starter_types"), types),
                 RarityRollBias = D(items, "items", "rarity_roll_bias"),
                 ExpansionCostBase = D(items, "items", "expansion_cost_base"),
                 ExpansionCostGrowth = D(items, "items", "expansion_cost_growth"),
             };
+        }
+
+        private static Dictionary<ClassId, string> StarterTypes(JObject o, Dictionary<ItemKind, List<ItemTypeConfig>> types)
+        {
+            var result = new Dictionary<ClassId, string>();
+            foreach (ClassId cls in Enum.GetValues(typeof(ClassId)))
+            {
+                string key = cls.ToString().ToLowerInvariant();
+                string id = (string)Req(o, "items.starter_types", key);
+                if (!types[ItemKind.MainHand].Exists(t => t.Id == id))
+                    throw new BalanceConfigException("items.starter_types." + key + ": unknown main-hand type '" + id + "'");
+                result[cls] = id;
+            }
+            return result;
         }
 
         private static ElementsConfig ElementRules(JObject o)
