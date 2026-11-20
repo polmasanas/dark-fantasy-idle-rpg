@@ -57,7 +57,7 @@ namespace DarkFantasy.Core.Tests.World
             {
                 var e = factory.Create(new Encounter(4, 1 + i % 4, 40, false), rng);
                 Assert.AreEqual("elementals", e.Family);
-                Assert.That(e.Element, Is.AnyOf(Element.Fire, Element.Nature, Element.Water));
+                CollectionAssert.Contains(new[] { Element.Fire, Element.Nature, Element.Water }, e.Element); // (Is.AnyOf is missing from Unity's NUnit)
                 Assert.AreEqual(0.75, e.Resist[(int)e.Element], 1e-9);
                 Assert.AreEqual(3.0, e.ElementalLineMult, 1e-9);
                 if (e.Element == Element.Water) water++;
