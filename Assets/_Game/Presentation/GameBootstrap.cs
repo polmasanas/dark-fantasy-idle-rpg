@@ -169,7 +169,8 @@ namespace DarkFantasy.Presentation
             _inventory = new InventoryView(_session, _config);
             _customPreset = new CustomPresetView(_session, _config);
             _hud = new HudView(_session, _config, _regions, _inventory.Open, _customPreset.Open);
-            _combat = new CombatView();
+            _combat = new CombatView(_look, _regions, _enemyLooks, _session.State.Character.Class);
+            _combat.Reset(_session.State.World.Region);
             _report = new OfflineReportView(_session, OnCollected);
             root.Add(_hud.Top);
             root.Add(_combat.Root);
@@ -193,6 +194,7 @@ namespace DarkFantasy.Presentation
         {
             if (_replayer == null) return;
             _replayer.Tick(Time.deltaTime * GameSpeed);
+            _combat.Tick(Time.unscaledDeltaTime);
             _hud.Refresh();
             _inventory.Tick(Time.deltaTime);
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -236,6 +238,7 @@ namespace DarkFantasy.Presentation
         {
             if (!(credit.CreditedSeconds > 0) && credit.Adjustment != OfflineAdjustment.ClockRolledBack) return;
             _replayer.Abandon(); // a fight prepared before the absence must not land afterwards
+            _combat.Reset(_session.State.World.Region);
             _combat.SetStatus("");
             var report = _session.SimulateOffline(credit.CreditedSeconds);
             if (credit.ShowReport || credit.Adjustment == OfflineAdjustment.ClockRolledBack)
