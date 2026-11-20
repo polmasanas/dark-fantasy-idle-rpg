@@ -193,7 +193,8 @@ namespace DarkFantasy.Core.Session
                 bool firstBossKill = e.IsTraining ? !State.Account.TrainingBossDone
                     : e.IsBoss && e.Region > State.World.HighestBossDefeated;
                 int before = State.Character.Level;
-                Progression.AddXp(State.Character, xp);
+                if (Progression.AddXp(State.Character, xp) > 0 && State.Character.AutoAllocateOnLevelUp)
+                    Progression.AutoAllocate(State.Character); // M4-2, online and offline
                 Publish(new EnemyKilled(e, xp, gold));
                 for (int lvl = before + 1; lvl <= State.Character.Level; lvl++)
                     Publish(new LevelUp(lvl));

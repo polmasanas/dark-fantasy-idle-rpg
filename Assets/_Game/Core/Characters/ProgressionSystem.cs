@@ -10,6 +10,9 @@ namespace DarkFantasy.Core.Characters
     /// </summary>
     public sealed class ProgressionSystem
     {
+        /// <summary>Preset key for the per-character weights in <see cref="CharacterState.CustomWeights"/> (M4-2).</summary>
+        public const string CustomPreset = "custom";
+
         private readonly BalanceConfig _c;
         private readonly GameFormulas _f;
 
@@ -63,17 +66,35 @@ namespace DarkFantasy.Core.Characters
         public int AutoAllocate(CharacterState c)
         {
             if (c == null) throw new ArgumentNullException(nameof(c));
-            if (c.UnspentPoints <= 0 || c.Preset == null
-                || !_c.AllocationPresets.TryGetValue(c.Preset, out var preset)) return 0;
+            if (c.UnspentPoints <= 0 || c.Preset == null) return 0;
 
             var shares = new double[Enum.GetValues(typeof(AttributeId)).Length];
             double totalShare = 0;
-            foreach (var kv in preset)
+            if (c.Preset == CustomPreset)
             {
-                if (!(kv.Value > 0)) continue;
-                AttributeId a = kv.Key == "primary" ? _c.Classes[c.Class].Primary : Parse(kv.Key);
-                shares[(int)a] += kv.Value;
-                totalShare += kv.Value;
+                foreach (var kv in c.CustomWeights)
+                {
+                    int w = Math.Min(kv.Value, _c.AllocationRules.CustomWeightMax);
+                    if (w <= 0) continue;
+                    shares[(int)kv.Key] += w;
+                    totalShare += w;
+                }
+                if (totalShare <= 0)
+                {
+                    shares[(int)_c.Classes[c.Class].Primary] = 1; // default: all into the primary attribute
+                    totalShare = 1;
+                }
+            }
+            else
+            {
+                if (!_c.AllocationPresets.TryGetValue(c.Preset, out var preset)) return 0;
+                foreach (var kv in preset)
+                {
+                    if (!(kv.Value > 0)) continue;
+                    AttributeId a = kv.Key == "primary" ? _c.Classes[c.Class].Primary : Parse(kv.Key);
+                    shares[(int)a] += kv.Value;
+                    totalShare += kv.Value;
+                }
             }
             if (totalShare <= 0) return 0;
 
@@ -98,6 +119,15 @@ namespace DarkFantasy.Core.Characters
                 spent++;
             }
             return spent;
+        }
+
+        /// <summary>Sets a Custom preset weight, clamped to 0…allocation_rules.custom_weight_max; 0 removes it.</summary>
+        public void SetCustomWeight(CharacterState c, AttributeId a, int weight)
+        {
+            if (c == null) throw new ArgumentNullException(nameof(c));
+            int w = Math.Max(0, Math.Min(weight, _c.AllocationRules.CustomWeightMax));
+            if (w == 0) c.CustomWeights.Remove(a);
+            else c.CustomWeights[a] = w;
         }
 
         public int Total(CharacterState c, AttributeId a) => c.AutoPoints[a] + c.ManualPoints[a];

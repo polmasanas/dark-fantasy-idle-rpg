@@ -184,6 +184,10 @@ namespace DarkFantasy.Core.Config
                 Items = Items(Section(root, "items")),
                 Onboarding = Onboarding(Section(root, "onboarding")),
                 OfflineRules = OfflineRules(Section(root, "offline_rules")),
+                AllocationRules = new AllocationRulesConfig
+                {
+                    CustomWeightMax = I(Section(root, "allocation_rules"), "allocation_rules", "custom_weight_max"),
+                },
             };
         }
 

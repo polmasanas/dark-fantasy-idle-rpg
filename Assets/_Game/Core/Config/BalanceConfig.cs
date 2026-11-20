@@ -24,6 +24,7 @@ namespace DarkFantasy.Core.Config
         public ItemsConfig Items { get; set; }
         public OnboardingConfig Onboarding { get; set; }
         public OfflineRulesConfig OfflineRules { get; set; }
+        public AllocationRulesConfig AllocationRules { get; set; }
 
         /// <summary>Preset name → attribute key ("primary" = class primary) → share of manual points.</summary>
         public Dictionary<string, Dictionary<string, double>> AllocationPresets { get; set; }
@@ -161,6 +162,12 @@ namespace DarkFantasy.Core.Config
     {
         public double ReportMinSeconds { get; set; }
         public double ClockToleranceS { get; set; }
+    }
+
+    /// <summary>M4-2: limits of the per-character Custom auto-allocate preset.</summary>
+    public sealed class AllocationRulesConfig
+    {
+        public int CustomWeightMax { get; set; }
     }
 
     public sealed class ArtifactConfig

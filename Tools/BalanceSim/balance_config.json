@@ -752,5 +752,9 @@
     "_comment": "M4-1/R2-19: report threshold and clock-jump tolerance.",
     "report_min_seconds": 120.0,
     "clock_tolerance_s": 60.0
+  },
+  "allocation_rules": {
+    "_comment": "M4-2: the per-character Custom auto-allocate preset (weight per attribute, 0 = never).",
+    "custom_weight_max": 10
   }
 }

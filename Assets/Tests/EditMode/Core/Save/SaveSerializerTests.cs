@@ -63,6 +63,25 @@ namespace DarkFantasy.Core.Tests.Save
         }
 
         [Test]
+        public void RoundTrip_KeepsM4Settings_AndHeldOfflineLoot()
+        {
+            var (s, rng) = PlayedSession(60);
+            var c = s.State.Character;
+            c.AutoAllocateOnLevelUp = true;
+            c.Preset = DarkFantasy.Core.Characters.ProgressionSystem.CustomPreset;
+            s.Progression.SetCustomWeight(c, DarkFantasy.Core.Characters.AttributeId.Vit, 7);
+            s.SimulateOffline(1800);
+            Assert.That(s.State.PendingOfflineLoot, Is.Not.Empty);
+
+            var loaded = new SaveSerializer().Deserialize(new SaveSerializer().Serialize(Snapshot(s, rng))).State;
+            Assert.IsTrue(loaded.Character.AutoAllocateOnLevelUp);
+            Assert.AreEqual("custom", loaded.Character.Preset);
+            Assert.AreEqual(7, loaded.Character.CustomWeights[DarkFantasy.Core.Characters.AttributeId.Vit]);
+            Assert.AreEqual(s.State.PendingOfflineLoot.Count, loaded.PendingOfflineLoot.Count);
+            Assert.AreEqual(s.State.PendingOfflineLoot[0].Rarity, loaded.PendingOfflineLoot[0].Rarity);
+        }
+
+        [Test]
         public void Load_RebuildsWornItemIndex()
         {
             var (s, rng) = PlayedSession(1800);
