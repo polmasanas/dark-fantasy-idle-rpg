@@ -1,6 +1,6 @@
 # M5 design: three classes and the world
 
-> **Status:** approved by the owner, 2026-11-20. Decisions M5-1…M5-5 were taken one at a time in conversation; items marked **[Claude's call]** were not asked and can be overruled. Implements roadmap M5 (Jira DFIRPG-6).
+> **Status:** approved by the owner and implemented (merged), 2026-11-20. Decisions M5-1…M5-5 were taken one at a time in conversation; items marked **[Claude's call]** were not asked and can be overruled. Implements roadmap M5 (Jira DFIRPG-6).
 
 ## 1. Intent
 The Fighter gets two companions, the **Archer** and the **Mage**, and the world gets **real enemy families** with elements and fighting styles. The point is a decision the player keeps making: *which hero do I bring here?* The class triangle and the elements make that choice matter region by region, while each hero grows separately (own level, points and gear) from one shared inventory and purse.

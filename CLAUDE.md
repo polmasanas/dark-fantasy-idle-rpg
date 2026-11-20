@@ -16,7 +16,8 @@ Dark fantasy, flat-cartoon 2D **idle RPG for Android** (portrait), Unity + C#, b
 | M3 Loot & inventory | Done (merged, PR #4). Decisions M3-1…M3-5; playtest added ON-1 (first-run training boss, region 1 boss HP ×4) |
 | M4 Save & offline | Done (merged). Decisions M4-1…M4-4; playtest made auto-allocate a single "Custom" checkbox (M4-2 amended). **Device checks still open** in Jira DFIRPG-14 (`Docs/ANDROID_DEVICE_TEST.md`) until the owner has a phone |
 | CD Creative Direction | Done (merged). Decisions CD-0…CD-11 (playtest: smaller growing bosses, report pop-up, part-by-part characters, outline halos behind the floor), spec `Docs/CREATIVE_DIRECTION.md`, art brief `Docs/ART_BRIEF.md` (Jira DFIRPG-15) |
-| **M5 Three classes & world** | **Built on branch `m5/classes-world`**, awaiting the owner's editor playtest (`Docs/M5_PLAYTEST.md`). Decisions M5-1…M5-6 + balance M5-B1, spec `Docs/specs/2026-11-20-m5-three-classes-world-design.md` (Jira DFIRPG-6) |
+| M5 Three classes & world | Done (merged). Decisions M5-1…M5-6 + balance M5-B1, spec `Docs/specs/2026-11-20-m5-three-classes-world-design.md`; save schema 2 (Jira DFIRPG-6) |
+| **M6 Skills** | **Next** (Jira DFIRPG-7) |
 | M3–M12 | Planned in `Docs/DEVELOPMENT_ROADMAP.md`; one Jira epic each (project key `DFIRPG`, epic key = milestone number + 1, e.g. M3 = DFIRPG-4) |
 
 ## Where things live
