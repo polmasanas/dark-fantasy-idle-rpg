@@ -756,5 +756,9 @@
   "allocation_rules": {
     "_comment": "M4-2: the per-character Custom auto-allocate preset (weight per attribute, 0 = never).",
     "custom_weight_max": 10
+  },
+  "save": {
+    "_comment": "D-030: autosave cadence while playing (also saved on pause/quit and after key moments).",
+    "autosave_interval_s": 30.0
   }
 }

@@ -16,7 +16,7 @@ namespace DarkFantasy.Presentation
     /// </summary>
     internal sealed class HudView
     {
-        private static readonly (AttributeId Id, string Name)[] Attributes =
+        internal static readonly (AttributeId Id, string Name)[] AttributeNames =
         {
             (AttributeId.Str, "STR"), (AttributeId.Dex, "DEX"), (AttributeId.Int, "INT"),
             (AttributeId.Vit, "VIT"), (AttributeId.Def, "DEF"), (AttributeId.Counter, "COUNTER"),
@@ -37,8 +37,9 @@ namespace DarkFantasy.Presentation
         private readonly Dictionary<AttributeId, Label> _values = new Dictionary<AttributeId, Label>();
         private readonly List<Button> _plusButtons = new List<Button>();
         private readonly Toggle _bossToggle;
+        private readonly Toggle _autoToggle;
 
-        public HudView(GameSession session, BalanceConfig config, Action openInventory)
+        public HudView(GameSession session, BalanceConfig config, Action openInventory, Action openCustomPreset)
         {
             _session = session ?? throw new ArgumentNullException(nameof(session));
             _formulas = new GameFormulas(config);
@@ -71,6 +72,7 @@ namespace DarkFantasy.Presentation
             header.Add(_unspent);
 
             var presetKeys = config.AllocationPresets.Keys.OrderBy(k => k).ToList();
+            if (!presetKeys.Contains(ProgressionSystem.CustomPreset)) presetKeys.Add(ProgressionSystem.CustomPreset);
             int presetIndex = Math.Max(0, presetKeys.IndexOf(character.Preset));
             var preset = new DropdownField("Preset", presetKeys, presetIndex);
             preset.style.fontSize = 24;
@@ -78,13 +80,24 @@ namespace DarkFantasy.Presentation
             preset.labelElement.style.color = Ui.Text;
             preset.RegisterValueChangedCallback(evt => character.Preset = evt.newValue);
             header.Add(preset);
+            header.Add(Ui.Button("Edit", openCustomPreset, 22));
             header.Add(Ui.Button("Auto", () => _session.Progression.AutoAllocate(character)));
             Bottom.Add(header);
+
+            _autoToggle = new Toggle("Auto-allocate on level-up") { value = character.AutoAllocateOnLevelUp };
+            _autoToggle.style.fontSize = 24;
+            _autoToggle.labelElement.style.color = Ui.Text;
+            _autoToggle.RegisterValueChangedCallback(evt =>
+            {
+                character.AutoAllocateOnLevelUp = evt.newValue;
+                if (evt.newValue) _session.Progression.AutoAllocate(character); // spend what is already waiting
+            });
+            Bottom.Add(_autoToggle);
 
             var grid = Ui.Row();
             grid.style.flexWrap = Wrap.Wrap;
             grid.style.marginTop = 8;
-            foreach (var (id, name) in Attributes)
+            foreach (var (id, name) in AttributeNames)
             {
                 var cell = Ui.Row(Justify.SpaceBetween);
                 cell.style.width = new Length(33f, LengthUnit.Percent);
@@ -125,7 +138,7 @@ namespace DarkFantasy.Presentation
             _gold.text = "Gold " + NumberFormat.Short(st.Gold) + " · Mat " + NumberFormat.Short(st.Wallet.Materials);
             _unspent.text = $"Points: {c.UnspentPoints}";
 
-            foreach (var (id, name) in Attributes)
+            foreach (var (id, name) in AttributeNames)
                 _values[id].text = $"{name} {_session.Progression.Total(c, id)}";
             foreach (var b in _plusButtons)
                 b.SetEnabled(c.UnspentPoints > 0);

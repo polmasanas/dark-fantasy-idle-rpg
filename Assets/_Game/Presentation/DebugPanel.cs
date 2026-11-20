@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace DarkFantasy.Presentation
 {
-    /// <summary>Development-only controls (never in release builds): game speed, quick levels, test drops.</summary>
+    /// <summary>Development-only controls (never in release builds): game speed, quick levels, test drops, save and offline tests.</summary>
     internal sealed class DebugPanel
     {
         public readonly VisualElement Root;
@@ -40,6 +40,13 @@ namespace DarkFantasy.Presentation
             row.Add(Ui.Button("Drop Epic", () => Drop(Rarity.Epic), 22));
             row.Add(Ui.Button("Drop Legendary", () => Drop(Rarity.Legendary), 22));
             Root.Add(row);
+
+            var saveRow = Ui.Row();
+            saveRow.style.flexWrap = Wrap.Wrap;
+            saveRow.Add(Ui.Button("Simulate 8 h away", () => _game.SimulateAway(8 * 3600), 22));
+            saveRow.Add(Ui.Button("Save now", () => _game.Toast(_game.SaveNow() ? "DEV: saved" : "DEV: saving is off"), 22));
+            saveRow.Add(Ui.Button("Delete save", _game.DeleteSaveAndRestart, 22));
+            Root.Add(saveRow);
         }
 
         public void Refresh()

@@ -35,6 +35,17 @@ namespace DarkFantasy.Core.Session
         public PreparedFight Current => _current;
         public double Elapsed => _elapsed;
 
+        /// <summary>
+        /// Discards the fight being shown without applying it (e.g. before simulating time away, so a
+        /// fight prepared from the old state never lands afterwards). The next tick starts a new fight.
+        /// </summary>
+        public void Abandon()
+        {
+            _current = null;
+            _elapsed = 0;
+            _next = 0;
+        }
+
         /// <summary>Advances the replay by <paramref name="seconds"/> of game time.</summary>
         public void Tick(double seconds)
         {

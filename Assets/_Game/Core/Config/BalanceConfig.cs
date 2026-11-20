@@ -25,6 +25,7 @@ namespace DarkFantasy.Core.Config
         public OnboardingConfig Onboarding { get; set; }
         public OfflineRulesConfig OfflineRules { get; set; }
         public AllocationRulesConfig AllocationRules { get; set; }
+        public SaveConfig Save { get; set; }
 
         /// <summary>Preset name → attribute key ("primary" = class primary) → share of manual points.</summary>
         public Dictionary<string, Dictionary<string, double>> AllocationPresets { get; set; }
@@ -168,6 +169,12 @@ namespace DarkFantasy.Core.Config
     public sealed class AllocationRulesConfig
     {
         public int CustomWeightMax { get; set; }
+    }
+
+    /// <summary>D-030: save cadence.</summary>
+    public sealed class SaveConfig
+    {
+        public double AutosaveIntervalS { get; set; }
     }
 
     public sealed class ArtifactConfig

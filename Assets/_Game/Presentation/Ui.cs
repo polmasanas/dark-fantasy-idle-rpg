@@ -66,6 +66,33 @@ namespace DarkFantasy.Presentation
             return e;
         }
 
+        /// <summary>A full-screen panel drawn over the game, hidden until shown.</summary>
+        public static VisualElement Overlay()
+        {
+            var e = new VisualElement();
+            e.style.position = Position.Absolute;
+            e.style.left = 0;
+            e.style.right = 0;
+            e.style.top = 0;
+            e.style.bottom = 0;
+            e.style.backgroundColor = Background;
+            e.style.paddingTop = 24;
+            e.style.paddingLeft = 16;
+            e.style.paddingRight = 16;
+            e.style.display = DisplayStyle.None;
+            return e;
+        }
+
+        /// <summary>"8 h 05 min" style duration.</summary>
+        public static string Duration(double seconds)
+        {
+            long total = (long)System.Math.Max(0, seconds);
+            long h = total / 3600, m = total % 3600 / 60, s = total % 60;
+            if (h > 0) return $"{h} h {m:00} min";
+            if (m > 0) return $"{m} min {s:00} s";
+            return $"{s} s";
+        }
+
         public static Button Button(string text, System.Action onClick, int size = 26)
         {
             var b = new Button(onClick) { text = text };

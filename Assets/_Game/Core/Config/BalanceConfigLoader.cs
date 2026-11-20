@@ -184,6 +184,10 @@ namespace DarkFantasy.Core.Config
                 Items = Items(Section(root, "items")),
                 Onboarding = Onboarding(Section(root, "onboarding")),
                 OfflineRules = OfflineRules(Section(root, "offline_rules")),
+                Save = new SaveConfig
+                {
+                    AutosaveIntervalS = D(Section(root, "save"), "save", "autosave_interval_s"),
+                },
                 AllocationRules = new AllocationRulesConfig
                 {
                     CustomWeightMax = I(Section(root, "allocation_rules"), "allocation_rules", "custom_weight_max"),

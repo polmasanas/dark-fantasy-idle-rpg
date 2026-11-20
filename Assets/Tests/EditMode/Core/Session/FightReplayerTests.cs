@@ -45,6 +45,21 @@ namespace DarkFantasy.Core.Tests.Session
         }
 
         [Test]
+        public void Abandon_DropsFightInProgress_WithoutApplying()
+        {
+            var s = Session();
+            var view = new RecordingView();
+            var r = new FightReplayer(s, view);
+            r.Tick(0.0001);
+            r.Abandon();
+            Assert.IsNull(r.Current);
+            Assert.AreEqual(0.0, s.State.GameTime, "an abandoned fight never applies");
+            r.Tick(0.0001);
+            Assert.AreEqual(2, view.Begun.Count, "next tick starts a fresh fight");
+            Assert.AreEqual(0, view.Ended.Count);
+        }
+
+        [Test]
         public void Tick_EventsNotShownEarly()
         {
             var s = Session();
