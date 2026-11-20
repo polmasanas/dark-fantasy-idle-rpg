@@ -1,8 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="24 20 96 112" data-height="512">
-<g id="body" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0">
-<path d="M52 44 L68 44 L66 58 L54 58Z"/><path d="M58 44 L60 36 L62 44Z"/><path d="M46 58 L74 58 L76 100 L68 100 L66 128 L60 128 L60 106 L56 128 L50 128 L48 100 L44 100Z"/><line x1="40" y1="120" x2="104" y2="40" stroke-width="3"/><circle cx="48" cy="80" r="12"/>
-</g>
-<g id="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0">
-<circle cx="57" cy="51" r="1.6"/><circle cx="63" cy="51" r="1.6"/><path d="M104 40 L111 29 L100 37Z"/>
-</g>
+  <g id="part:legs" data-pivot="60 100">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M48 100 L72 100 L68 128 L62 128 L60 106 L58 128 L52 128Z"/></g>
+  </g>
+  <g id="part:torso" data-pivot="60 102">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M46 58 L74 58 L76 102 L44 102Z"/></g>
+  </g>
+  <g id="part:offhand" data-pivot="50 64">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><circle cx="46" cy="80" r="12"/></g>
+  </g>
+  <g id="part:head" data-pivot="60 58">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M52 44 L68 44 L66 59 L54 59Z"/><path d="M58 44 L60 36 L62 44Z"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><circle cx="57" cy="51" r="1.6"/><circle cx="63" cy="51" r="1.6"/></g>
+  </g>
+  <g id="part:weapon" data-pivot="70 64">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M68 62 L76 62 L80 82 L74 84Z"/><line x1="48" y1="116" x2="104" y2="40" stroke-width="3"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><path d="M104 40 L111 29 L100 37Z"/></g>
+  </g>
 </svg>

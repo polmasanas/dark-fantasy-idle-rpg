@@ -36,5 +36,36 @@ namespace DarkFantasy.Core.Tests.Look
                 if (!File.Exists(Path.Combine(art, s + ".png"))) missing.Add(s + ".png");
             CollectionAssert.IsEmpty(missing, "Run python3 Tools/ArtBuild/build_art.py (" + ArtDir + ")");
         }
+
+        [Test]
+        public void EveryBodyHasARigWhosePartSpritesExist()
+        {
+            var c = LookConfigLoader.FromJson(TestPaths.ReadRepoFile(TestPaths.LookConfigPath));
+            var bodies = new HashSet<string>();
+            foreach (var kit in c.Kits.Values) bodies.UnionWith(kit);
+            foreach (var r in c.Regions) bodies.Add(r.Boss.Body);
+            bodies.Add(c.TrainingBoss.Body);
+            foreach (var cls in c.Classes.Values) bodies.Add(cls.Body);
+
+            string dir = Path.GetDirectoryName(TestPaths.RepoFile(TestPaths.LookConfigPath));
+            string art = Path.GetFullPath(Path.Combine(dir, "../Resources/Art"));
+            var rigs = Newtonsoft.Json.Linq.JObject.Parse(File.ReadAllText(Path.Combine(art, "rigs.json")));
+            var problems = new List<string>();
+            foreach (var b in bodies)
+            {
+                if (!(rigs[b] is Newtonsoft.Json.Linq.JObject rig)) { problems.Add(b + ": no rig"); continue; }
+                var parts = (Newtonsoft.Json.Linq.JArray)rig["parts"];
+                if (parts.Count < 2) problems.Add(b + ": fewer than 2 parts");
+                if (!((double?)rig["aura_pad"] > 0)) problems.Add(b + ": aura_pad missing");
+                foreach (var part in parts)
+                {
+                    string id = (string)part["id"];
+                    if (!File.Exists(Path.Combine(art, b + "__" + id + ".png"))) problems.Add(b + "__" + id + ".png");
+                    if (!File.Exists(Path.Combine(art, b + "__" + id + "_aura.png"))) problems.Add(b + "__" + id + "_aura.png");
+                    if ((bool)part["glow"] && !File.Exists(Path.Combine(art, b + "__" + id + "_glow.png"))) problems.Add(b + "__" + id + "_glow.png");
+                }
+            }
+            CollectionAssert.IsEmpty(problems);
+        }
     }
 }

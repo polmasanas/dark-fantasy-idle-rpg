@@ -1,8 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="155 34 75 98" data-height="512">
-<g id="body" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0">
-<path d="M170 58 Q172 40 182 38 Q192 42 190 60 L188 64 L172 64Z"/><path d="M168 62 L192 62 L204 124 Q186 116 176 128 L172 128 L170 110 L166 128 L160 128 L164 100Z"/><path d="M208 46 Q226 84 208 122" fill="none" stroke-width="3"/><path d="M188 74 L208 80 L206 86 L186 82Z"/>
-</g>
-<g id="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0">
-<line x1="177" y1="54" x2="185" y2="54" stroke-width="1.6"/><line x1="208" y1="46" x2="208" y2="122" stroke-width="0.8"/>
-</g>
+  <g id="part:cloak" data-pivot="180 62">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M168 62 L192 62 L204 124 Q186 116 176 128 L166 126 L164 100Z"/></g>
+  </g>
+  <g id="part:legs" data-pivot="180 104">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M171 104 L189 104 L186 128 L181 128 L180 112 L178 128 L173 128Z"/></g>
+  </g>
+  <g id="part:torso" data-pivot="180 106">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M170 62 L190 62 L192 106 L168 106Z"/></g>
+  </g>
+  <g id="part:head" data-pivot="180 64">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M170 58 Q172 40 182 38 Q192 42 190 60 L188 64 L172 64Z"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><line x1="177" y1="54" x2="185" y2="54" stroke-width="1.6"/></g>
+  </g>
+  <g id="part:weapon" data-pivot="188 70">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M186 68 L208 78 L206 84 L184 76Z"/><path d="M210 46 Q228 84 210 122" fill="none" stroke-width="3"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><line x1="210" y1="46" x2="210" y2="122" stroke-width="0.8"/></g>
+  </g>
 </svg>

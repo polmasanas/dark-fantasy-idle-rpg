@@ -1,8 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="24 20 96 112" data-height="512">
-<g id="body" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0">
-<path d="M52 48 Q60 38 68 48 L68 58 L52 58Z"/><path d="M44 58 L76 58 L80 104 L74 98 L70 108 L66 100 L62 128 L56 128 L54 106 L50 128 L44 128 L46 100 L40 104Z"/><line x1="76" y1="84" x2="100" y2="64" stroke-width="3.5"/><path d="M72 80 L80 76 L82 82 L74 86Z"/>
-</g>
-<g id="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0">
-<circle cx="57" cy="53" r="1.6"/><circle cx="63" cy="53" r="1.6"/>
-</g>
+  <g id="part:cloak" data-pivot="60 60">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M44 58 L76 58 L80 104 L74 98 L70 108 L66 100 L62 112 L56 106 L50 114 L44 102 L40 104Z"/></g>
+  </g>
+  <g id="part:legs" data-pivot="60 102">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M49 102 L71 102 L67 128 L62 128 L60 110 L58 128 L53 128Z"/></g>
+  </g>
+  <g id="part:torso" data-pivot="60 104">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M48 58 L72 58 L74 104 L46 104Z"/></g>
+  </g>
+  <g id="part:head" data-pivot="60 58">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M52 48 Q60 38 68 48 L68 59 L52 59Z"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><circle cx="57" cy="53" r="1.6"/><circle cx="63" cy="53" r="1.6"/></g>
+  </g>
+  <g id="part:weapon" data-pivot="72 62">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M70 60 L78 60 L82 82 L76 84Z"/><line x1="78" y1="90" x2="100" y2="64" stroke-width="3.5"/><line x1="74" y1="84" x2="84" y2="90" stroke-width="2.5"/></g>
+  </g>
 </svg>

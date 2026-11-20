@@ -1,0 +1,562 @@
+{
+ "archer": {
+  "aspect": 0.8571,
+  "aura_pad": 0.08,
+  "parts": [
+   {
+    "glow": false,
+    "id": "legs",
+    "pivot": [
+     0.375,
+     0.7143
+    ]
+   },
+   {
+    "glow": false,
+    "id": "torso",
+    "pivot": [
+     0.375,
+     0.7321
+    ]
+   },
+   {
+    "glow": true,
+    "id": "head",
+    "pivot": [
+     0.375,
+     0.3393
+    ]
+   },
+   {
+    "glow": true,
+    "id": "weapon",
+    "pivot": [
+     0.4792,
+     0.4107
+    ]
+   }
+  ]
+ },
+ "archer_hero": {
+  "aspect": 0.7653,
+  "aura_pad": 0.08,
+  "parts": [
+   {
+    "glow": false,
+    "id": "cloak",
+    "pivot": [
+     0.3333,
+     0.2857
+    ]
+   },
+   {
+    "glow": false,
+    "id": "legs",
+    "pivot": [
+     0.3333,
+     0.7143
+    ]
+   },
+   {
+    "glow": false,
+    "id": "torso",
+    "pivot": [
+     0.3333,
+     0.7347
+    ]
+   },
+   {
+    "glow": true,
+    "id": "head",
+    "pivot": [
+     0.3333,
+     0.3061
+    ]
+   },
+   {
+    "glow": true,
+    "id": "weapon",
+    "pivot": [
+     0.44,
+     0.3673
+    ]
+   }
+  ]
+ },
+ "brute": {
+  "aspect": 0.8571,
+  "aura_pad": 0.08,
+  "parts": [
+   {
+    "glow": false,
+    "id": "legs",
+    "pivot": [
+     0.3958,
+     0.75
+    ]
+   },
+   {
+    "glow": false,
+    "id": "torso",
+    "pivot": [
+     0.3958,
+     0.7679
+    ]
+   },
+   {
+    "glow": true,
+    "id": "head",
+    "pivot": [
+     0.3958,
+     0.2857
+    ]
+   },
+   {
+    "glow": false,
+    "id": "weapon",
+    "pivot": [
+     0.6042,
+     0.3571
+    ]
+   }
+  ]
+ },
+ "cultist": {
+  "aspect": 0.8571,
+  "aura_pad": 0.08,
+  "parts": [
+   {
+    "glow": false,
+    "id": "torso",
+    "pivot": [
+     0.375,
+     0.9643
+    ]
+   },
+   {
+    "glow": true,
+    "id": "head",
+    "pivot": [
+     0.375,
+     0.3393
+    ]
+   },
+   {
+    "glow": true,
+    "id": "weapon",
+    "pivot": [
+     0.4792,
+     0.4464
+    ]
+   }
+  ]
+ },
+ "deserter": {
+  "aspect": 0.8571,
+  "aura_pad": 0.08,
+  "parts": [
+   {
+    "glow": false,
+    "id": "cloak",
+    "pivot": [
+     0.375,
+     0.3571
+    ]
+   },
+   {
+    "glow": false,
+    "id": "legs",
+    "pivot": [
+     0.375,
+     0.7321
+    ]
+   },
+   {
+    "glow": false,
+    "id": "torso",
+    "pivot": [
+     0.375,
+     0.75
+    ]
+   },
+   {
+    "glow": true,
+    "id": "head",
+    "pivot": [
+     0.375,
+     0.3393
+    ]
+   },
+   {
+    "glow": false,
+    "id": "weapon",
+    "pivot": [
+     0.5,
+     0.375
+    ]
+   }
+  ]
+ },
+ "dummy": {
+  "aspect": 0.7143,
+  "aura_pad": 0.08,
+  "parts": [
+   {
+    "glow": false,
+    "id": "base",
+    "pivot": [
+     0.5,
+     0.9643
+    ]
+   },
+   {
+    "glow": true,
+    "id": "target",
+    "pivot": [
+     0.5,
+     0.75
+    ]
+   }
+  ]
+ },
+ "fighter": {
+  "aspect": 0.6207,
+  "aura_pad": 0.08,
+  "parts": [
+   {
+    "glow": false,
+    "id": "cloak",
+    "pivot": [
+     0.3333,
+     0.4138
+    ]
+   },
+   {
+    "glow": false,
+    "id": "legs",
+    "pivot": [
+     0.3333,
+     0.7414
+    ]
+   },
+   {
+    "glow": false,
+    "id": "torso",
+    "pivot": [
+     0.3333,
+     0.7759
+    ]
+   },
+   {
+    "glow": true,
+    "id": "head",
+    "pivot": [
+     0.3333,
+     0.3793
+    ]
+   },
+   {
+    "glow": true,
+    "id": "weapon",
+    "pivot": [
+     0.5417,
+     0.431
+    ]
+   }
+  ]
+ },
+ "humanoid_boss": {
+  "aspect": 0.7634,
+  "aura_pad": 0.08,
+  "parts": [
+   {
+    "glow": false,
+    "id": "banner",
+    "pivot": [
+     0.13,
+     0.9924
+    ]
+   },
+   {
+    "glow": false,
+    "id": "cloak",
+    "pivot": [
+     0.5,
+     0.3206
+    ]
+   },
+   {
+    "glow": false,
+    "id": "legs",
+    "pivot": [
+     0.5,
+     0.6565
+    ]
+   },
+   {
+    "glow": false,
+    "id": "torso",
+    "pivot": [
+     0.5,
+     0.6641
+    ]
+   },
+   {
+    "glow": true,
+    "id": "head",
+    "pivot": [
+     0.5,
+     0.2748
+    ]
+   },
+   {
+    "glow": true,
+    "id": "weapon",
+    "pivot": [
+     0.72,
+     0.3282
+    ]
+   }
+  ]
+ },
+ "instructor": {
+  "aspect": 0.6226,
+  "aura_pad": 0.08,
+  "parts": [
+   {
+    "glow": true,
+    "id": "torso",
+    "pivot": [
+     0.4545,
+     0.9623
+    ]
+   },
+   {
+    "glow": true,
+    "id": "head",
+    "pivot": [
+     0.4545,
+     0.283
+    ]
+   },
+   {
+    "glow": false,
+    "id": "weapon",
+    "pivot": [
+     0.7576,
+     0.3962
+    ]
+   }
+  ]
+ },
+ "mage": {
+  "aspect": 0.625,
+  "aura_pad": 0.08,
+  "parts": [
+   {
+    "glow": false,
+    "id": "cloak",
+    "pivot": [
+     0.4,
+     0.4107
+    ]
+   },
+   {
+    "glow": false,
+    "id": "torso",
+    "pivot": [
+     0.4,
+     0.8036
+    ]
+   },
+   {
+    "glow": true,
+    "id": "head",
+    "pivot": [
+     0.4,
+     0.3929
+    ]
+   },
+   {
+    "glow": true,
+    "id": "weapon",
+    "pivot": [
+     0.5143,
+     0.4821
+    ]
+   }
+  ]
+ },
+ "recruit": {
+  "aspect": 0.6415,
+  "aura_pad": 0.08,
+  "parts": [
+   {
+    "glow": false,
+    "id": "legs",
+    "pivot": [
+     0.3529,
+     0.6981
+    ]
+   },
+   {
+    "glow": false,
+    "id": "torso",
+    "pivot": [
+     0.3529,
+     0.717
+    ]
+   },
+   {
+    "glow": true,
+    "id": "head",
+    "pivot": [
+     0.3529,
+     0.3019
+    ]
+   },
+   {
+    "glow": true,
+    "id": "weapon",
+    "pivot": [
+     0.5441,
+     0.3396
+    ]
+   }
+  ]
+ },
+ "shield_board": {
+  "aspect": 0.7143,
+  "aura_pad": 0.08,
+  "parts": [
+   {
+    "glow": false,
+    "id": "base",
+    "pivot": [
+     0.5,
+     0.9643
+    ]
+   },
+   {
+    "glow": true,
+    "id": "target",
+    "pivot": [
+     0.5,
+     0.9286
+    ]
+   }
+  ]
+ },
+ "sparring_frame": {
+  "aspect": 0.7143,
+  "aura_pad": 0.08,
+  "parts": [
+   {
+    "glow": false,
+    "id": "base",
+    "pivot": [
+     0.5,
+     0.9643
+    ]
+   },
+   {
+    "glow": true,
+    "id": "target",
+    "pivot": [
+     0.5,
+     0.7143
+    ]
+   }
+  ]
+ },
+ "spearman": {
+  "aspect": 0.8571,
+  "aura_pad": 0.08,
+  "parts": [
+   {
+    "glow": false,
+    "id": "legs",
+    "pivot": [
+     0.375,
+     0.7143
+    ]
+   },
+   {
+    "glow": false,
+    "id": "torso",
+    "pivot": [
+     0.375,
+     0.7321
+    ]
+   },
+   {
+    "glow": false,
+    "id": "offhand",
+    "pivot": [
+     0.2708,
+     0.3929
+    ]
+   },
+   {
+    "glow": true,
+    "id": "head",
+    "pivot": [
+     0.375,
+     0.3393
+    ]
+   },
+   {
+    "glow": true,
+    "id": "weapon",
+    "pivot": [
+     0.4792,
+     0.3929
+    ]
+   }
+  ]
+ },
+ "target_post": {
+  "aspect": 0.7143,
+  "aura_pad": 0.08,
+  "parts": [
+   {
+    "glow": false,
+    "id": "base",
+    "pivot": [
+     0.5,
+     0.9643
+    ]
+   },
+   {
+    "glow": true,
+    "id": "target",
+    "pivot": [
+     0.5,
+     0.5893
+    ]
+   }
+  ]
+ },
+ "weighted_sack": {
+  "aspect": 0.7143,
+  "aura_pad": 0.08,
+  "parts": [
+   {
+    "glow": false,
+    "id": "base",
+    "pivot": [
+     0.125,
+     0.9643
+    ]
+   },
+   {
+    "glow": true,
+    "id": "target",
+    "pivot": [
+     0.575,
+     0.1071
+    ]
+   }
+  ]
+ }
+}
