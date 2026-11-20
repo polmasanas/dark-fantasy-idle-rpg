@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 150" data-height="512">
+  <g id="part:body" data-pivot="70 120">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M52 146 L48 110 L56 70 L70 58 L84 70 L90 110 L86 146 Z"/></g>
+  </g>
+  <g id="part:core" data-pivot="70 96">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M64 96 L70 84 L76 96 L70 108 Z"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><circle cx="70" cy="96" r="5"/></g>
+  </g>
+  <g id="part:head" data-pivot="70 60">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M58 62 L62 40 L68 52 L72 34 L76 52 L82 42 L84 62 Z"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><circle cx="66" cy="54" r="1.6"/><circle cx="75" cy="54" r="1.6"/></g>
+  </g>
+  <g id="part:weapon" data-pivot="84 72">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M82 70 L104 60 L108 64 L88 78 Z"/><path d="M104 52 L124 44 L112 62 Z"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><path d="M112 50 L122 46 L114 56 Z"/></g>
+  </g>
+</svg>

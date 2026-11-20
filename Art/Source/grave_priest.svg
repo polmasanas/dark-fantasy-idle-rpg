@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="12 2 94 150" data-height="512">
+  <g id="part:torso" data-pivot="50.00 92.00">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M 40.76 58.00 C 39.08 82.00 35.22 116.00 30.68 150.00 L 69.32 150.00 C 64.78 116.00 60.92 82.00 59.24 58.00 Z"/><path d="M 41.60 49.00 C 37.40 55.00 36.56 64.00 37.40 74.00 C 37.40 78.00 38.24 81.00 39.08 83.00 L 42.44 82.00 C 41.60 76.00 41.60 70.00 42.44 64.00 C 43.28 58.00 44.12 54.00 44.96 51.00 Z"/><path d="M 39.08 52.00 C 39.92 45.00 44.96 42.00 50.00 42.00 C 55.88 42.00 60.08 44.00 61.76 50.00 C 61.76 58.00 60.08 66.00 59.24 72.00 C 58.40 78.00 57.56 84.00 58.40 92.00 L 41.60 92.00 C 42.44 84.00 41.60 78.00 40.76 72.00 C 39.92 66.00 39.08 58.00 39.08 52.00 Z"/></g>
+  </g>
+  <g id="part:head" data-pivot="50.00 45.00">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M 46.64 42.00 L 54.20 42.00 L 54.20 47.00 L 46.64 47.00 Z"/><path d="M 42.44 44.00 C 41.60 34.00 43.28 24.00 48.32 12.00 C 50.00 9.00 51.68 9.00 53.36 12.00 C 57.56 22.00 60.08 32.00 60.08 42.00 C 57.56 45.00 52.52 46.00 48.32 46.00 C 45.80 46.00 43.28 45.00 42.44 44.00 Z"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><circle cx="52.94" cy="31.00" r="1.5"/><circle cx="57.14" cy="31.00" r="1.5"/></g>
+  </g>
+  <g id="part:staff" data-pivot="58.40 49.00">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><line x1="70.90" y1="12.00" x2="65.90" y2="150.00" stroke-width="3"/><path d="M 55.88 46.00 C 60.92 44.00 64.28 47.00 65.96 51.00 C 67.64 55.00 68.48 60.00 70.16 64.00 L 66.80 67.00 C 64.28 63.00 62.60 58.00 60.92 55.00 C 59.24 52.00 57.56 50.00 56.72 49.00 Z"/><circle cx="68.90" cy="66.00" r="3.4"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><circle cx="71.30" cy="8.00" r="5.4"/></g>
+  </g>
+</svg>

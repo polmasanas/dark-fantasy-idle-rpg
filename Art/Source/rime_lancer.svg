@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 150" data-height="512">
+  <g id="part:body" data-pivot="66 120">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M50 150 L54 104 L60 72 L68 64 L76 72 L80 104 L84 150 Z"/></g>
+  </g>
+  <g id="part:head" data-pivot="68 66">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M58 66 L64 44 L68 36 L72 44 L78 66 Z"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><circle cx="65" cy="58" r="1.5"/><circle cx="72" cy="58" r="1.5"/></g>
+  </g>
+  <g id="part:weapon" data-pivot="76 78">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linejoin="round" stroke-width="0"><path d="M74 76 L100 82 L98 88 L74 84 Z"/><path d="M96 80 L150 72 L98 90 Z"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><path d="M132 75 L150 72 L134 79 Z"/></g>
+  </g>
+</svg>

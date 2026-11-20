@@ -118,8 +118,20 @@ namespace DarkFantasy.Core.Look
             if (o == null) throw new LookConfigException(path + " must be an object");
             string kit = Str(o, path, "kit");
             if (!c.Kits.ContainsKey(kit)) throw new LookConfigException(path + ".kit: unknown kit '" + kit + "'");
+            string[] subzoneKits = null;
+            if (o["subzone_kits"] is JArray sk)
+            {
+                subzoneKits = new string[sk.Count];
+                for (int i = 0; i < sk.Count; i++)
+                {
+                    subzoneKits[i] = (string)sk[i];
+                    if (subzoneKits[i] == null || !c.Kits.ContainsKey(subzoneKits[i]))
+                        throw new LookConfigException(path + ".subzone_kits[" + i + "]: unknown kit '" + subzoneKits[i] + "'");
+                }
+            }
             return new RegionEntry
             {
+                SubzoneKits = subzoneKits,
                 Name = Str(o, path, "name"),
                 Biome = needsBiome ? BiomeKey(c, Str(o, path, "biome"), path + ".biome") : null,
                 Kit = kit,

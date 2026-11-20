@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="12 2 94 150" data-height="512">
+  <g id="part:cloak" data-pivot="50.00 46.00">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M 40.76 47.00 C 34.88 64.00 33.20 88.00 34.04 116.00 L 37.40 110.00 L 39.08 122.00 L 42.44 113.00 L 44.96 126.00 L 47.48 114.00 L 50.84 120.00 C 52.52 100.00 54.20 80.00 55.88 66.00 C 56.72 58.00 58.40 52.00 59.24 47.00 Z"/></g>
+  </g>
+  <g id="part:torso" data-pivot="50.00 92.00">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M 40.76 58.00 C 39.08 82.00 35.89 116.00 31.52 150.00 L 68.48 150.00 C 64.11 116.00 60.92 82.00 59.24 58.00 Z"/><path d="M 41.60 49.00 C 37.40 55.00 36.56 64.00 37.40 74.00 C 37.40 78.00 38.24 81.00 39.08 83.00 L 42.44 82.00 C 41.60 76.00 41.60 70.00 42.44 64.00 C 43.28 58.00 44.12 54.00 44.96 51.00 Z"/><path d="M 39.08 52.00 C 39.92 45.00 44.96 42.00 50.00 42.00 C 55.88 42.00 60.08 44.00 61.76 50.00 C 61.76 58.00 60.08 66.00 59.24 72.00 C 58.40 78.00 57.56 84.00 58.40 92.00 L 41.60 92.00 C 42.44 84.00 41.60 78.00 40.76 72.00 C 39.92 66.00 39.08 58.00 39.08 52.00 Z"/></g>
+  </g>
+  <g id="part:head" data-pivot="50.00 45.00">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M 46.64 42.00 L 54.20 42.00 L 54.20 47.00 L 46.64 47.00 Z"/><path d="M 41.60 43.00 C 39.08 34.00 39.08 24.00 36.56 14.00 C 43.28 15.00 50.00 14.00 55.88 18.00 C 60.08 22.00 60.92 30.00 60.08 40.00 C 57.56 44.00 52.52 46.00 47.48 45.00 C 44.96 45.00 42.44 44.00 41.60 43.00 Z"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><line x1="54.20" y1="32.00" x2="58.82" y2="32.00" stroke-width="1.6"/></g>
+  </g>
+  <g id="part:staff" data-pivot="58.40 49.00">
+    <g class="shape" fill="#07080B" stroke="#07080B" stroke-linecap="round" stroke-linejoin="round" stroke-width="0"><path d="M 55.88 46.00 C 60.92 44.00 65.12 48.00 66.80 52.00 C 69.32 55.00 72.68 57.00 76.04 58.00 L 75.20 63.00 C 71.00 63.00 66.80 61.00 63.44 59.00 C 60.08 57.00 57.56 54.00 56.72 51.00 Z"/><circle cx="76.46" cy="60.50" r="3.4"/></g>
+    <g class="glow" fill="#FFFFFF" stroke="#FFFFFF" stroke-linecap="round" stroke-width="0"><circle cx="80.46" cy="54.50" r="6.2"/></g>
+  </g>
+</svg>
