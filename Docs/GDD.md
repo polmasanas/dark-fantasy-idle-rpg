@@ -60,7 +60,7 @@ flowchart LR
 **Purpose:** three play styles with independent growth; only the active character fights.
 
 **Rules**
-- [SPEC] Fighter, Archer and Mage are all available from the start. Exactly **one active character**; switching is free and instant outside boss fights.
+- [SPEC → amended M5-4] Fighter from the start; **Archer and Mage unlock when the account first beats the region 1 boss**. Exactly **one active character**; switching is instant during normal fights (the fight in progress is dropped) and locked during boss fights [APPROVED M5-3].
 - [SPEC] Each character has its own level, XP, attributes, skill points, skill trees and equipped items.
 - [APPROVED D-024] **Only the active character earns XP.** A character below the highest character's level gets a **+50% XP catch-up bonus** while active.
 - [APPROVED D-004] Items and pets are in a **shared inventory**. An item can be equipped on **only one character at a time**. Equipping it elsewhere unequips it from the previous owner, after a confirmation prompt.
