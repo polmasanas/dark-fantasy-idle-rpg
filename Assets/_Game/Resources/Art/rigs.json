@@ -1,198 +1,198 @@
 {
  "archer": {
-  "aspect": 0.8571,
+  "aspect": 0.6267,
   "aura_pad": 0.08,
   "parts": [
    {
     "glow": false,
     "id": "legs",
     "pivot": [
-     0.375,
-     0.7143
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": false,
     "id": "torso",
     "pivot": [
-     0.375,
-     0.7321
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": true,
     "id": "head",
     "pivot": [
-     0.375,
-     0.3393
+     0.4043,
+     0.2867
     ]
    },
    {
     "glow": true,
     "id": "bow",
     "pivot": [
-     0.4792,
-     0.4107
+     0.5106,
+     0.3133
     ]
    }
   ]
  },
  "archer_hero": {
-  "aspect": 0.7653,
+  "aspect": 0.6267,
   "aura_pad": 0.08,
   "parts": [
    {
     "glow": false,
     "id": "cloak",
     "pivot": [
-     0.3333,
-     0.2857
+     0.4043,
+     0.2933
     ]
    },
    {
     "glow": false,
     "id": "legs",
     "pivot": [
-     0.3333,
-     0.7143
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": false,
     "id": "torso",
     "pivot": [
-     0.3333,
-     0.7347
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": true,
     "id": "head",
     "pivot": [
-     0.3333,
-     0.3061
+     0.4043,
+     0.2867
     ]
    },
    {
     "glow": true,
     "id": "bow",
     "pivot": [
-     0.44,
-     0.3673
+     0.5106,
+     0.3133
     ]
    }
   ]
  },
  "brute": {
-  "aspect": 0.8571,
+  "aspect": 0.6267,
   "aura_pad": 0.08,
   "parts": [
    {
     "glow": false,
     "id": "legs",
     "pivot": [
-     0.3958,
-     0.75
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": false,
     "id": "torso",
     "pivot": [
-     0.3958,
-     0.7679
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": true,
     "id": "head",
     "pivot": [
-     0.3958,
-     0.2857
+     0.4043,
+     0.2867
     ]
    },
    {
     "glow": false,
     "id": "weapon",
     "pivot": [
-     0.6042,
-     0.3571
+     0.5447,
+     0.3133
     ]
    }
   ]
  },
  "cultist": {
-  "aspect": 0.8571,
+  "aspect": 0.6267,
   "aura_pad": 0.08,
   "parts": [
    {
     "glow": false,
     "id": "torso",
     "pivot": [
-     0.375,
-     0.9643
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": true,
     "id": "head",
     "pivot": [
-     0.375,
-     0.3393
+     0.4043,
+     0.2867
     ]
    },
    {
     "glow": true,
     "id": "staff",
     "pivot": [
-     0.4792,
-     0.4464
+     0.5106,
+     0.3133
     ]
    }
   ]
  },
  "deserter": {
-  "aspect": 0.8571,
+  "aspect": 0.6267,
   "aura_pad": 0.08,
   "parts": [
    {
     "glow": false,
     "id": "cloak",
     "pivot": [
-     0.375,
-     0.3571
+     0.4043,
+     0.2933
     ]
    },
    {
     "glow": false,
     "id": "legs",
     "pivot": [
-     0.375,
-     0.7321
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": false,
     "id": "torso",
     "pivot": [
-     0.375,
-     0.75
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": true,
     "id": "head",
     "pivot": [
-     0.375,
-     0.3393
+     0.4043,
+     0.2867
     ]
    },
    {
     "glow": false,
     "id": "weapon",
     "pivot": [
-     0.5,
-     0.375
+     0.5106,
+     0.3133
     ]
    }
   ]
@@ -220,207 +220,207 @@
   ]
  },
  "fighter": {
-  "aspect": 0.6207,
+  "aspect": 0.6267,
   "aura_pad": 0.08,
   "parts": [
    {
     "glow": false,
     "id": "cloak",
     "pivot": [
-     0.3333,
-     0.4138
+     0.4043,
+     0.2933
     ]
    },
    {
     "glow": false,
     "id": "legs",
     "pivot": [
-     0.3333,
-     0.7414
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": false,
     "id": "torso",
     "pivot": [
-     0.3333,
-     0.7759
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": true,
     "id": "head",
     "pivot": [
-     0.3333,
-     0.3793
+     0.4043,
+     0.2867
     ]
    },
    {
     "glow": true,
     "id": "weapon",
     "pivot": [
-     0.5417,
-     0.431
+     0.5255,
+     0.3133
     ]
    }
   ]
  },
  "humanoid_boss": {
-  "aspect": 0.7634,
+  "aspect": 0.6267,
   "aura_pad": 0.08,
   "parts": [
    {
     "glow": false,
     "id": "banner",
     "pivot": [
-     0.13,
-     0.9924
+     0.0745,
+     0.9867
     ]
    },
    {
     "glow": false,
     "id": "cloak",
     "pivot": [
-     0.5,
-     0.3206
+     0.4043,
+     0.2933
     ]
    },
    {
     "glow": false,
     "id": "legs",
     "pivot": [
-     0.5,
-     0.6565
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": false,
     "id": "torso",
     "pivot": [
-     0.5,
-     0.6641
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": true,
     "id": "head",
     "pivot": [
-     0.5,
-     0.2748
+     0.4043,
+     0.2867
     ]
    },
    {
     "glow": true,
     "id": "weapon",
     "pivot": [
-     0.72,
-     0.3282
+     0.5447,
+     0.3133
     ]
    }
   ]
  },
  "instructor": {
-  "aspect": 0.6226,
+  "aspect": 0.6267,
   "aura_pad": 0.08,
   "parts": [
    {
     "glow": true,
     "id": "torso",
     "pivot": [
-     0.4545,
-     0.9623
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": true,
     "id": "head",
     "pivot": [
-     0.4545,
-     0.283
+     0.4043,
+     0.2867
     ]
    },
    {
     "glow": false,
     "id": "weapon",
     "pivot": [
-     0.7576,
-     0.3962
+     0.5255,
+     0.3133
     ]
    }
   ]
  },
  "mage": {
-  "aspect": 0.625,
+  "aspect": 0.6267,
   "aura_pad": 0.08,
   "parts": [
    {
     "glow": false,
     "id": "cloak",
     "pivot": [
-     0.4,
-     0.4107
+     0.4043,
+     0.2933
     ]
    },
    {
     "glow": false,
     "id": "torso",
     "pivot": [
-     0.4,
-     0.8036
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": true,
     "id": "head",
     "pivot": [
-     0.4,
-     0.3929
+     0.4043,
+     0.2867
     ]
    },
    {
     "glow": true,
     "id": "staff",
     "pivot": [
-     0.5143,
-     0.4821
+     0.5106,
+     0.3133
     ]
    }
   ]
  },
  "recruit": {
-  "aspect": 0.6415,
+  "aspect": 0.6267,
   "aura_pad": 0.08,
   "parts": [
    {
     "glow": false,
     "id": "legs",
     "pivot": [
-     0.3529,
-     0.6981
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": false,
     "id": "torso",
     "pivot": [
-     0.3529,
-     0.717
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": true,
     "id": "head",
     "pivot": [
-     0.3529,
-     0.3019
+     0.4043,
+     0.2867
     ]
    },
    {
     "glow": true,
     "id": "weapon",
     "pivot": [
-     0.5441,
-     0.3396
+     0.5106,
+     0.3133
     ]
    }
   ]
@@ -470,47 +470,47 @@
   ]
  },
  "spearman": {
-  "aspect": 0.8571,
+  "aspect": 0.6267,
   "aura_pad": 0.08,
   "parts": [
    {
     "glow": false,
     "id": "legs",
     "pivot": [
-     0.375,
-     0.7143
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": false,
     "id": "torso",
     "pivot": [
-     0.375,
-     0.7321
+     0.4043,
+     0.6
     ]
    },
    {
     "glow": false,
     "id": "offhand",
     "pivot": [
-     0.2708,
-     0.3929
+     0.3191,
+     0.3733
     ]
    },
    {
     "glow": true,
     "id": "head",
     "pivot": [
-     0.375,
-     0.3393
+     0.4043,
+     0.2867
     ]
    },
    {
     "glow": true,
     "id": "weapon",
     "pivot": [
-     0.4792,
-     0.3929
+     0.5106,
+     0.3133
     ]
    }
   ]

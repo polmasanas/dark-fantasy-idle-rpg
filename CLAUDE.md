@@ -44,6 +44,7 @@ python3 Tools/BalanceSim/balance_sim.py             # 30-day balance simulation 
 python3 Tools/BalanceSim/seeds.py 7                 # multi-seed check
 python3 Tools/BalanceSim/balance_sim.py --golden Tools/BalanceSim/results/golden_values.json   # after an approved formula/config change
 dotnet run --project Tools/BalanceSim.CSharp        # C# combat table
+python3 Tools/ArtBuild/make_figures.py              # regenerate the person-shaped character SVGs (shared anatomy)
 python3 Tools/ArtBuild/build_art.py                 # SVG -> PNG sprites (--check in CI)
 python3 Tools/ArtBuild/make_audio.py                # regenerate the placeholder music
 ```
