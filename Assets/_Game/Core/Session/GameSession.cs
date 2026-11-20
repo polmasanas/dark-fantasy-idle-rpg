@@ -72,6 +72,10 @@ namespace DarkFantasy.Core.Session
         private void EnsureStarterKit()
         {
             if (State.Inventory == null) State.Inventory = InventoryState.Create(_c);
+            // The worn-item index is derived data: rebuild it (e.g. after loading a save).
+            State.Inventory.WornIds.Clear();
+            foreach (var ch in State.Characters)
+                foreach (var id in ch.Equipped.Values) State.Inventory.WornIds.Add(id);
             if (State.Character.Equipped.ContainsKey(EquipSlot.MainHand)) return;
             var starter = new ItemInstance { Kind = ItemKind.MainHand, TypeId = "sword", ItemLevel = 1, Rarity = Rarity.Common };
             var added = Inventory.Add(State.Inventory, State.Wallet, starter, _ => true);

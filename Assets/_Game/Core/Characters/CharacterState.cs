@@ -18,6 +18,12 @@ namespace DarkFantasy.Core.Characters
         /// <summary>Auto-allocate preset key from balance_config.json allocation_presets.</summary>
         public string Preset = "primary";
 
+        /// <summary>Spend new manual points by the preset as soon as they are earned, online and offline (M4-2).</summary>
+        public bool AutoAllocateOnLevelUp;
+
+        /// <summary>Weights 0–10 for the "custom" preset (M4-2); empty means "all into the primary attribute".</summary>
+        public Dictionary<AttributeId, int> CustomWeights = new Dictionary<AttributeId, int>();
+
         /// <summary>Equipped item ids by slot (items live in the shared inventory, D-004).</summary>
         public Dictionary<EquipSlot, long> Equipped = new Dictionary<EquipSlot, long>();
 

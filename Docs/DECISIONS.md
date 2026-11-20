@@ -130,7 +130,7 @@ Referenced in the GDD as **R2-n**. Numbers live in the `combat` section of `bala
 | M4-1 | **Welcome-back report with Collect** after 2+ minutes away (shorter absences credited silently): time away, time credited (50% and 12 h cap shown), kills, bosses beaten/failed, levels, gold, materials, items by rarity with ▲ for upgrades, items auto-salvaged. Loot is held (and saved) until **Collect**; full-bag rule applies on Collect |
 | M4-2 | **"Auto-allocate on level-up" toggle** (off by default, online and offline) plus a per-character **Custom preset** where the player sets a weight 0–10 per attribute (default: all into the primary attribute) |
 | M4-3 | **Offline time is simulated fight by fight with the real engine.** Boss toggle, auto-salvage and retreat rules apply; items are never equipped (R2-18). **Must be checked on a real phone: 12 h credited in < 200 ms**; fallback is a summary fight mode without event logs |
-| M4-4 | **Device testing on the owner's Android phone over USB** (guide in `Docs/ANDROID_DEVICE_TEST.md`), deferred until the owner has the phone. M4 may merge after the editor playtest; the device checks (offline performance, save on app kill) stay as an open Jira task under the M4 epic |
+| M4-4 | **Device testing on the owner's Android phone over USB** (guide in `Docs/ANDROID_DEVICE_TEST.md`), deferred until the owner has the phone. M4 may merge after the editor playtest; the device checks (offline performance, save on app kill) stay as an open Jira task under the M4 epic. **Fallback without a phone:** the Android emulator on the PC is acceptable for the app-kill/save check only (not for performance) |
 
 ## Proposed (new, awaiting approval)
 | ID | Proposal | Doc |
