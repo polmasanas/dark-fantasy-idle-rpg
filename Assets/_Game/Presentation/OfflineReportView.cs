@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using DarkFantasy.Core.Offline;
 using DarkFantasy.Core.Session;
 using DarkFantasy.Core.Util;
@@ -57,6 +58,11 @@ namespace DarkFantasy.Presentation
             }
             int free = st.Inventory.Capacity - (st.Inventory.Items.Count - st.Inventory.WornIds.Count);
             text += $"\nItems waiting: {st.PendingOfflineLoot.Count}   (bag space: {Math.Max(0, free)})";
+            var byRarity = st.PendingOfflineLoot.GroupBy(i => i.Rarity).OrderByDescending(g => g.Key)
+                .Select(g => $"{g.Key} {g.Count()}");
+            if (st.PendingOfflineLoot.Count > 0) text += "\n" + string.Join(" · ", byRarity);
+            int upgrades = st.PendingOfflineLoot.Count(_session.IsUpgrade);
+            if (upgrades > 0) text += $"\n▲ {upgrades} would be upgrades (equip them in the Bag)";
             if (st.PendingOfflineLoot.Count > free) text += "\nItems that do not fit are salvaged into materials.";
             if (!string.IsNullOrEmpty(extra)) text += "\n\n" + extra;
             _body.text = text;

@@ -14,18 +14,19 @@ Dark fantasy, flat-cartoon 2D **idle RPG for Android** (portrait), Unity + C#, b
 | M1 Core skeleton | Done (merged, PR #2) |
 | M2 Playable loop | Done (merged, PR #3). Owner playtest changed R2-2: a failed boss returns after a new full wave of kills |
 | M3 Loot & inventory | Done (merged, PR #4). Decisions M3-1…M3-5; playtest added ON-1 (first-run training boss, region 1 boss HP ×4) |
-| **M4 Save & offline** | **Next** (Jira DFIRPG-5) |
+| **M4 Save & offline** | **Built on branch `m4/save-offline`**, awaiting the owner's editor playtest (`Docs/M4_PLAYTEST.md`). Decisions M4-1…M4-4. Device checks (`Docs/ANDROID_DEVICE_TEST.md`) stay open in Jira until the owner has a phone (Jira DFIRPG-5) |
 | M3–M12 | Planned in `Docs/DEVELOPMENT_ROADMAP.md`; one Jira epic each (project key `DFIRPG`, epic key = milestone number + 1, e.g. M3 = DFIRPG-4) |
 
 ## Where things live
 | Path | What |
 |---|---|
-| `Docs/` | M3_PLAYTEST, GDD, TECHNICAL_ARCHITECTURE, GAME_BALANCE, DATA_DICTIONARY, SAVE_SYSTEM, DEVELOPMENT_ROADMAP, **DECISIONS** (D-*, R2-*), TESTING_STRATEGY, UNITY_SETUP, M2_SCENE_SETUP, `plans/` (one implementation plan per milestone) |
-| `Assets/_Game/Core/` | **Game.Core**: all game rules in pure C# (no UnityEngine): RNG, config, formulas, stats, combat, characters, world, session, events |
+| `Docs/` | M3_PLAYTEST, M4_PLAYTEST, ANDROID_DEVICE_TEST, GDD, TECHNICAL_ARCHITECTURE, GAME_BALANCE, DATA_DICTIONARY, SAVE_SYSTEM, DEVELOPMENT_ROADMAP, **DECISIONS** (D-*, R2-*), TESTING_STRATEGY, UNITY_SETUP, M2_SCENE_SETUP, `plans/` (one implementation plan per milestone) |
+| `Assets/_Game/Core/` | **Game.Core**: all game rules in pure C# (no UnityEngine): RNG, config, formulas, stats, combat, characters, world, items, session, events, save, offline |
 | `Assets/_Game/Presentation/` | **Game.Presentation**: thin Unity layer (bootstrap, views, HUD, dev panel). Draws only; no rules |
 | `Assets/_Game/Editor/` | **Game.Editor**: editor tools (e.g. `DFIRPG → Set Up M2 Scene`) |
 | `Assets/_Game/Data/balance_config.json` | Copy Unity loads; must stay byte-identical to `Tools/BalanceSim/balance_config.json` (a test enforces it) |
 | `Assets/Tests/EditMode/Core/` | Core tests (run in Unity's Test Runner and with `dotnet test`) |
+| `Assets/Tests/SaveFixtures/` | Saves from each released schema (`v1.dfrs`, …): **never edit or regenerate**; they must load forever |
 | `Core.Tests.Dotnet/` | .NET project that compiles Core + tests outside Unity |
 | `Tools/BalanceSim/` | Python reference simulation, **`balance_config.json` (authority for all numbers)**, golden values, Google Sheets exporter |
 | `Tools/BalanceSim.CSharp/` | C# combat runner on the real engine |
@@ -59,7 +60,7 @@ dotnet run --project Tools/BalanceSim.CSharp        # C# combat table
 - Unity Hub installs from an `.msix`; use Windows App Installer or `Add-AppxPackage`, not third-party MSIX tools.
 
 ## Temporary, dev-only things (remove when their milestone lands)
-- Dev panel buttons (speed, +5 levels, Drop Rare/Epic/Legendary): development builds only.
+- Dev panel buttons (speed, +5 levels, Drop Rare/Epic/Legendary, Simulate 12 h away, Save now, Delete save): development builds only.
 - Inventory expansion cost (`items.expansion_cost_*`) is provisional: rebalance once mid-game gold is known.
 - Placeholder visuals (coloured boxes) and names ("Region N"): replaced by Creative Direction / art (suggested before M5).
 - Placeholder company and package ID `com.dfirpg.placeholder`: replace in M12 before any Play Store upload.

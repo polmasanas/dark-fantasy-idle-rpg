@@ -43,7 +43,7 @@ namespace DarkFantasy.Presentation
 
             var saveRow = Ui.Row();
             saveRow.style.flexWrap = Wrap.Wrap;
-            saveRow.Add(Ui.Button("Simulate 8 h away", () => _game.SimulateAway(8 * 3600), 22));
+            saveRow.Add(Ui.Button("Simulate 12 h away", () => _game.SimulateAway(12 * 3600), 22));
             saveRow.Add(Ui.Button("Save now", () => _game.Toast(_game.SaveNow() ? "DEV: saved" : "DEV: saving is off"), 22));
             saveRow.Add(Ui.Button("Delete save", _game.DeleteSaveAndRestart, 22));
             Root.Add(saveRow);
