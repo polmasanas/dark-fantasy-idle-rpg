@@ -38,6 +38,7 @@ namespace DarkFantasy.Presentation
         private LookConfig _look;
         private RegionLooks _regions;
         private EnemyLooks _enemyLooks;
+        private MusicService _music;
         private readonly IClock _clock = new UnityClock();
         private SaveService _saves;
         private OfflineCalculator _offline;
@@ -108,6 +109,7 @@ namespace DarkFantasy.Presentation
             Ui.UseLook(_look);
             _regions = new RegionLooks(_look);
             _enemyLooks = new EnemyLooks(_look);
+            _music = new MusicService(gameObject, _look.Audio);
             _offline = new OfflineCalculator(_config);
             Boot(new SaveService(Application.persistentDataPath, _clock));
         }
@@ -170,6 +172,8 @@ namespace DarkFantasy.Presentation
             _customPreset = new CustomPresetView(_session, _config);
             _hud = new HudView(_session, _config, _regions, _inventory.Open, _customPreset.Open);
             _combat = new CombatView(_look, _regions, _enemyLooks, _session.State.Character.Class);
+            _combat.BossCameraChanged += on => _music.SetBoss(on);
+            _music.SetBoss(false);
             _combat.Reset(_session.State.World.Region);
             _report = new OfflineReportView(_session, OnCollected);
             root.Add(_hud.Top);
@@ -195,6 +199,7 @@ namespace DarkFantasy.Presentation
             if (_replayer == null) return;
             _replayer.Tick(Time.deltaTime * GameSpeed);
             _combat.Tick(Time.unscaledDeltaTime);
+            _music.Tick(Time.unscaledDeltaTime);
             _hud.Refresh();
             _inventory.Tick(Time.deltaTime);
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -277,6 +282,16 @@ namespace DarkFantasy.Presentation
             Toast("DEV: save deleted, new game started");
         }
 #endif
+
+        /// <summary>Music on/off (dev panel for now; a settings screen comes in M11).</summary>
+        internal bool SoundOn
+        {
+            get => _music != null && !_music.Muted;
+            set
+            {
+                if (_music != null) _music.Muted = !value;
+            }
+        }
 
         /// <summary>Shows a short message in the combat status line.</summary>
         public void Toast(string text) => _combat?.SetStatus(text);

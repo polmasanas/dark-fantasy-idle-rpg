@@ -12,4 +12,4 @@ Every font, sound or image that we did not make ourselves is listed here with it
 All silhouettes and scenery are original, drawn as SVG in `Art/Source/` for this project and rendered by `Tools/ArtBuild/build_art.py`. No third-party art.
 
 ## Audio
-None yet.
+`Assets/_Game/Resources/Audio/ambient_loop.wav` and `boss_loop.wav` are placeholders synthesised by `Tools/ArtBuild/make_audio.py` (pure Python, fixed seed). No third-party audio.
