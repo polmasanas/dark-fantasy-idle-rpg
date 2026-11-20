@@ -37,9 +37,11 @@ The owner's brief: the vibe of **Game of Thrones × Attack on Titan × Hollow Kn
 
 ### 3.1 Shapes
 - **Everything alive is a black silhouette** (`#07080B`). Detail comes from the outline, never from interior drawing.
+- **Characters are built from parts** (CD-11): cloak, legs, torso, head, weapon, off-hand, banner; practice targets have a still base and a moving target. Each part rotates around its own pivot: an idle sway on its own rhythm, a swing when attacking, a recoil when hit (angles in `look_config.json` → `motions`).
+- **Halos** are a soft glow shaped like each part, drawn behind it and clipped at the floor line, so they never sit on top of the floor (CD-11).
 - **Glow is the only colour on characters:** eyes, eye-slits, weapon edges, spells. Glows are tinted by data (class, element, rarity, biome).
 - **Backgrounds are 3–4 flat layers** (sky gradient, far layer, near layer, ground) with slow parallax. Layers are drawn in greyscale and **tinted from the region palette**, so one set of shapes serves every biome.
-- **Size rules:** heroes about 1/6 of screen height in normal fights; normal enemies 0.6–1.2× hero height by family; bosses 3–5× hero height and drawn larger than the frame, cut off by an edge.
+- **Size rules:** heroes about 1/6 of screen height in normal fights; normal enemies about 0.9× hero height; **region bosses 1.5× a regular enemy in region 1, growing 0.1× per region up to 3×** (CD-11, data in `look_config.json`).
 
 ### 3.2 Enemy families (CD-9)
 An enemy picture = **one of its family's 5 base bodies** + **accents**. The base body says *what* it is; accents say *how it fights*. Both are chosen in data per enemy (or rolled by the generator), so the same parts make many enemies.

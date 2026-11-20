@@ -29,6 +29,7 @@ namespace DarkFantasy.Presentation
         public static readonly Color Down = Hex("#E86A6A");
         public static readonly Color Selected = Hex("#2B3040");
         public static readonly Color Damage = Hex("#E86A6A");
+        public static readonly Color Dim = new Color(0f, 0f, 0f, 0.6f);
 
         private static readonly Dictionary<Rarity, Color> RarityColors = new Dictionary<Rarity, Color>();
 
@@ -141,6 +142,36 @@ namespace DarkFantasy.Presentation
             e.style.paddingRight = 16;
             e.style.display = DisplayStyle.None;
             return e;
+        }
+
+        /// <summary>
+        /// A pop-up window: the game behind is dimmed and a centred title panel holds the content.
+        /// Returns the full-screen backdrop (show/hide this) and the window (add content here).
+        /// </summary>
+        public static (VisualElement Backdrop, VisualElement Window) Modal(float widthPercent = 88f, float maxWidth = 900f)
+        {
+            var backdrop = new VisualElement();
+            backdrop.style.position = Position.Absolute;
+            backdrop.style.left = 0;
+            backdrop.style.right = 0;
+            backdrop.style.top = 0;
+            backdrop.style.bottom = 0;
+            backdrop.style.backgroundColor = Dim;
+            backdrop.style.alignItems = Align.Center;
+            backdrop.style.justifyContent = Justify.Center;
+            backdrop.style.display = DisplayStyle.None;
+
+            var window = TitlePanel();
+            window.style.width = Length.Percent(widthPercent);
+            window.style.maxWidth = maxWidth;
+            window.style.maxHeight = Length.Percent(85);
+            window.style.paddingTop = 20;
+            window.style.paddingBottom = 20;
+            window.style.paddingLeft = 20;
+            window.style.paddingRight = 20;
+            window.style.alignItems = Align.Center;
+            backdrop.Add(window);
+            return (backdrop, window);
         }
 
         /// <summary>"8 h 05 min" style duration.</summary>

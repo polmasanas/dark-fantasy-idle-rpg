@@ -145,6 +145,7 @@ Referenced in the GDD as **R2-n**. Numbers live in the `combat` section of `bala
 | CD-7 | **Sound:** sparse and melancholy ambient per biome; drums and low brass swell in for bosses and fade back after |
 | CD-8 | **Region 1 = the Training Grounds** inside the walls: practice targets as enemies, a recruit as the region 1 boss. Visual only: region 1's stats and the ON-1 tuning stay as they are |
 | CD-9 | **Enemy shapes:** 5 base bodies per family plus accents for element, archetype, rank and family traits |
+| CD-11 | **Owner's CD playtest, round 1:** (a) region bosses are drawn **1.5× a regular enemy in region 1, +0.1× per region, up to 3×** (`camera.boss_scale_*` in look_config; amends CD-2's "boss fills the frame" — the camera still pulls back); (b) the "While you were away" report is a **pop-up window** over the dimmed game; (c) characters are **built from separate parts** (cloak, legs, torso, head, weapon, …) that each move; (d) halos are **shaped like each part** and sit **behind the floor** |
 | CD-10 | **Build order:** a small Creative Direction milestone before M5 (UI theme, Fighter, Training Grounds with the boss camera, names from data, placeholder sound), ending with an owner playtest |
 
 ## Proposed (new, awaiting approval)

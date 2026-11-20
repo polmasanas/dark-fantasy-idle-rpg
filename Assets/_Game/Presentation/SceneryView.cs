@@ -6,7 +6,7 @@ namespace DarkFantasy.Presentation
 {
     /// <summary>
     /// The region's layered background (CD-3): sky colour, a tinted sky gradient, far and near layers
-    /// drawn in white and tinted from the depth-shaded biome palette, and the ground strip.
+    /// drawn in white and tinted from the depth-shaded biome palette, and the ground strip in front of them.
     /// The layers are wider than the arena so the boss camera can pull back without showing edges.
     /// </summary>
     internal sealed class SceneryView
@@ -18,7 +18,8 @@ namespace DarkFantasy.Presentation
         public const float GroundShare = 0.08f;        // ground strip height, share of the arena
 
         public readonly VisualElement Sky;   // fills the arena, never scaled
-        public readonly VisualElement World; // layers + ground, scaled by the boss camera
+        public readonly VisualElement World;  // far + near layers, scaled by the boss camera
+        public readonly VisualElement Ground; // floor strip, never scaled: characters and halos stand behind/on it
         private readonly VisualElement _gradient;
         private readonly VisualElement _far;
         private readonly VisualElement _near;
@@ -39,16 +40,15 @@ namespace DarkFantasy.Presentation
             World.style.transformOrigin = new TransformOrigin(Length.Percent(50), Length.Percent(100));
             _far = Layer();
             _near = Layer();
-            var ground = new VisualElement { pickingMode = PickingMode.Ignore };
-            ground.style.position = Position.Absolute;
-            ground.style.left = 0;
-            ground.style.right = 0;
-            ground.style.bottom = 0;
-            ground.style.height = Length.Percent(GroundShare * 100f);
-            ground.style.backgroundColor = Ui.Background;
+            Ground = new VisualElement { pickingMode = PickingMode.Ignore };
+            Ground.style.position = Position.Absolute;
+            Ground.style.left = 0;
+            Ground.style.right = 0;
+            Ground.style.bottom = 0;
+            Ground.style.height = Length.Percent(GroundShare * 100f);
+            Ground.style.backgroundColor = Ui.Background;
             World.Add(_far);
             World.Add(_near);
-            World.Add(ground);
         }
 
         public void SetRegion(RegionLook look, bool insideWalls)

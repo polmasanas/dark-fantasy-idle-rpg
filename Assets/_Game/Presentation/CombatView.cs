@@ -19,7 +19,6 @@ namespace DarkFantasy.Presentation
     {
         private const float HeroHeightShare = 0.34f;   // of the arena height (spec §3.1: about 1/6 of the screen)
         private const float EnemyScale = 0.9f;         // normal enemy vs hero
-        private const float BossScale = 4f;            // boss vs hero, drawn larger than the frame
         private const float HeroLeftShare = 0.08f;
         private const float BossSlideShare = 0.4f;     // boss enters from this far right, share of arena width
 
@@ -35,6 +34,7 @@ namespace DarkFantasy.Presentation
         private readonly Label _status;
         private readonly VisualElement _arena;
         private readonly SceneryView _scenery;
+        private readonly VisualElement _stage;
         private readonly Silhouette _hero;
         private readonly Silhouette _enemy;
         private readonly Label _enemyName;
@@ -46,6 +46,7 @@ namespace DarkFantasy.Presentation
         private double _playerHpNow, _playerHpMax, _enemyHpNow, _enemyHpMax;
         private bool _bossFight;
         private bool _enemyIsBoss;
+        private float _enemySize = 1f;
         private bool _cameraBack;
         private float _zoom = 1f;
         private float _zoomTarget = 1f;
@@ -82,10 +83,23 @@ namespace DarkFantasy.Presentation
             _scenery = new SceneryView();
             _arena.Add(_scenery.Sky);
             _arena.Add(_scenery.World);
-            _hero = new Silhouette(false);
-            _enemy = new Silhouette(true);
-            _scenery.World.Add(_hero.Root);   // the hero shrinks with the world when the camera pulls back
-            _arena.Add(_enemy.Root);          // the enemy stays full size, so a boss looms
+            _arena.Add(_scenery.Ground);
+
+            // Characters stand on the floor line; the stage clips at it, so halos stay behind the floor.
+            _stage = new VisualElement { pickingMode = PickingMode.Ignore };
+            _stage.style.position = Position.Absolute;
+            _stage.style.left = 0;
+            _stage.style.right = 0;
+            _stage.style.top = 0;
+            _stage.style.bottom = Length.Percent(SceneryView.GroundShare * 100f);
+            _stage.style.overflow = Overflow.Hidden;
+            _arena.Add(_stage);
+
+            var rigs = LoadRigs();
+            _hero = new Silhouette(false, rigs, look.Motions);
+            _enemy = new Silhouette(true, rigs, look.Motions);
+            _stage.Add(_hero.Root);   // shrinks with the camera pull-back (sized in Tick)
+            _stage.Add(_enemy.Root);  // stays full size, so a boss looms
 
             _enemyName = Ui.Title("", 26);
             _enemyName.style.position = Position.Absolute;
@@ -140,6 +154,7 @@ namespace DarkFantasy.Presentation
             ShowRegion(f.Encounter.Region);
             var look = _enemies.For(f.Encounter);
             _enemyIsBoss = look.Rank == LookRank.Boss && look.UseBossCamera;
+            _enemySize = (float)look.SizeVsRegular;
             _enemy.Show(look.Body, Ui.Hex(look.GlowHex));
             _enemyName.text = look.Rank == LookRank.Boss ? look.DisplayName : $"{look.DisplayName} · lvl {f.Encounter.Level}";
             _enemyName.style.fontSize = look.Rank == LookRank.Boss ? 28 : 22;
@@ -158,30 +173,30 @@ namespace DarkFantasy.Presentation
             switch (e.Type)
             {
                 case CombatEventType.PlayerHit:
-                    _hero.Lunge();
-                    _enemy.Flash();
+                    _hero.Attack();
+                    _enemy.Hit();
                     DamageEnemy(e.Amount);
                     Float(true, NumberFormat.Short(e.Amount), Ui.Text, 34);
                     break;
                 case CombatEventType.PlayerCrit:
-                    _hero.Lunge();
-                    _enemy.Flash();
+                    _hero.Attack();
+                    _enemy.Hit();
                     DamageEnemy(e.Amount);
                     Float(true, NumberFormat.Short(e.Amount) + "!", Ui.Gold, 46);
                     break;
                 case CombatEventType.Counter:
-                    _hero.Lunge();
-                    _enemy.Flash();
+                    _hero.Attack();
+                    _enemy.Hit();
                     DamageEnemy(e.Amount);
                     Float(true, "Counter " + NumberFormat.Short(e.Amount), Ui.Gold, 34);
                     break;
                 case CombatEventType.PlayerMiss:
-                    _hero.Lunge();
+                    _hero.Attack();
                     Float(true, "Miss", Ui.Muted, 30);
                     break;
                 case CombatEventType.EnemyHit:
-                    _enemy.Lunge();
-                    _hero.Flash();
+                    _enemy.Attack();
+                    _hero.Hit();
                     _playerHpNow -= e.Amount;
                     if (!_bossFight && _playerHpNow < 1) _playerHpNow = 1; // normal enemies cannot kill (R2-1c)
                     Float(false, "-" + NumberFormat.Short(e.Amount), Ui.Damage, 32);
@@ -219,16 +234,17 @@ namespace DarkFantasy.Presentation
             _scenery.World.style.scale = new Scale(new Vector3(_zoom, _zoom, 1f));
             _scenery.Tick(dt);
 
-            float ground = h * SceneryView.GroundShare;
-            float heroH = h * HeroHeightShare;
-            Place(_hero, heroH, ground);
-            // the hero lives inside the 170%-wide world: convert the arena share to world coordinates
-            _hero.Root.style.left = w * 0.35f + w * HeroLeftShare;
+            // Positions are in stage coordinates: the stage ends at the floor line.
+            float stageH = h * (1f - SceneryView.GroundShare);
+            float heroBaseH = h * HeroHeightShare;
+            float heroH = heroBaseH * _zoom;
+            Place(_hero, heroH);
+            _hero.Root.style.left = w * 0.5f + (w * HeroLeftShare - w * 0.5f) * _zoom; // shrinks toward the centre
 
-            float enemyH = heroH * (_enemyIsBoss ? BossScale : EnemyScale);
-            Place(_enemy, enemyH, ground);
+            float enemyH = Mathf.Min(heroBaseH * EnemyScale * _enemySize, stageH * 0.98f);
+            Place(_enemy, enemyH);
             float enemyW = enemyH * _enemy.Aspect;
-            _enemy.Root.style.left = _enemyIsBoss ? w - enemyW * 0.8f : w * 0.62f;
+            _enemy.Root.style.left = Mathf.Max(w * 0.45f, Mathf.Min(w * 0.62f, w * 0.96f - enemyW));
             if (_enemyIsBoss)
             {
                 float back = Mathf.InverseLerp(1f, (float)_look.Camera.BossZoom, _zoom); // 0 → 1 as the camera pulls back
@@ -259,11 +275,30 @@ namespace DarkFantasy.Presentation
             BossCameraChanged?.Invoke(back);
         }
 
-        private static void Place(Silhouette s, float height, float ground)
+        private static void Place(Silhouette s, float height)
         {
             s.Root.style.height = height;
             s.Root.style.width = height * s.Aspect;
-            s.Root.style.bottom = ground;
+            s.Root.style.bottom = 0;
+        }
+
+        private static RigLibrary LoadRigs()
+        {
+            var text = Resources.Load<TextAsset>("Art/rigs");
+            if (text == null)
+            {
+                Debug.LogWarning("CombatView: Resources/Art/rigs.json is missing; characters are drawn in one piece.");
+                return null;
+            }
+            try
+            {
+                return RigLibrary.FromJson(text.text);
+            }
+            catch (LookConfigException e)
+            {
+                Debug.LogWarning("CombatView: " + e.Message + " Characters are drawn in one piece.");
+                return null;
+            }
         }
 
         private void DamageEnemy(double amount)
