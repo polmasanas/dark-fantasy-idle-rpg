@@ -21,7 +21,7 @@ Dark fantasy, flat-cartoon 2D **idle RPG for Android** (portrait), Unity + C#, b
 ## Where things live
 | Path | What |
 |---|---|
-| `Docs/` | M3_PLAYTEST, M4_PLAYTEST, ANDROID_DEVICE_TEST, GDD, TECHNICAL_ARCHITECTURE, GAME_BALANCE, DATA_DICTIONARY, SAVE_SYSTEM, DEVELOPMENT_ROADMAP, **DECISIONS** (D-*, R2-*), TESTING_STRATEGY, UNITY_SETUP, M2_SCENE_SETUP, `plans/` (one implementation plan per milestone) |
+| `Docs/` | M3_PLAYTEST, M4_PLAYTEST, ANDROID_DEVICE_TEST, CREATIVE_DIRECTION (look, sound, naming), GDD, TECHNICAL_ARCHITECTURE, GAME_BALANCE, DATA_DICTIONARY, SAVE_SYSTEM, DEVELOPMENT_ROADMAP, **DECISIONS** (D-*, R2-*), TESTING_STRATEGY, UNITY_SETUP, M2_SCENE_SETUP, `plans/` (one implementation plan per milestone) |
 | `Assets/_Game/Core/` | **Game.Core**: all game rules in pure C# (no UnityEngine): RNG, config, formulas, stats, combat, characters, world, items, session, events, save, offline |
 | `Assets/_Game/Presentation/` | **Game.Presentation**: thin Unity layer (bootstrap, views, HUD, dev panel). Draws only; no rules |
 | `Assets/_Game/Editor/` | **Game.Editor**: editor tools (e.g. `DFIRPG → Set Up M2 Scene`) |
