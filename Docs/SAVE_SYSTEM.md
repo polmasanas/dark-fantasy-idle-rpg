@@ -51,7 +51,7 @@ flowchart LR
 - Each migration is a class `IMigration { int From; SaveTree Apply(SaveTree) }`, independent of the codec. They are pure and unit-tested against **fixture saves** kept in `Assets/Tests/SaveFixtures/vN.json` forever.
 - A save from a **newer** schema than the app is refused (with a message), never downgraded. Loading stops there (no fallback to an older backup, which would silently lose progress) and **saving is switched off** for that session so the newer save is never overwritten.
 - If every file is damaged, a new game starts and the player is told.
-- **Fixtures (as built):** `Assets/Tests/SaveFixtures/v1.dfrs` (a level-31 Fighter with held offline loot and a Custom preset). Never edit or regenerate a fixture; a new schema adds `v2.dfrs` beside it and `SaveFixtureTests` checks both.
+- **Fixtures (as built):** `Assets/Tests/SaveFixtures/v1.dfrs` (a level-31 Fighter with held offline loot and a Custom preset). `v2.dfrs` (M5: three heroes, the Archer active at level 14, the heroes unlocked). **Schema 2** (M5) stores `heroes` (Fighter, Archer, Mage), `activeHero` and `account.heroesUnlocked`; migration `V1ToV2` turns the old `character` into the Fighter, adds level-1 Archer and Mage, and unlocks them when `highestBossDefeated ≥ 1`. Never edit or regenerate a fixture; a new schema adds `v2.dfrs` beside it and `SaveFixtureTests` checks both.
 - **Validate & repair:** unknown definition IDs (removed content) are converted to their salvage value and logged. Negative currencies are clamped to 0 and logged as an anomaly.
 
 ## 5. Import / export

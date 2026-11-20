@@ -23,22 +23,42 @@ namespace DarkFantasy.Core.Save
             {
                 ["rng"] = new JObject { ["state"] = U(d.RngState), ["inc"] = U(d.RngIncrement) },
                 ["gameTime"] = s.GameTime,
-                ["account"] = new JObject { ["trainingBossDone"] = s.Account.TrainingBossDone },
+                ["account"] = new JObject { ["trainingBossDone"] = s.Account.TrainingBossDone, ["heroesUnlocked"] = s.Account.HeroesUnlocked },
                 ["wallet"] = new JObject { ["gold"] = s.Wallet.Gold, ["materials"] = s.Wallet.Materials },
-                ["character"] = Character(s.Character),
+                ["heroes"] = Heroes(s),
+                ["activeHero"] = s.ActiveHero,
                 ["world"] = World(s.World),
                 ["inventory"] = Inventory(s.Inventory),
                 ["pendingOfflineLoot"] = Items(s.PendingOfflineLoot),
             };
         }
 
+        private static JArray Heroes(GameState s)
+        {
+            var list = new JArray();
+            foreach (var h in s.Heroes) list.Add(Character(h));
+            return list;
+        }
+
         public static SaveData FromJson(JObject p)
         {
             var state = GameState.NewRun(ClassId.Fighter);
             state.GameTime = (double)p["gameTime"];
-            state.Account = new AccountState { TrainingBossDone = (bool)p["account"]["trainingBossDone"] };
+            state.Account = new AccountState
+            {
+                TrainingBossDone = (bool)p["account"]["trainingBossDone"],
+                HeroesUnlocked = (bool?)p["account"]["heroesUnlocked"] ?? false,
+            };
             state.Wallet = new Wallet { Gold = (double)p["wallet"]["gold"], Materials = (double)p["wallet"]["materials"] };
-            state.Character = Character((JObject)p["character"]);
+            var heroes = (JArray)p["heroes"];
+            foreach (var h in heroes)
+            {
+                var hero = Character((JObject)h);
+                state.Heroes[(int)hero.Class] = hero; // slots are by class, whatever the order on disk
+            }
+            int active = (int)p["activeHero"];
+            if (active < 0 || active >= state.Heroes.Count) throw new SaveFormatException(SaveError.Corrupt, "activeHero " + active + " is out of range");
+            state.ActiveHero = active;
             state.World = World((JObject)p["world"]);
             state.Inventory = Inventory((JObject)p["inventory"]);
             state.PendingOfflineLoot = Items((JArray)p["pendingOfflineLoot"]);
@@ -50,7 +70,7 @@ namespace DarkFantasy.Core.Save
             };
         }
 
-        private static JObject Character(CharacterState c)
+        internal static JObject Character(CharacterState c)
         {
             var equipped = new JObject();
             foreach (var kv in c.Equipped) equipped[kv.Key.ToString()] = L(kv.Value);

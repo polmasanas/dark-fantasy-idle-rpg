@@ -16,7 +16,7 @@ namespace DarkFantasy.Core.Save
     /// </summary>
     public sealed class SaveSerializer
     {
-        public const int CurrentSchemaVersion = 1;
+        public const int CurrentSchemaVersion = 2;
         public const byte JsonGzipCodec = 1;
         private static readonly byte[] Magic = Encoding.ASCII.GetBytes("DFRS");
 
@@ -130,6 +130,6 @@ namespace DarkFantasy.Core.Save
     /// <summary>The registry of real migrations. Schema 1 is the first; add entries as the format changes.</summary>
     public static class Migrations
     {
-        public static readonly IMigration[] All = new IMigration[0];
+        public static readonly IMigration[] All = { new V1ToV2() };
     }
 }
