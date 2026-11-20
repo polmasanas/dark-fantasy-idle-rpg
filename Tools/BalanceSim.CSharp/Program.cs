@@ -72,11 +72,91 @@ namespace DarkFantasy.Tools.BalanceSim
                     100.0 * escapes / normalFights, 100.0 * bossWins / bossFights, bossTime / bossFights, died, timedOut));
             }
 
+            AppendClassTable(md, config, f, stats, Math.Min(regions, 8), normalFights / 4, bossFights / 2);
+
             string outPath = Path.Combine(root, "Tools/BalanceSim/results/CSHARP_COMBAT.md");
             File.WriteAllText(outPath, md.ToString());
             Console.Write(md.ToString());
             Console.WriteLine("Written to " + outPath);
             return 0;
+        }
+
+        /// <summary>
+        /// M5: each class at the same reference (level = boss level, Common class weapon and armour) against
+        /// the real families (EnemyFactory: archetypes, elements, evasion) — mean normal fight over subzones
+        /// 1-5 and boss win rate.
+        /// </summary>
+        private static void AppendClassTable(StringBuilder md, BalanceConfig c, GameFormulas f, StatCalculator stats,
+            int regions, int normalFights, int bossFights)
+        {
+            var engine = new CombatEngine(c);
+            var enemies = new DarkFantasy.Core.World.EnemyFactory(c);
+            var rng = new Pcg32(777);
+            md.AppendLine();
+            md.AppendLine("## Classes against the families (M5)");
+            md.AppendLine();
+            md.AppendLine("| Region | Family (sub 1) | Fighter fight (s) | Archer fight (s) | Mage fight (s) | Fighter boss win % | Archer boss win % | Mage boss win % |");
+            md.AppendLine("|---:|---|---:|---:|---:|---:|---:|---:|");
+            for (int r = 1; r <= regions; r++)
+            {
+                int bossLevel = f.BossLevel(r);
+                var fights = new string[3];
+                var bosses = new string[3];
+                foreach (ClassId cls in Enum.GetValues(typeof(ClassId)))
+                {
+                    var player = stats.Compute(ReferenceHero(c, cls, bossLevel));
+                    double t = 0; int n = 0;
+                    for (int sub = 1; sub <= c.World.SubzonesPerRegion; sub++)
+                    {
+                        int lvl = f.SubzoneLevel(r, sub);
+                        for (int i = 0; i < normalFights; i++)
+                        {
+                            var res = engine.Resolve(player, enemies.Create(new DarkFantasy.Core.World.Encounter(r, sub, lvl, false), rng), rng, false);
+                            t += res.Duration; n++;
+                        }
+                    }
+                    int wins = 0;
+                    for (int i = 0; i < bossFights; i++)
+                        if (engine.Resolve(player, enemies.Create(new DarkFantasy.Core.World.Encounter(r, 5, bossLevel, true), rng), rng, false).Outcome == FightOutcome.Won)
+                            wins++;
+                    fights[(int)cls] = (t / n).ToString("0.00", CultureInfo.InvariantCulture);
+                    bosses[(int)cls] = (100.0 * wins / bossFights).ToString("0.0", CultureInfo.InvariantCulture);
+                }
+                string family = enemies.FamilyFor(new DarkFantasy.Core.World.Encounter(r, 1, 1, false)).Id;
+                md.AppendLine($"| {r} | {family} | {fights[0]} | {fights[1]} | {fights[2]} | {bosses[0]} | {bosses[1]} | {bosses[2]} |");
+            }
+        }
+
+        /// <summary>Class template (growth pattern averaged), all manual points into the primary, Common class weapon and armour.</summary>
+        private static StatInputs ReferenceHero(BalanceConfig c, ClassId cls, int level)
+        {
+            var inputs = new StatInputs { Class = cls, Level = level };
+            var pattern = c.Classes[cls].GrowthPattern;
+            int levels = level - 1;
+            foreach (var row in pattern)
+                foreach (var a in row)
+                {
+                    double v = levels / (double)pattern.Length;
+                    switch (a)
+                    {
+                        case DarkFantasy.Core.Characters.AttributeId.Str:
+                        case DarkFantasy.Core.Characters.AttributeId.Dex:
+                        case DarkFantasy.Core.Characters.AttributeId.Int: inputs.Primary += v; break;
+                        case DarkFantasy.Core.Characters.AttributeId.Vit: inputs.Vit += v; break;
+                        case DarkFantasy.Core.Characters.AttributeId.Def: inputs.Def += v; break;
+                        case DarkFantasy.Core.Characters.AttributeId.CritChance: inputs.CritPoints += v; break;
+                        case DarkFantasy.Core.Characters.AttributeId.CritDamage: inputs.CritDamagePoints += v; break;
+                        case DarkFantasy.Core.Characters.AttributeId.Counter: inputs.CounterPoints += v; break;
+                    }
+                }
+            inputs.Primary += c.Player.PointsPerLevelManual * levels;
+            var gear = new DarkFantasy.Core.Items.GearStats(c);
+            var weapon = new DarkFantasy.Core.Items.ItemInstance { Kind = DarkFantasy.Core.Items.ItemKind.MainHand, TypeId = c.Items.StarterTypes[cls], ItemLevel = level, Rarity = DarkFantasy.Core.Items.Rarity.Common };
+            gear.Apply(inputs, new[] { weapon }, cls);
+            double growth = Math.Pow(c.Gear.ItemGrowth, level - 1);
+            inputs.GearArmour += 6 * c.Gear.ArmourBase * growth;
+            inputs.GearHp += 6 * c.Gear.ArmourHpBase * growth;
+            return inputs;
         }
 
         /// <summary>Same attribute template and gear model as balance_sim.py (Fighter, all Common).</summary>

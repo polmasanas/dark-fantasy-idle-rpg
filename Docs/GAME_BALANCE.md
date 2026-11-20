@@ -160,6 +160,30 @@ A random attribute is worth +6% (damage, HP or another stat) and adds into its c
 
 ---
 
+## 6b. Classes, triangle, elements and families (M5)
+
+| Rule | Value | Config |
+|---|---|---|
+| Class triangle (D-017) | advantage ×1.20 dealt / ×0.85 taken; disadvantage ×0.85 / ×1.20; Fighter > Caster, Archer > Brute, Mage > Marksman; no style = ×1 | `triangle.*` |
+| Elements (D-019) | strong ×1.5, weak ×0.75; resistances clamped to −0.5…0.75 | `elements.*` |
+| Elemental gear lines (M5-1) | "adds 8–16% of each hit" as Fire / Nature / Water / Light / Dark (main hand, off hand, rings, amulet); Mage class line also gives +15% elemental damage | `items.attributes.adds_*`, `item_rules.class_bonus_pct_elemental` |
+| Class weapons | Bow 9.3 base + 8% attack speed; Staff 10 base + 10% elemental damage; Sword 10 (unchanged) | `items.types.main_hand` |
+| Beasts (Drowned Fen) | evasion 125 (hit chance ≈ 0.70 instead of 0.92); mostly brutes | `families.beasts` |
+| Elementals (Frost Pass 1–4) | Fire 25% / Nature 25% / Water 50%, −75% to their own element, elemental lines ×3 on drops; mostly marksmen | `families.elementals` |
+| Wizards (Frost Pass 5) | Light, −75% Light, elemental lines ×3; casters | `families.wizards` |
+| Undead (Vael Wastes) | Dark; mostly casters | `families.undead` |
+
+**Tuning (simulation, M5):** effective damage per second at an equal reference build (level = boss level, Common class weapon and armour, no elemental lines):
+
+| Region | Family | Best hero | Best vs worst |
+|---:|---|---|---:|
+| 2 | Humanoids | (nearly even) | +8% |
+| 3 | Beasts | Archer | +27% |
+| 4 | Elementals + Wizards | Mage | +30% |
+| 5 | Undead | Fighter | +24% |
+
+Played start to finish by one hero, the three classes reach region 5 within 1% of each other (active and casual profiles): bosses at session boundaries gate progress more than class speed. Over 30 days the profiles land close to the M4 results (active ≈ region 38–42, casual ≈ 27), slightly slower because families now push back.
+
 ## 7. Offline
 
 | Parameter | Value |

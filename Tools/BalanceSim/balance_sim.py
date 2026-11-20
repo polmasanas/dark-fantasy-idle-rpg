@@ -187,10 +187,87 @@ def type_group(kind: str) -> str:
     return "armour" if kind in ARMOUR_KINDS else kind
 
 
+# ---------------- M5: elements, triangle, families (mirror C# Elements.cs / Triangle.cs / EnemyFactory) ----------------
+ELEMENTS = ["physical", "fire", "nature", "water", "light", "dark"]
+
+
+def element_mult(cfg: dict, attack: str, target: str) -> float:
+    c = cfg["elements"]
+    if c["beats"].get(attack) == target:
+        return c["strong_mult"]
+    if c["beats"].get(target) == attack and c["beats"].get(attack) != target:
+        return c["weak_mult"]
+    if attack == target and attack in c["resists_self"]:
+        return c["weak_mult"]
+    if attack == "physical" and target in c["physical_weak_vs"]:
+        return c["weak_mult"]
+    return 1.0
+
+
+def triangle(cfg: dict, hero: str, archetype: str, dealt: bool) -> float:
+    t = cfg["triangle"]
+    if archetype == "none":
+        return 1.0
+    if t["class_beats"][hero] == archetype:
+        return t["advantage_dealt"] if dealt else t["advantage_taken"]
+    my_style = t["class_as"][hero]
+    for cls, beaten in t["class_beats"].items():
+        if beaten == my_style and t["class_as"][cls] == archetype:
+            return t["disadvantage_dealt"] if dealt else t["disadvantage_taken"]
+    return 1.0
+
+
+def enemy_profile(cfg: dict, region: int, sub: int, boss: bool) -> dict:
+    """Family of the enemy at region/subzone (bosses: the region's boss family), as expected values."""
+    rg = cfg["regions"]
+    i = region - 1
+    if boss:
+        fam_id = rg["boss_families"][i] if 0 <= i < len(rg["boss_families"]) else rg["fallback_family"]
+    elif 0 <= i < len(rg["subzone_families"]):
+        row = rg["subzone_families"][i]
+        fam_id = row[min(max(1, sub), len(row)) - 1]
+    else:
+        fam_id = rg["fallback_family"]
+    fam = cfg["families"][fam_id]
+    if fam["element"]:
+        elements = [(fam["element"], 1.0)]
+    elif fam["element_pool"]:
+        tot = sum(fam["element_pool"].values())
+        elements = [(e, w / tot) for e, w in fam["element_pool"].items()]
+    else:
+        elements = [("physical", 1.0)]
+    archetype = fam["boss_archetype"] if boss else fam["archetypes"][(max(1, sub) - 1) % len(fam["archetypes"])]
+    return {"family": fam_id, "archetype": archetype, "elements": elements, "resist_own": fam["resist_own"],
+            "resist": fam["resist"], "evasion": fam["evasion"], "line_mult": fam["elemental_line_mult"]}
+
+
+def damage_mult(cfg: dict, s: dict, ep: dict) -> float:
+    """Expected hit multiplier from the element components (Physical share 1 + gear shares) vs the enemy."""
+    lo, hi = cfg["elements"]["resist_min"], cfg["elements"]["resist_max"]
+    total = 0.0
+    for target, w in ep["elements"]:
+        def resist(e):
+            r = ep["resist"].get(e, 0.0) + (ep["resist_own"] if e == target and target != "physical" else 0.0)
+            return min(hi, max(lo, r))
+        part = element_mult(cfg, "physical", target) * (1 - resist("physical"))
+        for e, share in s["shares"].items():
+            if share > 0:
+                part += share * (1 + s["pct_el"]) * element_mult(cfg, e, target) * (1 - resist(e))
+        total += w * part
+    return total
+
+
+def hit_chance(cfg: dict, base: float, evasion: float, accuracy: float = 100.0) -> float:
+    cb = cfg["combat"]
+    ratio = accuracy / (accuracy + evasion / 4) if accuracy + evasion / 4 > 0 else 0
+    return min(cb["hit_chance_max"], max(cb["hit_chance_min"], base * ratio))
+
+
 class Sim:
     def __init__(self, cfg: dict, profile: dict, seed: int):
         self.cfg, self.f = cfg, Formulas(cfg)
         self.profile = profile
+        self.hero = profile.get("hero", "fighter")  # M5: which class this run plays
         self.rng = random.Random(seed)
         self.meta, self.run = Meta(), self.new_run()
         self.t = 0.0           # wall-clock seconds
@@ -212,10 +289,10 @@ class Sim:
         self.scrolls_found = 0
         self.crafted = 0
 
-    @staticmethod
-    def new_run() -> Run:
+    def new_run(self) -> Run:
         r = Run()
-        r.gear["main_hand0"] = Item(slot="main_hand0", ilvl=1, rarity=0, kind="main_hand", type_id="sword")  # D-015
+        starter = self.cfg["items"]["starter_types"][self.hero]  # D-015, M5
+        r.gear["main_hand0"] = Item(slot="main_hand0", ilvl=1, rarity=0, kind="main_hand", type_id=starter)
         return r
 
     # ---------------- stats ----------------
@@ -228,8 +305,10 @@ class Sim:
                                                   it.ilvl, it.rarity, it.upgrade)
         for stat, value in it.attrs:
             out[stat] += value
-        if it.class_bonus == "fighter":
+        if it.class_bonus == self.hero:
             out["pct_damage"] += self.cfg["items"]["class_bonus_pct_damage"]
+            if self.hero == "mage":  # M5-1: the Mage's class line also boosts elemental damage
+                out["pct_elemental"] += self.cfg["item_rules"]["class_bonus_pct_elemental"]
         return out
 
     def compute_stats(self, gear=None) -> dict:
@@ -238,13 +317,19 @@ class Sim:
         lvl = self.run.level
         auto = p["points_per_level_auto"] * (lvl - 1)
         manual = p["points_per_level_manual"] * (lvl - 1)
-        # Fighter template: 50% STR, 33% VIT, 17% DEF of auto points.
-        # Fighter template per level (D-014 + 5b): STR 1.5, VIT 1.0, DEF 0.25, COUNTER 0.25
-        primary = auto * 0.5 + self.meta.scrolls_primary
-        vit = auto / 3
-        dfn = auto / 12
-        counter_pts = auto / 12
-        crit_pts = 0.0
+        # Class template per level from classes.<hero>.growth_pattern (D-034): 4-level cycle averaged.
+        cls = self.cfg["classes"][self.hero]
+        per = {}
+        for row in cls["growth_pattern"]:
+            for a in row:
+                per[a] = per.get(a, 0) + 0.25
+        levels = lvl - 1
+        primary = per.get(cls["primary"], 0) * levels + self.meta.scrolls_primary
+        vit = per.get("vit", 0) * levels
+        dfn = per.get("def", 0) * levels
+        counter_pts = per.get("counter", 0) * levels
+        crit_pts = per.get("crit_chance", 0) * levels
+        crit_dmg_pts = per.get("crit_damage", 0) * levels
         alloc = self.profile.get("manual_alloc", "primary")
         if alloc == "primary":
             primary += manual
@@ -263,14 +348,14 @@ class Sim:
         art = self.meta.artifacts
         dmg_mult = (1 + primary * p["dmg_per_primary_pct"]) * (1 + tot["pct_damage"]) * f.artifact_mult("might", art["might"])
         cb = self.cfg["combat"]
-        base_iv = cb["base_interval_fighter"]
+        base_iv = cb["base_interval_" + self.hero]
         class_dmg_scale = base_iv / cb["reference_interval_s"]  # keeps early TTK unchanged
         hit_dmg = max(3.0, tot["weapon_damage"]) * dmg_mult * class_dmg_scale
         attack_speed = max(-0.9, self.f.artifact_mult("haste", art["haste"]) - 1 + tot["attack_speed"])
         interval = max(cb["attack_interval_floor_s"], base_iv / (1 + attack_speed))
         cc = min(p["crit_chance_cap"], p["base_crit_chance"] + crit_pts * p["crit_chance_per_point"])
         cd = p["base_crit_damage"] + crit_pts * p["crit_damage_per_point"] * 0.5 \
-            + tot["crit_damage_points"] * p["crit_damage_per_point"]
+            + (tot["crit_damage_points"] + crit_dmg_pts) * p["crit_damage_per_point"]
         avg_hit = hit_dmg * (1 + cc * (cd - 1))
         hp = (p["base_hp"] + tot["hp"]) * (1 + vit * p["hp_per_vit_pct"]) * (1 + tot["pct_hp"]) \
             * f.artifact_mult("bulwark", art["bulwark"])
@@ -278,7 +363,8 @@ class Sim:
         counter = min(p["counter_cap"], counter_pts * p["counter_chance_per_point"])
         return {"avg_hit": avg_hit, "hp": hp, "armour": armour, "interval": interval,
                 "hit": p["base_hit_chance"], "cc": cc, "cd": cd, "counter": counter,
-                "gold_find": tot["gold_find"], "luck": tot["luck"], "drop_chance": tot["drop_chance"]}
+                "gold_find": tot["gold_find"], "luck": tot["luck"], "drop_chance": tot["drop_chance"],
+                "shares": {e: tot["adds_" + e] for e in ELEMENTS[1:]}, "pct_el": tot["pct_elemental"]}
 
     @property
     def stats(self):
@@ -290,9 +376,17 @@ class Sim:
         self._stats = None
 
     # ---------------- combat (expected value) ----------------
-    def fight(self, enemy_lvl: int, boss=False, stats=None):
+    def fight(self, enemy_lvl: int, boss=False, stats=None, region=None, sub=None):
         """Returns (win, seconds). Expected-value model, validated by combat_check()."""
         s = stats or self.stats
+        if region is None:
+            region = max(1, enemy_lvl // (self.cfg["world"]["subzones_per_region"] * self.cfg["world"]["levels_per_subzone"]))
+        ep = enemy_profile(self.cfg, region, sub or 1, boss)
+        dealt = damage_mult(self.cfg, s, ep) * triangle(self.cfg, self.hero, ep["archetype"], dealt=True)
+        taken = triangle(self.cfg, self.hero, ep["archetype"], dealt=False)
+        s = dict(s)
+        s["avg_hit"] = s["avg_hit"] * dealt
+        s["hit"] = hit_chance(self.cfg, s["hit"], ep["evasion"])
         e, p, f = self.cfg["enemy"], self.cfg["player"], self.f
         var = self.rng.uniform(e["variance_mult_min"], e["variance_mult_max"])
         ehp = f.enemy_hp(enemy_lvl, boss) * var
@@ -307,7 +401,7 @@ class Sim:
         counter_dps = s["counter"] * p["counter_damage"] * s["avg_hit"] * s["hit"] / e["attack_interval_s"]
         ttk = swings * s["interval"] / (1 + counter_dps / main_dps)
         dr = min(p["damage_reduction_cap"], s["armour"] / (s["armour"] + f.armour_k(enemy_lvl)))
-        edps = f.enemy_atk(enemy_lvl, boss) * (1 - dr) / e["attack_interval_s"]
+        edps = f.enemy_atk(enemy_lvl, boss) * (1 - dr) * taken / e["attack_interval_s"]
         ttd = s["hp"] / edps
         if not boss:  # round 2, item 1c: no death vs normal enemies; enemies escape after a timer
             esc = self.cfg["combat"]["escape_timer_s"]
@@ -358,7 +452,7 @@ class Sim:
             it.slot = worst
             self.consider_item(it)
 
-    def make_item(self, ilvl: int, rarity: int, kind: str = None) -> Item:
+    def make_item(self, ilvl: int, rarity: int, kind: str = None, line_mult: float = 1.0) -> Item:
         """Mirrors C# LootSystem.Roll (kind weights, type, attributes, class line)."""
         it_cfg = self.cfg["items"]
         if kind is None:
@@ -370,7 +464,8 @@ class Sim:
         for _ in range(self.cfg["gear"]["random_affixes"][rarity]):
             if not candidates:
                 break
-            a = candidates.pop(int(self.rng.random() * len(candidates)))
+            weights = [line_mult if c["stat"].startswith("adds_") else 1.0 for c in candidates]  # M5-6
+            a = candidates.pop(self.rng.choices(range(len(candidates)), weights=weights)[0])
             q = self.rng.random() ** (1.0 / (1.0 + it_cfg["rarity_roll_bias"] * rarity))
             attrs.append((a["stat"], a["min"] + (a["max"] - a["min"]) * q + a["per_item_level"] * ilvl))
         class_bonus = None
@@ -441,7 +536,7 @@ class Sim:
         boss_ready = r.sub == self.cfg["world"]["subzones_per_region"] and r.kills_in_sub >= kreq
         if boss_ready:
             self.boss_attempts += 1
-            win, sec = self.fight(f.boss_level(r.region), boss=True)
+            win, sec = self.fight(f.boss_level(r.region), boss=True, region=r.region, sub=5)
             if win:
                 self.on_boss_kill(r.region, can_manage, pending)
             else:
@@ -461,7 +556,7 @@ class Sim:
             z = max(1, (region - 1) * 5 + sub - farm_back)
             region, sub = (z - 1) // 5 + 1, (z - 1) % 5 + 1
         lvl = f.subzone_level(region, sub)
-        win, sec = self.fight(lvl)
+        win, sec = self.fight(lvl, region=region, sub=sub)
         if not win:
             # enemy escaped; after N escapes in a row retreat one subzone (round 2, item 1c)
             self._escapes = getattr(self, "_escapes", 0) + 1
@@ -474,7 +569,8 @@ class Sim:
                     r.kills_in_sub = kreq
             return sec
         self._escapes = 0
-        self.on_kill(lvl, region == r.region and sub == r.sub, can_manage, pending)
+        self.on_kill(lvl, region == r.region and sub == r.sub, can_manage, pending,
+                     enemy_profile(self.cfg, region, sub, False)["line_mult"])
         return sec
 
     def mastery_bonus(self) -> tuple:
@@ -482,7 +578,7 @@ class Sim:
         stars = sum(min(m["max_stars"], k // m["kills_per_star"]) for k in self.meta.kills_by_subzone.values())
         return stars * m["gold_per_star"], stars * m["drop_per_star"]
 
-    def on_kill(self, lvl, at_frontier, can_manage, pending):
+    def on_kill(self, lvl, at_frontier, can_manage, pending, line_mult=1.0):
         r, f, g = self.run, self.f, self.cfg["gear"]
         z = (lvl - 1) // self.cfg["world"]["levels_per_subzone"] + 1
         kb = self.meta.kills_by_subzone
@@ -498,7 +594,7 @@ class Sim:
         chance = g["drop_chance_normal"] * (1 + m_drop) * (1 + st["drop_chance"])
         n_drops = int(chance) + (1 if self.rng.random() < chance - int(chance) else 0)
         for _ in range(n_drops):
-            it = self.make_item(lvl, self.roll_rarity(0, st["luck"]))
+            it = self.make_item(lvl, self.roll_rarity(0, st["luck"]), line_mult=line_mult)
             self.drops_by_rarity[it.rarity] += 1
             (self.consider_item(it) if can_manage else pending.append(it))
         if self.rng.random() < self.cfg["economy"]["scroll_drop_chance"]:
@@ -728,6 +824,72 @@ def fmt_t(sec):
     return f"{h:.1f} h" if h < 48 else f"{h / 24:.1f} d"
 
 
+HEROES = ["fighter", "archer", "mage"]
+
+
+def first_reach_times(cfg: dict, prof: dict, days: int) -> dict:
+    sim = Sim(cfg, prof, cfg["simulation"]["seed"])
+    sim.run_schedule(days)
+    return sim.first_reach
+
+
+def matchup_table(cfg: dict) -> list:
+    """Effective damage per second against each region's normal enemies (mean over subzones 1-5) for each
+    hero at an equal reference build: level = region boss level, Common class weapon and armour at that item
+    level, no elemental lines. Effective = hit x elements x triangle x hit chance / attack interval, so
+    whole-hit rounding does not hide the differences."""
+    rows = []
+    f = Formulas(cfg)
+    for region in (2, 3, 4, 5):
+        eff = {}
+        for hero in HEROES:
+            sim = Sim(cfg, {"sessions": [(8, 1)], "hero": hero}, 1)
+            lvl = f.boss_level(region)
+            sim.run.level = lvl
+            sim.run.gear = {"main_hand0": Item(slot="main_hand0", ilvl=lvl, rarity=0, kind="main_hand",
+                                               type_id=cfg["items"]["starter_types"][hero])}
+            for k in ARMOUR_KINDS:
+                sim.run.gear[k + "0"] = Item(slot=k + "0", ilvl=lvl, rarity=0, kind=k, type_id="medium")
+            sim.invalidate()
+            s = sim.stats
+            total = 0.0
+            for sub in range(1, 6):
+                ep = enemy_profile(cfg, region, sub, False)
+                total += (s["avg_hit"] * damage_mult(cfg, s, ep) * triangle(cfg, hero, ep["archetype"], True)
+                          * hit_chance(cfg, s["hit"], ep["evasion"]) / s["interval"])
+            eff[hero] = total / 5
+        best = max(eff, key=eff.get)
+        worst = min(eff, key=eff.get)
+        rows.append((region, enemy_profile(cfg, region, 1, False)["family"], eff, best, eff[best] / eff[worst] - 1))
+    return rows
+
+
+def class_comparison(cfg: dict, days: int) -> list:
+    """M5 acceptance: the three classes progress at comparable speed; the right hero clears faster."""
+    out = ["## 4. Classes (M5)", "",
+           "Each profile played start to finish by one hero (the real game lets the player switch after region 1).", "",
+           "| Profile | Hero | Reaches R2 | R3 | R4 | R5 | R6 |", "|---|---|---:|---:|---:|---:|---:|"]
+    spread = {}
+    for name in ("active", "casual"):
+        times = {}
+        for hero in HEROES:
+            fr = first_reach_times(cfg, {**PROFILES[name], "hero": hero}, days)
+            times[hero] = fr
+            out.append(f"| {name} | {hero} | " + " | ".join(fmt_t(fr[k]) if k in fr else "—" for k in (2, 3, 4, 5, 6)) + " |")
+        r5 = [times[h].get(5) for h in HEROES if times[h].get(5)]
+        if len(r5) == 3:
+            spread[name] = max(r5) / min(r5) - 1
+    out += ["", "Spread of the time to reach region 5 (slowest vs fastest hero): " +
+            ", ".join(f"{k} {v * 100:.0f}%" for k, v in spread.items()) + " (target: within 25%).", ""]
+    out += ["Effective damage per second against each region's normal enemies at an equal reference build "
+            "(level = boss level, Common class weapon and armour, no elemental lines):", "",
+            "| Region | Family | Fighter | Archer | Mage | Best | Best vs worst |", "|---:|---|---:|---:|---:|---|---:|"]
+    for region, fam, eff, best, gap in matchup_table(cfg):
+        out.append(f"| {region} | {fam} | {eff['fighter']:.0f} | {eff['archer']:.0f} | {eff['mage']:.0f} | {best} | +{gap * 100:.0f}% |")
+    out += ["", "Target: in regions 3-5 the right hero clears about 25-40% faster than the wrong one.", ""]
+    return out
+
+
 def main():
     here = os.path.dirname(os.path.abspath(__file__))
     ap = argparse.ArgumentParser()
@@ -803,6 +965,7 @@ def main():
                        f"{cfg['offline']['cap_hours']:g} h cap"]
         detail.append("")
     lines += summary + [""] + detail
+    lines += class_comparison(cfg, days)
     out_md = os.path.join(args.out, "REPORT.md")
     with open(out_md, "w") as fh:
         fh.write("\n".join(lines) + "\n")

@@ -197,6 +197,7 @@ namespace DarkFantasy.Core.Config
                 },
             };
             config.Regions = Regions(Section(root, "regions"), config.Families);
+            config.Items.ClassBonusPctElemental = D(Section(root, "item_rules"), "item_rules", "class_bonus_pct_elemental");
             return config;
         }
 
@@ -311,7 +312,6 @@ namespace DarkFantasy.Core.Config
                 Attributes = attributes,
                 ClassItemShare = D(items, "items", "class_item_share"),
                 ClassBonusPctDamage = D(items, "items", "class_bonus_pct_damage"),
-                ClassBonusPctElemental = D(items, "items", "class_bonus_pct_elemental"),
                 StarterTypes = StarterTypes(Section(items, "starter_types", "items.starter_types"), types),
                 RarityRollBias = D(items, "items", "rarity_roll_bias"),
                 ExpansionCostBase = D(items, "items", "expansion_cost_base"),

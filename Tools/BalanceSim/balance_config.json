@@ -384,7 +384,7 @@
           "lines": [
             {
               "stat": "weapon_damage",
-              "base": 8.5,
+              "base": 9.3,
               "scaling": "exponential",
               "per_item_level": 0.0
             },
@@ -402,7 +402,7 @@
           "lines": [
             {
               "stat": "weapon_damage",
-              "base": 9.0,
+              "base": 10.0,
               "scaling": "exponential",
               "per_item_level": 0.0
             },
@@ -843,8 +843,7 @@
       "fighter": "sword",
       "archer": "bow",
       "mage": "staff"
-    },
-    "class_bonus_pct_elemental": 0.15
+    }
   },
   "onboarding": {
     "_comment": "Owner decision ON-1 (M3 playtest): training boss in the first run + softer region 1 boss.",
@@ -955,8 +954,8 @@
         "brute",
         "brute",
         "marksman",
-        "marksman",
-        "caster"
+        "brute",
+        "brute"
       ],
       "boss_archetype": "brute"
     },
@@ -973,11 +972,11 @@
       "evasion": 0.0,
       "elemental_line_mult": 3.0,
       "archetypes": [
-        "brute",
         "marksman",
-        "caster",
-        "brute",
-        "caster"
+        "marksman",
+        "marksman",
+        "marksman",
+        "brute"
       ],
       "boss_archetype": "caster"
     },
@@ -1007,10 +1006,10 @@
       "evasion": 0.0,
       "elemental_line_mult": 1.0,
       "archetypes": [
-        "brute",
-        "marksman",
         "caster",
         "brute",
+        "caster",
+        "caster",
         "caster"
       ],
       "boss_archetype": "caster"
@@ -1063,5 +1062,9 @@
       "undead"
     ],
     "fallback_family": "humanoids"
+  },
+  "item_rules": {
+    "_comment": "M5-1: Mage class line bonus to elemental damage (kept out of 'items' so Sheets rows do not shift).",
+    "class_bonus_pct_elemental": 0.15
   }
 }
