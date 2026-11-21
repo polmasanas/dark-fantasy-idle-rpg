@@ -44,6 +44,11 @@ namespace DarkFantasy.Core.Stats
         public double[] ElementShare = new double[DarkFantasy.Core.Combat.Elements.Count];
         public double PctElemental;
 
+        // Skill passives (M6): added to the calculated stats, still subject to their caps.
+        public double SkillCritChance;
+        public double SkillCritDamage;
+        public double SkillCounterChance;
+
         // Artifact levels
         public int MightLevel;
         public int BulwarkLevel;

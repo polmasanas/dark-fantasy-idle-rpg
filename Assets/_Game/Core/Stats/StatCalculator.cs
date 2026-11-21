@@ -61,10 +61,10 @@ namespace DarkFantasy.Core.Stats
                 AttackInterval = interval,
                 Accuracy = i.Accuracy,
                 BaseHitChance = p.BaseHitChance,
-                CritChance = Math.Min(p.CritChanceCap, p.BaseCritChance + i.CritPoints * p.CritChancePerPoint),
+                CritChance = Math.Min(p.CritChanceCap, p.BaseCritChance + i.CritPoints * p.CritChancePerPoint + i.SkillCritChance),
                 CritDamage = p.BaseCritDamage + i.CritPoints * p.CritDamagePerPoint * 0.5
-                             + i.CritDamagePoints * p.CritDamagePerPoint,
-                CounterChance = Math.Min(p.CounterCap, i.CounterPoints * p.CounterChancePerPoint),
+                             + i.CritDamagePoints * p.CritDamagePerPoint + i.SkillCritDamage,
+                CounterChance = Math.Min(p.CounterCap, i.CounterPoints * p.CounterChancePerPoint + i.SkillCounterChance),
                 CounterDamage = p.CounterDamage,
                 Class = i.Class,
                 ElementShare = (double[])i.ElementShare.Clone(),

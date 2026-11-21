@@ -14,11 +14,13 @@ namespace DarkFantasy.Core.Characters
     {
         private readonly BalanceConfig _c;
         private readonly GearStats _gear;
+        private readonly DarkFantasy.Core.Skills.SkillBuild _skills;
 
         public CharacterStatsBuilder(BalanceConfig config)
         {
             _c = config ?? throw new ArgumentNullException(nameof(config));
             _gear = new GearStats(config);
+            _skills = config.Skills == null ? null : new DarkFantasy.Core.Skills.SkillBuild(config);
         }
 
         public StatInputs Build(CharacterState c, IEnumerable<ItemInstance> equipped)
@@ -39,6 +41,7 @@ namespace DarkFantasy.Core.Characters
                 Luck = Total(AttributeId.Luck),
             };
             _gear.Apply(inputs, equipped, c.Class);
+            _skills?.AddStats(c, inputs);
             return inputs;
         }
     }

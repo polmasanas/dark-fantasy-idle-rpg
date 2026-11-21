@@ -27,6 +27,17 @@ namespace DarkFantasy.Core.Characters
         /// <summary>Equipped item ids by slot (items live in the shared inventory, D-004).</summary>
         public Dictionary<EquipSlot, long> Equipped = new Dictionary<EquipSlot, long>();
 
+        /// <summary>Skill ranks by node id (M6-1). Unspent points are derived from level, never stored.</summary>
+        public Dictionary<string, int> SkillRanks = new Dictionary<string, int>();
+
+        /// <summary>Active skill slots in priority order (R2-9); null = empty. Resized to combat.active_skill_slots by SkillTree.Sanitize.</summary>
+        public string[] Loadout = new string[DefaultSkillSlots];
+
+        /// <summary>Spend new skill points by the class's suggested order (R2-8). Off by default.</summary>
+        public bool AutoSpendSkills;
+
+        public const int DefaultSkillSlots = 3;
+
         public static CharacterState Create(ClassId cls)
         {
             var c = new CharacterState { Class = cls };

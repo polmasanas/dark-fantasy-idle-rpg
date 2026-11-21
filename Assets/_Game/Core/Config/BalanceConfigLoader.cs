@@ -173,6 +173,8 @@ namespace DarkFantasy.Core.Config
                     HitChanceMax = D(cb, "combat", "hit_chance_max"),
                     LuckK = D(cb, "combat", "luck_k"),
                     EnemyRespawnS = D(cb, "combat", "enemy_respawn_s"),
+                    SkillPointEveryLevels = I(cb, "combat", "skill_point_every_levels"),
+                    ActiveSkillSlots = I(cb, "combat", "active_skill_slots"),
                     BossRepeatKillFraction = D(cb, "combat", "boss_repeat_kill_fraction"),
                     BossRetryKillFraction = D(cb, "combat", "boss_retry_kill_fraction"),
                     InventoryBaseSlots = I(cb, "combat", "inventory_base_slots"),

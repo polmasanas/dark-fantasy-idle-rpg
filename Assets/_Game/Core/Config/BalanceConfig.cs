@@ -273,6 +273,8 @@ namespace DarkFantasy.Core.Config
         public double HitChanceMax { get; set; }
         public double LuckK { get; set; }
         public double EnemyRespawnS { get; set; }
+        public int SkillPointEveryLevels { get; set; }
+        public int ActiveSkillSlots { get; set; }
         public double BossRepeatKillFraction { get; set; }
 
         /// <summary>Share of K kills needed again after a failed boss attempt (R2-2 as changed by the owner: 1.0 = full wave).</summary>
