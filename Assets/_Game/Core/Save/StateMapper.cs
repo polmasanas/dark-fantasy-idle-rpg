@@ -88,6 +88,9 @@ namespace DarkFantasy.Core.Save
                 ["autoAllocateOnLevelUp"] = c.AutoAllocateOnLevelUp,
                 ["customWeights"] = custom,
                 ["equipped"] = equipped,
+                ["skills"] = Ranks(c.SkillRanks),
+                ["loadout"] = new JArray(c.Loadout),
+                ["autoSpendSkills"] = c.AutoSpendSkills,
             };
         }
 
@@ -104,7 +107,25 @@ namespace DarkFantasy.Core.Save
             if (j["customWeights"] is JObject custom)
                 foreach (var p in custom.Properties()) c.CustomWeights[E<AttributeId>(p.Name)] = (int)p.Value;
             foreach (var p in ((JObject)j["equipped"]).Properties()) c.Equipped[E<EquipSlot>(p.Name)] = ParseL((string)p.Value);
+            // Schema 3 (M6): ranks by node id; unknown ids are dropped later by SkillTree.Sanitize.
+            if (j["skills"] is JObject skills)
+                foreach (var p in skills.Properties())
+                    if (p.Value.Type == JTokenType.Integer) c.SkillRanks[p.Name] = (int)p.Value;
+            if (j["loadout"] is JArray loadout)
+            {
+                c.Loadout = new string[Math.Max(CharacterState.DefaultSkillSlots, loadout.Count)];
+                for (int i = 0; i < loadout.Count; i++)
+                    c.Loadout[i] = loadout[i].Type == JTokenType.String ? (string)loadout[i] : null;
+            }
+            c.AutoSpendSkills = (bool?)j["autoSpendSkills"] ?? false;
             return c;
+        }
+
+        private static JObject Ranks(Dictionary<string, int> ranks)
+        {
+            var o = new JObject();
+            foreach (var kv in ranks) o[kv.Key] = kv.Value;
+            return o;
         }
 
         private static JObject World(WorldState w) => new JObject

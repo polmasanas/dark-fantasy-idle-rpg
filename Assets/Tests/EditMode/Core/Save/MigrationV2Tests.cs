@@ -16,9 +16,9 @@ namespace DarkFantasy.Core.Tests.Save
             new SaveSerializer().Deserialize(File.ReadAllBytes(TestPaths.RepoFile("Assets/Tests/SaveFixtures/v1.dfrs")));
 
         [Test]
-        public void SchemaIsTwo()
+        public void SchemaIsAtLeastTwo()
         {
-            Assert.AreEqual(2, SaveSerializer.CurrentSchemaVersion);
+            Assert.GreaterOrEqual(SaveSerializer.CurrentSchemaVersion, 2);
         }
 
         [Test]
