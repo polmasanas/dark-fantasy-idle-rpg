@@ -31,7 +31,8 @@
 | `AffixDefinition` | id, stat, minRoll, maxRoll (fraction of tier value), weight, allowedSlots[], minRarity |
 | `LootTable` | id, entries `[{type: Item/Currency/Pet/Scroll/Table, ref, weight or chance, min, max}]`, mode (Weighted / Independent chances) |
 | `PetDefinition` | id, rarity, passive `[{stat, perLevel}]`, activeEffectId?, maxLevel, shardBreakpoints[] |
-| `SkillDefinition` | id, branchId, tier, maxRank, type (Passive/Active), cooldown, effects `[EffectSpec]`, requirements |
+| `SkillDefinition` | id, branchId, tier, maxRank, type (Passive/Active), cooldown, effects `[EffectSpec]`, requirements. **As built (M6):** `skills_config.json` `nodes[]`: `id, class, tier, kind (active/passive), max_rank, cooldown_s, rank_cdr, effects[]`; `suggested_order {class: [nodeId per rank step]}` |
+| `SkillEffect` (M6) | `kind` hit / dot / buff / enemy_slow / stat / conditional_damage / trigger; `percent, value, duration, threshold, max_stacks, element, hits, always_crit, cannot_miss, stat, condition (enemy_hp_below, own_hp_above, vs_boss, vs_family:<id>, vs_archetype:<id>), trigger (heal_below, cheat_death, lifesteal, momentum, echo), per_rank {field: step}` |
 | `EffectSpec` | kind (Damage, StatMod, DoT, Heal, ExtraAttack, Cleave, …), element, scaling, chance, duration |
 | `ArtifactDefinition` | id, effect `{stat, perLevel, compounding}`, costBase, costGrowth, maxLevel? |
 | `DungeonDefinition` | id, unlockRegion, waves[], bossId, tokenId, chestTable, choosePriceFactor (default 1.0) |
@@ -52,4 +53,4 @@
 | `RngState` | PCG32 state + increment (ulong ×2) | Yes |
 
 ## 4. Events (Core)
-`EnemyKilled{enemyId, level, region, subzone}`, `BossDefeated{region, firstTime}`, `ItemDropped{itemId, rarity}`, `ItemEquipped{characterId, slot, itemId}`, `LevelUp{characterId, level}`, `CurrencyChanged{currency, delta, reason}`, `PrestigeCompleted{dust, count}`, `OfflineReportReady{report}`, `StatsDirty{characterId}`.
+`EnemyKilled{enemyId, level, region, subzone}`, `BossDefeated{region, firstTime}`, `ItemDropped{itemId, rarity}`, `ItemEquipped{characterId, slot, itemId}`, `LevelUp{characterId, level}`, `CurrencyChanged{currency, delta, reason}`, `PrestigeCompleted{dust, count}`, `OfflineReportReady{report}`, `StatsDirty{characterId}`, `SkillsChanged{hero}` (M6).

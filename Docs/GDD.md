@@ -207,6 +207,9 @@ Each Rare+ item has **one enchant socket**, separate from its random attributes.
 - [APPROVED D-028] **Branch unlock:** Branches unlock with an artifact called **Sigil**, bought with Artifact Dust. The first branch for a class costs 15 dust, the second 100, the third 1 000. Unlocks are per class and permanent.
 - [APPROVED R2-9] **Active skills:** (cooldowns in real seconds, cooldown reduction cap 50%, optional slot conditions in a later milestone) up to 3 equipped, fired automatically on cooldown (priority order set by the player). Example Fighter Common branch: *Heavy Swing* (active, 250% damage, 8 s cooldown), *Toughness* (passive, +HP%), *Second Wind* (passive, heal 20% when below 30%, once per fight).
 - Each branch has about 12 nodes in 4 tiers. A tier needs 5 points spent in the branch.
+- [APPROVED M6-1] **Ranks:** actives take up to 3 ranks, passives up to 5 (a Common tree holds 52 points).
+- [APPROVED M6-2] **Cooldowns keep running between fights** and offline; a ready active replaces the hero's next attack, in slot order.
+- [APPROVED M6-3] Skill data lives in `skills_config.json` (one row per node). The three Common trees (4 tiers × 1 active + 2 passives) are listed in `Docs/specs/2026-11-20-m6-skills-design.md` §3.3; names and descriptions in `look_config.json`.
 
 **Acceptance:** skill effects come only from data (`SkillDefinition` + effect components). Unlocks survive prestige; points don't.
 

@@ -17,7 +17,7 @@
 | **M4** | Save & offline *(done: merged; owner playtest approved; device checks open in DFIRPG-14, M4-4)* | Save system (autosave, atomic write, backups, migrations framework), offline simulation + report, Android build on device | Kill-during-save test; offline exploit checklist; offline sim of 12 h in < 200 ms on test device |
 | **CD** | Creative Direction *(done: merged; owner playtest approved, CD-11 changes)* | Look, sound and naming (CD-0…CD-10): iron-and-ember UI, cloaked Fighter, Training Grounds region 1 with practice targets, drillmaster and recruit boss, boss camera pull-back, named and coloured regions from data, placeholder music layers | Owner playtest of the mood and readability; art rebuilt and checked in CI |
 | **M5** | Three classes & world *(done: merged; owner playtest approved)* | Archer + Mage, class triangle, elements, families, regions 1–5, character switching | Table-driven triangle and element tests; balance simulation updated with classes |
-| **M6** | Skills | Common branches for 3 classes, active skill loadout, passives | Skill effects data-driven; perf ok |
+| **M6** | Skills *(built on branch `m6/skills`; awaiting owner playtest)* | Common branches for 3 classes, active skill loadout, passives | Skill effects data-driven; perf ok |
 | **M7** | Prestige & artifacts | Dust, artifacts, reset rules, Sigils + specialised branches | Prestige diff test; simulation re-run with real values |
 | **M8** | Crafting & enchanting | Crafting, enchant sockets, gold sinks | Gold spend ratio 70–90% in the simulation (B-2) |
 | **M9** | Pets & dungeons | 12 pets, 5 dungeons, tokens, chests, choose-outcome | Token pricing = ceil(1/p) tests; offline dungeons (D-039); token prices reachable within one run (D-023) |

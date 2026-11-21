@@ -159,10 +159,17 @@ Referenced in the GDD as **R2-n**. Numbers live in the `combat` section of `bala
 | M5-B1 | **Balance (M5 simulation, logged per the balance rule):** families get a dominant fighting style so each region of 3–5 has a clearly best hero (Fen beasts mostly brutes → Archer; Frost Pass elementals mostly marksmen → Mage; Vael Wastes undead mostly casters → Fighter; 24–30% faster); bow 9.3 + 8% speed and staff 10 + 10% elemental to level the classes; beasts' evasion 125. Values in GAME_BALANCE §6b |
 | M5-5 | Region data supports several families per region (per-subzone family), even though M5 uses one per region |
 
+## Approved — M6 design (skills; details in Docs/specs/2026-11-20-m6-skills-design.md)
+| ID | Decision |
+|---|---|
+| M6-1 | **Skill nodes have ranks:** actives up to 3 ranks, passives up to 5; a Common tree holds 52 points, so no point is wasted before M7 adds more branches |
+| M6-2 | **Cooldowns keep running between fights:** a ready active fires on the hero's next attack in whatever fight; the same rule applies offline. Timers are per hero, in memory (ready after a load) |
+| M6-3 | **Skill data lives in its own file** `skills_config.json` (authority `Tools/BalanceSim/`, byte-identical copy in `Assets/_Game/Data/`), one row per node, shown in the Sheets "Skills" tab |
+
 ## Proposed (new, awaiting approval)
 | ID | Proposal | Doc |
 |---|---|---|
-| — | None open | — |
+| M6-B1 | **Skill strength and pacing (M6 simulation):** the trees add about +55–65% effective damage per second at region 5 (10 points) and +75% / +150% / +260% with a full tree (Fighter / Archer / Mage; the Mage's Light skills hit the Dark undead hard). 30-day progress rises (best boss: active 40 → 48, casual 26 → 33) and the Fighter now reaches region 5 well before the others in time played (beats the region-4 Caster boss). Owner to choose: keep, weaken skills, or rebalance pacing | GAME_BALANCE §6c |
 
 ## Superseded
 _None yet._

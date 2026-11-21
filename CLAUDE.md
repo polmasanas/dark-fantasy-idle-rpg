@@ -17,19 +17,20 @@ Dark fantasy, flat-cartoon 2D **idle RPG for Android** (portrait), Unity + C#, b
 | M4 Save & offline | Done (merged). Decisions M4-1…M4-4; playtest made auto-allocate a single "Custom" checkbox (M4-2 amended). **Device checks still open** in Jira DFIRPG-14 (`Docs/ANDROID_DEVICE_TEST.md`) until the owner has a phone |
 | CD Creative Direction | Done (merged). Decisions CD-0…CD-11 (playtest: smaller growing bosses, report pop-up, part-by-part characters, outline halos behind the floor), spec `Docs/CREATIVE_DIRECTION.md`, art brief `Docs/ART_BRIEF.md` (Jira DFIRPG-15) |
 | M5 Three classes & world | Done (merged). Decisions M5-1…M5-6 + balance M5-B1, spec `Docs/specs/2026-11-20-m5-three-classes-world-design.md`; save schema 2 (Jira DFIRPG-6) |
-| **M6 Skills** | **Next** (Jira DFIRPG-7) |
+| **M6 Skills** | **Built on branch `m6/skills`**, awaiting the owner's editor playtest (`Docs/M6_PLAYTEST.md`) and decision M6-B1 (pacing). Decisions M6-1…M6-3, spec `Docs/specs/2026-11-20-m6-skills-design.md`; save schema 3 (Jira DFIRPG-7) |
 | M3–M12 | Planned in `Docs/DEVELOPMENT_ROADMAP.md`; one Jira epic each (project key `DFIRPG`, epic key = milestone number + 1, e.g. M3 = DFIRPG-4) |
 
 ## Where things live
 | Path | What |
 |---|---|
-| `Docs/` | M3_PLAYTEST, M4_PLAYTEST, CD_PLAYTEST, M5_PLAYTEST, ANDROID_DEVICE_TEST, CREATIVE_DIRECTION (look, sound, naming), ART_BRIEF (what to commission from an artist; AI prompts), CREDITS (third-party fonts etc.), GDD, TECHNICAL_ARCHITECTURE, GAME_BALANCE, DATA_DICTIONARY, SAVE_SYSTEM, DEVELOPMENT_ROADMAP, **DECISIONS** (D-*, R2-*), TESTING_STRATEGY, UNITY_SETUP, M2_SCENE_SETUP, `plans/` (one implementation plan per milestone), `specs/` (design documents) |
+| `Docs/` | M3_PLAYTEST, M4_PLAYTEST, CD_PLAYTEST, M5_PLAYTEST, M6_PLAYTEST, ANDROID_DEVICE_TEST, CREATIVE_DIRECTION (look, sound, naming), ART_BRIEF (what to commission from an artist; AI prompts), CREDITS (third-party fonts etc.), GDD, TECHNICAL_ARCHITECTURE, GAME_BALANCE, DATA_DICTIONARY, SAVE_SYSTEM, DEVELOPMENT_ROADMAP, **DECISIONS** (D-*, R2-*), TESTING_STRATEGY, UNITY_SETUP, M2_SCENE_SETUP, `plans/` (one implementation plan per milestone), `specs/` (design documents) |
 | `Assets/_Game/Core/` | **Game.Core**: all game rules in pure C# (no UnityEngine): RNG, config, formulas, stats, combat, characters, world, items, session, events, save, offline, look (region/enemy looks from `look_config.json`) |
 | `Assets/_Game/Presentation/` | **Game.Presentation**: thin Unity layer (bootstrap, views, HUD, dev panel). Draws only; no rules |
 | `Assets/_Game/Editor/` | **Game.Editor**: editor tools (e.g. `DFIRPG → Set Up M2 Scene`) |
 | `Assets/_Game/Data/look_config.json` | Look and naming content (biomes, regions, bosses, kits, colours, camera, music). Not balance: not mirrored in Tools, not in Sheets |
 | `Art/Source/` → `Tools/ArtBuild/` → `Assets/_Game/Resources/Art/` | SVG silhouettes and scenery → `build_art.py` → PNG sprites (committed; CI checks they match). `make_audio.py` makes the placeholder music in `Resources/Audio/` |
 | `Assets/_Game/Resources/` | Fonts (OFL), USS theme `UI/IronEmber.uss`, sprites, audio, loaded with `Resources.Load` |
+| `Tools/BalanceSim/skills_config.json` | Skill trees (M6-3): authority, made by `Tools/BalanceSim/make_skills.py`; byte-identical copy in `Assets/_Game/Data/` (a test enforces it); Sheets "Skills" tab |
 | `Assets/_Game/Data/balance_config.json` | Copy Unity loads; must stay byte-identical to `Tools/BalanceSim/balance_config.json` (a test enforces it) |
 | `Assets/Tests/EditMode/Core/` | Core tests (run in Unity's Test Runner and with `dotnet test`) |
 | `Assets/Tests/SaveFixtures/` | Saves from each released schema (`v1.dfrs`, `v2.dfrs`, …): **never edit or regenerate**; they must load forever |
@@ -45,6 +46,7 @@ python3 Tools/BalanceSim/balance_sim.py             # 30-day balance simulation 
 python3 Tools/BalanceSim/seeds.py 7                 # multi-seed check
 python3 Tools/BalanceSim/balance_sim.py --golden Tools/BalanceSim/results/golden_values.json   # after an approved formula/config change
 dotnet run --project Tools/BalanceSim.CSharp        # C# combat table
+python3 Tools/BalanceSim/make_skills.py Tools/BalanceSim/skills_config.json Assets/_Game/Data/skills_config.json   # regenerate the skill trees
 python3 Tools/ArtBuild/make_figures.py              # regenerate the person-shaped character SVGs (shared anatomy)
 python3 Tools/ArtBuild/make_creatures.py            # regenerate the beasts and elementals SVGs
 python3 Tools/ArtBuild/build_art.py                 # SVG -> PNG sprites (--check in CI)
