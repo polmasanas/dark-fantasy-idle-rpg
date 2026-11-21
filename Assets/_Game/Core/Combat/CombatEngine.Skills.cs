@@ -120,7 +120,7 @@ namespace DarkFantasy.Core.Combat
                         t = _nextPlayer;
                         int skill = ReadySkill(t);
                         if (skill >= 0) Cast(skill, t);
-                        else Deal(_e.Strike(_p, _enemy, _hitChance, DamageMult(t), _rng, _events, t, false));
+                        else Deal(_e.Strike(_p, _enemy, _hitChance, DamageMult(t), _rng, _events, t, false), t);
                         _nextPlayer = t + PlayerInterval();
                         if (_enemyHp <= 0) return Won(t);
                     }
@@ -167,7 +167,7 @@ namespace DarkFantasy.Core.Combat
                     Heal(t, _p.MaxHp * _kit.HealBelowPct);
                 }
                 if (_p.CounterChance > 0 && _rng.Chance(_p.CounterChance))
-                    Deal(_e.Strike(_p, _enemy, _hitChance, _p.CounterDamage * DamageMult(t), _rng, _events, t, true));
+                    Deal(_e.Strike(_p, _enemy, _hitChance, _p.CounterDamage * DamageMult(t), _rng, _events, t, true), t);
                 return false;
             }
 
@@ -176,14 +176,22 @@ namespace DarkFantasy.Core.Combat
                 double before = _playerHp;
                 _playerHp = Math.Min(_p.MaxHp, _playerHp + amount);
                 Add(_events, t, CombatEventType.Heal, _playerHp - before);
+                Add(_events, t, CombatEventType.PlayerHp, _playerHp);
+            }
+
+            private void Lifesteal(double t, double damage)
+            {
+                if (_kit.Lifesteal <= 0) return;
+                _playerHp = Math.Min(_p.MaxHp, _playerHp + damage * _kit.Lifesteal);
+                Add(_events, t, CombatEventType.PlayerHp, _playerHp);
             }
 
             /// <summary>Applies hero damage to the enemy, with lifesteal and momentum.</summary>
-            private void Deal(double damage)
+            private void Deal(double damage, double t)
             {
                 if (damage <= 0) return;
                 _enemyHp -= damage;
-                if (_kit.Lifesteal > 0) _playerHp = Math.Min(_p.MaxHp, _playerHp + damage * _kit.Lifesteal);
+                Lifesteal(t, damage);
                 if (_kit.MomentumPerHit > 0 && _momentum < _kit.MomentumMaxStacks) _momentum++;
             }
 
@@ -254,7 +262,7 @@ namespace DarkFantasy.Core.Combat
                     {
                         case EffectKind.Hit:
                             double scale = fx.At("percent", a.Rank);
-                            for (int h = 0; h < fx.Hits && _enemyHp > 0; h++) Deal(SkillStrike(a, fx, scale, t));
+                            for (int h = 0; h < fx.Hits && _enemyHp > 0; h++) Deal(SkillStrike(a, fx, scale, t), t);
                             break;
                         case EffectKind.Dot:
                             StartDot(a, fx, t);
@@ -320,7 +328,7 @@ namespace DarkFantasy.Core.Combat
                 d.NextTick = t + _tick;
                 _events?.Add(new CombatEvent(t, CombatEventType.DotTick, d.PerTick, d.Element, d.SkillId));
                 _enemyHp -= d.PerTick;
-                if (_kit.Lifesteal > 0) _playerHp = Math.Min(_p.MaxHp, _playerHp + d.PerTick * _kit.Lifesteal);
+                Lifesteal(t, d.PerTick);
             }
 
             private FightResult Won(double t)

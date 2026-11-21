@@ -194,5 +194,51 @@ namespace DarkFantasy.Core.Tests.Combat
             Assert.AreEqual(15.0, hits[2].Amount, 1e-9);   // t=3: acts before the enemy's 3.0 hit, 70 HP
             Assert.AreEqual(10.0, hits[3].Amount, 1e-9);   // t=4: 40 HP
         }
+
+        [Test]
+        public void Unbreakable_ReportsTrueHpAfterTheSave()
+        {
+            var kit = SkillFight.Kit();
+            kit.CheatDeathHealPct = 0.05;
+            var r = SkillFight.Run(kit, SkillFight.Enemy(attack: 60, interval: 1, boss: true));
+            var hp = Of(r, CombatEventType.PlayerHp);
+            Assert.AreEqual(1, hp.Count);
+            Assert.AreEqual(2.0, hp[0].Time, 1e-9);
+            Assert.AreEqual(6.0, hp[0].Amount, 1e-9, "1 HP left + 5% of 100");
+        }
+
+        [Test]
+        public void Lifesteal_ReportsHp_NeverAboveMax()
+        {
+            var kit = SkillFight.Kit();
+            kit.Lifesteal = 0.5;
+            var r = SkillFight.Run(kit, SkillFight.Enemy(hp: 1e6, attack: 2, interval: 0.5, boss: true));
+            var hp = Of(r, CombatEventType.PlayerHp);
+            Assert.Greater(hp.Count, 10);
+            Assert.IsTrue(hp.All(e => e.Amount <= 100.0 + 1e-9 && e.Amount > 0));
+            Assert.AreEqual(r.PlayerHpLeft, ViewHp(r, 100.0), 1e-9, "the bar rebuilt from events ends at the true HP");
+        }
+
+        [Test]
+        public void Unbreakable_BarRebuiltFromEvents_MatchesTrueHp()
+        {
+            var kit = SkillFight.Kit();
+            kit.CheatDeathHealPct = 0.5;
+            var r = SkillFight.Run(kit, SkillFight.Enemy(hp: 1e6, attack: 60, interval: 1, boss: true));
+            Assert.AreEqual(r.PlayerHpLeft, ViewHp(r, 100.0), 1e-9);
+        }
+
+        /// <summary>What CombatView's health bar shows: enemy hits subtract, PlayerHp events set the value.</summary>
+        private static double ViewHp(FightResult r, double max)
+        {
+            double hp = max;
+            foreach (var e in r.Events)
+            {
+                if (e.Type == CombatEventType.EnemyHit) hp -= e.Amount;
+                else if (e.Type == CombatEventType.PlayerHp) hp = e.Amount;
+                else if (e.Type == CombatEventType.PlayerDied) hp = 0;
+            }
+            return hp;
+        }
     }
 }

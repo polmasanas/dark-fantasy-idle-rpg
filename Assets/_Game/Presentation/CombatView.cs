@@ -241,8 +241,10 @@ namespace DarkFantasy.Presentation
                     Float(false, "Dodge", Ui.Muted, 30);
                     break;
                 case CombatEventType.Heal:
-                    _playerHpNow = Math.Min(_playerHpMax, _playerHpNow + e.Amount);
                     Float(false, "+" + NumberFormat.Short(e.Amount), Ui.Hp, 32);
+                    break;
+                case CombatEventType.PlayerHp:
+                    _playerHpNow = e.Amount; // the engine's true HP after a heal or lifesteal
                     break;
                 case CombatEventType.EnemyDied:
                     _enemy.Fall();

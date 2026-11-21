@@ -210,6 +210,14 @@ namespace DarkFantasy.Core.Config
                 DotTickS = D(sr, "skill_rules", "dot_tick_s"),
                 HeroDodgeCap = D(sr, "skill_rules", "hero_dodge_cap"),
             };
+            var rules = config.SkillRules;
+            if (!(rules.DotTickS > 0)) throw new BalanceConfigException("skill_rules.dot_tick_s must be above 0");
+            if (rules.TierPoints < 0) throw new BalanceConfigException("skill_rules.tier_points must be at least 0");
+            if (rules.CooldownReductionCap < 0 || rules.CooldownReductionCap >= 1)
+                throw new BalanceConfigException("skill_rules.cooldown_reduction_cap must be at least 0 and below 1");
+            if (rules.HeroDodgeCap < 0 || rules.HeroDodgeCap > 1) throw new BalanceConfigException("skill_rules.hero_dodge_cap must be 0–1");
+            if (config.Combat.SkillPointEveryLevels < 1) throw new BalanceConfigException("combat.skill_point_every_levels must be at least 1");
+            if (config.Combat.ActiveSkillSlots < 1) throw new BalanceConfigException("combat.active_skill_slots must be at least 1");
             return config;
         }
 

@@ -59,6 +59,9 @@ namespace DarkFantasy.Core.Combat
         BuffStart,
         Dodge,
         Heal,
+
+        /// <summary>The hero's HP after a heal or lifesteal (absolute, for the view's health bar).</summary>
+        PlayerHp,
     }
 
     /// <summary>One thing that happened in a fight. The view layer animates these; logic never needs them.</summary>

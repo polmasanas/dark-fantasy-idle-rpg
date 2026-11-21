@@ -64,6 +64,7 @@ namespace DarkFantasy.Core.Config
                 if (!(n["effects"] is JArray effects)) throw new BalanceConfigException(path + ".effects must be a list");
                 for (int j = 0; j < effects.Count; j++)
                     node.Effects.Add(Effect(effects[j] as JObject, path + ".effects[" + j + "]"));
+                Validate(node, path);
                 result.Nodes.Add(node);
             }
 
@@ -147,6 +148,30 @@ namespace DarkFantasy.Core.Config
                     e.At(p.Name, 1); // rejects unknown fields
                 }
             return e;
+        }
+
+        /// <summary>
+        /// Values the engine relies on, checked at every rank so bad data fails at boot instead of hanging a fight:
+        /// a slow of −100% would make the enemy's interval 0, a cooldown cut per rank reaching 100% a cooldown of 0.
+        /// </summary>
+        private static void Validate(SkillNode node, string path)
+        {
+            if (node.Kind == SkillKind.Active && (node.RankCdr < 0 || node.RankCdr * (node.MaxRank - 1) >= 1))
+                throw new BalanceConfigException(path + ".rank_cdr must be at least 0 and leave a cooldown above 0 at max rank");
+            for (int j = 0; j < node.Effects.Count; j++)
+            {
+                var e = node.Effects[j];
+                string ep = path + ".effects[" + j + "]";
+                if (e.Hits < 1) throw new BalanceConfigException(ep + ".hits must be at least 1");
+                for (int rank = 1; rank <= node.MaxRank; rank++)
+                {
+                    if (e.At("duration", rank) < 0) throw new BalanceConfigException(ep + ": duration below 0 at rank " + rank);
+                    if ((e.Kind == EffectKind.Hit || e.Kind == EffectKind.Dot) && e.At("percent", rank) < 0)
+                        throw new BalanceConfigException(ep + ": percent below 0 at rank " + rank);
+                    if (e.Kind == EffectKind.EnemySlow && e.At("value", rank) < 0)
+                        throw new BalanceConfigException(ep + ": a slow below 0 at rank " + rank + " would speed the enemy up");
+                }
+            }
         }
 
         private static ClassId Class(string key, string path)

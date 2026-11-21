@@ -122,5 +122,51 @@ namespace DarkFantasy.Core.Tests.Config
             string json = "{\"nodes\":[" + node + "," + node + "],\"suggested_order\":{}}";
             Assert.Throws<BalanceConfigException>(() => SkillsConfigLoader.FromJson(json));
         }
+
+        private static string Node(string effects, string extra = "") =>
+            "{\"nodes\":[{\"id\":\"x\",\"class\":\"fighter\",\"tier\":1,\"kind\":\"active\",\"max_rank\":3," +
+            "\"cooldown_s\":8,\"rank_cdr\":0.05" + extra + ",\"effects\":[" + effects + "]}],\"suggested_order\":{}}";
+
+        [Test]
+        public void SlowOfMinus100Pct_Refused()
+        {
+            var e = Assert.Throws<BalanceConfigException>(() =>
+                SkillsConfigLoader.FromJson(Node("{\"kind\":\"enemy_slow\",\"value\":-1,\"duration\":4}")));
+            StringAssert.Contains("nodes[0].effects[0]", e.Message);
+        }
+
+        [Test]
+        public void NegativeSlowPerRank_Refused()
+        {
+            Assert.Throws<BalanceConfigException>(() => SkillsConfigLoader.FromJson(
+                Node("{\"kind\":\"enemy_slow\",\"value\":0.3,\"duration\":4,\"per_rank\":{\"value\":-0.2}}")));
+        }
+
+        [Test]
+        public void RankCooldownCutReachingZero_Refused()
+        {
+            var json = Node("{\"kind\":\"hit\",\"percent\":2}").Replace("\"rank_cdr\":0.05", "\"rank_cdr\":0.5");
+            var e = Assert.Throws<BalanceConfigException>(() => SkillsConfigLoader.FromJson(json));
+            StringAssert.Contains("rank_cdr", e.Message);
+        }
+
+        [Test]
+        public void ZeroHits_Refused()
+        {
+            Assert.Throws<BalanceConfigException>(() =>
+                SkillsConfigLoader.FromJson(Node("{\"kind\":\"hit\",\"percent\":2,\"hits\":0}")));
+        }
+
+        [Test]
+        public void BadSkillRules_Refused()
+        {
+            foreach (var (key, value) in new[] { ("\"dot_tick_s\": 1.0", "\"dot_tick_s\": 0"), ("\"skill_point_every_levels\": 5", "\"skill_point_every_levels\": 0"),
+                         ("\"active_skill_slots\": 3", "\"active_skill_slots\": 0") })
+            {
+                string json = TestPaths.ReadRepoFile(TestPaths.ConfigPath);
+                StringAssert.Contains(key, json);
+                Assert.Throws<BalanceConfigException>(() => BalanceConfigLoader.FromJson(json.Replace(key, value)), key);
+            }
+        }
     }
 }
