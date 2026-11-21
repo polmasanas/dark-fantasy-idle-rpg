@@ -1,0 +1,849 @@
+{
+  "_comment": "M6 skill trees (M6-1..M6-3, spec Docs/specs/2026-11-20-m6-skills-design.md). Authority: Tools/BalanceSim/skills_config.json; copy byte-identical to Assets/_Game/Data/. Values: rank 1, plus per_rank x (rank-1). Percent = share of a hit (2.5 = 250%).",
+  "nodes": [
+    {
+      "id": "fighter_heavy_swing",
+      "class": "fighter",
+      "tier": 1,
+      "kind": "active",
+      "max_rank": 3,
+      "cooldown_s": 8,
+      "rank_cdr": 0.05,
+      "effects": [
+        {
+          "kind": "hit",
+          "percent": 2.5,
+          "per_rank": {
+            "percent": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "fighter_toughness",
+      "class": "fighter",
+      "tier": 1,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "stat",
+          "stat": "pct_hp",
+          "value": 0.06,
+          "per_rank": {
+            "value": 0.06
+          }
+        }
+      ]
+    },
+    {
+      "id": "fighter_iron_skin",
+      "class": "fighter",
+      "tier": 1,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "stat",
+          "stat": "pct_armour",
+          "value": 0.08,
+          "per_rank": {
+            "value": 0.08
+          }
+        }
+      ]
+    },
+    {
+      "id": "fighter_rend",
+      "class": "fighter",
+      "tier": 2,
+      "kind": "active",
+      "max_rank": 3,
+      "cooldown_s": 10,
+      "rank_cdr": 0.05,
+      "effects": [
+        {
+          "kind": "hit",
+          "percent": 1.2,
+          "per_rank": {
+            "percent": 0.0
+          }
+        },
+        {
+          "kind": "dot",
+          "percent": 1.0,
+          "duration": 4,
+          "element": "physical",
+          "per_rank": {
+            "percent": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "fighter_second_wind",
+      "class": "fighter",
+      "tier": 2,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "trigger",
+          "trigger": "heal_below",
+          "value": 0.15,
+          "threshold": 0.3,
+          "per_rank": {
+            "value": 0.05
+          }
+        }
+      ]
+    },
+    {
+      "id": "fighter_riposte",
+      "class": "fighter",
+      "tier": 2,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "stat",
+          "stat": "counter_chance",
+          "value": 0.03,
+          "per_rank": {
+            "value": 0.03
+          }
+        }
+      ]
+    },
+    {
+      "id": "fighter_war_cry",
+      "class": "fighter",
+      "tier": 3,
+      "kind": "active",
+      "max_rank": 3,
+      "cooldown_s": 20,
+      "rank_cdr": 0.05,
+      "effects": [
+        {
+          "kind": "buff",
+          "stat": "pct_damage",
+          "value": 0.3,
+          "duration": 6,
+          "per_rank": {
+            "value": 0.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "fighter_brutality",
+      "class": "fighter",
+      "tier": 3,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "stat",
+          "stat": "crit_damage",
+          "value": 0.1,
+          "per_rank": {
+            "value": 0.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "fighter_stand_firm",
+      "class": "fighter",
+      "tier": 3,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "stat",
+          "stat": "boss_damage_taken",
+          "value": 0.05,
+          "per_rank": {
+            "value": 0.05
+          }
+        }
+      ]
+    },
+    {
+      "id": "fighter_executioner",
+      "class": "fighter",
+      "tier": 4,
+      "kind": "active",
+      "max_rank": 3,
+      "cooldown_s": 15,
+      "rank_cdr": 0.05,
+      "effects": [
+        {
+          "kind": "hit",
+          "percent": 5.0,
+          "condition": "enemy_hp_below",
+          "threshold": 0.3,
+          "per_rank": {
+            "percent": 1.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "fighter_bloodlust",
+      "class": "fighter",
+      "tier": 4,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "trigger",
+          "trigger": "lifesteal",
+          "value": 0.01,
+          "per_rank": {
+            "value": 0.01
+          }
+        }
+      ]
+    },
+    {
+      "id": "fighter_unbreakable",
+      "class": "fighter",
+      "tier": 4,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "trigger",
+          "trigger": "cheat_death",
+          "value": 0.05,
+          "per_rank": {
+            "value": 0.05
+          }
+        }
+      ]
+    },
+    {
+      "id": "archer_aimed_shot",
+      "class": "archer",
+      "tier": 1,
+      "kind": "active",
+      "max_rank": 3,
+      "cooldown_s": 7,
+      "rank_cdr": 0.05,
+      "effects": [
+        {
+          "kind": "hit",
+          "percent": 2.2,
+          "always_crit": true,
+          "per_rank": {
+            "percent": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "archer_quick_hands",
+      "class": "archer",
+      "tier": 1,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "stat",
+          "stat": "attack_speed",
+          "value": 0.04,
+          "per_rank": {
+            "value": 0.04
+          }
+        }
+      ]
+    },
+    {
+      "id": "archer_keen_eye",
+      "class": "archer",
+      "tier": 1,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "stat",
+          "stat": "crit_chance",
+          "value": 0.02,
+          "per_rank": {
+            "value": 0.02
+          }
+        }
+      ]
+    },
+    {
+      "id": "archer_venom_arrow",
+      "class": "archer",
+      "tier": 2,
+      "kind": "active",
+      "max_rank": 3,
+      "cooldown_s": 10,
+      "rank_cdr": 0.05,
+      "effects": [
+        {
+          "kind": "dot",
+          "percent": 1.5,
+          "duration": 5,
+          "element": "nature",
+          "per_rank": {
+            "percent": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "archer_evasive",
+      "class": "archer",
+      "tier": 2,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "stat",
+          "stat": "dodge",
+          "value": 0.03,
+          "per_rank": {
+            "value": 0.03
+          }
+        }
+      ]
+    },
+    {
+      "id": "archer_hunters_mark",
+      "class": "archer",
+      "tier": 2,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "conditional_damage",
+          "condition": "vs_family:beasts",
+          "value": 0.08,
+          "per_rank": {
+            "value": 0.08
+          }
+        },
+        {
+          "kind": "conditional_damage",
+          "condition": "vs_archetype:brute",
+          "value": 0.08,
+          "per_rank": {
+            "value": 0.08
+          }
+        }
+      ]
+    },
+    {
+      "id": "archer_volley",
+      "class": "archer",
+      "tier": 3,
+      "kind": "active",
+      "max_rank": 3,
+      "cooldown_s": 16,
+      "rank_cdr": 0.05,
+      "effects": [
+        {
+          "kind": "hit",
+          "percent": 0.6,
+          "hits": 5,
+          "per_rank": {
+            "percent": 0.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "archer_deadeye",
+      "class": "archer",
+      "tier": 3,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "stat",
+          "stat": "crit_damage",
+          "value": 0.1,
+          "per_rank": {
+            "value": 0.1
+          }
+        }
+      ]
+    },
+    {
+      "id": "archer_wind_step",
+      "class": "archer",
+      "tier": 3,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "stat",
+          "stat": "cooldown_reduction",
+          "value": 0.04,
+          "per_rank": {
+            "value": 0.04
+          }
+        }
+      ]
+    },
+    {
+      "id": "archer_piercing_arrow",
+      "class": "archer",
+      "tier": 4,
+      "kind": "active",
+      "max_rank": 3,
+      "cooldown_s": 18,
+      "rank_cdr": 0.05,
+      "effects": [
+        {
+          "kind": "hit",
+          "percent": 4.0,
+          "cannot_miss": true,
+          "per_rank": {
+            "percent": 0.8
+          }
+        }
+      ]
+    },
+    {
+      "id": "archer_momentum",
+      "class": "archer",
+      "tier": 4,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "trigger",
+          "trigger": "momentum",
+          "value": 0.01,
+          "max_stacks": 10,
+          "per_rank": {
+            "value": 0.005
+          }
+        }
+      ]
+    },
+    {
+      "id": "archer_steady_aim",
+      "class": "archer",
+      "tier": 4,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "conditional_damage",
+          "condition": "own_hp_above",
+          "value": 0.06,
+          "threshold": 0.5,
+          "per_rank": {
+            "value": 0.06
+          }
+        }
+      ]
+    },
+    {
+      "id": "mage_firebolt",
+      "class": "mage",
+      "tier": 1,
+      "kind": "active",
+      "max_rank": 3,
+      "cooldown_s": 8,
+      "rank_cdr": 0.05,
+      "effects": [
+        {
+          "kind": "hit",
+          "percent": 2.6,
+          "element": "fire",
+          "per_rank": {
+            "percent": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "mage_attunement",
+      "class": "mage",
+      "tier": 1,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "stat",
+          "stat": "pct_elemental",
+          "value": 0.06,
+          "per_rank": {
+            "value": 0.06
+          }
+        }
+      ]
+    },
+    {
+      "id": "mage_arcane_ward",
+      "class": "mage",
+      "tier": 1,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "stat",
+          "stat": "pct_hp",
+          "value": 0.05,
+          "per_rank": {
+            "value": 0.05
+          }
+        }
+      ]
+    },
+    {
+      "id": "mage_frost_lance",
+      "class": "mage",
+      "tier": 2,
+      "kind": "active",
+      "max_rank": 3,
+      "cooldown_s": 10,
+      "rank_cdr": 0.05,
+      "effects": [
+        {
+          "kind": "hit",
+          "percent": 2.0,
+          "element": "water",
+          "per_rank": {
+            "percent": 0.4
+          }
+        },
+        {
+          "kind": "enemy_slow",
+          "value": 0.3,
+          "duration": 4,
+          "per_rank": {}
+        }
+      ]
+    },
+    {
+      "id": "mage_focus",
+      "class": "mage",
+      "tier": 2,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "stat",
+          "stat": "cooldown_reduction",
+          "value": 0.04,
+          "per_rank": {
+            "value": 0.04
+          }
+        }
+      ]
+    },
+    {
+      "id": "mage_mana_shield",
+      "class": "mage",
+      "tier": 2,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "stat",
+          "stat": "damage_taken",
+          "value": 0.03,
+          "per_rank": {
+            "value": 0.03
+          }
+        }
+      ]
+    },
+    {
+      "id": "mage_thornbind",
+      "class": "mage",
+      "tier": 3,
+      "kind": "active",
+      "max_rank": 3,
+      "cooldown_s": 12,
+      "rank_cdr": 0.05,
+      "effects": [
+        {
+          "kind": "dot",
+          "percent": 2.2,
+          "duration": 6,
+          "element": "nature",
+          "per_rank": {
+            "percent": 0.6
+          }
+        }
+      ]
+    },
+    {
+      "id": "mage_overload",
+      "class": "mage",
+      "tier": 3,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "stat",
+          "stat": "skill_crit_damage",
+          "value": 0.12,
+          "per_rank": {
+            "value": 0.12
+          }
+        }
+      ]
+    },
+    {
+      "id": "mage_elemental_lore",
+      "class": "mage",
+      "tier": 3,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "conditional_damage",
+          "condition": "vs_family:elementals",
+          "value": 0.08,
+          "per_rank": {
+            "value": 0.08
+          }
+        },
+        {
+          "kind": "conditional_damage",
+          "condition": "vs_family:wizards",
+          "value": 0.08,
+          "per_rank": {
+            "value": 0.08
+          }
+        }
+      ]
+    },
+    {
+      "id": "mage_radiant_nova",
+      "class": "mage",
+      "tier": 4,
+      "kind": "active",
+      "max_rank": 3,
+      "cooldown_s": 20,
+      "rank_cdr": 0.05,
+      "effects": [
+        {
+          "kind": "hit",
+          "percent": 4.5,
+          "element": "light",
+          "per_rank": {
+            "percent": 0.9
+          }
+        }
+      ]
+    },
+    {
+      "id": "mage_echo",
+      "class": "mage",
+      "tier": 4,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "trigger",
+          "trigger": "echo",
+          "value": 0.04,
+          "per_rank": {
+            "value": 0.04
+          }
+        }
+      ]
+    },
+    {
+      "id": "mage_glass_cannon",
+      "class": "mage",
+      "tier": 4,
+      "kind": "passive",
+      "max_rank": 5,
+      "effects": [
+        {
+          "kind": "stat",
+          "stat": "pct_damage",
+          "value": 0.08,
+          "per_rank": {
+            "value": 0.08
+          }
+        },
+        {
+          "kind": "stat",
+          "stat": "pct_armour",
+          "value": -0.04,
+          "per_rank": {
+            "value": -0.04
+          }
+        }
+      ]
+    }
+  ],
+  "suggested_order": {
+    "fighter": [
+      "fighter_heavy_swing",
+      "fighter_toughness",
+      "fighter_heavy_swing",
+      "fighter_toughness",
+      "fighter_heavy_swing",
+      "fighter_rend",
+      "fighter_second_wind",
+      "fighter_riposte",
+      "fighter_rend",
+      "fighter_riposte",
+      "fighter_war_cry",
+      "fighter_brutality",
+      "fighter_war_cry",
+      "fighter_brutality",
+      "fighter_executioner",
+      "fighter_rend",
+      "fighter_war_cry",
+      "fighter_executioner",
+      "fighter_executioner",
+      "fighter_toughness",
+      "fighter_toughness",
+      "fighter_toughness",
+      "fighter_iron_skin",
+      "fighter_iron_skin",
+      "fighter_iron_skin",
+      "fighter_iron_skin",
+      "fighter_iron_skin",
+      "fighter_riposte",
+      "fighter_riposte",
+      "fighter_riposte",
+      "fighter_brutality",
+      "fighter_brutality",
+      "fighter_brutality",
+      "fighter_second_wind",
+      "fighter_second_wind",
+      "fighter_second_wind",
+      "fighter_second_wind",
+      "fighter_stand_firm",
+      "fighter_stand_firm",
+      "fighter_stand_firm",
+      "fighter_stand_firm",
+      "fighter_stand_firm",
+      "fighter_bloodlust",
+      "fighter_bloodlust",
+      "fighter_bloodlust",
+      "fighter_bloodlust",
+      "fighter_bloodlust",
+      "fighter_unbreakable",
+      "fighter_unbreakable",
+      "fighter_unbreakable",
+      "fighter_unbreakable",
+      "fighter_unbreakable"
+    ],
+    "archer": [
+      "archer_aimed_shot",
+      "archer_quick_hands",
+      "archer_aimed_shot",
+      "archer_keen_eye",
+      "archer_aimed_shot",
+      "archer_venom_arrow",
+      "archer_hunters_mark",
+      "archer_evasive",
+      "archer_venom_arrow",
+      "archer_hunters_mark",
+      "archer_volley",
+      "archer_deadeye",
+      "archer_volley",
+      "archer_wind_step",
+      "archer_piercing_arrow",
+      "archer_venom_arrow",
+      "archer_volley",
+      "archer_piercing_arrow",
+      "archer_piercing_arrow",
+      "archer_quick_hands",
+      "archer_quick_hands",
+      "archer_quick_hands",
+      "archer_quick_hands",
+      "archer_keen_eye",
+      "archer_keen_eye",
+      "archer_keen_eye",
+      "archer_keen_eye",
+      "archer_hunters_mark",
+      "archer_hunters_mark",
+      "archer_hunters_mark",
+      "archer_evasive",
+      "archer_evasive",
+      "archer_evasive",
+      "archer_evasive",
+      "archer_deadeye",
+      "archer_deadeye",
+      "archer_deadeye",
+      "archer_deadeye",
+      "archer_wind_step",
+      "archer_wind_step",
+      "archer_wind_step",
+      "archer_wind_step",
+      "archer_momentum",
+      "archer_momentum",
+      "archer_momentum",
+      "archer_momentum",
+      "archer_momentum",
+      "archer_steady_aim",
+      "archer_steady_aim",
+      "archer_steady_aim",
+      "archer_steady_aim",
+      "archer_steady_aim"
+    ],
+    "mage": [
+      "mage_firebolt",
+      "mage_attunement",
+      "mage_firebolt",
+      "mage_attunement",
+      "mage_firebolt",
+      "mage_frost_lance",
+      "mage_focus",
+      "mage_mana_shield",
+      "mage_frost_lance",
+      "mage_focus",
+      "mage_thornbind",
+      "mage_overload",
+      "mage_thornbind",
+      "mage_elemental_lore",
+      "mage_radiant_nova",
+      "mage_frost_lance",
+      "mage_thornbind",
+      "mage_radiant_nova",
+      "mage_radiant_nova",
+      "mage_attunement",
+      "mage_attunement",
+      "mage_attunement",
+      "mage_arcane_ward",
+      "mage_arcane_ward",
+      "mage_arcane_ward",
+      "mage_arcane_ward",
+      "mage_arcane_ward",
+      "mage_focus",
+      "mage_focus",
+      "mage_focus",
+      "mage_mana_shield",
+      "mage_mana_shield",
+      "mage_mana_shield",
+      "mage_mana_shield",
+      "mage_overload",
+      "mage_overload",
+      "mage_overload",
+      "mage_overload",
+      "mage_elemental_lore",
+      "mage_elemental_lore",
+      "mage_elemental_lore",
+      "mage_elemental_lore",
+      "mage_echo",
+      "mage_echo",
+      "mage_echo",
+      "mage_echo",
+      "mage_echo",
+      "mage_glass_cannon",
+      "mage_glass_cannon",
+      "mage_glass_cannon",
+      "mage_glass_cannon",
+      "mage_glass_cannon"
+    ]
+  }
+}

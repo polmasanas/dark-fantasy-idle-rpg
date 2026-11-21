@@ -1066,5 +1066,14 @@
   "item_rules": {
     "_comment": "M5-1: Mage class line bonus to elemental damage (kept out of 'items' so Sheets rows do not shift).",
     "class_bonus_pct_elemental": 0.15
+  },
+  "skill_rules": {
+    "_comment": "M6 skills (R2-8, R2-9, GDD 7). Node data lives in skills_config.json (M6-3).",
+    "tier_points": 5,
+    "cooldown_reduction_cap": 0.5,
+    "respec_base": 40,
+    "respec_growth": 1.07,
+    "dot_tick_s": 1.0,
+    "hero_dodge_cap": 0.3
   }
 }

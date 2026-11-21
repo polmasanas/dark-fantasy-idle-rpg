@@ -30,6 +30,10 @@ namespace DarkFantasy.Core.Config
         public TriangleConfig Triangle { get; set; }
         public Dictionary<string, FamilyConfig> Families { get; set; }
         public RegionsConfig Regions { get; set; }
+        public SkillRulesConfig SkillRules { get; set; }
+
+        /// <summary>Skill trees from skills_config.json (M6-3), attached after loading; null = no skills.</summary>
+        public SkillsConfig Skills { get; set; }
 
         /// <summary>Preset name → attribute key ("primary" = class primary) → share of manual points.</summary>
         public Dictionary<string, Dictionary<string, double>> AllocationPresets { get; set; }

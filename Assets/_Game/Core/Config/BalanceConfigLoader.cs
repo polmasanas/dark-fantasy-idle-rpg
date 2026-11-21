@@ -198,6 +198,16 @@ namespace DarkFantasy.Core.Config
             };
             config.Regions = Regions(Section(root, "regions"), config.Families);
             config.Items.ClassBonusPctElemental = D(Section(root, "item_rules"), "item_rules", "class_bonus_pct_elemental");
+            var sr = Section(root, "skill_rules");
+            config.SkillRules = new SkillRulesConfig
+            {
+                TierPoints = I(sr, "skill_rules", "tier_points"),
+                CooldownReductionCap = D(sr, "skill_rules", "cooldown_reduction_cap"),
+                RespecBase = D(sr, "skill_rules", "respec_base"),
+                RespecGrowth = D(sr, "skill_rules", "respec_growth"),
+                DotTickS = D(sr, "skill_rules", "dot_tick_s"),
+                HeroDodgeCap = D(sr, "skill_rules", "hero_dodge_cap"),
+            };
             return config;
         }
 
