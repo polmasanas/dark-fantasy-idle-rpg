@@ -72,5 +72,10 @@ namespace DarkFantasy.Core.Session
         public EnemySnapshot Enemy;
         public CombatStats Player;
         public FightResult Result;
+
+        /// <summary>The hero's skills in this fight and their cooldowns before and after it (M6-2).</summary>
+        public Skills.SkillKit Kit;
+        public double[] CooldownsBefore;
+        public double[] CooldownsAfter;
     }
 }

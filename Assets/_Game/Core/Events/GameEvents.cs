@@ -50,6 +50,13 @@ namespace DarkFantasy.Core.Events
         public HeroSwitched(Stats.ClassId hero) { Hero = hero; }
     }
 
+    /// <summary>A hero's skill ranks, loadout or auto-spend setting changed (M6).</summary>
+    public sealed class SkillsChanged
+    {
+        public readonly Stats.ClassId Hero;
+        public SkillsChanged(Stats.ClassId hero) { Hero = hero; }
+    }
+
     public sealed class WorldChanged
     {
         public readonly WorldChange Change;

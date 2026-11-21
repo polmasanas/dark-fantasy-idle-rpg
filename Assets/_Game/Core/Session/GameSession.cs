@@ -28,7 +28,7 @@ namespace DarkFantasy.Core.Session
         BossFight,
     }
 
-    public sealed class GameSession
+    public sealed partial class GameSession
     {
         private readonly BalanceConfig _c;
         private readonly IRng _rng;
@@ -80,6 +80,7 @@ namespace DarkFantasy.Core.Session
             Items = new ItemStats(config);
             EnsureStarterKit();
             EnsureHeroKits();
+            InitSkills();
             if (_c.Onboarding.TrainingBossEnabled && !State.Account.TrainingBossDone
                 && State.World.Region == 1 && State.World.UnlockedSubzone <= _c.Onboarding.TrainingBossAfterSubzone)
                 State.World.TrainingBossPending = true;
@@ -215,12 +216,18 @@ namespace DarkFantasy.Core.Session
             InBossFight = encounter.IsBoss;
             var enemy = _enemies.Create(encounter, _rng);
             var player = PlayerStats();
+            var kit = SkillKit();
+            var before = CooldownsFor(State.Character, kit);
+            var after = (double[])before.Clone();
             return new PreparedFight
             {
                 Encounter = encounter,
                 Enemy = enemy,
                 Player = player,
-                Result = _engine.Resolve(player, enemy, _rng, _offline == null),
+                Kit = kit,
+                CooldownsBefore = before,
+                CooldownsAfter = after,
+                Result = _engine.Resolve(player, enemy, _rng, _offline == null, kit, after),
             };
         }
 
@@ -230,6 +237,7 @@ namespace DarkFantasy.Core.Session
             if (fight == null) throw new ArgumentNullException(nameof(fight));
             InBossFight = false;
             State.GameTime += fight.Result.Duration + _c.Combat.EnemyRespawnS;
+            CommitCooldowns(fight);
 
             if (fight.Result.Outcome == FightOutcome.Won)
             {
@@ -313,6 +321,8 @@ namespace DarkFantasy.Core.Session
             if (State.Character.Level < highest) xp *= 1 + _c.Player.CatchupXpBonus; // D-024
             int gained = Progression.AddXp(State.Character, xp);
             if (gained > 0 && State.Character.AutoAllocateOnLevelUp) Progression.AutoAllocate(State.Character);
+            if (gained > 0 && State.Character.AutoSpendSkills && Skills != null && Skills.AutoSpend(State.Character) > 0)
+                Publish(new SkillsChanged(State.Character.Class));
             return gained;
         }
 
