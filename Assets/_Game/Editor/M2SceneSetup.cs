@@ -17,6 +17,7 @@ namespace DarkFantasy.EditorTools
         private const string PanelSettingsPath = "Assets/_Game/UI/GamePanelSettings.asset";
         private const string ConfigPath = "Assets/_Game/Data/balance_config.json";
         private const string LookConfigPath = "Assets/_Game/Data/look_config.json";
+        private const string SkillsConfigPath = "Assets/_Game/Data/skills_config.json";
 
         [MenuItem("DFIRPG/Set Up M2 Scene")]
         public static void SetUp()
@@ -68,6 +69,7 @@ namespace DarkFantasy.EditorTools
             var serialized = new SerializedObject(bootstrap);
             serialized.FindProperty("balanceConfig").objectReferenceValue = config;
             serialized.FindProperty("lookConfig").objectReferenceValue = AssetDatabase.LoadAssetAtPath<TextAsset>(LookConfigPath);
+            serialized.FindProperty("skillsConfig").objectReferenceValue = AssetDatabase.LoadAssetAtPath<TextAsset>(SkillsConfigPath);
             serialized.ApplyModifiedProperties();
 
             EditorSceneManager.MarkSceneDirty(scene);

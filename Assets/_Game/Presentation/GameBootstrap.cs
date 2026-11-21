@@ -29,6 +29,9 @@ namespace DarkFantasy.Presentation
         [Tooltip("Assets/_Game/Data/look_config.json (filled in automatically in the editor)")]
         [SerializeField] private TextAsset lookConfig;
 
+        [Tooltip("Assets/_Game/Data/skills_config.json (filled in automatically in the editor)")]
+        [SerializeField] private TextAsset skillsConfig;
+
         [Tooltip("0 = random seed for a new run; any other value replays the same run. Ignored when a save exists.")]
         [SerializeField] private int seed;
 
@@ -53,6 +56,7 @@ namespace DarkFantasy.Presentation
         private CombatView _combat;
         private HudView _hud;
         private InventoryView _inventory;
+        private SkillsView _skills;
         private CustomPresetView _customPreset;
         private OfflineReportView _report;
         private HeroBarView _heroBar;
@@ -66,6 +70,8 @@ namespace DarkFantasy.Presentation
         {
             if (lookConfig == null)
                 lookConfig = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/_Game/Data/look_config.json");
+            if (skillsConfig == null)
+                skillsConfig = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/_Game/Data/skills_config.json");
         }
 #endif
 
@@ -81,6 +87,17 @@ namespace DarkFantasy.Presentation
             try
             {
                 _config = BalanceConfigLoader.FromJson(balanceConfig.text);
+#if UNITY_EDITOR
+                if (skillsConfig == null)
+                    skillsConfig = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/_Game/Data/skills_config.json");
+#endif
+                if (skillsConfig == null)
+                {
+                    Debug.LogError("GameBootstrap: assign Assets/_Game/Data/skills_config.json to 'Skills Config'.");
+                    enabled = false;
+                    return;
+                }
+                _config.Skills = SkillsConfigLoader.FromJson(skillsConfig.text);
             }
             catch (BalanceConfigException e)
             {
@@ -171,7 +188,8 @@ namespace DarkFantasy.Presentation
 
             _inventory = new InventoryView(_session, _config);
             _customPreset = new CustomPresetView(_session, _config);
-            _hud = new HudView(_session, _config, _regions, _inventory.Open, _customPreset.Open);
+            _skills = new SkillsView(_session, _config, _look);
+            _hud = new HudView(_session, _config, _regions, _inventory.Open, _customPreset.Open, _skills.Open);
             _combat = new CombatView(_look, _regions, _enemyLooks, _session.State.Character.Class);
             _combat.BossCameraChanged += on => _music.SetBoss(on);
             _music.SetBoss(false);
@@ -189,6 +207,7 @@ namespace DarkFantasy.Presentation
             // overlays, added last so they draw on top
             root.Add(_inventory.Root);
             root.Add(_customPreset.Root);
+            root.Add(_skills.Root);
             root.Add(_report.Root);
 
             _session.Events.Subscribe<WorldChanged>(OnWorldChanged);

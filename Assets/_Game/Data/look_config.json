@@ -310,5 +310,152 @@
       "attack_deg": 18,
       "hit_deg": -6
     }
+  },
+  "skills": {
+    "_comment": "M6 skill names and descriptions (text only; numbers live in Tools/BalanceSim/skills_config.json).",
+    "fighter_heavy_swing": {
+      "name": "Heavy Swing",
+      "description": "A two-handed blow that lands much harder than a normal attack."
+    },
+    "fighter_toughness": {
+      "name": "Toughness",
+      "description": "More maximum health."
+    },
+    "fighter_iron_skin": {
+      "name": "Iron Skin",
+      "description": "More armour."
+    },
+    "fighter_rend": {
+      "name": "Rend",
+      "description": "A cut that keeps bleeding for a few seconds."
+    },
+    "fighter_second_wind": {
+      "name": "Second Wind",
+      "description": "Once per fight, below 30% health, recover some health."
+    },
+    "fighter_riposte": {
+      "name": "Riposte",
+      "description": "More chance to counter-attack when hit."
+    },
+    "fighter_war_cry": {
+      "name": "War Cry",
+      "description": "A shout that raises all your damage for a few seconds."
+    },
+    "fighter_brutality": {
+      "name": "Brutality",
+      "description": "Critical hits deal more damage."
+    },
+    "fighter_stand_firm": {
+      "name": "Stand Firm",
+      "description": "Take less damage from bosses."
+    },
+    "fighter_executioner": {
+      "name": "Executioner",
+      "description": "A finishing blow, used only on an enemy below 30% health."
+    },
+    "fighter_bloodlust": {
+      "name": "Bloodlust",
+      "description": "Heal a share of the damage you deal."
+    },
+    "fighter_unbreakable": {
+      "name": "Unbreakable",
+      "description": "Once per boss fight, a killing blow leaves you standing and heals you a little."
+    },
+    "archer_aimed_shot": {
+      "name": "Aimed Shot",
+      "description": "A careful shot that always lands as a critical hit."
+    },
+    "archer_quick_hands": {
+      "name": "Quick Hands",
+      "description": "Faster attacks."
+    },
+    "archer_keen_eye": {
+      "name": "Keen Eye",
+      "description": "More chance to land critical hits."
+    },
+    "archer_venom_arrow": {
+      "name": "Venom Arrow",
+      "description": "An arrow that poisons the target with Nature damage over a few seconds."
+    },
+    "archer_evasive": {
+      "name": "Evasive",
+      "description": "A chance to dodge enemy attacks."
+    },
+    "archer_hunters_mark": {
+      "name": "Hunter's Mark",
+      "description": "More damage against beasts and brutes."
+    },
+    "archer_volley": {
+      "name": "Volley",
+      "description": "Five quick arrows at once."
+    },
+    "archer_deadeye": {
+      "name": "Deadeye",
+      "description": "Critical hits deal more damage."
+    },
+    "archer_wind_step": {
+      "name": "Wind Step",
+      "description": "Shorter skill cooldowns."
+    },
+    "archer_piercing_arrow": {
+      "name": "Piercing Arrow",
+      "description": "A heavy arrow that can never miss."
+    },
+    "archer_momentum": {
+      "name": "Momentum",
+      "description": "Each hit makes you a little faster, up to 10 times in a fight."
+    },
+    "archer_steady_aim": {
+      "name": "Steady Aim",
+      "description": "More damage while above half health."
+    },
+    "mage_firebolt": {
+      "name": "Firebolt",
+      "description": "A bolt of Fire."
+    },
+    "mage_attunement": {
+      "name": "Attunement",
+      "description": "More elemental damage."
+    },
+    "mage_arcane_ward": {
+      "name": "Arcane Ward",
+      "description": "More maximum health."
+    },
+    "mage_frost_lance": {
+      "name": "Frost Lance",
+      "description": "A lance of Water that also slows the enemy's attacks."
+    },
+    "mage_focus": {
+      "name": "Focus",
+      "description": "Shorter skill cooldowns."
+    },
+    "mage_mana_shield": {
+      "name": "Mana Shield",
+      "description": "Take less damage from every hit."
+    },
+    "mage_thornbind": {
+      "name": "Thornbind",
+      "description": "Thorns that deal Nature damage over a few seconds."
+    },
+    "mage_overload": {
+      "name": "Overload",
+      "description": "Critical hits from skills deal more damage."
+    },
+    "mage_elemental_lore": {
+      "name": "Elemental Lore",
+      "description": "More damage against elementals and wizards."
+    },
+    "mage_radiant_nova": {
+      "name": "Radiant Nova",
+      "description": "A burst of Light, strongest against the undead."
+    },
+    "mage_echo": {
+      "name": "Echo",
+      "description": "A chance that a skill fires twice."
+    },
+    "mage_glass_cannon": {
+      "name": "Glass Cannon",
+      "description": "More damage, but less armour."
+    }
   }
 }

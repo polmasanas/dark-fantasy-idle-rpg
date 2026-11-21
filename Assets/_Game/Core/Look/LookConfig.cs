@@ -116,6 +116,13 @@ namespace DarkFantasy.Core.Look
         public double BossVolume;
     }
 
+    /// <summary>A skill's player-facing name and description (M6); numbers come from skills_config.json.</summary>
+    public sealed class SkillLook
+    {
+        public string Name;
+        public string Description;
+    }
+
     /// <summary>Everything in Assets/_Game/Data/look_config.json (Docs/CREATIVE_DIRECTION.md).</summary>
     public sealed class LookConfig
     {
@@ -133,6 +140,7 @@ namespace DarkFantasy.Core.Look
         public CameraLook Camera;
         public AudioLook Audio;
         public Dictionary<string, PartMotion> Motions = new Dictionary<string, PartMotion>();
+        public Dictionary<string, SkillLook> Skills = new Dictionary<string, SkillLook>();
     }
 
     public sealed class LookConfigException : Exception

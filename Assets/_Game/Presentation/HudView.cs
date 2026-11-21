@@ -38,13 +38,14 @@ namespace DarkFantasy.Presentation
         private readonly Bar _xp;
         private readonly Label _gold;
         private readonly Label _unspent;
+        private readonly Button _skills;
         private readonly Dictionary<AttributeId, Label> _values = new Dictionary<AttributeId, Label>();
         private readonly List<Button> _plusButtons = new List<Button>();
         private readonly Toggle _bossToggle;
         private readonly Toggle _autoToggle;
         private readonly Toggle _custom;
 
-        public HudView(GameSession session, BalanceConfig config, RegionLooks regions, Action openInventory, Action openCustomPreset)
+        public HudView(GameSession session, BalanceConfig config, RegionLooks regions, Action openInventory, Action openCustomPreset, Action openSkills)
         {
             _session = session ?? throw new ArgumentNullException(nameof(session));
             _formulas = new GameFormulas(config);
@@ -68,6 +69,8 @@ namespace DarkFantasy.Presentation
             row2.Add(_xp.Root);
             row2.Add(_gold);
             row2.Add(Ui.Button("Bag", openInventory));
+            _skills = Ui.Button("Skills", openSkills); // M6: shows a dot while skill points wait to be spent
+            row2.Add(_skills);
             Top.Add(row2);
 
             // ---- Bottom: attribute points and boss toggle ----
@@ -140,6 +143,9 @@ namespace DarkFantasy.Presentation
             _xp.Set(c.Xp / _formulas.XpToNext(c.Level));
             _gold.text = "Gold " + NumberFormat.Short(st.Gold) + " · Mat " + NumberFormat.Short(st.Wallet.Materials);
             _unspent.text = $"Points: {c.UnspentPoints}";
+            bool skillPoints = _session.Skills != null && _session.Skills.Unspent(c) > 0;
+            _skills.text = skillPoints ? "Skills •" : "Skills";
+            _skills.style.color = skillPoints ? Ui.Gold : Ui.Text;
 
             foreach (var (id, name) in AttributeNames)
                 _values[id].text = $"{name} {_session.Progression.Total(c, id)}";

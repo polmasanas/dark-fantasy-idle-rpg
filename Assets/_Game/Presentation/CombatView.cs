@@ -219,6 +219,31 @@ namespace DarkFantasy.Presentation
                     if (!_bossFight && _playerHpNow < 1) _playerHpNow = 1; // normal enemies cannot kill (R2-1c)
                     Float(false, "-" + NumberFormat.Short(e.Amount), Ui.Damage, 32);
                     break;
+                case CombatEventType.SkillHit:
+                case CombatEventType.SkillCrit:
+                    _hero.Attack();
+                    _enemy.Hit();
+                    DamageEnemy(e.Amount);
+                    AnnounceSkill(e);
+                    Float(true, NumberFormat.Short(e.Amount) + (e.Type == CombatEventType.SkillCrit ? "!" : ""),
+                        HitColor(e, Ui.Gold), e.Type == CombatEventType.SkillCrit ? 50 : 42);
+                    break;
+                case CombatEventType.DotTick:
+                    DamageEnemy(e.Amount);
+                    Float(true, NumberFormat.Short(e.Amount), HitColor(e, Ui.Muted), 26);
+                    break;
+                case CombatEventType.BuffStart:
+                    _hero.Attack();
+                    AnnounceSkill(e);
+                    break;
+                case CombatEventType.Dodge:
+                    _enemy.Attack();
+                    Float(false, "Dodge", Ui.Muted, 30);
+                    break;
+                case CombatEventType.Heal:
+                    _playerHpNow = Math.Min(_playerHpMax, _playerHpNow + e.Amount);
+                    Float(false, "+" + NumberFormat.Short(e.Amount), Ui.Hp, 32);
+                    break;
                 case CombatEventType.EnemyDied:
                     _enemy.Fall();
                     break;
@@ -333,6 +358,19 @@ namespace DarkFantasy.Presentation
         }
 
         /// <summary>A number in carved capitals that rises and fades over the hero or the enemy.</summary>
+        private string _lastSkill;
+        private double _lastSkillTime = -1;
+
+        /// <summary>The skill's name over the hero, once per cast (a Volley's five hits share one name).</summary>
+        private void AnnounceSkill(CombatEvent e)
+        {
+            if (e.SkillId == null || (e.SkillId == _lastSkill && Math.Abs(e.Time - _lastSkillTime) < 1e-6)) return;
+            _lastSkill = e.SkillId;
+            _lastSkillTime = e.Time;
+            string name = _look.Skills.TryGetValue(e.SkillId, out var s) ? s.Name : e.SkillId;
+            Float(false, name, Ui.Gold, 30);
+        }
+
         private void Float(bool overEnemy, string text, Color color, int size)
         {
             var label = Ui.Title(text, size, color);

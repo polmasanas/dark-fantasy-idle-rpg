@@ -110,6 +110,13 @@ namespace DarkFantasy.Core.Look
                 AmbientVolume = Num(audio, "audio", "ambient_volume"),
                 BossVolume = Num(audio, "audio", "boss_volume"),
             };
+            foreach (var prop in Obj(root, "skills", "skills").Properties())
+            {
+                if (prop.Name.StartsWith("_")) continue;
+                string path = "skills." + prop.Name;
+                var o = prop.Value as JObject ?? throw new LookConfigException(path + " must be an object");
+                c.Skills[prop.Name] = new SkillLook { Name = Str(o, path, "name"), Description = Str(o, path, "description") };
+            }
             return c;
         }
 
