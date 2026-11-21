@@ -16,7 +16,7 @@ namespace DarkFantasy.Core.Combat
     /// (R2-1c); bosses can kill the player and time out at the boss limit (R2-2). Each enemy hit
     /// may trigger a Counter (D-033): an immediate extra attack at CounterDamage x hit damage.
     /// </summary>
-    public sealed class CombatEngine
+    public sealed partial class CombatEngine
     {
         private const double TimeEpsilon = 1e-9;
 
@@ -133,21 +133,31 @@ namespace DarkFantasy.Core.Combat
         public double HitAmount(CombatStats p, EnemySnapshot enemy, double damageScale, bool crit) =>
             Components(p, enemy, out _) * _triangle.DealtBy(p.Class, enemy.Archetype) * damageScale * (crit ? p.CritDamage : 1.0);
 
-        private double Components(CombatStats p, EnemySnapshot enemy, out Element largest)
+        private double Components(CombatStats p, EnemySnapshot enemy, out Element largest) =>
+            Components(p, enemy, Element.Physical, out largest);
+
+        /// <summary>
+        /// Sum of a hit's components. <paramref name="baseElement"/> is the element of the main component: Physical for
+        /// normal hits, or a skill's element, which replaces Physical (spec §3.4); the main share is boosted by
+        /// +% elemental when it is elemental.
+        /// </summary>
+        private double Components(CombatStats p, EnemySnapshot enemy, Element baseElement, out Element largest)
         {
             double total = 0, best = -1;
             largest = Element.Physical;
             for (int i = 0; i < Elements.Count; i++)
             {
-                double share = i == 0 ? 1.0 : p.ElementShare[i] * (1 + p.PctElemental);
+                var element = i == 0 ? baseElement : (Element)i;
+                double share = i == 0 ? (baseElement == Element.Physical ? 1.0 : 1 + p.PctElemental)
+                    : p.ElementShare[i] * (1 + p.PctElemental);
                 if (share <= 0) continue;
-                double resist = enemy.Resist[i];
+                double resist = enemy.Resist[(int)element];
                 resist = resist < _c.Elements.ResistMin ? _c.Elements.ResistMin : resist > _c.Elements.ResistMax ? _c.Elements.ResistMax : resist;
-                double part = p.HitDamage * share * _elements.Multiplier((Element)i, enemy.Element) * (1 - resist);
+                double part = p.HitDamage * share * _elements.Multiplier(element, enemy.Element) * (1 - resist);
                 if (part > best)
                 {
                     best = part;
-                    largest = (Element)i;
+                    largest = element;
                 }
                 total += part;
             }

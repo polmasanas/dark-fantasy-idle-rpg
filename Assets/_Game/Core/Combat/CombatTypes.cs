@@ -51,6 +51,14 @@ namespace DarkFantasy.Core.Combat
         PlayerDied,
         Escaped,
         TimedOut,
+
+        // M6 skills (appended)
+        SkillHit,
+        SkillCrit,
+        DotTick,
+        BuffStart,
+        Dodge,
+        Heal,
     }
 
     /// <summary>One thing that happened in a fight. The view layer animates these; logic never needs them.</summary>
@@ -63,15 +71,19 @@ namespace DarkFantasy.Core.Combat
         /// <summary>The element of the largest damage component of a hit (for the damage-number colour).</summary>
         public readonly Element Element;
 
-        public CombatEvent(double time, CombatEventType type, double amount, Element element = Element.Physical)
+        /// <summary>The skill node that caused this event (skill hits, misses, DoT ticks, buffs); null for normal events.</summary>
+        public readonly string SkillId;
+
+        public CombatEvent(double time, CombatEventType type, double amount, Element element = Element.Physical, string skillId = null)
         {
             Time = time;
             Type = type;
             Amount = amount;
             Element = element;
+            SkillId = skillId;
         }
 
-        public override string ToString() => $"{Time:0.###}s {Type} {Amount:0.###}";
+        public override string ToString() => $"{Time:0.###}s {Type} {Amount:0.###}" + (SkillId == null ? "" : " " + SkillId);
     }
 
     public sealed class FightResult
