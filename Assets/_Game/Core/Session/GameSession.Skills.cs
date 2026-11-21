@@ -53,21 +53,13 @@ namespace DarkFantasy.Core.Session
                 map[fight.Kit.Actives[i].Node.Id] = Math.Max(0, fight.CooldownsAfter[i] - _c.Combat.EnemyRespawnS);
         }
 
-        private void ResetTimer(ClassId hero, string id)
-        {
-            if (_cooldowns.TryGetValue(hero, out var map)) map.Remove(id);
-        }
-
         public SkillResult AddSkillRank(string id) => Changed(Skills.AddRank(State.Character, id));
 
-        /// <summary>Puts a learned active in a slot; a skill that wasn't slotted before starts ready (spec §3.2).</summary>
-        public SkillResult SlotSkill(string id, int slot)
-        {
-            bool wasSlotted = Array.IndexOf(State.Character.Loadout, id) >= 0;
-            var r = Skills.Slot(State.Character, id, slot);
-            if (r == SkillResult.Ok && !wasSlotted) ResetTimer(State.Character.Class, id);
-            return Changed(r);
-        }
+        /// <summary>
+        /// Puts a learned active in a slot. Its timer is kept, so unslotting and reslotting never skips a cooldown;
+        /// a skill not cast recently has no time left and starts ready (spec §3.2).
+        /// </summary>
+        public SkillResult SlotSkill(string id, int slot) => Changed(Skills.Slot(State.Character, id, slot));
 
         public void UnslotSkill(int slot)
         {

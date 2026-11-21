@@ -73,7 +73,7 @@ namespace DarkFantasy.Core.Tests.Session
         }
 
         [Test]
-        public void NewlySlotted_StartsReady_SwapKeepsTimer()
+        public void NewlySlotted_StartsReady_ReslotKeepsTimer()
         {
             var s = WithSwing();
             s.Apply(s.PrepareNextFight());
@@ -83,7 +83,12 @@ namespace DarkFantasy.Core.Tests.Session
             Assert.AreEqual(left, s.CooldownLeft(ClassId.Fighter, Swing), 1e-12);
             s.UnslotSkill(2);
             Assert.AreEqual(SkillResult.Ok, s.SlotSkill(Swing, 1));
-            Assert.AreEqual(0, s.CooldownLeft(ClassId.Fighter, Swing));
+            Assert.AreEqual(left, s.CooldownLeft(ClassId.Fighter, Swing), 1e-12, "unslot + reslot must not skip the cooldown");
+            s.State.Character.Level = 30; // 6 points: swing + 4 toughness opens tier 2
+            for (int i = 0; i < 4; i++) Assert.AreEqual(SkillResult.Ok, s.AddSkillRank("fighter_toughness"));
+            Assert.AreEqual(SkillResult.Ok, s.AddSkillRank("fighter_rend"));
+            Assert.AreEqual(SkillResult.Ok, s.SlotSkill("fighter_rend", 2));
+            Assert.AreEqual(0, s.CooldownLeft(ClassId.Fighter, "fighter_rend"), "a skill never cast starts ready");
         }
 
         [Test]
