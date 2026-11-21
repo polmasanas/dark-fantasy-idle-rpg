@@ -94,7 +94,7 @@ namespace DarkFantasy.Core.Tests.Config
         [Test]
         public void HeavySwing_Rank3_Percent3_5()
         {
-            var hit = Load().Find("fighter_heavy_swing").Effects.First(e => e.Kind == EffectKind.Hit);
+            var hit = TestConfig.LoadWithSpecSkills().Skills.Find("fighter_heavy_swing").Effects.First(e => e.Kind == EffectKind.Hit);
             Assert.AreEqual(2.5, hit.At("percent", 1), 1e-12);
             Assert.AreEqual(3.5, hit.At("percent", 3), 1e-12);
         }

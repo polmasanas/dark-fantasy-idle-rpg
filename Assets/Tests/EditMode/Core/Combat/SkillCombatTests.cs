@@ -12,7 +12,7 @@ namespace DarkFantasy.Core.Tests.Combat
     /// <summary>Shared builders for skill fights: hit chance 1, no crit, 10 damage per hit every 1 s.</summary>
     public static class SkillFight
     {
-        public static CombatEngine Engine() => new CombatEngine(TestConfig.Load());
+        public static CombatEngine Engine() => new CombatEngine(TestConfig.LoadWithSpecSkills());
 
         public static CombatStats Player(double hp = 100, double crit = 0, double counter = 0) => new CombatStats
         {
@@ -25,7 +25,7 @@ namespace DarkFantasy.Core.Tests.Combat
 
         public static ActiveSkill Active(string id, int rank = 1, int slot = 0, double? cooldown = null)
         {
-            var node = TestConfig.Load().Skills.Find(id);
+            var node = TestConfig.LoadWithSpecSkills().Skills.Find(id);
             return new ActiveSkill { Node = node, Rank = rank, Slot = slot, Cooldown = cooldown ?? node.CooldownS };
         }
 

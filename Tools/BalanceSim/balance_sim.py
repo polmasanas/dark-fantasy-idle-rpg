@@ -22,6 +22,8 @@ import os
 import random
 from dataclasses import dataclass, field
 
+import skills_model as skm
+
 HOUR = 3600.0
 DAY = 24 * HOUR
 
@@ -257,6 +259,24 @@ def damage_mult(cfg: dict, s: dict, ep: dict) -> float:
     return total
 
 
+def damage_mult_base(cfg: dict, s: dict, ep: dict, base_el: str) -> float:
+    """damage_mult with a skill's element replacing the Physical component (M6, spec 3.4)."""
+    if base_el == "physical":
+        return damage_mult(cfg, s, ep)
+    lo, hi = cfg["elements"]["resist_min"], cfg["elements"]["resist_max"]
+    total = 0.0
+    for target, w in ep["elements"]:
+        def resist(e):
+            r = ep["resist"].get(e, 0.0) + (ep["resist_own"] if e == target and target != "physical" else 0.0)
+            return min(hi, max(lo, r))
+        part = (1 + s["pct_el"]) * element_mult(cfg, base_el, target) * (1 - resist(base_el))
+        for e, share in s["shares"].items():
+            if share > 0:
+                part += share * (1 + s["pct_el"]) * element_mult(cfg, e, target) * (1 - resist(e))
+        total += w * part
+    return total
+
+
 def hit_chance(cfg: dict, base: float, evasion: float, accuracy: float = 100.0) -> float:
     cb = cfg["combat"]
     ratio = accuracy / (accuracy + evasion / 4) if accuracy + evasion / 4 > 0 else 0
@@ -268,6 +288,9 @@ class Sim:
         self.cfg, self.f = cfg, Formulas(cfg)
         self.profile = profile
         self.hero = profile.get("hero", "fighter")  # M5: which class this run plays
+        # M6: skills spent by the suggested order (auto-spend); profile "skills": False turns them off.
+        self.sk = skm.load_skills() if profile.get("skills", True) and "skill_rules" in cfg else None
+        self._kit = None
         self.rng = random.Random(seed)
         self.meta, self.run = Meta(), self.new_run()
         self.t = 0.0           # wall-clock seconds
@@ -285,6 +308,8 @@ class Sim:
         self.boss_attempts = 0
         self.boss_fails = 0
         self.first_reach = {}  # region -> wall-clock seconds
+        self.play_t = 0.0      # game seconds actually fought (active, plus offline after its efficiency)
+        self.first_reach_play = {}  # region -> play_t
         self.offline_reports = []
         self.scrolls_found = 0
         self.crafted = 0
@@ -341,6 +366,13 @@ class Sim:
         for it in gear.values():
             for k, v in self.item_power(it).items():
                 tot[k] += v
+        sb = {k: 0.0 for k in skm.STAT_KEYS}
+        if self.sk is not None:  # M6: skill ranks by the suggested order
+            ranks, loadout = skm.auto_spend(self.cfg, self.sk, self.hero, self.profile.get("rank_level") or lvl)
+            sb = skm.stat_bonuses(self.sk, ranks)
+            self._kit = skm.kit(self.cfg, self.sk, ranks, loadout)
+            for k in ("pct_hp", "pct_armour", "attack_speed", "pct_elemental", "pct_damage"):
+                tot[k] += sb[k]
         crit_pts += tot["crit_points"]
         primary += tot["primary"]
         vit += tot["vit"]
@@ -353,14 +385,14 @@ class Sim:
         hit_dmg = max(3.0, tot["weapon_damage"]) * dmg_mult * class_dmg_scale
         attack_speed = max(-0.9, self.f.artifact_mult("haste", art["haste"]) - 1 + tot["attack_speed"])
         interval = max(cb["attack_interval_floor_s"], base_iv / (1 + attack_speed))
-        cc = min(p["crit_chance_cap"], p["base_crit_chance"] + crit_pts * p["crit_chance_per_point"])
+        cc = min(p["crit_chance_cap"], p["base_crit_chance"] + crit_pts * p["crit_chance_per_point"] + sb["crit_chance"])
         cd = p["base_crit_damage"] + crit_pts * p["crit_damage_per_point"] * 0.5 \
-            + (tot["crit_damage_points"] + crit_dmg_pts) * p["crit_damage_per_point"]
+            + (tot["crit_damage_points"] + crit_dmg_pts) * p["crit_damage_per_point"] + sb["crit_damage"]
         avg_hit = hit_dmg * (1 + cc * (cd - 1))
         hp = (p["base_hp"] + tot["hp"]) * (1 + vit * p["hp_per_vit_pct"]) * (1 + tot["pct_hp"]) \
             * f.artifact_mult("bulwark", art["bulwark"])
         armour = tot["armour"] * (1 + dfn * p["armour_pct_per_def"]) * (1 + tot["pct_armour"])
-        counter = min(p["counter_cap"], counter_pts * p["counter_chance_per_point"])
+        counter = min(p["counter_cap"], counter_pts * p["counter_chance_per_point"] + sb["counter_chance"])
         return {"avg_hit": avg_hit, "hp": hp, "armour": armour, "interval": interval,
                 "hit": p["base_hit_chance"], "cc": cc, "cd": cd, "counter": counter,
                 "gold_find": tot["gold_find"], "luck": tot["luck"], "drop_chance": tot["drop_chance"],
@@ -384,10 +416,18 @@ class Sim:
         ep = enemy_profile(self.cfg, region, sub or 1, boss)
         dealt = damage_mult(self.cfg, s, ep) * triangle(self.cfg, self.hero, ep["archetype"], dealt=True)
         taken = triangle(self.cfg, self.hero, ep["archetype"], dealt=False)
+        base_mult = damage_mult(self.cfg, s, ep)
         s = dict(s)
         s["avg_hit"] = s["avg_hit"] * dealt
         s["hit"] = hit_chance(self.cfg, s["hit"], ep["evasion"])
         e, p, f = self.cfg["enemy"], self.cfg["player"], self.f
+        mods = None
+        if self.sk is not None and self._kit is not None and (self._kit["actives"] or self._kit["conditional"]
+                                                                or self._kit["dodge"] or self._kit["heal_below"]):
+            rel = lambda el: damage_mult_base(self.cfg, stats or self.stats, ep, el) / base_mult
+            est = f.enemy_hp(enemy_lvl, boss) / max(1e-9, s["avg_hit"] * s["hit"] / s["interval"])
+            mods = skm.fight_mods(self.cfg, self._kit, s, ep, boss, rel, s["hit"], est)
+            s["avg_hit"] *= mods[0]
         var = self.rng.uniform(e["variance_mult_min"], e["variance_mult_max"])
         ehp = f.enemy_hp(enemy_lvl, boss) * var
         if boss:  # ON-1: per-region boss HP override (region 1 softened for onboarding)
@@ -402,7 +442,12 @@ class Sim:
         ttk = swings * s["interval"] / (1 + counter_dps / main_dps)
         dr = min(p["damage_reduction_cap"], s["armour"] / (s["armour"] + f.armour_k(enemy_lvl)))
         edps = f.enemy_atk(enemy_lvl, boss) * (1 - dr) * taken / e["attack_interval_s"]
-        ttd = s["hp"] / edps
+        hp = s["hp"]
+        if mods is not None:  # M6 passives: dodge, damage cuts, slows, heals, lifesteal
+            edps *= mods[1]
+            hp *= mods[2]
+            edps = max(edps * 0.05, edps - mods[3] * s["avg_hit"] * s["hit"] / s["interval"])
+        ttd = hp / edps
         if not boss:  # round 2, item 1c: no death vs normal enemies; enemies escape after a timer
             esc = self.cfg["combat"]["escape_timer_s"]
             if ttk <= esc:
@@ -620,6 +665,7 @@ class Sim:
         r.highest_boss = max(r.highest_boss, region)
         r.region, r.sub, r.kills_in_sub, r.stuck_since = region + 1, 1, 0, None
         self.first_reach.setdefault(region + 1, self.t)
+        self.first_reach_play.setdefault(region + 1, self.play_t)
         self.events.append((self.t, f"boss {region} defeated (prestige {self.meta.prestiges}, lvl {r.level})"))
 
     # ---------------- prestige ----------------
@@ -678,6 +724,7 @@ class Sim:
         while elapsed < sim_seconds:
             sec = self.step(can_manage=active, pending=pending)
             elapsed += sec
+            self.play_t += sec
             self.t = start_t + elapsed * (mult if not active else 1.0)
             if active:
                 self.maybe_prestige()
@@ -827,10 +874,10 @@ def fmt_t(sec):
 HEROES = ["fighter", "archer", "mage"]
 
 
-def first_reach_times(cfg: dict, prof: dict, days: int) -> dict:
+def first_reach_times(cfg: dict, prof: dict, days: int, play_time: bool = False) -> dict:
     sim = Sim(cfg, prof, cfg["simulation"]["seed"])
     sim.run_schedule(days)
-    return sim.first_reach
+    return sim.first_reach_play if play_time else sim.first_reach
 
 
 def matchup_table(cfg: dict) -> list:
@@ -843,7 +890,7 @@ def matchup_table(cfg: dict) -> list:
     for region in (2, 3, 4, 5):
         eff = {}
         for hero in HEROES:
-            sim = Sim(cfg, {"sessions": [(8, 1)], "hero": hero}, 1)
+            sim = Sim(cfg, {"sessions": [(8, 1)], "hero": hero, "skills": False}, 1)  # M5 table: no skills
             lvl = f.boss_level(region)
             sim.run.level = lvl
             sim.run.gear = {"main_hand0": Item(slot="main_hand0", ilvl=lvl, rarity=0, kind="main_hand",
@@ -864,23 +911,89 @@ def matchup_table(cfg: dict) -> list:
     return rows
 
 
+def reference_sim(cfg: dict, hero: str, region: int, skills: bool, rank_level: int = 0) -> Sim:
+    """The M5 reference build (level = boss level, Common class weapon and armour), with or without skills.
+    rank_level > 0 spends the points of that level instead (the full tree on the same stats)."""
+    f = Formulas(cfg)
+    sim = Sim(cfg, {"sessions": [(8, 1)], "hero": hero, "skills": skills, "rank_level": rank_level}, 1)
+    lvl = f.boss_level(region)
+    sim.run.level = lvl
+    sim.run.gear = {"main_hand0": Item(slot="main_hand0", ilvl=lvl, rarity=0, kind="main_hand",
+                                       type_id=cfg["items"]["starter_types"][hero])}
+    for k in ARMOUR_KINDS:
+        sim.run.gear[k + "0"] = Item(slot=k + "0", ilvl=lvl, rarity=0, kind=k, type_id="medium")
+    sim.invalidate()
+    return sim
+
+
+def effective_dps(cfg: dict, sim: Sim, region: int) -> float:
+    """Rounding-free damage per second against the region's normal enemies (mean over subzones 1-5),
+    including Counter hits, like the C# runner's DamageRate."""
+    s = sim.stats
+    p, e = cfg["player"], cfg["enemy"]
+    total = 0.0
+    for sub in range(1, 6):
+        ep = enemy_profile(cfg, region, sub, False)
+        base = damage_mult(cfg, s, ep)
+        hit = hit_chance(cfg, s["hit"], ep["evasion"])
+        per_hit = s["avg_hit"] * base * triangle(cfg, sim.hero, ep["archetype"], True) * hit
+        main, counter = per_hit / s["interval"], s["counter"] * p["counter_damage"] * per_hit / e["attack_interval_s"]
+        if sim.sk is not None and sim._kit is not None:
+            rel = lambda el: damage_mult_base(cfg, s, ep, el) / base
+            mods = skm.fight_mods(cfg, sim._kit, s, ep, False, rel, hit, 30.0)
+            main *= mods[0]
+            counter *= mods[4]
+        total += main + counter
+    return total / 5
+
+
+def skill_gain_table(cfg: dict) -> list:
+    """M6: DPS gain from skills per class (same rows as the C# runner's Skills table, for the cross-check)."""
+    out = ["## 5. Skills (M6)", "",
+           "Effective damage per second gained from the Common tree, points spent by the suggested order, at the M5 "
+           "reference build (expected-value model). The C# runner measures the same rows with the real engine "
+           "(`results/CSHARP_COMBAT.md`, Skills).", "",
+           "| Reference | Points | Fighter | Archer | Mage |", "|---|---:|---:|---:|---:|"]
+    f = Formulas(cfg)
+    sk = skm.load_skills()
+    for name, region, rank_level in (("R2", 2, 0), ("R3", 3, 0), ("R4", 4, 0), ("R5", 5, 0), ("R5 full tree", 5, 260)):
+        ranks, _ = skm.auto_spend(cfg, sk, "fighter", rank_level or f.boss_level(region))
+        cells = []
+        for hero in HEROES:
+            plain = effective_dps(cfg, reference_sim(cfg, hero, region, False), region)
+            gain = effective_dps(cfg, reference_sim(cfg, hero, region, True, rank_level), region) / plain - 1
+            cells.append(f"+{gain * 100:.0f}%")
+        out.append(f"| {name} | {sum(ranks.values())} | " + " | ".join(cells) + " |")
+    out += ["", "Targets (M6-B1): about +50-60% at region 5 (10 points) and +100-130% with a full tree; "
+            "classes close to each other except where an element matchup favours one (Mage vs Dark undead).", ""]
+    return out
+
+
 def class_comparison(cfg: dict, days: int) -> list:
     """M5 acceptance: the three classes progress at comparable speed; the right hero clears faster."""
     out = ["## 4. Classes (M5)", "",
            "Each profile played start to finish by one hero (the real game lets the player switch after region 1).", "",
            "| Profile | Hero | Reaches R2 | R3 | R4 | R5 | R6 |", "|---|---|---:|---:|---:|---:|---:|"]
-    spread = {}
+    spread, play_spread = {}, {}
     for name in ("active", "casual"):
-        times = {}
+        times, play = {}, {}
         for hero in HEROES:
-            fr = first_reach_times(cfg, {**PROFILES[name], "hero": hero}, days)
+            sim = Sim(cfg, {**PROFILES[name], "hero": hero}, cfg["simulation"]["seed"])
+            sim.run_schedule(days)
+            fr = sim.first_reach
             times[hero] = fr
+            play[hero] = sim.first_reach_play
             out.append(f"| {name} | {hero} | " + " | ".join(fmt_t(fr[k]) if k in fr else "—" for k in (2, 3, 4, 5, 6)) + " |")
         r5 = [times[h].get(5) for h in HEROES if times[h].get(5)]
         if len(r5) == 3:
             spread[name] = max(r5) / min(r5) - 1
-    out += ["", "Spread of the time to reach region 5 (slowest vs fastest hero): " +
-            ", ".join(f"{k} {v * 100:.0f}%" for k, v in spread.items()) + " (target: within 25%).", ""]
+        p5 = [play[h].get(5) for h in HEROES if play[h].get(5)]
+        if len(p5) == 3:
+            play_spread[name] = max(p5) / min(p5) - 1
+    out += ["", "Spread of the time to reach region 5 (slowest vs fastest hero), wall clock: " +
+            ", ".join(f"{k} {v * 100:.0f}%" for k, v in spread.items()) +
+            "; in time actually played (no jumps at session boundaries): " +
+            ", ".join(f"{k} {v * 100:.0f}%" for k, v in play_spread.items()) + " (target: within 25%).", ""]
     out += ["Effective damage per second against each region's normal enemies at an equal reference build "
             "(level = boss level, Common class weapon and armour, no elemental lines):", "",
             "| Region | Family | Fighter | Archer | Mage | Best | Best vs worst |", "|---:|---|---:|---:|---:|---|---:|"]
@@ -966,6 +1079,7 @@ def main():
         detail.append("")
     lines += summary + [""] + detail
     lines += class_comparison(cfg, days)
+    lines += skill_gain_table(cfg)
     out_md = os.path.join(args.out, "REPORT.md")
     with open(out_md, "w") as fh:
         fh.write("\n".join(lines) + "\n")

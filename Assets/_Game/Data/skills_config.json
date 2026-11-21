@@ -12,9 +12,9 @@
       "effects": [
         {
           "kind": "hit",
-          "percent": 2.5,
+          "percent": 1.8,
           "per_rank": {
-            "percent": 0.5
+            "percent": 0.25
           }
         }
       ]
@@ -29,9 +29,9 @@
         {
           "kind": "stat",
           "stat": "pct_hp",
-          "value": 0.06,
+          "value": 0.05,
           "per_rank": {
-            "value": 0.06
+            "value": 0.05
           }
         }
       ]
@@ -46,9 +46,9 @@
         {
           "kind": "stat",
           "stat": "pct_armour",
-          "value": 0.08,
+          "value": 0.06,
           "per_rank": {
-            "value": 0.08
+            "value": 0.06
           }
         }
       ]
@@ -64,18 +64,18 @@
       "effects": [
         {
           "kind": "hit",
-          "percent": 1.2,
+          "percent": 1.0,
           "per_rank": {
             "percent": 0.0
           }
         },
         {
           "kind": "dot",
-          "percent": 1.0,
+          "percent": 0.6,
           "duration": 4,
           "element": "physical",
           "per_rank": {
-            "percent": 0.4
+            "percent": 0.2
           }
         }
       ]
@@ -108,9 +108,9 @@
         {
           "kind": "stat",
           "stat": "counter_chance",
-          "value": 0.03,
+          "value": 0.02,
           "per_rank": {
-            "value": 0.03
+            "value": 0.02
           }
         }
       ]
@@ -127,10 +127,10 @@
         {
           "kind": "buff",
           "stat": "pct_damage",
-          "value": 0.3,
+          "value": 0.15,
           "duration": 6,
           "per_rank": {
-            "value": 0.1
+            "value": 0.05
           }
         }
       ]
@@ -145,9 +145,9 @@
         {
           "kind": "stat",
           "stat": "crit_damage",
-          "value": 0.1,
+          "value": 0.06,
           "per_rank": {
-            "value": 0.1
+            "value": 0.06
           }
         }
       ]
@@ -180,11 +180,11 @@
       "effects": [
         {
           "kind": "hit",
-          "percent": 5.0,
+          "percent": 3.5,
           "condition": "enemy_hp_below",
           "threshold": 0.3,
           "per_rank": {
-            "percent": 1.0
+            "percent": 0.5
           }
         }
       ]
@@ -234,10 +234,10 @@
       "effects": [
         {
           "kind": "hit",
-          "percent": 2.2,
+          "percent": 1.5,
           "always_crit": true,
           "per_rank": {
-            "percent": 0.4
+            "percent": 0.2
           }
         }
       ]
@@ -252,9 +252,9 @@
         {
           "kind": "stat",
           "stat": "attack_speed",
-          "value": 0.04,
+          "value": 0.02,
           "per_rank": {
-            "value": 0.04
+            "value": 0.02
           }
         }
       ]
@@ -269,9 +269,9 @@
         {
           "kind": "stat",
           "stat": "crit_chance",
-          "value": 0.02,
+          "value": 0.01,
           "per_rank": {
-            "value": 0.02
+            "value": 0.01
           }
         }
       ]
@@ -287,11 +287,11 @@
       "effects": [
         {
           "kind": "dot",
-          "percent": 1.5,
+          "percent": 0.8,
           "duration": 5,
           "element": "nature",
           "per_rank": {
-            "percent": 0.5
+            "percent": 0.25
           }
         }
       ]
@@ -323,17 +323,17 @@
         {
           "kind": "conditional_damage",
           "condition": "vs_family:beasts",
-          "value": 0.08,
+          "value": 0.04,
           "per_rank": {
-            "value": 0.08
+            "value": 0.04
           }
         },
         {
           "kind": "conditional_damage",
           "condition": "vs_archetype:brute",
-          "value": 0.08,
+          "value": 0.04,
           "per_rank": {
-            "value": 0.08
+            "value": 0.04
           }
         }
       ]
@@ -349,10 +349,10 @@
       "effects": [
         {
           "kind": "hit",
-          "percent": 0.6,
+          "percent": 0.35,
           "hits": 5,
           "per_rank": {
-            "percent": 0.1
+            "percent": 0.03
           }
         }
       ]
@@ -367,9 +367,9 @@
         {
           "kind": "stat",
           "stat": "crit_damage",
-          "value": 0.1,
+          "value": 0.03,
           "per_rank": {
-            "value": 0.1
+            "value": 0.03
           }
         }
       ]
@@ -384,9 +384,9 @@
         {
           "kind": "stat",
           "stat": "cooldown_reduction",
-          "value": 0.04,
+          "value": 0.02,
           "per_rank": {
-            "value": 0.04
+            "value": 0.02
           }
         }
       ]
@@ -402,10 +402,10 @@
       "effects": [
         {
           "kind": "hit",
-          "percent": 4.0,
+          "percent": 2.0,
           "cannot_miss": true,
           "per_rank": {
-            "percent": 0.8
+            "percent": 0.3
           }
         }
       ]
@@ -420,10 +420,10 @@
         {
           "kind": "trigger",
           "trigger": "momentum",
-          "value": 0.01,
+          "value": 0.004,
           "max_stacks": 10,
           "per_rank": {
-            "value": 0.005
+            "value": 0.002
           }
         }
       ]
@@ -438,10 +438,10 @@
         {
           "kind": "conditional_damage",
           "condition": "own_hp_above",
-          "value": 0.06,
+          "value": 0.02,
           "threshold": 0.5,
           "per_rank": {
-            "value": 0.06
+            "value": 0.02
           }
         }
       ]
@@ -457,10 +457,10 @@
       "effects": [
         {
           "kind": "hit",
-          "percent": 2.6,
+          "percent": 1.6,
           "element": "fire",
           "per_rank": {
-            "percent": 0.5
+            "percent": 0.2
           }
         }
       ]
@@ -475,9 +475,9 @@
         {
           "kind": "stat",
           "stat": "pct_elemental",
-          "value": 0.06,
+          "value": 0.03,
           "per_rank": {
-            "value": 0.06
+            "value": 0.03
           }
         }
       ]
@@ -510,10 +510,10 @@
       "effects": [
         {
           "kind": "hit",
-          "percent": 2.0,
+          "percent": 1.4,
           "element": "water",
           "per_rank": {
-            "percent": 0.4
+            "percent": 0.2
           }
         },
         {
@@ -534,9 +534,9 @@
         {
           "kind": "stat",
           "stat": "cooldown_reduction",
-          "value": 0.04,
+          "value": 0.02,
           "per_rank": {
-            "value": 0.04
+            "value": 0.02
           }
         }
       ]
@@ -569,11 +569,11 @@
       "effects": [
         {
           "kind": "dot",
-          "percent": 2.2,
+          "percent": 1.0,
           "duration": 6,
           "element": "nature",
           "per_rank": {
-            "percent": 0.6
+            "percent": 0.3
           }
         }
       ]
@@ -588,9 +588,9 @@
         {
           "kind": "stat",
           "stat": "skill_crit_damage",
-          "value": 0.12,
+          "value": 0.05,
           "per_rank": {
-            "value": 0.12
+            "value": 0.05
           }
         }
       ]
@@ -605,17 +605,17 @@
         {
           "kind": "conditional_damage",
           "condition": "vs_family:elementals",
-          "value": 0.08,
+          "value": 0.04,
           "per_rank": {
-            "value": 0.08
+            "value": 0.04
           }
         },
         {
           "kind": "conditional_damage",
           "condition": "vs_family:wizards",
-          "value": 0.08,
+          "value": 0.04,
           "per_rank": {
-            "value": 0.08
+            "value": 0.04
           }
         }
       ]
@@ -631,10 +631,10 @@
       "effects": [
         {
           "kind": "hit",
-          "percent": 4.5,
+          "percent": 2.6,
           "element": "light",
           "per_rank": {
-            "percent": 0.9
+            "percent": 0.4
           }
         }
       ]
@@ -649,9 +649,9 @@
         {
           "kind": "trigger",
           "trigger": "echo",
-          "value": 0.04,
+          "value": 0.02,
           "per_rank": {
-            "value": 0.04
+            "value": 0.02
           }
         }
       ]
@@ -666,9 +666,9 @@
         {
           "kind": "stat",
           "stat": "pct_damage",
-          "value": 0.08,
+          "value": 0.03,
           "per_rank": {
-            "value": 0.08
+            "value": 0.03
           }
         },
         {
@@ -698,8 +698,8 @@
       "fighter_brutality",
       "fighter_war_cry",
       "fighter_brutality",
-      "fighter_executioner",
       "fighter_rend",
+      "fighter_executioner",
       "fighter_war_cry",
       "fighter_executioner",
       "fighter_executioner",
@@ -743,17 +743,17 @@
       "archer_aimed_shot",
       "archer_keen_eye",
       "archer_aimed_shot",
-      "archer_venom_arrow",
-      "archer_hunters_mark",
       "archer_evasive",
       "archer_venom_arrow",
-      "archer_hunters_mark",
+      "archer_evasive",
+      "archer_venom_arrow",
+      "archer_evasive",
       "archer_volley",
       "archer_deadeye",
       "archer_volley",
       "archer_wind_step",
-      "archer_piercing_arrow",
       "archer_venom_arrow",
+      "archer_piercing_arrow",
       "archer_volley",
       "archer_piercing_arrow",
       "archer_piercing_arrow",
@@ -768,8 +768,8 @@
       "archer_hunters_mark",
       "archer_hunters_mark",
       "archer_hunters_mark",
-      "archer_evasive",
-      "archer_evasive",
+      "archer_hunters_mark",
+      "archer_hunters_mark",
       "archer_evasive",
       "archer_evasive",
       "archer_deadeye",
@@ -793,36 +793,36 @@
     ],
     "mage": [
       "mage_firebolt",
-      "mage_attunement",
+      "mage_arcane_ward",
       "mage_firebolt",
-      "mage_attunement",
+      "mage_arcane_ward",
       "mage_firebolt",
       "mage_frost_lance",
-      "mage_focus",
       "mage_mana_shield",
+      "mage_attunement",
       "mage_frost_lance",
-      "mage_focus",
+      "mage_mana_shield",
       "mage_thornbind",
       "mage_overload",
       "mage_thornbind",
       "mage_elemental_lore",
-      "mage_radiant_nova",
       "mage_frost_lance",
+      "mage_radiant_nova",
       "mage_thornbind",
       "mage_radiant_nova",
       "mage_radiant_nova",
       "mage_attunement",
       "mage_attunement",
       "mage_attunement",
-      "mage_arcane_ward",
-      "mage_arcane_ward",
+      "mage_attunement",
       "mage_arcane_ward",
       "mage_arcane_ward",
       "mage_arcane_ward",
       "mage_focus",
       "mage_focus",
       "mage_focus",
-      "mage_mana_shield",
+      "mage_focus",
+      "mage_focus",
       "mage_mana_shield",
       "mage_mana_shield",
       "mage_mana_shield",

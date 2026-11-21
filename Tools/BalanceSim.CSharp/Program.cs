@@ -29,6 +29,7 @@ namespace DarkFantasy.Tools.BalanceSim
 
             string root = FindRepoRoot();
             var config = BalanceConfigLoader.FromJson(File.ReadAllText(Path.Combine(root, "Tools/BalanceSim/balance_config.json")));
+            config.Skills = SkillsConfigLoader.FromJson(File.ReadAllText(Path.Combine(root, "Tools/BalanceSim/skills_config.json")));
             var f = new GameFormulas(config);
             var stats = new StatCalculator(config);
             var engine = new CombatEngine(config);
@@ -73,6 +74,7 @@ namespace DarkFantasy.Tools.BalanceSim
             }
 
             AppendClassTable(md, config, f, stats, Math.Min(regions, 8), normalFights / 4, bossFights / 2);
+            AppendSkillTable(md, config, f, stats, normalFights / 4, bossFights / 2);
 
             string outPath = Path.Combine(root, "Tools/BalanceSim/results/CSHARP_COMBAT.md");
             File.WriteAllText(outPath, md.ToString());
@@ -125,6 +127,102 @@ namespace DarkFantasy.Tools.BalanceSim
                 string family = enemies.FamilyFor(new DarkFantasy.Core.World.Encounter(r, 1, 1, false)).Id;
                 md.AppendLine($"| {r} | {family} | {fights[0]} | {fights[1]} | {fights[2]} | {bosses[0]} | {bosses[1]} | {bosses[2]} |");
             }
+        }
+
+        /// <summary>
+        /// M6: effective damage per second gained from skills, per class, with points spent by the suggested order
+        /// (level = boss level; "full" = the whole 52-point tree on the region 5 reference). Normal fights are
+        /// played back to back with cooldowns carried over and the respawn gap counted (M6-2).
+        /// Gain = mean fight time without skills / with skills − 1. Boss columns: win rate without → with.
+        /// </summary>
+        private static void AppendSkillTable(StringBuilder md, BalanceConfig c, GameFormulas f, StatCalculator stats,
+            int normalFights, int bossFights)
+        {
+            var engine = new CombatEngine(c);
+            var enemies = new DarkFantasy.Core.World.EnemyFactory(c);
+            var tree = new DarkFantasy.Core.Skills.SkillTree(c);
+            var build = new DarkFantasy.Core.Skills.SkillBuild(c);
+            md.AppendLine();
+            md.AppendLine("## Skills (M6)");
+            md.AppendLine();
+            md.AppendLine("DPS gain = effective damage per second gained from the Common tree against the region's enemies (points by the suggested order, cooldowns carried, 30 s fights against a target that cannot die, so whole-hit rounding does not hide the change). Fight gain = mean normal fight time without / with skills − 1 (whole hits). Boss: win rate without → with skills.");
+            md.AppendLine();
+            md.AppendLine("| Reference | Points | Fighter DPS gain | Archer DPS gain | Mage DPS gain | Fighter fight gain | Archer fight gain | Mage fight gain | Fighter boss | Archer boss | Mage boss |");
+            md.AppendLine("|---|---:|---:|---:|---:|---:|---:|---:|---|---|---|");
+            var rows = new (string name, int region, int rankLevel)[] { ("R2", 2, 0), ("R3", 3, 0), ("R4", 4, 0), ("R5", 5, 0), ("R5 full tree", 5, 260) };
+            foreach (var row in rows)
+            {
+                int bossLevel = f.BossLevel(row.region);
+                var gains = new string[3];
+                var dps = new string[3];
+                var boss = new string[3];
+                int points = 0;
+                foreach (ClassId cls in Enum.GetValues(typeof(ClassId)))
+                {
+                    var hero = DarkFantasy.Core.Characters.CharacterState.Create(cls);
+                    hero.Level = row.rankLevel > 0 ? row.rankLevel : bossLevel;
+                    tree.AutoSpend(hero);
+                    points = tree.Spent(hero);
+                    var plainInputs = ReferenceHero(c, cls, bossLevel);
+                    var plain = stats.Compute(plainInputs);
+                    var skilledInputs = ReferenceHero(c, cls, bossLevel);
+                    build.AddStats(hero, skilledInputs);
+                    var skilled = stats.Compute(skilledInputs);
+                    var kit = build.Kit(hero);
+
+                    double tPlain = 0, tSkill = 0;
+                    var cds = new double[kit.Actives.Count];
+                    var rngA = new Pcg32(4242);
+                    var rngB = new Pcg32(4242);
+                    for (int i = 0; i < normalFights; i++)
+                        for (int sub = 1; sub <= c.World.SubzonesPerRegion; sub++)
+                        {
+                            var enc = new DarkFantasy.Core.World.Encounter(row.region, sub, f.SubzoneLevel(row.region, sub), false);
+                            var ea = enemies.Create(enc, rngA);
+                            var eb = enemies.Create(enc, rngB);
+                            tPlain += engine.Resolve(plain, ea, rngA, false).Duration + c.Combat.EnemyRespawnS;
+                            var r = engine.Resolve(skilled, eb, rngB, false, kit, cds);
+                            tSkill += r.Duration + c.Combat.EnemyRespawnS;
+                            for (int k = 0; k < cds.Length; k++) cds[k] = Math.Max(0, cds[k] - c.Combat.EnemyRespawnS);
+                        }
+                    gains[(int)cls] = (tPlain / tSkill - 1).ToString("+0%;-0%", CultureInfo.InvariantCulture);
+                    dps[(int)cls] = (DamageRate(engine, enemies, skilled, kit, row.region, c) / DamageRate(engine, enemies, plain, null, row.region, c) - 1)
+                        .ToString("+0%;-0%", CultureInfo.InvariantCulture);
+
+                    int winsPlain = 0, winsSkill = 0;
+                    var bossEnc = new DarkFantasy.Core.World.Encounter(row.region, 5, bossLevel, true);
+                    for (int i = 0; i < bossFights; i++)
+                    {
+                        if (engine.Resolve(plain, enemies.Create(bossEnc, rngA), rngA, false).Outcome == FightOutcome.Won) winsPlain++;
+                        if (engine.Resolve(skilled, enemies.Create(bossEnc, rngB), rngB, false, kit, new double[kit.Actives.Count]).Outcome == FightOutcome.Won) winsSkill++;
+                    }
+                    boss[(int)cls] = string.Format(CultureInfo.InvariantCulture, "{0:0}% → {1:0}%", 100.0 * winsPlain / bossFights, 100.0 * winsSkill / bossFights);
+                }
+                md.AppendLine($"| {row.name} | {points} | {dps[0]} | {dps[1]} | {dps[2]} | {gains[0]} | {gains[1]} | {gains[2]} | {boss[0]} | {boss[1]} | {boss[2]} |");
+            }
+        }
+
+        /// <summary>Damage per second over many 30 s fights against the region's enemies made unkillable.</summary>
+        private static double DamageRate(CombatEngine engine, DarkFantasy.Core.World.EnemyFactory enemies, CombatStats player,
+            DarkFantasy.Core.Skills.SkillKit kit, int region, BalanceConfig c)
+        {
+            var f = new GameFormulas(c);
+            var rng = new Pcg32(99);
+            double damage = 0, time = 0;
+            var cds = kit == null ? null : new double[kit.Actives.Count];
+            for (int i = 0; i < 40; i++)
+                for (int sub = 1; sub <= c.World.SubzonesPerRegion; sub++)
+                {
+                    var e = enemies.Create(new DarkFantasy.Core.World.Encounter(region, sub, f.SubzoneLevel(region, sub), false), rng);
+                    e.Hp = 1e300;
+                    var r = kit == null ? engine.Resolve(player, e, rng, true) : engine.Resolve(player, e, rng, true, kit, cds);
+                    foreach (var ev in r.Events)
+                        if (ev.Type == CombatEventType.PlayerHit || ev.Type == CombatEventType.PlayerCrit || ev.Type == CombatEventType.Counter
+                            || ev.Type == CombatEventType.SkillHit || ev.Type == CombatEventType.SkillCrit || ev.Type == CombatEventType.DotTick)
+                            damage += ev.Amount;
+                    time += r.Duration;
+                }
+            return damage / time;
         }
 
         /// <summary>Class template (growth pattern averaged), all manual points into the primary, Common class weapon and armour.</summary>
