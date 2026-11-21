@@ -1,6 +1,6 @@
 # M6 design: skills
 
-> **Status:** awaiting the owner's approval, 2026-11-20. Decisions M6-1…M6-3 were taken one at a time in conversation; the tree contents (§3.3) are Claude's proposal, accepted by the owner ("seems fine"). Items marked **[Claude's call]** were not asked and can be overruled. Implements roadmap M6 (Jira DFIRPG-7).
+> **Status:** approved by the owner, 2026-11-21. Decisions M6-1…M6-3 were taken one at a time in conversation; the tree contents (§3.3) are Claude's proposal, accepted by the owner ("seems fine"). Items marked **[Claude's call]** were not asked and can be overruled. Implements roadmap M6 (Jira DFIRPG-7).
 
 ## 1. Intent
 Pillar 2 of the GDD is **build ownership**: auto-play must never mean no decisions. M6 gives each hero a **Common skill tree**: points earned by levelling go into actives that fire on their own and passives that shape the build. The player decides *what to raise first* and *which 3 actives to bring, in which order*.
